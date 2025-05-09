@@ -15,27 +15,17 @@ const ENTRY_PATH = "/src/pages";
 const PAGES = import.meta.glob("/src/pages/**/*.tsx");
 const loadComponentFromPath = (path: string) => PAGES[`${ENTRY_PATH}${path}`];
 
-/**
- * Build complete route path by traversing from current permission to root
- * @param {Permission} permission - current permission
- * @param {Permission[]} flattenedPermissions - flattened permission array
- * @param {string[]} segments - route segments accumulator
- * @returns {string} normalized complete route path
- */
 function buildCompleteRoute(
   permission: Permission,
   flattenedPermissions: Permission[],
   segments: string[] = []
 ): string {
-  // Add current route segment
   segments.unshift(permission.route);
 
-  // Base case: reached root permission
   if (!permission.parentId) {
     return `/${segments.join("/")}`;
   }
 
-  // Find parent and continue recursion
   const parent = flattenedPermissions.find((p) => p.id === permission.parentId);
   if (!parent) {
     console.warn(`Parent permission not found for ID: ${permission.parentId}`);
@@ -45,7 +35,6 @@ function buildCompleteRoute(
   return buildCompleteRoute(parent, flattenedPermissions, segments);
 }
 
-// Components
 function NewFeatureTag() {
   return (
     <Badge variant="info">
@@ -55,7 +44,6 @@ function NewFeatureTag() {
   );
 }
 
-// Route Transformers
 const createBaseRoute = (
   permission: Permission,
   completeRoute: string

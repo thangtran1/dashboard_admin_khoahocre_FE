@@ -29,7 +29,6 @@ export function getRoutesFromModules() {
 }
 
 export function getMenuRoutes(appRouteObjects: AppRouteObject[]) {
-  // return menuFilter(getMenuModules());
   return menuFilter(appRouteObjects);
 }
 

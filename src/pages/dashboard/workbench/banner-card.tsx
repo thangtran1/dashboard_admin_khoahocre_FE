@@ -2,10 +2,11 @@ import Character3 from "@/assets/images/characters/character_3.png";
 import { Icon } from "@/components/icon";
 import { useUserInfo } from "@/store/userStore";
 import { themeVars } from "@/theme/theme.css";
+import { useTranslation } from "react-i18next";
 
 export default function BannerCard() {
   const { username } = useUserInfo();
-
+  const { t } = useTranslation();
   const bg = `linear-gradient(135deg, rgba(${themeVars.colors.palette.primary.lightChannel}/ .2), rgba(${themeVars.colors.palette.primary.defaultChannel}/ .2)) ${themeVars.colors.common.white}`;
 
   return (
@@ -35,7 +36,7 @@ export default function BannerCard() {
               style={{ color: themeVars.colors.palette.primary.dark }}
               rel="noreferrer"
             >
-              👉 https://blog.slashspaces.com
+              👉 https://vanthang.io.vn
             </a>
           </div>
         </div>
@@ -46,7 +47,7 @@ export default function BannerCard() {
             backgroundColor: themeVars.colors.palette.primary.default,
             color: themeVars.colors.common.white,
           }}
-          onClick={() => window.open("https://discord.gg/fXemAXVNDa")}
+          onClick={() => window.open("#")}
         >
           <Icon icon="carbon:logo-discord" size={24} />
           <span className="ml-2 font-black">Join Discord</span>

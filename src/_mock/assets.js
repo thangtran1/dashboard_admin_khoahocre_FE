@@ -2,9 +2,7 @@ import useUserStore from "@/store/userStore";
 import { faker } from "@faker-js/faker";
 
 import { BasicStatus, PermissionType } from "#/enum";
-/**
- * Organization data mock
- */
+
 export const ORG_LIST = [
   {
     id: "1",
@@ -254,16 +252,6 @@ const MENU_LEVEL_PERMISSION = {
               route: "menu-level-3a",
               component:
                 "/menu-level/menu-level-1b/menu-level-2b/menu-level-3a/index.tsx",
-            },
-            {
-              id: "3298034742548454",
-              parentId: "4873136353891364",
-              label: "sys.menu.menulevel.1b.2b.3b",
-              name: "Menu Level 3b",
-              type: PermissionType.MENU,
-              route: "menu-level-3b",
-              component:
-                "/menu-level/menu-level-1b/menu-level-2b/menu-level-3b/index.tsx",
             },
           ],
         },
