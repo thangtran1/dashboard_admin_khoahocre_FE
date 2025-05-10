@@ -31,11 +31,11 @@ root.render(
     <QueryClientProvider client={new QueryClient()}>
       <Suspense>
         <RouteLoadingProgress />
-        <Analytics />
+        {/* <Analytics /> theo dõi và phân tích dữ liệu người dùng trên ứng dụng */}
         <App />
       </Suspense>
     </QueryClientProvider>
   </HelmetProvider>
 );
 
-worker.start({ onUnhandledRequest: "bypass" });
+// worker.start({ onUnhandledRequest: "bypass" });

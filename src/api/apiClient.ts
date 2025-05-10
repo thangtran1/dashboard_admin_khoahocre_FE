@@ -29,13 +29,21 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (res: AxiosResponse<Result>) => {
-    if (!res.data) throw new Error(t("sys.api.apiRequestFailed"));
+    if (!res.data) {
+      throw new Error(t("sys.api.apiRequestFailed"));
+    }
 
-    const { status, data, message } = res.data;
-    const hasSuccess =
-      data && Reflect.has(res.data, "status") && status === ResultEnum.SUCCESS;
+    const { success, message } = res.data;
+    const data = res.data;
+
+    const hasSuccess = success === true;
+    console.log("🚀 ~ hasSuccess:", hasSuccess);
+
     if (hasSuccess) {
-      return data;
+      if (data) {
+        return { ...res, data };
+      }
+      throw new Error(t("sys.api.noDataReturned"));
     }
 
     throw new Error(message || t("sys.api.apiRequestFailed"));
@@ -50,7 +58,7 @@ axiosInstance.interceptors.response.use(
     });
 
     const status = response?.status;
-    if (status === 401) {
+    if (status === ResultEnum.TIMEOUT) {
       userStore.getState().actions.clearUserInfoAndToken();
     }
     return Promise.reject(error);

@@ -5,10 +5,8 @@ import { UserApi } from "@/api/services/userService";
 
 import { USER_LIST } from "../assets";
 
-const signIn = http.post(`/api${UserApi.SignIn}`, async ({ request }) => {
-  const { username, password } = await request.json();
-
-  const user = USER_LIST.find((item) => item.username === username);
+const signIn = http.post(`/api${UserApi.Login}`, async ({ request }) => {
+  const { email, password } = await request.json();
 
   if (!user || user.password !== password) {
     return HttpResponse.json({
@@ -22,8 +20,8 @@ const signIn = http.post(`/api${UserApi.SignIn}`, async ({ request }) => {
     message: "",
     data: {
       user,
-      accessToken: faker.string.uuid(),
-      refreshToken: faker.string.uuid(),
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     },
   });
 });

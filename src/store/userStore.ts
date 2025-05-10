@@ -58,16 +58,16 @@ export const useUserActions = () => useUserStore((state) => state.actions);
 export const useSignIn = () => {
   const navigatge = useNavigate();
   const { setUserToken, setUserInfo } = useUserActions();
-
   const signInMutation = useMutation({
-    mutationFn: userService.signin,
+    mutationFn: userService.login,
   });
 
   const signIn = async (data: SignInReq) => {
     try {
       const res = await signInMutation.mutateAsync(data);
-      const { user, accessToken, refreshToken } = res;
+      const { user, accessToken, refreshToken } = res.data;
       setUserToken({ accessToken, refreshToken });
+
       setUserInfo(user);
       navigatge(HOMEPAGE, { replace: true });
       toast.success("Sign in success!", {

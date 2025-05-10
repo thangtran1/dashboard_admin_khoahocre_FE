@@ -10,18 +10,22 @@ import {
   LoginStateEnum,
   useLoginStateContext,
 } from "./providers/login-provider";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
+
+const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 function RegisterForm() {
   const { t } = useTranslation();
   const { loginState, backToLogin } = useLoginStateContext();
-
+  const navigate = useNavigate();
   const signUpMutation = useMutation({
-    mutationFn: userService.signup,
+    mutationFn: userService.register,
   });
 
   const form = useForm({
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -29,9 +33,14 @@ function RegisterForm() {
   });
 
   const onFinish = async (values: any) => {
-    console.log("Received values of form: ", values);
-    await signUpMutation.mutateAsync(values);
-    backToLogin();
+    const res = await signUpMutation.mutateAsync(values);
+    console.log("🚀 ~ onFinish ~ res:", res);
+
+    navigate(HOMEPAGE, { replace: true });
+    toast.success("Register in success!", {
+      closeButton: true,
+    });
+    // backToLogin();
   };
 
   if (loginState !== LoginStateEnum.REGISTER) return null;
@@ -47,7 +56,7 @@ function RegisterForm() {
 
         <FormField
           control={form.control}
-          name="username"
+          name="name"
           rules={{ required: t("sys.login.accountPlaceholder") }}
           render={({ field }) => (
             <FormItem>

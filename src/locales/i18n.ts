@@ -16,7 +16,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    debug: true,
+    debug: false, // tắt debug khi edit
     lng: defaultLng,
     fallbackLng: LocalEnum.en,
     interpolation: {

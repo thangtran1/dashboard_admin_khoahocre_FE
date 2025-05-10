@@ -36,8 +36,8 @@ export function LoginForm({
 
   const form = useForm<SignInReq>({
     defaultValues: {
-      username: DEFAULT_USER.username,
-      password: DEFAULT_USER.password,
+      email: "thangtrandz04@gmail.com",
+      password: "111111",
     },
   });
 
@@ -67,7 +67,7 @@ export function LoginForm({
 
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             rules={{ required: t("sys.login.accountPlaceholder") }}
             render={({ field }) => (
               <FormItem>
