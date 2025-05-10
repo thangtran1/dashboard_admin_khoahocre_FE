@@ -9,6 +9,7 @@ import { Navigate, type RouteObject, createHashRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
 import ResetPassword from "@/pages/sys/login/resetPassword";
+import UserHomePage from "@/pages/user";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -50,7 +51,17 @@ export default function Router() {
     ),
   };
 
+  const APP_HOMEPAGE_USER: AppRouteObject = {
+    path: "/user",
+    element: (
+      <ErrorBoundary FallbackComponent={PageError}>
+        <UserHomePage />
+      </ErrorBoundary>
+    ),
+  };
+
   const routes = [
+    APP_HOMEPAGE_USER,
     RESET_PASSWORD_ROUTE,
     PUBLIC_ROUTE,
     PROTECTED_ROUTE,

@@ -56,12 +56,7 @@ function ForgotPasswordForm() {
         toast.success(res.data?.message || t("sys.login.errorForgetPassword"));
       }
     } catch (error) {
-      toast.success(
-        `${
-          (error as any)?.response?.data?.message ||
-          t("sys.login.errorForgetPassword")
-        }`
-      );
+      throw error;
     } finally {
       setIsLoading(false);
     }

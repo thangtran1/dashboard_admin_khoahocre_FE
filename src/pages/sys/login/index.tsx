@@ -2,7 +2,7 @@ import PlaceholderImg from "@/assets/images/background/placeholder.svg";
 import LocalePicker from "@/components/locale-picker";
 import Logo from "@/components/logo";
 import SettingButton from "@/layouts/components/setting-button";
-import { useUserToken } from "@/store/userStore";
+import { useUserInfo, useUserToken } from "@/store/userStore";
 import { Navigate } from "react-router";
 import LoginForm from "./login-form";
 import MobileForm from "./mobile-form";
@@ -11,11 +11,18 @@ import RegisterForm from "./register-form";
 import ForgotPasswordForm from "./forgot-password-form";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
-
+const { VITE_APP_HOMEPAGE_USER: HOMEPAGEUSER } = import.meta.env;
 function LoginPage() {
   const token = useUserToken();
+  const { role } = useUserInfo();
+  console.log("🚀 ~ LoginPage ~ role:", role === "user");
 
   if (token.accessToken) {
+    if (role === "user") {
+      console.log("🚀 ~ User role matched");
+      return <Navigate to={HOMEPAGEUSER} replace />;
+    }
+
     return <Navigate to={HOMEPAGE} replace />;
   }
 

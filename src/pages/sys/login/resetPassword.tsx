@@ -73,7 +73,7 @@ const ResetPassword = () => {
         toast.error(res.data?.message || t("sys.login.failChangePas"));
       }
     } catch (error) {
-      toast.error(t("sys.login.errorForgetPassword"));
+      throw error;
     } finally {
       setIsLoading(false);
     }

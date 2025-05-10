@@ -74,9 +74,7 @@ export const useSignIn = () => {
         closeButton: true,
       });
     } catch (err) {
-      toast.error(err.message, {
-        position: "top-center",
-      });
+      throw err;
     }
   };
 
