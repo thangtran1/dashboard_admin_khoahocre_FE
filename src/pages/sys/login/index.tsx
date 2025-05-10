@@ -8,7 +8,7 @@ import LoginForm from "./login-form";
 import MobileForm from "./mobile-form";
 import { LoginProvider } from "./providers/login-provider";
 import RegisterForm from "./register-form";
-import ResetForm from "./reset-form";
+import ForgotPasswordForm from "./forgot-password-form";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -34,7 +34,7 @@ function LoginPage() {
               <LoginForm />
               <MobileForm />
               <RegisterForm />
-              <ResetForm />
+              <ForgotPasswordForm />
             </LoginProvider>
           </div>
         </div>

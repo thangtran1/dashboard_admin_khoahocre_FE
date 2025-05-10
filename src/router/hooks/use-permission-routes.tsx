@@ -20,7 +20,6 @@ function buildCompleteRoute(
   flattenedPermissions: Permission[],
   segments: string[] = []
 ): string {
-  console.log("🚀 ~ permission:", permission);
   segments.unshift(permission.route);
 
   if (!permission.parentId) {

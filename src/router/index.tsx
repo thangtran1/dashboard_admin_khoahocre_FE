@@ -8,6 +8,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Navigate, type RouteObject, createHashRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
+import ResetPassword from "@/pages/sys/login/resetPassword";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -40,8 +41,17 @@ export default function Router() {
       ...permissionRoutes,
     ],
   };
+  const RESET_PASSWORD_ROUTE: AppRouteObject = {
+    path: "/reset-password",
+    element: (
+      <ErrorBoundary FallbackComponent={PageError}>
+        <ResetPassword />
+      </ErrorBoundary>
+    ),
+  };
 
   const routes = [
+    RESET_PASSWORD_ROUTE,
     PUBLIC_ROUTE,
     PROTECTED_ROUTE,
     ERROR_ROUTE,

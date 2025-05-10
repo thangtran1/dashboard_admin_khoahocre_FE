@@ -37,7 +37,6 @@ axiosInstance.interceptors.response.use(
     const data = res.data;
 
     const hasSuccess = success === true;
-    console.log("🚀 ~ hasSuccess:", hasSuccess);
 
     if (hasSuccess) {
       if (data) {
