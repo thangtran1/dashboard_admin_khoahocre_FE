@@ -6,7 +6,7 @@ import { useRef } from "react";
 const TopicList = () => {
   return (
     <>
-      <section className="w-full mx-auto py-8 px-16">
+      <section className="w-full mx-auto py-8">
         <div className="flex  items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">
             Danh Sách <span className="text-blue-600">Chủ Đề</span>

@@ -11,7 +11,7 @@ const TipsAi = () => {
     dir === "left" ? swiper.slidePrev() : swiper.slideNext();
   };
   return (
-    <section className="w-full  py-8 px-16">
+    <section className="w-full  py-8">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold">
           <span className="text-blue-600">Bí Kíp Làm Chủ AI</span> Từ A-Z

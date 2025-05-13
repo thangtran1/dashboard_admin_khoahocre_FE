@@ -8,7 +8,7 @@ const Blog = () => {
   const blogSwiperRef = useRef<SwiperClass | null>(null); // ✔ Blog
 
   return (
-    <section className="w-full px-6 md:px-16 py-12">
+    <section className="w-full">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">
           Khóa Học Rẻ <span className="text-blue-600">Bản Tin</span>

@@ -21,7 +21,7 @@ const CoursesTop = () => {
     dir === "left" ? swiper.slidePrev() : swiper.slideNext();
   };
   return (
-    <div className="relative w-full  py-8 px-16">
+    <div className="relative w-full py-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">
           <span className="text-red-500">Youtube</span> Kiếm Nghìn $ Mỗi Tháng
@@ -33,9 +33,9 @@ const CoursesTop = () => {
 
       <div className="relative">
         <Swiper
-          spaceBetween={12}
+          spaceBetween={10}
           breakpoints={{
-            0: { slidesPerView: 1 },
+            0: { slidesPerView: 1.2 },
             640: { slidesPerView: 2 },
             768: { slidesPerView: 3 },
             1024: { slidesPerView: 4 },
@@ -50,7 +50,7 @@ const CoursesTop = () => {
                 <img
                   src={course.image}
                   alt="course"
-                  className="w-full h-40 object-cover rounded"
+                  className="w-full h-52 sm:h-40 object-cover rounded"
                 />
                 <h3 className="text-base font-semibold mt-2">{course.title}</h3>
                 <div className="text-sm text-gray-500 line-through">

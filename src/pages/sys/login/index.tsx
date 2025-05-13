@@ -15,8 +15,6 @@ const { VITE_APP_HOMEPAGE_USER: HOMEPAGEUSER } = import.meta.env;
 function LoginPage() {
   const token = useUserToken();
   const { role } = useUserInfo();
-  console.log("🚀 ~ LoginPage ~ role:", role === "user");
-
   if (token.accessToken) {
     if (role === "user") {
       console.log("🚀 ~ User role matched");

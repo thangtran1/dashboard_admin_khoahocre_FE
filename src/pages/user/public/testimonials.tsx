@@ -11,7 +11,7 @@ const Testimonials = () => {
     dir === "left" ? swiper.slidePrev() : swiper.slideNext();
   };
   return (
-    <section className="w-full px-4 py-12 relative">
+    <section className="w-full relative">
       <Swiper
         onBeforeInit={(swiper) => {
           testimonialSwiperRef.current = swiper;
@@ -23,7 +23,7 @@ const Testimonials = () => {
       >
         {testimonials.map((t, idx) => (
           <SwiperSlide key={idx}>
-            <div className="bg-blue-100 rounded-3xl px-6 md:px-12 py-10 flex flex-col md:flex-row items-center justify-between max-w-5xl mx-auto relative">
+            <div className="bg-blue-100 rounded-3xl md:px-12 py-10 flex flex-col md:flex-row items-center justify-between mx-auto relative">
               <div className="max-w-2xl">
                 <Quote className="text-4xl text-gray-600 mb-4" />
                 <p className="text-lg text-gray-800 mb-4">{t.content}</p>
@@ -41,16 +41,15 @@ const Testimonials = () => {
         ))}
       </Swiper>
 
-      {/* Controls */}
       <button
         onClick={() => scroll(testimonialSwiperRef.current, "left")}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-white"
+        className="absolute top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-white"
       >
         <ArrowLeft size={20} />
       </button>
       <button
         onClick={() => scroll(testimonialSwiperRef.current, "right")}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-white"
+        className="absolute right-1 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-white"
       >
         <ArrowRight size={20} />
       </button>

@@ -1,6 +1,6 @@
 import "dayjs/locale/zh-cn";
 import en from "antd/locale/en_US";
-import vi from "antd/locale/zh_CN";
+import vi from "antd/locale/vi_VN";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 
