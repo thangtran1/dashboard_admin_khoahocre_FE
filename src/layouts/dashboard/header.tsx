@@ -9,6 +9,7 @@ import BreadCrumb from "../components/bread-crumb";
 import NoticeButton from "../components/notice";
 import SearchBar from "../components/search-bar";
 import SettingButton from "../components/setting-button";
+import { useUserInfo } from "@/store/userStore";
 
 interface HeaderProps {
   headerLeftSlot?: ReactNode;
@@ -16,6 +17,7 @@ interface HeaderProps {
 
 export default function Header({ headerLeftSlot }: HeaderProps) {
   const { breadCrumb } = useSettings();
+  const role = useUserInfo();
   return (
     <header
       data-slot="slash-layout-header"
@@ -24,15 +26,17 @@ export default function Header({ headerLeftSlot }: HeaderProps) {
         "h-[var(--layout-header-height)] grow-0 shrink-0"
       )}
     >
-      <div className="flex items-center">
-        {headerLeftSlot}
+      {role === "user" && (
+        <div className="flex items-center">
+          {headerLeftSlot}
 
-        <div className="hidden md:block ml-4">
-          {breadCrumb && <BreadCrumb />}
+          <div className="hidden md:block ml-4">
+            {breadCrumb && <BreadCrumb />}
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="flex items-center gap-1">
+      <div className="flex w-full justify-end  items-end gap-1">
         <SearchBar />
         <LocalePicker />
         {/* <NoticeButton /> */}

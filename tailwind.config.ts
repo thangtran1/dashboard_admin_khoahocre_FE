@@ -2,10 +2,12 @@ import type { Config } from "tailwindcss";
 import { breakpointsTokens } from "./src/theme/tokens/breakpoints";
 import { HtmlDataAttribute } from "./src/types/enum";
 import { creatColorChannel, createTailwinConfg } from "./src/utils/theme";
-
 export default {
   darkMode: ["selector", `[${HtmlDataAttribute.ThemeMode}='dark']`],
-  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@heroui/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     fontFamily: createTailwinConfg("typography.fontFamily"),
     extend: {
@@ -60,4 +62,5 @@ export default {
       screens: breakpointsTokens,
     },
   },
+  plugins: [],
 } satisfies Config;

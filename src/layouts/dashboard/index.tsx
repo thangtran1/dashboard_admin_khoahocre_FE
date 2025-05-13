@@ -8,11 +8,11 @@ import { ThemeLayout } from "#/enum";
 import Header from "./header";
 import Main from "./main";
 import NavBar from "./nav-bar";
+import { useUserInfo } from "@/store/userStore";
 
 export default function DashboardLayout() {
   const isMobile = useMediaQuery(down("md"));
   const { themeLayout } = useSettings();
-
   return (
     <div
       data-slot="slash-layout-root"
@@ -27,10 +27,11 @@ export default function DashboardLayout() {
 
 function PcLayout() {
   const { themeLayout } = useSettings();
+  const { role } = useUserInfo();
 
   return (
     <>
-      {themeLayout !== ThemeLayout.Horizontal && <NavBar />}
+      {themeLayout !== ThemeLayout.Horizontal && role !== "user" && <NavBar />}
 
       <div
         data-slot="slash-layout-content"

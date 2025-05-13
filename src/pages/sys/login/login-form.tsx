@@ -136,10 +136,10 @@ export function LoginForm({
             </span>
           </div>
           <div className="flex cursor-pointer justify-around text-2xl">
-            <Button variant="ghost" size="icon">
+            <Button type="button" variant="ghost" size="icon">
               <Icon icon="mdi:github" size={24} />
             </Button>
-            <Button variant="ghost" size="icon">
+            <Button type="button" variant="ghost" size="icon">
               <Icon icon="ant-design:google-circle-filled" size={24} />
             </Button>
           </div>

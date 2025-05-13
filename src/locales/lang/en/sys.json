@@ -65,6 +65,8 @@
       "loginSuccessDesc": "Welcome back",
       "loginSuccessTitle": "Login successful",
       "logout": "Logout",
+      "login": "Login",
+
       "mobile": "Mobile",
       "mobilePlaceholder": "Please input mobile",
       "mobileSignInFormTitle": "Mobile sign in",
