@@ -11,15 +11,19 @@ export const CourseData = [
   {
     title: "Khóa Học Youtube Ads Topmax",
     desc: "Khóa Học Youtube Ads Topmax | “Phá Đảo” Top Đầu Google Với Chiến Lược…",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     oldPrice: "5.000.000 ₫",
     price: "199.000 ₫",
     image:
-      "https://khoahocre.com/wp-content/uploads/2025/05/n8n-Noti-675x675.png",
+      "https://khoahocre.com/wp-content/uploads/2024/08/DUONG-K-675x675.png",
     badge: "ADS",
   },
   {
     title: "Khóa Học Làm Video Hoạt Hình AI, Video Mèo Nấu Ăn…",
     desc: "Khóa Học Làm Video Hoạt Hình AI Miễn Phí – Tạo Video Mèo Nấu Ăn Độc Đáo…",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     oldPrice: "9.999.000 ₫",
     price: "Miễn phí",
     image:
@@ -29,6 +33,8 @@ export const CourseData = [
   {
     title: "Khóa Học Youtube NDGroup Việt Nam Mới 2025",
     desc: "Lộ Trình Kiếm Tiền Bền Vững Trên YouTube 2025",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     oldPrice: "5.499.000 ₫",
     price: "299.000 ₫",
     image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
@@ -37,6 +43,9 @@ export const CourseData = [
   {
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
     oldPrice: "1.999.000 ₫",
     price: "99.000 ₫",
     image:
@@ -46,6 +55,9 @@ export const CourseData = [
   {
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
     oldPrice: "1.999.000 ₫",
     price: "99.000 ₫",
     image:
@@ -55,6 +67,9 @@ export const CourseData = [
   {
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
     oldPrice: "1.999.000 ₫",
     price: "99.000 ₫",
     image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
@@ -63,6 +78,9 @@ export const CourseData = [
   {
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack Vanthang.com Vanthang.com Vanthang.com",
+
     oldPrice: "1.999.000 ₫",
     price: "99.000 ₫",
     image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
@@ -160,6 +178,8 @@ export const data = [
 export const aiCourses = [
   {
     title: "Full Trọn Bộ 20+ Khóa Học Content Hay Nhất Thị Trường",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     price: "999.000 ₫",
     oldPrice: "50.000.000 ₫",
     image:
@@ -167,6 +187,8 @@ export const aiCourses = [
   },
   {
     title: "Khóa Học AI Agent Và N8n – Tự Động Hóa Công Việc",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     price: "99.000 ₫",
     oldPrice: "799.000 ₫",
     image:
@@ -174,6 +196,8 @@ export const aiCourses = [
   },
   {
     title: "Khóa Học AI Automation Topmax 2025",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     price: "299.000 ₫",
     oldPrice: "8.000.000 ₫",
     image:
@@ -181,6 +205,8 @@ export const aiCourses = [
   },
   {
     title: "Khóa Học Content AI & Automation – GTV SEO",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     price: "89.000 ₫",
     oldPrice: "599.000 ₫",
     image:
@@ -188,6 +214,8 @@ export const aiCourses = [
   },
   {
     title: "Khóa Học Content AI & Automation – GTV SEO",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     price: "89.000 ₫",
     oldPrice: "599.000 ₫",
     image:
@@ -195,6 +223,8 @@ export const aiCourses = [
   },
   {
     title: "Khóa Học Content AI & Automation – GTV SEO",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
     price: "89.000 ₫",
     oldPrice: "599.000 ₫",
     image:

@@ -130,3 +130,17 @@
   --layout-header-height: 64px;
   --layout-multi-tabs-height: 48px;
 }
+
+/* thanh dài */
+.custom-bullet {
+  width: 2rem;
+  height: 0.5rem;
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.custom-bullet-active {
+  background-color: #2563eb;
+  width: 3rem;
+}

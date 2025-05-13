@@ -1,1 +1,1 @@
-export const contentWrapper = "md:w-[80%]";
+export const contentWrapper = "md:w-[90%]";

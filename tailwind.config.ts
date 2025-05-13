@@ -8,6 +8,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@heroui/**/*.{js,ts,jsx,tsx}",
   ],
+
   theme: {
     fontFamily: createTailwinConfg("typography.fontFamily"),
     extend: {

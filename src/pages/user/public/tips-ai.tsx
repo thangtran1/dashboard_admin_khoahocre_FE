@@ -1,7 +1,7 @@
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-import { aiCourses } from "./dataExport";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Youtube } from "lucide-react";
 import { useRef } from "react";
+import { aiCourses } from "./dataExport";
 
 const TipsAi = () => {
   const aiSwiperRef = useRef<SwiperClass | null>(null); // ✔ AI
@@ -11,62 +11,73 @@ const TipsAi = () => {
     dir === "left" ? swiper.slidePrev() : swiper.slideNext();
   };
   return (
-    <section className="w-full  py-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="relative w-full py-8">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">
           <span className="text-blue-600">Bí Kíp Làm Chủ AI</span> Từ A-Z
         </h2>
-        <div className="flex gap-2">
-          <button
-            onClick={() => scroll(aiSwiperRef.current, "left")}
-            className="w-9 h-9 rounded-full border flex items-center justify-center"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={() => scroll(aiSwiperRef.current, "right")}
-            className="w-9 h-9 rounded-full border flex items-center justify-center"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
+        <button className="w-9 h-9 rounded-full border flex items-center justify-center">
+          <ChevronRight className="w-5 h-5" />
+        </button>
       </div>
 
       <div className="relative">
         <Swiper
-          onBeforeInit={(swiper) => {
-            aiSwiperRef.current = swiper;
-          }}
-          spaceBetween={12}
+          spaceBetween={10}
           breakpoints={{
             0: { slidesPerView: 1 },
             640: { slidesPerView: 2 },
             768: { slidesPerView: 3 },
             1024: { slidesPerView: 4 },
           }}
+          onBeforeInit={(swiper) => {
+            aiSwiperRef.current = swiper;
+          }}
         >
           {aiCourses.map((course, idx) => (
             <SwiperSlide key={idx}>
-              <div className="bg-white rounded-lg shadow p-4">
+              <div className="bg-muted rounded-lg border shadow p-2">
                 <img
                   src={course.image}
-                  alt={course.title}
-                  className="w-full h-40 object-cover rounded"
+                  alt="course"
+                  className="w-full h-52 sm:h-72 object-cover rounded"
                 />
-                <h3 className="text-base font-semibold mt-2">{course.title}</h3>
-                <div className="text-sm text-gray-500 line-through">
-                  {course.oldPrice}
+                <h3 className="text-base h-14 line-clamp-2 font-semibold mt-2">
+                  {course.title}
+                </h3>
+                <div className="text-sm line-clamp-2">{course.subTitle}</div>
+                <div className="flex items-center gap-2 p-2">
+                  <div className="text-xl text-error line-through">
+                    {course.oldPrice}
+                  </div>
+                  <div className="text-blue-600 text-xl font-bold">
+                    {course.price}
+                  </div>
                 </div>
-                <div className="text-blue-600 font-bold">{course.price}</div>
-                <button className="bg-blue-600 text-white px-4 py-2 mt-2 rounded w-full text-sm">
+                <button className="hover:underline bg-primary cursor-pointer text-secondary px-4 py-2 mt-2 rounded w-full text-sm flex items-center justify-center gap-2 ">
+                  <Youtube className="w-5 h-5 text-base" />
                   Vào Học Ngay
                 </button>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+
+        <button
+          onClick={() => scroll(aiSwiperRef.current, "left")}
+          className="cursor-pointer hover:bg-muted hover:text-primary-foreground dark:hover:bg-muted/30 absolute left-[-15px] top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-border flex items-center justify-center bg-background"
+        >
+          <ChevronLeft className="w-6 h-6  text-primary" />
+        </button>
+
+        <button
+          onClick={() => scroll(aiSwiperRef.current, "right")}
+          className="cursor-pointer hover:bg-muted hover:text-primary-foreground dark:hover:bg-muted/30 absolute right-[-15px] top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-border flex items-center justify-center bg-background"
+        >
+          <ChevronRight className="w-6 h-6 text-primary" />
+        </button>
       </div>
-    </section>
+    </div>
   );
 };
 export default TipsAi;

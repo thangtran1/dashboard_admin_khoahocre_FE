@@ -1,16 +1,14 @@
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { Categories, data } from "./dataExport";
-import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-import { useRef } from "react";
+import { ArrowRight } from "lucide-react";
+import { Categories } from "./dataExport";
 
 const TopicList = () => {
   return (
     <>
       <section className="w-full mx-auto py-8">
-        <div className="flex  items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
+        <div className="flex  items-center justify-between mb-2">
+          <h1 className="text-3xl font-bold">
             Danh Sách <span className="text-blue-600">Chủ Đề</span>
-          </h2>
+          </h1>
           <button className="text-sm font-medium text-blue-600 hover:underline inline-flex items-center">
             Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
           </button>
@@ -27,11 +25,15 @@ const TopicList = () => {
               <img
                 src={cat.image}
                 alt={cat.title}
-                className="w-full h-36 object-cover"
+                className="w-full h-40 object-cover"
               />
               <div className="text-center py-3">
-                <h3 className="font-semibold text-gray-800">{cat.title}</h3>
-                <p className="text-sm text-gray-500">{cat.count} Khóa Học</p>
+                <h3 className="font-bold hover:underline hover:text-primary cursor-pointer text-lg text-gray-800">
+                  {cat.title}
+                </h3>
+                <p className="text-base cursor-pointer text-primary">
+                  {cat.count} Khóa Học
+                </p>
               </div>
             </div>
           ))}

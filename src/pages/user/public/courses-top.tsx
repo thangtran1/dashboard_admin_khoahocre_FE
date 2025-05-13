@@ -1,20 +1,14 @@
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  PlayCircle,
-} from "lucide-react";
-import { CourseData, data } from "./dataExport";
+import { ChevronLeft, ChevronRight, Youtube } from "lucide-react";
+import { CourseData } from "./dataExport";
 import { useRef } from "react";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
 
 const CoursesTop = () => {
-  const youtubeMiniSwiperRef = useRef<SwiperClass | null>(null); // ✔ YouTube (phần 2)
+  const youtubeMiniSwiperRef = useRef<SwiperClass | null>(null);
 
   const scroll = (swiper: SwiperClass | null, dir: "left" | "right") => {
     if (!swiper) return;
@@ -35,7 +29,7 @@ const CoursesTop = () => {
         <Swiper
           spaceBetween={10}
           breakpoints={{
-            0: { slidesPerView: 1.2 },
+            0: { slidesPerView: 1 },
             640: { slidesPerView: 2 },
             768: { slidesPerView: 3 },
             1024: { slidesPerView: 4 },
@@ -46,18 +40,26 @@ const CoursesTop = () => {
         >
           {CourseData.map((course, idx) => (
             <SwiperSlide key={idx}>
-              <div className="bg-white rounded-lg shadow p-4">
+              <div className="bg-muted rounded-lg border shadow p-2">
                 <img
                   src={course.image}
                   alt="course"
-                  className="w-full h-52 sm:h-40 object-cover rounded"
+                  className="w-full h-52 sm:h-72 object-cover rounded"
                 />
-                <h3 className="text-base font-semibold mt-2">{course.title}</h3>
-                <div className="text-sm text-gray-500 line-through">
-                  {course.oldPrice}
+                <h3 className="text-base h-14 line-clamp-2 font-semibold mt-2">
+                  {course.title}
+                </h3>
+                <div className="text-sm line-clamp-2">{course.subTitle}</div>
+                <div className="flex items-center gap-2 p-2">
+                  <div className="text-xl text-error line-through">
+                    {course.oldPrice}
+                  </div>
+                  <div className="text-blue-600 text-xl font-bold">
+                    {course.price}
+                  </div>
                 </div>
-                <div className="text-blue-600 font-bold">{course.price}</div>
-                <button className="bg-blue-600 text-white px-4 py-2 mt-2 rounded w-full text-sm">
+                <button className="hover:underline bg-primary cursor-pointer text-secondary px-4 py-2 mt-2 rounded w-full text-sm flex items-center justify-center gap-2 ">
+                  <Youtube className="w-5 h-5 text-base" />
                   Vào Học Ngay
                 </button>
               </div>
@@ -67,15 +69,16 @@ const CoursesTop = () => {
 
         <button
           onClick={() => scroll(youtubeMiniSwiperRef.current, "left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border flex items-center justify-center bg-white"
+          className="cursor-pointer hover:bg-muted hover:text-primary-foreground dark:hover:bg-muted/30 absolute left-[-15px] top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-border flex items-center justify-center bg-background"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-6 h-6  text-primary" />
         </button>
+
         <button
           onClick={() => scroll(youtubeMiniSwiperRef.current, "right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border flex items-center justify-center bg-white"
+          className="cursor-pointer hover:bg-muted hover:text-primary-foreground dark:hover:bg-muted/30 absolute right-[-15px] top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-border flex items-center justify-center bg-background"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-6 h-6 text-primary" />
         </button>
       </div>
     </div>
