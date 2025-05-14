@@ -31,10 +31,10 @@ const Testimonials = () => {
       >
         {testimonials.map((t, idx) => (
           <SwiperSlide key={idx}>
-            <div className="bg-blue-100 p-4 h-[500px] md:h-[275px] rounded-3xl md:px-12 py-10 flex flex-col md:flex-row items-center justify-between mx-auto relative">
+            <div className="bg-background border border-boder p-4 h-[500px] md:h-[275px] rounded-3xl md:px-12 py-10 flex flex-col md:flex-row items-center justify-between mx-auto relative">
               <div className="max-w-2xl">
                 <Quote className="text-4xl text-gray-600 mb-4" />
-                <p className="text-lg text-gray-800 mb-4">{t.content}</p>
+                <p className="text-lg  mb-4">{t.content}</p>
                 <p className="text-sm font-medium text-gray-700">
                   - {t.author}
                 </p>
@@ -51,13 +51,13 @@ const Testimonials = () => {
 
       <button
         onClick={() => scroll(testimonialSwiperRef.current, "left")}
-        className="absolute left-1 inset-y-0 my-auto z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-white"
+        className="absolute left-1 inset-y-0 my-auto z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-background"
       >
         <ArrowLeft size={20} />
       </button>
       <button
         onClick={() => scroll(testimonialSwiperRef.current, "right")}
-        className="absolute right-1 inset-y-0 my-auto z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-white"
+        className="absolute right-1 inset-y-0 my-auto z-10 w-10 h-10 rounded-full border border-blue-900 flex items-center justify-center bg-background"
       >
         <ArrowRight size={20} />
       </button>

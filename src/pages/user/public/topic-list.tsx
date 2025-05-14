@@ -20,7 +20,7 @@ const TopicList = () => {
           {Categories.map((cat, i) => (
             <div
               key={i}
-              className="rounded-xl overflow-hidden bg-gray-100 shadow-sm"
+              className="rounded-xl overflow-hidden bg-background shadow-sm"
             >
               <img
                 src={cat.image}
@@ -28,7 +28,7 @@ const TopicList = () => {
                 className="w-full h-40 object-cover"
               />
               <div className="text-center py-3">
-                <h3 className="font-bold hover:underline hover:text-primary cursor-pointer text-lg text-gray-800">
+                <h3 className="font-bold hover:underline hover:text-primary cursor-pointer text-lg ">
                   {cat.title}
                 </h3>
                 <p className="text-base cursor-pointer text-primary">

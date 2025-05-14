@@ -18,7 +18,7 @@ const MobileBottomNav = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center h-14 md:hidden z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border flex justify-around items-center h-14 md:hidden z-50">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.path;

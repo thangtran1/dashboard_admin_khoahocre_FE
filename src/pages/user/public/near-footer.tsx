@@ -9,7 +9,7 @@ const NearFooter = () => {
     <section className="bg-muted">
       <div
         className={clsx(
-          "w-full lg:px-16 mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center",
+          "w-full lg:px-16 mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 items-center",
           contentWrapper
         )}
       >
@@ -21,7 +21,7 @@ const NearFooter = () => {
           />
         </div>
 
-        <div className="text-center md:text-left flex flex-col items-center md:items-start">
+        <div className="text-center py-6 md:text-left flex flex-col items-center md:items-start">
           <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
             BẠN CÓ KHÓA HỌC NHƯNG ĐÃ HỌC XONG?
           </h2>
@@ -34,7 +34,7 @@ const NearFooter = () => {
             gia tăng nội dung phong phú, giúp nhiều người có cơ hội tiếp cận
             hơn. Đây là cơ hội hợp tác Win-Win để mọi người cùng phát triển!
           </p>
-          <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-semibold px-5 py-3 rounded flex items-center gap-2">
+          <Button className="bg-primary hover:bg-primary/80  font-semibold text-base px-5 py-3 rounded flex items-center gap-2">
             <Heart size={16} /> Trao Đổi Khóa Học Ngay!
           </Button>
         </div>

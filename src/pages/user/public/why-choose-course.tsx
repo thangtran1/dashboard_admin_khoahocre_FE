@@ -29,9 +29,6 @@ const WhyChooseCourse = () => {
                   {item.desc}
                 </p>
               </div>
-              <div>
-                <Divider />
-              </div>
             </>
           ))}
         </div>

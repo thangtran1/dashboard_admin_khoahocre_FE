@@ -1,5 +1,5 @@
 import { contentWrapper } from "@/utils/use-always";
-import { Image } from "antd";
+import { Image } from "antd/lib";
 import clsx from "clsx";
 import {
   ChevronUp,
@@ -15,18 +15,24 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-background text-foreground">
-        <div className={clsx("w-full px-4 lg:px-16 md:w-[70%] py-10 mx-auto")}>
+        <div
+          className={clsx("w-full px-4 lg:px-16 py-10 mx-auto", contentWrapper)}
+        >
           {/* Logo + Info: Mobile -> flex row | Desktop -> block */}
-          <div className="flex flex-col md:block  md:grid-cols-5 gap-8">
-            {/* Logo + Info */}
-            <div className="flex md:block items-center gap-4 md:gap-0 md:col-span-1">
-              <Image
-                src="https://khoahocre.com/wp-content/uploads/2023/05/noichiasenew-1.png"
-                alt="Logo"
-                className="h-8 mb-0 md:mb-4"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {/* Cột 1: Logo + Info */}
+            <div className="flex flex-wrap mx-auto items-center gap-4 w-full h-full">
+              <div className="w-52  h-16 md:w-52 md:h-16">
+                <Image
+                  src="https://khoahocre.com/wp-content/uploads/2023/05/noichiasenew-1.png"
+                  alt="logo"
+                  preview={false}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
               <div className="flex flex-col justify-center text-sm text-muted-foreground">
-                <div className="flex items-center gap-2 md:mb-1">
+                <div className="flex items-center gap-2 mb-1">
                   <Clock size={16} /> 7:00 - 24:00
                 </div>
                 <div className="flex items-center gap-2">
@@ -35,9 +41,8 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Grid for remaining 4 columns */}
-            <div className="grid grid-cols-2 gap-8 md:col-span-4 md:grid-cols-4">
-              {/* Danh Mục */}
+            <div className="grid grid-cols-2 gap-6 md:col-span-4 md:grid-cols-4">
+              {/* Cột 2 */}
               <div>
                 <h3 className="font-semibold text-2xl mb-2">Danh Mục</h3>
                 <ul className="space-y-1 text-muted-foreground">
@@ -57,7 +62,7 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Nội Dung */}
+              {/* Cột 3 */}
               <div>
                 <h3 className="font-semibold mb-2 text-2xl">Nội Dung</h3>
                 <ul className="space-y-1 text-muted-foreground">
@@ -86,7 +91,7 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Thông Tin */}
+              {/* Cột 4 */}
               <div>
                 <h3 className="font-semibold mb-2 text-2xl">Thông Tin</h3>
                 <ul className="space-y-1 text-muted-foreground">
@@ -106,7 +111,7 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Điểm Nổi Bật */}
+              {/* Cột 5 */}
               <div>
                 <h3 className="font-semibold mb-2 text-2xl">Điểm Nổi Bật</h3>
                 <ul className="space-y-1 text-muted-foreground">
@@ -146,17 +151,17 @@ const Footer = () => {
       <div className="bg-border/40">
         <div
           className={clsx(
-            "w-full lg:px-16 mx-auto p-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4",
+            "w-full lg:px-16 mx-auto p-2 flex flex-col md:flex-row md:items-center md:justify-between gap-1",
             contentWrapper
           )}
         >
           <p className="text-sm text-muted-foreground text-center md:text-left">
-            © Copyright 2024
+            © Copyright 2024 {""}
             <a
               href="#"
               className="text-primary text-md font-semibold hover:underline"
             >
-              Khoahocre
+              Khoahocre {""}
             </a>
             – Nơi chia sẻ khóa học tiết kiệm chuẩn gốc
           </p>
@@ -187,7 +192,7 @@ const Footer = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-16 right-8 z-50 w-12 h-12 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition flex items-center justify-center"
         >
-          <ChevronUp size={16} />
+          <ChevronUp size={22} />
         </button>
       </div>
     </>

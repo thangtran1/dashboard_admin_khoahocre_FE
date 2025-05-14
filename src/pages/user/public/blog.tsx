@@ -49,7 +49,7 @@ const Blog = () => {
       >
         {blogs.map((blog, idx) => (
           <SwiperSlide key={idx}>
-            <div className="bg-white border shadow rounded-lg overflow-hidden">
+            <div className="bg-background border shadow rounded-lg overflow-hidden">
               <img
                 src={blog.image}
                 alt={blog.title}
