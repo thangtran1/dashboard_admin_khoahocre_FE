@@ -187,6 +187,24 @@
       "accordion": "Menu dạng accordion",
       "fullscreen": "Toàn màn hình",
       "exitFullscreen": "Thoát toàn màn hình"
+    },
+    "error": {
+      "error404": {
+        "notFound": "404 Không tìm thấy trang!",
+        "pageNotFound": "Rất tiếc, không tìm thấy trang!",
+        "content": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm. Có thể bạn đã nhập sai địa chỉ URL? Hãy kiểm tra lại chính tả."
+      },
+      "error403": {
+        "notFound": "403 Không có quyền truy cập!",
+        "pageNotFound": "Không có quyền",
+        "content": "Trang bạn đang cố truy cập bị giới hạn quyền truy cập. Vui lòng liên hệ quản trị viên hệ thống."
+      },
+      "error500": {
+        "notFound": "500 Lỗi máy chủ nội bộ!",
+        "pageNotFound": "500 Lỗi máy chủ nội bộ",
+        "content": "Đã xảy ra lỗi, vui lòng thử lại sau."
+      },
+      "goHome": "Về trang chủ"
     }
   }
 }

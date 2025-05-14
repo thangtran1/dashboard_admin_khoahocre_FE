@@ -6,27 +6,30 @@ import { Button } from "@/ui/button";
 import { H3, Muted } from "@/ui/typography";
 import { m } from "motion/react";
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+const { VITE_APP_HOMEPAGE_USER: HOMEPAGE } = import.meta.env;
 
 export default function Page404() {
+  const { t } = useTranslation();
   return (
     <>
       <Helmet>
-        <title> 404 Page Not Found!</title>
+        <title>{t("sys.error.error404.notFound")}</title>
       </Helmet>
 
       <div className="m-auto max-w-[400px]">
         <MotionContainer className="flex flex-col items-center justify-center px-2">
           <m.div variants={varBounce().in}>
-            <H3 className="text-center">Sorry, Page Not Found!</H3>
+            <H3 className="text-center">
+              {t("sys.error.error404.pageNotFound")}
+            </H3>
           </m.div>
 
           <m.div variants={varBounce().in}>
             <Muted className="text-center">
-              Sorry, we couldn’t find the page you’re looking for. Perhaps
-              you’ve mistyped the URL? Be sure to check your spelling.
+              {t("sys.error.error404.content")}
             </Muted>
           </m.div>
 
@@ -115,7 +118,7 @@ export default function Page404() {
           </m.div>
 
           <NavLink to={HOMEPAGE}>
-            <Button size="lg">Go to Home</Button>
+            <Button size="lg">{t("sys.error.goHome")}</Button>
           </NavLink>
         </MotionContainer>
       </div>

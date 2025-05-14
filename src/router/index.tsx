@@ -10,6 +10,8 @@ import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
 import ResetPassword from "@/pages/sys/login/resetPassword";
 import UserHomePage from "@/pages/user";
+import UserLayout from "@/layouts/user/user-layout";
+import BlogGridPage from "@/pages/user/blog";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -52,12 +54,23 @@ export default function Router() {
   };
 
   const APP_HOMEPAGE_USER: AppRouteObject = {
-    path: "/user",
+    path: "/",
     element: (
       <ErrorBoundary FallbackComponent={PageError}>
-        <UserHomePage />
+        <UserLayout />
       </ErrorBoundary>
     ),
+    children: [
+      {
+        index: true,
+        element: <UserHomePage />, // Hiện trang chính
+      },
+      {
+        path: "blog",
+        element: <BlogGridPage />, // Trang blog (nội dung thay đổi)
+      },
+      // Thêm các route con khác tại đây
+    ],
   };
 
   const routes = [

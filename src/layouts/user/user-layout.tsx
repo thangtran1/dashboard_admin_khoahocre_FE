@@ -10,12 +10,9 @@ import { useUserInfo } from "@/store/userStore";
 import Header from "@/layouts/dashboard/header";
 import clsx from "clsx";
 import { contentWrapper } from "@/utils/use-always";
+import { Link, Outlet } from "react-router";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export default function UserLayout({ children }: Props) {
+export default function UserLayout() {
   const { username } = useUserInfo();
   return (
     <ThemeProvider adapters={[AntdAdapter]}>
@@ -29,9 +26,9 @@ export default function UserLayout({ children }: Props) {
       <div className="bg-blue-600 text-white text-sm text-center p-2">
         THAM GIA CỘNG ĐỒNG (2) ĐỂ NHẬN THÔNG BÁO, VOUCHER VÀ KHÓA HỌC MIỄN PHÍ
         DÀNH RIÊNG CHO NHÓM! 👉
-        <a href="#" className="underline font-semibold">
+        <Link to="/blog" className="underline font-semibold">
           BẤM VÀO ĐÂY
-        </a>
+        </Link>
       </div>
       <div className="bg-background text-foreground">
         <main
@@ -41,7 +38,7 @@ export default function UserLayout({ children }: Props) {
           )}
         >
           <HeaderTop />
-          {children}
+          <Outlet /> {/* Route con sẽ hiển thị ở đây */}
         </main>
         <WhyChooseCourse />
         <NearFooter />
