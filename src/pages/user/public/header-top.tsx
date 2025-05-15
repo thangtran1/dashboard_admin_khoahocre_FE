@@ -59,14 +59,14 @@ const HeaderTop = () => {
           <Button className="bg-primary text-primary-foreground px-4 py-2 rounded-md">
             Danh Mục Khóa Học
           </Button>
-          <a href="#" className="text-primary font-semibold">
+          <a href="/" className="text-primary font-semibold">
             Trang Chủ
           </a>
-          <a href="#">Shop Khóa Học Rẻ</a>
-          <a href="#">Khóa Học Free</a>
-          <a href="#">Gói Hội Viên</a>
-          <a href="#">Combo Tiết Kiệm</a>
-          <a href="#">Thông Tin ▾</a>
+          <a href="/">Shop Khóa Học Rẻ</a>
+          <a href="/">Khóa Học Free</a>
+          <a href="/">Gói Hội Viên</a>
+          <a href="/">Combo Tiết Kiệm</a>
+          <a href="/">Thông Tin ▾</a>
         </nav>
 
         {menuOpen && (
@@ -83,16 +83,16 @@ const HeaderTop = () => {
                 </button>
               </div>
               <nav className="flex flex-col gap-4 px-4 py-6 text-sm font-medium">
-                <a href="#" className="text-primary">
+                <a href="/" className="text-primary">
                   Trang Chủ
                 </a>
-                <a href="#">Shop Khóa Học Rẻ</a>
-                <a href="#">Khóa Học Free</a>
-                <a href="#">Combo Tiết Kiệm</a>
-                <a href="#">Gói Hội Viên</a>
-                <a href="#">Thông Tin</a>
-                <a href="#">Hướng Dẫn Mua Khóa Học</a>
-                <a href="#">Đăng Ký</a>
+                <a href="/">Shop Khóa Học Rẻ</a>
+                <a href="/">Khóa Học Free</a>
+                <a href="/">Combo Tiết Kiệm</a>
+                <a href="/">Gói Hội Viên</a>
+                <a href="/">Thông Tin</a>
+                <a href="/">Hướng Dẫn Mua Khóa Học</a>
+                <a href="/">Đăng Ký</a>
               </nav>
             </div>
           </>

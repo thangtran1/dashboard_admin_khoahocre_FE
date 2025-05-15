@@ -5,13 +5,18 @@ import ProtectedRoute from "@/router/components/protected-route";
 import { usePermissionRoutes } from "@/router/hooks";
 import { ERROR_ROUTE } from "@/router/routes/error-routes";
 import { ErrorBoundary } from "react-error-boundary";
-import { Navigate, type RouteObject, createHashRouter } from "react-router";
+import { Navigate, type RouteObject, createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
 import ResetPassword from "@/pages/sys/login/resetPassword";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
-import BlogGridPage from "@/pages/user/blog";
+import BlogGridPage from "@/pages/user/blog/blog";
+import BlogDetail from "@/pages/user/blog/blogDetail";
+import TipsAiPage from "@/pages/user/tips-ai/tips-ai";
+import TipsAiDetail from "@/pages/user/tips-ai/tips-ai-detail";
+import YoutubePage from "@/pages/user/youtube/youtube";
+import YoutubeDetail from "@/pages/user/youtube/youtube-detail";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -61,13 +66,27 @@ export default function Router() {
       </ErrorBoundary>
     ),
     children: [
-      {
-        index: true,
-        element: <UserHomePage />, // Hiện trang chính
-      },
+      { index: true, element: <UserHomePage /> },
       {
         path: "blog",
-        element: <BlogGridPage />, // Trang blog (nội dung thay đổi)
+        children: [
+          { index: true, element: <BlogGridPage /> },
+          { path: ":id", element: <BlogDetail /> },
+        ],
+      },
+      {
+        path: "tips-ai",
+        children: [
+          { index: true, element: <TipsAiPage /> },
+          { path: ":id", element: <TipsAiDetail /> },
+        ],
+      },
+      {
+        path: "youtube",
+        children: [
+          { index: true, element: <YoutubePage /> },
+          { path: ":id", element: <YoutubeDetail /> },
+        ],
       },
       // Thêm các route con khác tại đây
     ],
@@ -82,7 +101,8 @@ export default function Router() {
     NO_MATCHED_ROUTE,
   ] as RouteObject[];
 
-  const router = createHashRouter(routes);
+  const router = createBrowserRouter(routes);
+  // thêm dấu # createHashRouter
 
   return <RouterProvider router={router} />;
 }

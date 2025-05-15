@@ -3,6 +3,7 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { blogs } from "./dataExport";
 import { useRef } from "react";
 import { Pagination } from "swiper/modules";
+import { Link } from "react-router";
 
 const Blog = () => {
   const blogSwiperRef = useRef<SwiperClass | null>(null); // ✔ Blog
@@ -16,12 +17,13 @@ const Blog = () => {
         <h2 className="text-2xl font-bold">
           Khóa Học Rẻ <span className="text-blue-600">Bản Tin</span>
         </h2>
-        <a
-          href="#"
+
+        <Link
+          to={"/blog"}
           className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
         >
           Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
-        </a>
+        </Link>
       </div>
 
       <Swiper
@@ -57,7 +59,7 @@ const Blog = () => {
               />
               <div className="p-2">
                 <h3 className="text-base font-semibold line-clamp-2">
-                  {blog.title}
+                  <Link to={"/blog"}>{blog.title}</Link>
                 </h3>
                 <p className="text-sm p-2 text-gray-600 mt-1 line-clamp-2">
                   {blog.desc}
@@ -66,12 +68,12 @@ const Blog = () => {
                   <span>🏷 {blog.category}</span>
                   <span>📅 {blog.date}</span>
                 </div>
-                <a
-                  href="#"
-                  className="mt-2 inline-flex items-center text-md font-medium text-blue-600 hover:underline"
+                <Link
+                  to="/blog"
+                  className="mt-2 inline-flex items-center text-md font-medium text-blue-600 hover:underline gap-1"
                 >
-                  Read More <ArrowRight className="w-4 h-4 ml-1" />
-                </a>
+                  Read More <ArrowRight className="w-5 h-5" />
+                </Link>
               </div>
             </div>
           </SwiperSlide>

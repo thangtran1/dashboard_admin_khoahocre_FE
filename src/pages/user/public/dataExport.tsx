@@ -9,6 +9,7 @@ import {
 
 export const CourseData = [
   {
+    id: "8",
     title: "Khóa Học Youtube Ads Topmax",
     desc: "Khóa Học Youtube Ads Topmax | “Phá Đảo” Top Đầu Google Với Chiến Lược…",
     subTitle:
@@ -20,6 +21,8 @@ export const CourseData = [
     badge: "ADS",
   },
   {
+    id: "7",
+
     title: "Khóa Học Làm Video Hoạt Hình AI, Video Mèo Nấu Ăn…",
     desc: "Khóa Học Làm Video Hoạt Hình AI Miễn Phí – Tạo Video Mèo Nấu Ăn Độc Đáo…",
     subTitle:
@@ -31,6 +34,8 @@ export const CourseData = [
     badge: "CHATGPT",
   },
   {
+    id: "6",
+
     title: "Khóa Học Youtube NDGroup Việt Nam Mới 2025",
     desc: "Lộ Trình Kiếm Tiền Bền Vững Trên YouTube 2025",
     subTitle:
@@ -41,6 +46,8 @@ export const CourseData = [
     badge: "YOUTUBE",
   },
   {
+    id: "55",
+
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
     subTitle:
@@ -53,6 +60,8 @@ export const CourseData = [
     badge: "YOUTUBE",
   },
   {
+    id: "4444",
+
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
     subTitle:
@@ -65,6 +74,8 @@ export const CourseData = [
     badge: "YOUTUBE",
   },
   {
+    id: "3333",
+
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
     subTitle:
@@ -76,6 +87,8 @@ export const CourseData = [
     badge: "YOUTUBE",
   },
   {
+    id: "1111",
+
     title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
     desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
     subTitle:
@@ -177,6 +190,7 @@ export const data = [
 
 export const aiCourses = [
   {
+    id: "312",
     title: "Full Trọn Bộ 20+ Khóa Học Content Hay Nhất Thị Trường",
     subTitle:
       "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
@@ -186,6 +200,8 @@ export const aiCourses = [
       "https://khoahocre.com/wp-content/uploads/2025/05/Full-tron-bo-khoa-hoc-content-hay-nhat-2025.png",
   },
   {
+    id: "3212",
+
     title: "Khóa Học AI Agent Và N8n – Tự Động Hóa Công Việc",
     subTitle:
       "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
@@ -195,6 +211,8 @@ export const aiCourses = [
       "https://khoahocre.com/wp-content/uploads/2025/03/AI-gent-675x675.png",
   },
   {
+    id: "312xxxx",
+
     title: "Khóa Học AI Automation Topmax 2025",
     subTitle:
       "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
@@ -204,6 +222,8 @@ export const aiCourses = [
       "https://khoahocre.com/wp-content/uploads/2025/03/10xai-new-675x675.png",
   },
   {
+    id: "312",
+
     title: "Khóa Học Content AI & Automation – GTV SEO",
     subTitle:
       "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
@@ -213,6 +233,8 @@ export const aiCourses = [
       "https://khoahocre.com/wp-content/uploads/2025/05/n8n-Noti-675x675.png",
   },
   {
+    id: "312",
+
     title: "Khóa Học Content AI & Automation – GTV SEO",
     subTitle:
       "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
@@ -222,6 +244,52 @@ export const aiCourses = [
       "https://khoahocre.com/wp-content/uploads/2025/04/newn8n-675x675.png",
   },
   {
+    id: "312",
+
+    title: "Khóa Học Content AI & Automation – GTV SEO",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    price: "89.000 ₫",
+    oldPrice: "599.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/04/ChatGPT-Image-13_59_09-4-thg-4-2025-675x675.png",
+  },
+  {
+    id: "312",
+
+    title: "Khóa Học Content AI & Automation – GTV SEO",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    price: "89.000 ₫",
+    oldPrice: "599.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/04/newn8n-675x675.png",
+  },
+  {
+    id: "312",
+
+    title: "Khóa Học Content AI & Automation – GTV SEO",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    price: "89.000 ₫",
+    oldPrice: "599.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/04/ChatGPT-Image-13_59_09-4-thg-4-2025-675x675.png",
+  },
+  {
+    id: "312",
+
+    title: "Khóa Học Content AI & Automation – GTV SEO",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    price: "89.000 ₫",
+    oldPrice: "599.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/04/newn8n-675x675.png",
+  },
+  {
+    id: "312",
+
     title: "Khóa Học Content AI & Automation – GTV SEO",
     subTitle:
       "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
@@ -267,6 +335,7 @@ export const reasons = [
 
 export const blogs = [
   {
+    id: "2",
     title: "Cách Kiếm Tiền Youtube 0 Đồng Vốn Mới Nhất 2025",
     desc: "Hướng Dẫn Chi Tiết + Khóa Học Giá Rẻ Trong thời kỳ khó khăn",
     date: "30 Tháng 3, 2025",
@@ -275,6 +344,8 @@ export const blogs = [
       "https://khoahocre.com/wp-content/uploads/2024/05/1-6232-e1715960650863-360x360.jpg",
   },
   {
+    id: "1",
+
     title: "Top 10 Website Khóa Học Online Tốt Nhất 2025",
     desc: "Danh sách những trang học trực tuyến tốt nhất giúp bạn tiết kiệm thời gian và tiền bạc.",
     date: "25 Tháng 3, 2025",
@@ -283,6 +354,8 @@ export const blogs = [
       "https://khoahocre.com/wp-content/uploads/2024/05/1-6232-e1715960650863-360x360.jpg",
   },
   {
+    id: "1",
+
     title: "Cách Kiếm Tiền Youtube 0 Đồng Vốn Mới Nhất 2025",
     desc: "Hướng Dẫn Chi Tiết + Khóa Học Giá Rẻ Trong thời kỳ khó khăn",
     date: "30 Tháng 3, 2025",
@@ -291,6 +364,8 @@ export const blogs = [
       "https://khoahocre.com/wp-content/uploads/2024/05/1-6232-e1715960650863-360x360.jpg",
   },
   {
+    id: "1",
+
     title: "Cách Kiếm Tiền Youtube 0 Đồng Vốn Mới Nhất 2025",
     desc: "Hướng Dẫn Chi Tiết + Khóa Học Giá Rẻ Trong thời kỳ khó khăn",
     date: "30 Tháng 3, 2025",
@@ -299,6 +374,8 @@ export const blogs = [
       "https://khoahocre.com/wp-content/uploads/2024/05/1-6232-e1715960650863-360x360.jpg",
   },
   {
+    id: "1",
+
     title: "Cách Kiếm Tiền Youtube 0 Đồng Vốn Mới Nhất 2025",
     desc: "Hướng Dẫn Chi Tiết + Khóa Học Giá Rẻ Trong thời kỳ khó khăn",
     date: "30 Tháng 3, 2025",
@@ -307,6 +384,8 @@ export const blogs = [
       "https://khoahocre.com/wp-content/uploads/2024/05/1-6232-e1715960650863-360x360.jpg",
   },
   {
+    id: "1",
+
     title: "Top 10 Website Khóa Học Online Tốt Nhất 2025",
     desc: "Danh sách những trang học trực tuyến tốt nhất giúp bạn tiết kiệm thời gian và tiền bạc.",
     date: "25 Tháng 3, 2025",
@@ -315,6 +394,8 @@ export const blogs = [
       "https://khoahocre.com/wp-content/uploads/2024/05/1-6232-e1715960650863-360x360.jpg",
   },
   {
+    id: "1",
+
     title: "Cách Kiếm Tiền Youtube 0 Đồng Vốn Mới Nhất 2025",
     desc: "Hướng Dẫn Chi Tiết + Khóa Học Giá Rẻ Trong thời kỳ khó khăn",
     date: "30 Tháng 3, 2025",
@@ -323,6 +404,8 @@ export const blogs = [
       "https://khoahocre.com/wp-content/uploads/2024/05/1-6232-e1715960650863-360x360.jpg",
   },
   {
+    id: "1",
+
     title: "Cách Kiếm Tiền Youtube 0 Đồng Vốn Mới Nhất 2025",
     desc: "Hướng Dẫn Chi Tiết + Khóa Học Giá Rẻ Trong thời kỳ khó khăn",
     date: "30 Tháng 3, 2025",

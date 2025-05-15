@@ -6,8 +6,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
+import { Link } from "react-router";
 
-const CoursesTop = () => {
+const YouTube = () => {
   const youtubeMiniSwiperRef = useRef<SwiperClass | null>(null);
 
   const scroll = (swiper: SwiperClass | null, dir: "left" | "right") => {
@@ -47,7 +48,7 @@ const CoursesTop = () => {
                   className="w-full h-52 sm:h-72 object-cover rounded"
                 />
                 <h3 className="text-base h-14 line-clamp-2 font-semibold mt-2">
-                  {course.title}
+                  <Link to={`/youtube`}> {course.title}</Link>
                 </h3>
                 <div className="text-sm line-clamp-2">{course.subTitle}</div>
                 <div className="flex items-center gap-2 p-2">
@@ -58,10 +59,12 @@ const CoursesTop = () => {
                     {course.price}
                   </div>
                 </div>
-                <button className="hover:underline bg-primary cursor-pointer text-secondary px-4 py-2 mt-2 rounded w-full text-sm flex items-center justify-center gap-2 ">
-                  <Youtube className="w-5 h-5 text-base" />
-                  Vào Học Ngay
-                </button>
+                <Link
+                  className="hover:underline !text-black bg-primary cursor-pointer p-2 mt-2 rounded w-full text-base flex items-center justify-center gap-2"
+                  to={`/youtube`}
+                >
+                  <Youtube className="w-5 h-5 text-base" /> Vào học ngay
+                </Link>
               </div>
             </SwiperSlide>
           ))}
@@ -84,4 +87,4 @@ const CoursesTop = () => {
     </div>
   );
 };
-export default CoursesTop;
+export default YouTube;

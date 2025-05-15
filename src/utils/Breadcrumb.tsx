@@ -17,21 +17,21 @@ const Breadcrumbs = () => {
   });
 
   return (
-    <div className="text-sm text-gray-500 mb-4">
-      <Link href="/" className="hover:underline text-blue-600">
+    <div className="text-sm flex items-center gap-2 text-muted-foreground">
+      <Link href="/" className="hover:underline text-primary">
         Trang chủ
       </Link>
       {pathArray.map((item, idx) => (
-        <span key={idx}>
-          {" > "}
+        <div key={idx} className="flex items-center gap-2">
+          <span className="text-gray-400">{">"}</span>
           {idx === pathArray.length - 1 ? (
-            <span className="text-gray-700">{item.label}</span>
+            <span>{item.label}</span>
           ) : (
-            <Link href={item.href} className="hover:underline text-blue-600">
+            <Link href={item.href} className="hover:underline text-primary">
               {item.label}
             </Link>
           )}
-        </span>
+        </div>
       ))}
     </div>
   );

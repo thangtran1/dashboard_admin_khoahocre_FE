@@ -1,7 +1,8 @@
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-import { ChevronLeft, ChevronRight, Youtube } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Youtube } from "lucide-react";
 import { useRef } from "react";
 import { aiCourses } from "./dataExport";
+import { Link } from "react-router";
 
 const TipsAi = () => {
   const aiSwiperRef = useRef<SwiperClass | null>(null); // ✔ AI
@@ -16,9 +17,12 @@ const TipsAi = () => {
         <h2 className="text-2xl font-bold">
           <span className="text-blue-600">Bí Kíp Làm Chủ AI</span> Từ A-Z
         </h2>
-        <button className="w-9 h-9 rounded-full border flex items-center justify-center">
-          <ChevronRight className="w-5 h-5" />
-        </button>
+        <Link
+          to={"/tips-ai"}
+          className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
+        >
+          Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
+        </Link>
       </div>
 
       <div className="relative">
@@ -43,7 +47,7 @@ const TipsAi = () => {
                   className="w-full h-52 sm:h-72 object-cover rounded"
                 />
                 <h3 className="text-base h-14 line-clamp-2 font-semibold mt-2">
-                  {course.title}
+                  <Link to={`/tips-ai`}> {course.title}</Link>
                 </h3>
                 <div className="text-sm line-clamp-2">{course.subTitle}</div>
                 <div className="flex items-center gap-2 p-2">
@@ -54,10 +58,14 @@ const TipsAi = () => {
                     {course.price}
                   </div>
                 </div>
-                <button className="hover:underline bg-primary cursor-pointer text-secondary px-4 py-2 mt-2 rounded w-full text-sm flex items-center justify-center gap-2 ">
-                  <Youtube className="w-5 h-5 text-base" />
-                  Vào Học Ngay
-                </button>
+                <div className="bg-primary">
+                  <Link
+                    className="hover:underline !text-black bg-primary cursor-pointer p-2 mt-2 rounded w-full text-base flex items-center justify-center gap-2"
+                    to={`/tips-ai`}
+                  >
+                    <Youtube className="w-5 h-5 text-base" /> Vào học ngay
+                  </Link>
+                </div>
               </div>
             </SwiperSlide>
           ))}
