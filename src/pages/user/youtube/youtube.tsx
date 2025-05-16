@@ -22,7 +22,9 @@ const YoutubePage = () => {
         <Breadcrumbs />
       </div>
 
-      <h2 className="text-2xl font-bold mb-6">Danh Sách Bài Viết</h2>
+      <h2 className="text-2xl font-bold mb-6">
+        Youtube Kiếm Nghìn $ Mỗi Tháng
+      </h2>
 
       <div className="xl:flex xl:gap-6">
         {/* Grid blog - chiếm 3 cột */}

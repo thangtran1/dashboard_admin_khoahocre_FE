@@ -4,14 +4,14 @@ import { Pagination } from "@heroui/react";
 import Breadcrumbs from "@/utils/Breadcrumb";
 import { Link } from "react-router";
 import { SiderBarDetail } from "../public/siderbarDetail";
-import { aiCourses } from "../public/dataExport";
+import { Categories } from "../public/dataExport";
 
-const TipsAiPage = () => {
+const ListTopicsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 9;
 
-  const totalPages = Math.ceil(aiCourses.length / pageSize);
-  const paginatedBlogs = aiCourses.slice(
+  const totalPages = Math.ceil(Categories.length / pageSize);
+  const paginatedBlogs = Categories.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
@@ -22,35 +22,37 @@ const TipsAiPage = () => {
         <Breadcrumbs />
       </div>
 
-      <h2 className="text-2xl font-bold mb-6">Bí Kíp Làm Chủ AI Từ A-Z</h2>
+      <h2 className="text-2xl font-bold mb-6">Danh Sách Chủ Đề</h2>
 
       <div className="xl:flex xl:gap-6">
         {/* Grid blog - chiếm 3 cột */}
         <div className="w-full xl:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {paginatedBlogs.map((aiCourses, idx) => (
+          {paginatedBlogs.map((Categories, idx) => (
             <div
               key={idx}
               className="bg-background border shadow rounded-lg overflow-hidden"
             >
               <img
-                src={aiCourses.image}
-                alt={aiCourses.title}
+                src={Categories.image}
+                alt={Categories.title}
                 className="w-full h-56 object-cover"
               />
               <div className="p-3">
                 <h3 className="text-base font-semibold line-clamp-2">
-                  <Link to={`/tips-ai/${aiCourses.id}`}>{aiCourses.title}</Link>
+                  <Link to={`/danh-sách-chủ-đề/${Categories.id}`}>
+                    {Categories.title}
+                  </Link>
                 </h3>
                 <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                  {aiCourses.subTitle}
+                  {Categories.title}
                 </p>
                 <div className="text-xs text-gray-500 flex items-center gap-2 mt-2">
-                  <span>🏷 {aiCourses.oldPrice}</span>
-                  <span>📅 {aiCourses.price}</span>
+                  <span>🏷 {Categories.title}</span>
+                  <span>📅 {Categories.title}</span>
                 </div>
                 <Link
-                  to={`/tips-ai/${aiCourses.id}`}
-                  state={{ aiCourses }}
+                  to={`/danh-sách-chủ-đề/${Categories.id}`}
+                  state={{ Categories }}
                   className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
                 >
                   Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
@@ -87,4 +89,4 @@ const TipsAiPage = () => {
   );
 };
 
-export default TipsAiPage;
+export default ListTopicsPage;

@@ -103,51 +103,60 @@ export const CourseData = [
 
 export const Categories = [
   {
+    id: "123",
     title: "Công Nghệ Thông Tin",
     count: 33,
     image:
       "https://khoahocre.com/wp-content/uploads/2024/05/2150041859-380x126.jpg",
   },
   {
+    id: "123",
     title: "Data",
     count: 14,
     image:
       "https://khoahocre.com/wp-content/uploads/2024/07/data-analyst-can-hoc-gi-hoc-data-analyst-bat-dau-tu-dau-2-380x126.jpg",
   },
   {
+    id: "123",
     title: "Đầu Tư",
     count: 69,
     image:
       "https://khoahocre.com/wp-content/uploads/2024/01/coaching-category-1-380x126.jpg",
   },
   {
+    id: "123",
     title: "Facebook",
     count: 11,
     image: "https://khoahocre.com/wp-content/uploads/2024/08/65406-380x126.jpg",
   },
   {
+    id: "123",
     title: "Group Buy",
     count: 14,
     image:
       "https://khoahocre.com/wp-content/uploads/2023/06/about-us-new-1-1-380x126.jpg",
   },
   {
+    id: "123",
     title: "Kinh Doanh",
     count: 12,
     image: "https://khoahocre.com/wp-content/uploads/2024/05/1517-380x126.jpg",
   },
   {
+    id: "123",
     title: "Kỹ Năng",
     count: 20,
     image:
       "https://khoahocre.com/wp-content/uploads/2023/06/about-us-new-2-1-380x126.jpg",
   },
   {
+    id: "123",
     title: "Marketing",
     count: 69,
     image: "https://khoahocre.com/wp-content/uploads/2024/05/1517-380x126.jpg",
   },
   {
+    id: "123",
     title: "MMO - Kiếm Tiền Online",
     count: 34,
     image:

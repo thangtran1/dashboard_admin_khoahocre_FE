@@ -17,6 +17,12 @@ import TipsAiPage from "@/pages/user/tips-ai/tips-ai";
 import TipsAiDetail from "@/pages/user/tips-ai/tips-ai-detail";
 import YoutubePage from "@/pages/user/youtube/youtube";
 import YoutubeDetail from "@/pages/user/youtube/youtube-detail";
+import CartPage from "@/pages/user/cart";
+import CheckoutPage from "@/pages/user/checkout";
+import CheckoutConfirmPage from "@/pages/user/checkout/confirm";
+import CheckoutSuccessPage from "@/pages/user/checkout/success";
+import ListTopicsPage from "@/pages/user/listTopics/list-topics";
+import ListTopicsDetail from "@/pages/user/listTopics/list-topics-detail";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -86,6 +92,25 @@ export default function Router() {
         children: [
           { index: true, element: <YoutubePage /> },
           { path: ":id", element: <YoutubeDetail /> },
+        ],
+      },
+      {
+        path: "danh-sách-chủ-đề",
+        children: [
+          { index: true, element: <ListTopicsPage /> },
+          { path: ":id", element: <ListTopicsDetail /> },
+        ],
+      },
+      {
+        path: "cart",
+        children: [{ index: true, element: <CartPage /> }],
+      },
+      {
+        path: "thanh-toan",
+        children: [
+          { index: true, element: <CheckoutPage /> }, // điền form
+          { path: "xac-nhan", element: <CheckoutConfirmPage /> }, // xác nhận
+          { path: "thanh-cong", element: <CheckoutSuccessPage /> }, // kết thúc
         ],
       },
       // Thêm các route con khác tại đây

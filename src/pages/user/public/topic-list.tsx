@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Categories } from "./dataExport";
+import { Link } from "react-router";
 
 const TopicList = () => {
   return (
@@ -9,9 +10,12 @@ const TopicList = () => {
           <h1 className="text-3xl font-bold">
             Danh Sách <span className="text-blue-600">Chủ Đề</span>
           </h1>
-          <button className="text-sm font-medium text-blue-600 hover:underline inline-flex items-center">
+          <Link
+            to={"/danh-sách-chủ-đề"}
+            className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
+          >
             Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
-          </button>
+          </Link>
         </div>
 
         <p className="text-sm text-gray-500 mb-6">Bạn đang quan tâm gì?</p>
@@ -29,10 +33,10 @@ const TopicList = () => {
               />
               <div className="text-center py-3">
                 <h3 className="font-bold hover:underline hover:text-primary cursor-pointer text-lg ">
-                  {cat.title}
+                  <Link to={"/danh-sách-chủ-đề"}> {cat.title}</Link>
                 </h3>
                 <p className="text-base cursor-pointer text-primary">
-                  {cat.count} Khóa Học
+                  <Link to={"/danh-sách-chủ-đề"}> {cat.count} Khóa Học</Link>
                 </p>
               </div>
             </div>

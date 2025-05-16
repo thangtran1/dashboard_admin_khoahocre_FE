@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Youtube } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Youtube } from "lucide-react";
 import { CourseData } from "./dataExport";
 import { useRef } from "react";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
@@ -21,9 +21,12 @@ const YouTube = () => {
         <h2 className="text-2xl font-bold">
           <span className="text-red-500">Youtube</span> Kiếm Nghìn $ Mỗi Tháng
         </h2>
-        <button className="w-9 h-9 rounded-full border flex items-center justify-center">
-          <ChevronRight className="w-5 h-5" />
-        </button>
+        <Link
+          to={`/youtube`}
+          className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
+        >
+          Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
+        </Link>
       </div>
 
       <div className="relative">

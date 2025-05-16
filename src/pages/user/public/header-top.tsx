@@ -2,6 +2,7 @@ import { Button } from "@heroui/react";
 import { Image } from "antd";
 import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
+import CartDropdown from "../cart/CartDropdown";
 
 const HeaderTop = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,10 +43,7 @@ const HeaderTop = () => {
             </div>
 
             <div className="relative">
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-                0
-              </span>
+              <CartDropdown />
             </div>
 
             <div className="hidden md:flex items-center gap-1 ml-4">
