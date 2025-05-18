@@ -3,15 +3,31 @@
 import { usePathname } from "@/router/hooks";
 import { Link } from "@heroui/react";
 
+const breadcrumbMap: Record<string, string> = {
+  "gioi-thieu": "Giới thiệu",
+  contact: "Liên hệ",
+  "ho-so": "Hồ sơ",
+  "wish-list": "Danh sách yêu thích",
+  "list-topics": "Danh sách chủ đề",
+  "tips-ai": "Bí kíp làm chủ ai",
+  blog: "Danh sách bài viết",
+};
+
 const Breadcrumbs = () => {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
 
   const pathArray = segments.map((seg, index) => {
+    const isCustom = breadcrumbMap.hasOwnProperty(seg);
+    const capitalizeFirst = (str: string) =>
+      str.charAt(0).toUpperCase() + str.slice(1);
+    const rawLabel = isCustom
+      ? breadcrumbMap[seg]
+      : decodeURIComponent(seg.replace(/-/g, " "));
+    const label = isCustom ? rawLabel : capitalizeFirst(rawLabel); // <-- dòng mới
+
     return {
-      label: decodeURIComponent(seg.replace(/-/g, " ")).replace(/\b\w/g, (l) =>
-        l.toUpperCase()
-      ),
+      label,
       href: "/" + segments.slice(0, index + 1).join("/"),
     };
   });

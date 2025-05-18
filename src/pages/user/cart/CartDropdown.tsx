@@ -12,7 +12,7 @@ const cartItems = [
     quantity: 1,
   },
   {
-    id: "fb-ads",
+    id: "fb-adss",
     title: "Facebook Ads 2025",
     image:
       "https://khoahocre.com/wp-content/uploads/2025/05/Facebook-ads-Noti-360x360.png",
@@ -20,7 +20,7 @@ const cartItems = [
     quantity: 1,
   },
   {
-    id: "fb-ads",
+    id: "fb-adsss",
     title: "Facebook Ads 2025",
     image:
       "https://khoahocre.com/wp-content/uploads/2025/05/Facebook-ads-Noti-360x360.png",
@@ -28,7 +28,7 @@ const cartItems = [
     quantity: 1,
   },
   {
-    id: "fb-ads",
+    id: "fb-adssss",
     title: "Facebook Ads 2025",
     image:
       "https://khoahocre.com/wp-content/uploads/2025/05/Facebook-ads-Noti-360x360.png",
@@ -36,7 +36,7 @@ const cartItems = [
     quantity: 1,
   },
   {
-    id: "fb-ads",
+    id: "fb-adsssss",
     title: "Facebook Ads 2025",
     image:
       "https://khoahocre.com/wp-content/uploads/2025/05/Facebook-ads-Noti-360x360.png",
@@ -44,7 +44,7 @@ const cartItems = [
     quantity: 1,
   },
   {
-    id: "fb-ads",
+    id: "fb-adssssss",
     title: "Facebook Ads 2025",
     image:
       "https://khoahocre.com/wp-content/uploads/2025/05/Facebook-ads-Noti-360x360.png",

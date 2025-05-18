@@ -1,15 +1,24 @@
-import { ArrowRight, ChevronLeft, ChevronRight, Youtube } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+  Youtube,
+} from "lucide-react";
 import { CourseData } from "./dataExport";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
 import { Link } from "react-router";
+import { useFavoriteStore } from "@/store/favoriteStore";
 
 const YouTube = () => {
   const youtubeMiniSwiperRef = useRef<SwiperClass | null>(null);
+
+  const { favorites, addFavorite, removeFavorite } = useFavoriteStore();
 
   const scroll = (swiper: SwiperClass | null, dir: "left" | "right") => {
     if (!swiper) return;
@@ -42,35 +51,63 @@ const YouTube = () => {
             youtubeMiniSwiperRef.current = swiper;
           }}
         >
-          {CourseData.map((course, idx) => (
-            <SwiperSlide key={idx}>
-              <div className="bg-muted rounded-lg border shadow p-2">
-                <img
-                  src={course.image}
-                  alt="course"
-                  className="w-full h-52 sm:h-72 object-cover rounded"
-                />
-                <h3 className="text-base h-14 line-clamp-2 font-semibold mt-2">
-                  <Link to={`/youtube`}> {course.title}</Link>
-                </h3>
-                <div className="text-sm line-clamp-2">{course.subTitle}</div>
-                <div className="flex items-center gap-2 p-2">
-                  <div className="text-xl text-error line-through">
-                    {course.oldPrice}
+          {CourseData.map((course, idx) => {
+            const isFavorite = favorites.some((f) => f.id === course.id);
+
+            const toggleFavorite = () => {
+              if (isFavorite) {
+                removeFavorite(course.id);
+              } else {
+                addFavorite(course);
+              }
+            };
+
+            return (
+              <SwiperSlide key={idx}>
+                <div className="bg-muted rounded-lg border shadow p-2 relative overflow-hidden">
+                  {/* Icon trái tim */}
+                  <button
+                    onClick={toggleFavorite}
+                    className="absolute top-2 right-2 z-10 bg-white/90 p-1 rounded-full shadow hover:bg-white transition"
+                  >
+                    <Heart
+                      className={`w-5 h-5 ${
+                        isFavorite
+                          ? "text-red-500 fill-red-500"
+                          : "text-gray-400"
+                      }`}
+                      fill={isFavorite ? "currentColor" : "none"}
+                    />
+                  </button>
+
+                  {/* Hình ảnh */}
+                  <img
+                    src={course.image}
+                    alt="course"
+                    className="w-full h-52 sm:h-72 object-cover rounded"
+                  />
+                  <h3 className="text-base h-14 line-clamp-2 font-semibold mt-2">
+                    <Link to={`/youtube`}> {course.title}</Link>
+                  </h3>
+                  <div className="text-sm line-clamp-2">{course.subTitle}</div>
+                  <div className="flex items-center gap-2 p-2">
+                    <div className="text-xl text-error line-through">
+                      {course.oldPrice}
+                    </div>
+                    <div className="text-blue-600 text-xl font-bold">
+                      {course.price}
+                    </div>
                   </div>
-                  <div className="text-blue-600 text-xl font-bold">
-                    {course.price}
-                  </div>
+                  <Link
+                    className="hover:underline bg-primary cursor-pointer p-2 mt-2 rounded w-full text-base flex items-center justify-center gap-2"
+                    to={`/youtube`}
+                  >
+                    <Youtube className="w-5 h-5 text-base" /> Vào học ngay
+                  </Link>
                 </div>
-                <Link
-                  className="hover:underline !text-black bg-primary cursor-pointer p-2 mt-2 rounded w-full text-base flex items-center justify-center gap-2"
-                  to={`/youtube`}
-                >
-                  <Youtube className="w-5 h-5 text-base" /> Vào học ngay
-                </Link>
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
 
         <button

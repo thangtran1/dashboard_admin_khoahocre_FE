@@ -39,7 +39,7 @@ const ListTopicsPage = () => {
               />
               <div className="p-3">
                 <h3 className="text-base font-semibold line-clamp-2">
-                  <Link to={`/danh-sách-chủ-đề/${Categories.id}`}>
+                  <Link to={`/list-topics/${Categories.id}`}>
                     {Categories.title}
                   </Link>
                 </h3>
@@ -51,7 +51,7 @@ const ListTopicsPage = () => {
                   <span>📅 {Categories.title}</span>
                 </div>
                 <Link
-                  to={`/danh-sách-chủ-đề/${Categories.id}`}
+                  to={`/list-topics/${Categories.id}`}
                   state={{ Categories }}
                   className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
                 >

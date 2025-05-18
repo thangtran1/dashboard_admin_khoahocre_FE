@@ -23,6 +23,10 @@ import CheckoutConfirmPage from "@/pages/user/checkout/confirm";
 import CheckoutSuccessPage from "@/pages/user/checkout/success";
 import ListTopicsPage from "@/pages/user/listTopics/list-topics";
 import ListTopicsDetail from "@/pages/user/listTopics/list-topics-detail";
+import WishList from "@/pages/user/wishList";
+import UserProfile from "@/pages/user/profile";
+import Introduce from "@/pages/user/information/introduce";
+import Contact from "@/pages/user/information/contact";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -95,7 +99,7 @@ export default function Router() {
         ],
       },
       {
-        path: "danh-sách-chủ-đề",
+        path: "list-topics",
         children: [
           { index: true, element: <ListTopicsPage /> },
           { path: ":id", element: <ListTopicsDetail /> },
@@ -113,6 +117,23 @@ export default function Router() {
           { path: "thanh-cong", element: <CheckoutSuccessPage /> }, // kết thúc
         ],
       },
+      {
+        path: "wish-list",
+        children: [{ index: true, element: <WishList /> }],
+      },
+      {
+        path: "ho-so",
+        children: [{ index: true, element: <UserProfile /> }],
+      },
+      {
+        path: "gioi-thieu",
+        children: [{ index: true, element: <Introduce /> }],
+      },
+      {
+        path: "contact",
+        children: [{ index: true, element: <Contact /> }],
+      },
+
       // Thêm các route con khác tại đây
     ],
   };

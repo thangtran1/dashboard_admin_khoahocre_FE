@@ -11,7 +11,7 @@ const TopicList = () => {
             Danh Sách <span className="text-blue-600">Chủ Đề</span>
           </h1>
           <Link
-            to={"/danh-sách-chủ-đề"}
+            to={"/list-topics"}
             className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
           >
             Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
@@ -33,10 +33,10 @@ const TopicList = () => {
               />
               <div className="text-center py-3">
                 <h3 className="font-bold hover:underline hover:text-primary cursor-pointer text-lg ">
-                  <Link to={"/danh-sách-chủ-đề"}> {cat.title}</Link>
+                  <Link to={"/list-topics"}> {cat.title}</Link>
                 </h3>
                 <p className="text-base cursor-pointer text-primary">
-                  <Link to={"/danh-sách-chủ-đề"}> {cat.count} Khóa Học</Link>
+                  <Link to={"/list-topics"}> {cat.count} Khóa Học</Link>
                 </p>
               </div>
             </div>

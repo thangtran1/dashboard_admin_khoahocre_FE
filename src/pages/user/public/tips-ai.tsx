@@ -58,14 +58,12 @@ const TipsAi = () => {
                     {course.price}
                   </div>
                 </div>
-                <div className="bg-primary">
-                  <Link
-                    className="hover:underline !text-black bg-primary cursor-pointer p-2 mt-2 rounded w-full text-base flex items-center justify-center gap-2"
-                    to={`/tips-ai`}
-                  >
-                    <Youtube className="w-5 h-5 text-base" /> Vào học ngay
-                  </Link>
-                </div>
+                <Link
+                  className="hover:underline bg-primary cursor-pointer p-2 mt-2 rounded w-full text-base flex items-center justify-center gap-2"
+                  to={`/tips-ai`}
+                >
+                  <Youtube className="w-5 h-5 text-base" /> Vào học ngay
+                </Link>
               </div>
             </SwiperSlide>
           ))}
