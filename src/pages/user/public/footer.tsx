@@ -10,8 +10,28 @@ import {
   Phone,
   Youtube,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
+  const [scrollPercent, setScrollPercent] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const percent = Math.min((scrollTop / docHeight) * 100, 100);
+      setScrollPercent(percent);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const radius = 22;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset =
+    circumference - (scrollPercent / 100) * circumference;
   return (
     <>
       <footer className="bg-background text-foreground">
@@ -187,13 +207,29 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Nút scroll lên đầu */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-16 right-8 z-50 w-12 h-12 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition flex items-center justify-center"
-        >
-          <ChevronUp size={22} />
-        </button>
+        {scrollPercent > 0 && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-14 right-8 z-50 w-14 h-14 rounded-full bg-background border border-border text-primary hover:bg-primary hover:text-white transition flex items-center justify-center"
+          >
+            <svg
+              className="absolute w-full h-full rotate-[-90deg]"
+              viewBox="0 0 50 50"
+            >
+              <circle
+                cx="25"
+                cy="25"
+                r={radius}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray={circumference}
+                strokeDashoffset={strokeDashoffset}
+              />
+            </svg>
+            <ChevronUp size={22} className="relative z-10" />
+          </button>
+        )}
       </div>
     </>
   );

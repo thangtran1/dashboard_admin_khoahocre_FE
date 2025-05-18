@@ -27,6 +27,8 @@ import WishList from "@/pages/user/wishList";
 import UserProfile from "@/pages/user/profile";
 import Introduce from "@/pages/user/information/introduce";
 import Contact from "@/pages/user/information/contact";
+import { BuyCourse } from "@/pages/user/information/buyCourse";
+import { ClearCache } from "@/pages/user/clear-cache";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -132,6 +134,14 @@ export default function Router() {
       {
         path: "contact",
         children: [{ index: true, element: <Contact /> }],
+      },
+      {
+        path: "buy-course",
+        children: [{ index: true, element: <BuyCourse /> }],
+      },
+      {
+        path: "clear-cache",
+        children: [{ index: true, element: <ClearCache /> }],
       },
 
       // Thêm các route con khác tại đây

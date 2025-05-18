@@ -11,6 +11,8 @@ const breadcrumbMap: Record<string, string> = {
   "list-topics": "Danh sách chủ đề",
   "tips-ai": "Bí kíp làm chủ ai",
   blog: "Danh sách bài viết",
+  "buy-course": "Hướng dẫn mua khóa học",
+  "clear-cache": "Xóa bộ nhớ đệm trình duyệt",
 };
 
 const Breadcrumbs = () => {

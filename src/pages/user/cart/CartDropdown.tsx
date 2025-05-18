@@ -1,7 +1,7 @@
 import { ShoppingCart, X } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router";
 
-// ✅ Tạm mock cartItems, sau có thể dùng Zustand
 const cartItems = [
   {
     id: "fx-dream",
@@ -54,14 +54,19 @@ const cartItems = [
 ];
 
 export default function CartDropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
   return (
-    <div className="relative group">
-      <div className="cursor-pointer">
+    <div className="relative group md:static">
+      <div
+        className="cursor-pointer flex items-center gap-1"
+        onClick={() => setIsOpen((prev: boolean) => !prev)}
+      >
         <ShoppingCart className="w-5 h-5" />
         <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
           {cartItems.length}
@@ -69,17 +74,17 @@ export default function CartDropdown() {
       </div>
 
       <div
-        className="absolute right-0 top-5 z-50 w-[320px] bg-background border shadow-lg rounded-xl p-4
-    opacity-0 pointer-events-none
-    group-hover:opacity-100 group-hover:pointer-events-auto
-    transition-all duration-200"
+        className={`
+    absolute right-0 top-5 z-50 w-[320px] bg-background border shadow-lg rounded-xl p-4
+    transition-all duration-200
+    ${
+      isOpen
+        ? "opacity-100 pointer-events-auto"
+        : "opacity-0 pointer-events-none"
+    }
+    md:group-hover:opacity-100 md:group-hover:pointer-events-auto
+  `}
       >
-        {/* <div  DEBUG AUTO OPEN
-        className="absolute right-0 top-5 z-50 w-[320px] bg-background border shadow-lg rounded-xl p-4
-    opacity-100 pointer-events-auto
-    transition-all duration-200"
-      > */}
-
         <div className="space-y-3 text-sm text-foreground max-h-[320px] overflow-y-auto">
           {cartItems.map((item) => (
             <div key={item.id} className="flex items-start gap-3 border-b pb-3">
@@ -115,12 +120,14 @@ export default function CartDropdown() {
           <Link
             to="/cart"
             className="w-1/2 border border-primary text-center py-2 rounded-lg text-sm"
+            onClick={() => setIsOpen(false)}
           >
             Xem giỏ hàng
           </Link>
           <Link
             to="/thanh-toan"
             className="w-1/2 border border-primary text-center py-2 rounded-lg text-sm"
+            onClick={() => setIsOpen(false)}
           >
             Thanh toán
           </Link>

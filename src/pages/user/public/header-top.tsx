@@ -17,10 +17,20 @@ import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserInfo, useUserToken } from "@/store/userStore";
 import { useFavoriteStore } from "@/store/favoriteStore";
 import { toast } from "sonner";
+import { Link } from "react-router";
+
+const navLinks = [
+  { label: "Trang Chủ", href: "/", className: "text-primary font-semibold" },
+  { label: "Shop Khóa Học Rẻ", href: "/shop" },
+  { label: "Khóa Học Free", href: "/free" },
+  { label: "Gói Hội Viên", href: "/goi-hoi-vien" },
+  { label: "Combo Tiết Kiệm", href: "/combo" },
+];
 
 const HeaderTop = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
+  const [subGuideOpen, setSubGuideOpen] = useState(false);
   const router = useRouter();
   const { accessToken } = useUserToken();
   const { username } = useUserInfo();
@@ -29,11 +39,7 @@ const HeaderTop = () => {
   const { favorites } = useFavoriteStore();
 
   const handleClick = () => {
-    if (accessToken) {
-      router.push("/blog");
-    } else {
-      router.push("/login");
-    }
+    router.push("/login");
   };
 
   const handleLogout = () => {
@@ -175,7 +181,9 @@ const HeaderTop = () => {
                   onClick={handleClick}
                 >
                   <User className="w-5 h-5" />
-                  <span className="font-semibold">Đăng Nhậpp</span>
+                  <Link to={"/login"}>
+                    <span className="font-semibold">Đăng Nhập</span>
+                  </Link>
                 </div>
               ) : (
                 <div
@@ -253,17 +261,19 @@ const HeaderTop = () => {
           </div>
         </div>
 
-        <nav className="hidden md:flex items-center gap-10 mt-4 text-sm font-medium relative">
+        <nav className="hidden md:flex items-center gap-10 mt-4 text-sm font-medium whitespace-nowrap relative">
           <Button className="bg-primary text-primary-foreground px-4 py-2 rounded-md">
             Danh Mục Khóa Học
           </Button>
-          <a href="/" className="text-primary font-semibold">
-            Trang Chủ
-          </a>
-          <a href="/">Shop Khóa Học Rẻ</a>
-          <a href="/">Khóa Học Free</a>
-          <a href="/">Gói Hội Viên</a>
-          <a href="/">Combo Tiết Kiệm</a>
+          {navLinks.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className={item.className || ""}
+            >
+              {item.label}
+            </a>
+          ))}
 
           {/* Dropdown Thông Tin */}
           <div className="relative group">
@@ -289,28 +299,22 @@ const HeaderTop = () => {
 
                 {/* Chính sách bảo mật lồng trong dropdown cha */}
                 <div className="w-full group/sub">
-                  <button className="w-full text-left flex justify-between items-center px-4 py-2 hover:bg-gray-100">
-                    Chính sách bảo mật
+                  <button className="w-full text-left flex justify-between items-center px-4 py-2 hover:bg-background">
+                    Hướng dẫn
                     <span className="text-sm">▸</span>
                   </button>
                   <div className="hidden group-hover/sub:block ml-4 border-l border-border pl-2">
                     <a
-                      href="/policy/data"
+                      href="/buy-course"
                       className="block px-4 py-2 text-sm hover:bg-gray-100"
                     >
-                      Chính sách dữ liệu
+                      Hướng dẫn mua khóa học
                     </a>
                     <a
-                      href="/policy/payment"
+                      href="/clear-cache"
                       className="block px-4 py-2 text-sm hover:bg-gray-100"
                     >
-                      Chính sách thanh toán
-                    </a>
-                    <a
-                      href="/policy/delete"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100"
-                    >
-                      Hủy tài khoản
+                      Hướng dẫn xóa bộ nhớ đệm trình duyệtttt
                     </a>
                   </div>
                 </div>
@@ -334,13 +338,15 @@ const HeaderTop = () => {
               </div>
 
               <nav className="flex flex-col gap-4 px-4 py-6 text-sm font-medium">
-                <a href="/" className="text-primary">
-                  Trang Chủ
-                </a>
-                <a href="/">Shop Khóa Học Rẻ</a>
-                <a href="/">Khóa Học Free</a>
-                <a href="/">Combo Tiết Kiệm</a>
-                <a href="/">Gói Hội Viên</a>
+                {navLinks.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={item.className || ""}
+                  >
+                    {item.label}
+                  </a>
+                ))}
 
                 {/* Dropdown Thông Tin */}
                 <div>
@@ -372,19 +378,41 @@ const HeaderTop = () => {
                         <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
                         Liên hệ
                       </a>
-                      <a
-                        href="/about"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                        Chính sách bảo mật
-                      </a>
+                      <div>
+                        <button
+                          onClick={() => setSubGuideOpen((prev) => !prev)}
+                          className="flex items-center justify-between w-full text-left hover:text-primary"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
+                            Hướng dẫn
+                          </div>
+                          <span className="text-sm">
+                            {subGuideOpen ? "▾" : "▸"}
+                          </span>
+                        </button>
+                        {subGuideOpen && (
+                          <div className="ml-4 mt-2 flex flex-col gap-2 text-gray-500 text-[13px]">
+                            <a
+                              href="/buy-course"
+                              className="flex items-center gap-2 hover:text-primary"
+                            >
+                              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
+                              Hướng dẫn mua khóa học
+                            </a>
+                            <a
+                              href="/huong-dan/kich-hoat"
+                              className="flex items-center gap-2 hover:text-primary"
+                            >
+                              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
+                              Hướng dẫn xóa bộ nhớ đệm trình duyệt
+                            </a>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
-
-                <a href="/">Hướng Dẫn Mua Khóa Học</a>
-                <a href="/">Đăng Ký</a>
               </nav>
             </div>
           </>
