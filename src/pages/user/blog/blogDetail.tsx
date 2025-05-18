@@ -1,5 +1,6 @@
 import { blogs } from "@/pages/user/public/dataExport";
 import Breadcrumbs from "@/utils/Breadcrumb";
+import { inputClass } from "@/utils/use-always";
 import { Divider } from "@heroui/react";
 import { BookOpen, ChevronDown, Eye, Star, Users } from "lucide-react";
 import { useRef, useState } from "react";
@@ -463,7 +464,7 @@ export default function BlogDetail() {
                   type="text"
                   placeholder="Tên *"
                   required
-                  className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+                  className={inputClass}
                 />
                 <input
                   name="email"
@@ -472,7 +473,7 @@ export default function BlogDetail() {
                   type="email"
                   placeholder="Email *"
                   required
-                  className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+                  className={inputClass}
                 />
                 <input
                   name="website"
@@ -481,7 +482,7 @@ export default function BlogDetail() {
                   type="text"
                   placeholder="Trang web *"
                   required
-                  className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+                  className={inputClass}
                 />
               </div>
 

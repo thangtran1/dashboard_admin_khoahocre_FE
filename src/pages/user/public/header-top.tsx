@@ -267,24 +267,54 @@ const HeaderTop = () => {
 
           {/* Dropdown Thông Tin */}
           <div className="relative group">
-            <button className="cursor-pointer text-primary">Thông Tin ▾</button>
+            <div className="relative">
+              <button className="cursor-pointer text-primary">
+                Thông Tin ▾
+              </button>
 
-            <div className="absolute top-full left-0  hidden min-w-[200px] rounded-md border bg-background shadow-lg group-hover:block z-50">
-              <a
-                href="/gioi-thieu"
-                className="block px-4 py-2 hover:bg-gray-100"
-              >
-                Về chúng tôi
-              </a>
-              <a href="/contact" className="block px-4 py-2 hover:bg-gray-100">
-                Liên hệ
-              </a>
-              <a href="/policy" className="block px-4 py-2 hover:bg-gray-100">
-                Chính sách bảo mật
-              </a>
-              <a href="/faq" className="block px-4 py-2 hover:bg-gray-100">
-                FAQ
-              </a>
+              {/* Hiển thị khi hover */}
+              <div className="absolute top-full left-0 min-w-[220px] rounded-md border bg-background shadow-lg z-50 hidden group-hover:block">
+                <a
+                  href="/gioi-thieu"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  Về chúng tôi
+                </a>
+                <a
+                  href="/contact"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  Liên hệ
+                </a>
+
+                {/* Chính sách bảo mật lồng trong dropdown cha */}
+                <div className="w-full group/sub">
+                  <button className="w-full text-left flex justify-between items-center px-4 py-2 hover:bg-gray-100">
+                    Chính sách bảo mật
+                    <span className="text-sm">▸</span>
+                  </button>
+                  <div className="hidden group-hover/sub:block ml-4 border-l border-border pl-2">
+                    <a
+                      href="/policy/data"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100"
+                    >
+                      Chính sách dữ liệu
+                    </a>
+                    <a
+                      href="/policy/payment"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100"
+                    >
+                      Chính sách thanh toán
+                    </a>
+                    <a
+                      href="/policy/delete"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100"
+                    >
+                      Hủy tài khoản
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </nav>
@@ -341,13 +371,6 @@ const HeaderTop = () => {
                       >
                         <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
                         Liên hệ
-                      </a>
-                      <a
-                        href="/about"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                        Chính sách bảo mật
                       </a>
                       <a
                         href="/about"

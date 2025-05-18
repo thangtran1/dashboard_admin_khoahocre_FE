@@ -1,4 +1,5 @@
 import Breadcrumbs from "@/utils/Breadcrumb";
+import { inputClass } from "@/utils/use-always";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
@@ -80,7 +81,7 @@ export default function CheckoutPage() {
                   onChange={handleChange}
                   placeholder="Tên"
                   required
-                  className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+                  className={inputClass}
                 />
               </div>
               <div>
@@ -91,7 +92,7 @@ export default function CheckoutPage() {
                   onChange={handleChange}
                   placeholder="Họ"
                   required
-                  className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+                  className={inputClass}
                 />
               </div>
             </div>
@@ -108,7 +109,7 @@ export default function CheckoutPage() {
               onChange={handleChange}
               placeholder="Số điện thoại"
               required
-              className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className={inputClass}
             />
           </div>
 
@@ -121,7 +122,7 @@ export default function CheckoutPage() {
               onChange={handleChange}
               placeholder="Địa chỉ gmail"
               required
-              className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className={inputClass}
             />
           </div>
 
@@ -137,7 +138,7 @@ export default function CheckoutPage() {
               onChange={handleChange}
               placeholder="Ghi chú về đơn hàng nếu có..."
               rows={15}
-              className="w-full border rounded px-4 py-2 text-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className={inputClass}
             />
           </div>
         </div>
