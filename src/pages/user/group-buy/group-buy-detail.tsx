@@ -49,7 +49,6 @@ export default function GroupBuyDetail() {
     setExpanded((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
   const CourseDatas = CourseData.find((b) => b.id === id);
-  console.log("🚀 ~ YoutubeDetail ~ CourseDatas:", CourseDatas);
 
   if (!CourseDatas) return <div className="p-4">Không tìm thấy bài viết</div>;
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});

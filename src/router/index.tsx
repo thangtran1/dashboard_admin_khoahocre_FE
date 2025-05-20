@@ -171,8 +171,6 @@ export default function Router() {
         path: "clear-cache",
         children: [{ index: true, element: <ClearCache /> }],
       },
-
-      // Thêm các route con khác tại đây
     ],
   };
 
@@ -186,7 +184,7 @@ export default function Router() {
   ] as RouteObject[];
 
   const router = createBrowserRouter(routes);
-  // thêm dấu # createHashRouter
+  // thêm dấu # createHashRouter vd http://localhost:/#/3000/
 
   return <RouterProvider router={router} />;
 }

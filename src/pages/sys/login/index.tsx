@@ -16,11 +16,12 @@ function LoginPage() {
   const token = useUserToken();
   const { role } = useUserInfo();
   if (token.accessToken) {
-    if (role === "user") {
+    if (String(role) === "user") {
       console.log("🚀 ~ User role matched");
       return <Navigate to={HOMEPAGEUSER} replace />;
     }
 
+    console.log("🚀 ~ 123132");
     return <Navigate to={HOMEPAGE} replace />;
   }
 

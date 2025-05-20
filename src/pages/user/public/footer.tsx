@@ -3,16 +3,16 @@ import { Image } from "antd/lib";
 import clsx from "clsx";
 import {
   ChevronUp,
-  Clock,
   Facebook,
   InstagramIcon,
   MessageCircleMore,
-  Phone,
   Youtube,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const [scrollPercent, setScrollPercent] = useState(0);
 
   useEffect(() => {
@@ -45,82 +45,89 @@ const Footer = () => {
             <div className="grid grid-cols-2 gap-6 md:col-span-4 md:grid-cols-4">
               {/* Cột 2 */}
               <div>
-                <h3 className="font-semibold text-2xl mb-2">Danh Mục</h3>
+                <h3 className="font-semibold text-2xl mb-2">
+                  {t("footer.category")}
+                </h3>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>Đầu Tư</li>
-                  <li>Marketing</li>
-                  <li>Thiết Kế Đồ Họa</li>
-                  <li>Dựng Phim - Nhiếp Ảnh</li>
-                  <li>Ngoại Ngữ</li>
+                  <li>{t("footer.investment")}</li>
+                  <li>{t("footer.marketing")}</li>
+                  <li>{t("footer.graphicDesign")}</li>
+                  <li>{t("footer.videoPhotography")}</li>
+                  <li>{t("footer.language")}</li>
                   <li className="flex items-center gap-2">
-                    Kinh Doanh{" "}
+                    {t("footer.business")}{" "}
                     <span className="text-xs bg-yellow-400 text-white px-1 rounded">
-                      SALE
+                      {t("footer.tagSale")}
                     </span>
                   </li>
-                  <li>MMO - Kiếm Tiền</li>
-                  <li>Người Nổi Tiếng</li>
+                  <li>{t("footer.mmo")}</li>
+                  <li>{t("footer.celebrities")}</li>
                 </ul>
               </div>
 
               {/* Cột 3 */}
               <div>
-                <h3 className="font-semibold mb-2 text-2xl">Nội Dung</h3>
+                <h3 className="font-semibold mb-2 text-2xl">
+                  {t("footer.content")}
+                </h3>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>Khóa Học Mới</li>
+                  <li>{t("footer.newCourses")}</li>
                   <li className="flex items-center gap-2">
-                    Best Sell{" "}
+                    {t("footer.bestSell")}{" "}
                     <span className="text-xs bg-green-200 text-green-800 px-1 rounded">
-                      POPULAR
+                      {t("footer.tagPopular")}
                     </span>
                   </li>
-                  <li>Khóa Học Sale</li>
-                  <li>Khóa Học Free</li>
+                  <li>{t("footer.saleCourses")}</li>
+                  <li>{t("footer.freeCourses")}</li>
                   <li className="flex items-center gap-2">
-                    Bài Viết{" "}
+                    {t("footer.blog")}{" "}
                     <span className="text-xs bg-green-200 text-green-800 px-1 rounded">
-                      POPULAR
+                      {t("footer.tagPopular")}
                     </span>
                   </li>
                   <li className="flex items-center gap-2">
-                    Mua Ebooks{" "}
+                    {t("footer.ebooks")}{" "}
                     <span className="text-xs bg-blue-200 text-blue-800 px-1 rounded">
-                      NEW
+                      {t("footer.tagNew")}
                     </span>
                   </li>
-                  <li>Sự Kiện</li>
+                  <li>{t("footer.events")}</li>
                 </ul>
               </div>
 
               {/* Cột 4 */}
               <div>
-                <h3 className="font-semibold mb-2 text-2xl">Thông Tin</h3>
+                <h3 className="font-semibold mb-2 text-2xl">
+                  {t("footer.info")}
+                </h3>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>Về Chúng Tôi</li>
-                  <li>Bảo Mật</li>
-                  <li>Liên Hệ</li>
+                  <li>{t("footer.aboutUs")}</li>
+                  <li>{t("footer.privacy")}</li>
+                  <li>{t("footer.contact")}</li>
                   <li className="flex items-center gap-2">
-                    Chăm Sóc{" "}
+                    {t("footer.support")}{" "}
                     <span className="text-xs bg-pink-200 text-pink-700 px-1 rounded">
-                      HIRING
+                      {t("footer.tagHiring")}
                     </span>
                   </li>
-                  <li>Đăng Ký Bán Khóa Học</li>
-                  <li>Điều Khoản Dịch Vụ</li>
-                  <li>Chính Sách Riêng Tư</li>
-                  <li>FEEDBACKS</li>
+                  <li>{t("footer.becomeSeller")}</li>
+                  <li>{t("footer.terms")}</li>
+                  <li>{t("footer.policy")}</li>
                 </ul>
               </div>
 
               {/* Cột 5 */}
               <div>
-                <h3 className="font-semibold mb-2 text-2xl">Điểm Nổi Bật</h3>
+                <h3 className="font-semibold mb-2 text-2xl">
+                  {t("footer.highlight")}
+                </h3>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>Quản lý người dùng</li>
-                  <li>Thiết bị sử dụng</li>
-                  <li>Báo Cáo</li>
-                  <li>Group Khóa Học</li>
-                  <li>Ngôn Ngữ</li>
+                  <li>{t("footer.userManagement")}</li>
+                  <li>{t("footer.deviceUsage")}</li>
+                  <li>{t("footer.report")}</li>
+                  <li>{t("footer.courseGroup")}</li>
+                  <li>{t("footer.languageSetting")}</li>
                 </ul>
               </div>
             </div>
@@ -157,18 +164,18 @@ const Footer = () => {
           )}
         >
           <p className="text-sm text-muted-foreground text-center md:text-left">
-            © Copyright 2024 {""}
+            {t("footer.copyright")}{" "}
             <a
               href="#"
               className="text-primary text-md font-semibold hover:underline"
             >
-              Khoahocre {""}
+              Khoahocre{" "}
             </a>
-            – Nơi chia sẻ khóa học tiết kiệm chuẩn gốc
+            – {t("footer.brand")}
           </p>
 
-          <div className="flex  md:h-[40px] flex-col md:flex-row md:pb-0 pb-12 items-center gap-2 md:gap-4 text-muted-foreground">
-            <span>Kết nối với chúng tôi tại:</span>
+          <div className="flex md:h-[40px] flex-col md:flex-row md:pb-0 pb-12 items-center gap-2 md:gap-4 text-muted-foreground">
+            <span>{t("footer.socialText")}</span>
             <div className="flex items-center gap-3">
               <a href="#" className="hover:text-primary">
                 <Facebook size={22} />

@@ -1,22 +1,98 @@
 {
-	"common": {
-		"okText": "OK",
-		"closeText": "Close",
-		"cancelText": "Cancel",
-		"loadingText": "Loading...",
-		"saveText": "Save",
-		"delText": "Delete",
-		"resetText": "Reset",
-		"searchText": "Search",
-		"queryText": "Search",
+  "common": {
+    "okText": "OK",
+    "closeText": "Close",
+    "cancelText": "Cancel",
+    "loadingText": "Loading...",
+    "saveText": "Save",
+    "delText": "Delete",
+    "resetText": "Reset",
+    "searchText": "Search",
+    "queryText": "Search",
 
-		"inputText": "Please enter",
-		"chooseText": "Please choose",
+    "inputText": "Please enter",
+    "chooseText": "Please choose",
 
-		"redo": "Refresh",
-		"back": "Back",
+    "redo": "Refresh",
+    "back": "Back",
 
-		"light": "Light",
-		"dark": "Dark"
-	}
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "footer": {
+    "category": "Category",
+    "investment": "Investment",
+    "marketing": "Marketing",
+    "graphicDesign": "Graphic Design",
+    "videoPhotography": "Video Production & Photography",
+    "language": "Language",
+    "business": "Business",
+    "mmo": "MMO - Make Money Online",
+    "celebrities": "Celebrities",
+
+    "content": "Content",
+    "newCourses": "New Courses",
+    "bestSell": "Best Seller",
+    "saleCourses": "Discounted Courses",
+    "freeCourses": "Free Courses",
+    "blog": "Blog",
+    "ebooks": "Buy Ebooks",
+    "events": "Events",
+
+    "info": "Information",
+    "aboutUs": "About Us",
+    "privacy": "Privacy",
+    "contact": "Contact",
+    "support": "Support",
+    "becomeSeller": "Register to Sell Courses",
+    "terms": "Terms of Service",
+    "policy": "Privacy Policy",
+
+    "highlight": "Highlights",
+    "userManagement": "User Management",
+    "deviceUsage": "Device Usage",
+    "report": "Reports",
+    "courseGroup": "Course Groups",
+    "languageSetting": "Language Settings",
+
+    "socialText": "Connect with us at:",
+    "copyright": "© Copyright 2024",
+    "brand": "Khoahocre – The place to share original, affordable courses",
+
+    "tagSale": "SALE",
+    "tagPopular": "POPULAR",
+    "tagNew": "NEW",
+    "tagHiring": "HIRING"
+  },
+  "nearFooter": {
+    "imageAlt": "Course Exchange",
+    "title": "DO YOU HAVE A COURSE YOU'VE ALREADY COMPLETED?",
+    "subtitle": "Let’s share knowledge and gain even more value!",
+    "description": "Exchanging courses is a great way for both sides to benefit: you can broaden your knowledge with high-quality courses, and we enrich our content for more people to access. It's a Win-Win collaboration for everyone to grow!",
+    "button": "Exchange Courses Now!"
+  },
+  "whyCourse": {
+    "heading": "Why Should You Choose",
+    "brandHighlight": "Khoá Học Rẻ?",
+    "reason1Title": "Reliable & High Quality",
+    "reason1Desc": "Try before you pay – Get a full refund if the course doesn’t match its description!",
+    "reason2Title": "Instant Activation",
+    "reason2Desc": "Start learning online immediately after payment – automatic course approval within 3 seconds!",
+    "reason3Title": "Cost Effective",
+    "reason3Desc": "The most affordable course prices on the market. If it’s cheap elsewhere – it's cheaper here!",
+    "reason4Title": "Accessible on All Devices",
+    "reason4Desc": "Easily learn online with any device: laptops, tablets, smartphones, and more.",
+    "reason5Title": "Original Full Courses",
+    "reason5Desc": "Shared courses with full access to lectures, materials, and crisp full HD videos.",
+    "reason6Title": "24/7 Support",
+    "reason6Desc": "Zalo: 0888.993.991 (8AM–12AM)\nFanpage: Khóa Học Rẻ 5.0"
+  },
+  "voucher": {
+    "title": "GET CODE KHR10 FOR 10% OFF – JUST FOR NEW USERS! 🎉",
+    "highlight": "KHR10",
+    "description": "Use the KHR10 code to get 10% off on your first registration at Khoá Học Rẻ – an affordable online learning platform with diverse topics including technology, business, finance, and design.",
+    "btnCreate": "Create Account Now",
+    "btnShop": "Visit Course Shop",
+    "imgAlt": "Online Course"
+  }
 }

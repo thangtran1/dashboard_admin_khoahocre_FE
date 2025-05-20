@@ -3,7 +3,6 @@ import { AntdAdapter } from "@/theme/adapter/antd.adapter";
 import HeaderTop from "@/pages/user/public/header-top";
 import Footer from "@/pages/user/public/footer";
 import NearFooter from "@/pages/user/public/near-footer";
-import { useUserInfo } from "@/store/userStore";
 import Logo from "@/components/logo";
 import clsx from "clsx";
 import { contentWrapper } from "@/utils/use-always";

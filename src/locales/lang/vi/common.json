@@ -18,5 +18,81 @@
 
     "light": "Chế độ sáng",
     "dark": "Chế độ tối"
+  },
+  "footer": {
+    "category": "Danh mục",
+    "investment": "Đầu Tư",
+    "marketing": "Marketing",
+    "graphicDesign": "Thiết Kế Đồ Họa",
+    "videoPhotography": "Dựng Phim - Nhiếp Ảnh",
+    "language": "Ngoại Ngữ",
+    "business": "Kinh Doanh",
+    "mmo": "MMO - Kiếm Tiền",
+    "celebrities": "Người Nổi Tiếng",
+
+    "content": "Nội Dung",
+    "newCourses": "Khóa Học Mới",
+    "bestSell": "Best Sell",
+    "saleCourses": "Khóa Học Sale",
+    "freeCourses": "Khóa Học Free",
+    "blog": "Bài Viết",
+    "ebooks": "Mua Ebooks",
+    "events": "Sự Kiện",
+
+    "info": "Thông Tin",
+    "aboutUs": "Về Chúng Tôi",
+    "privacy": "Bảo Mật",
+    "contact": "Liên Hệ",
+    "support": "Chăm Sóc",
+    "becomeSeller": "Đăng Ký Bán Khóa Học",
+    "terms": "Điều Khoản Dịch Vụ",
+    "policy": "Chính Sách Riêng Tư",
+
+    "highlight": "Điểm Nổi Bật",
+    "userManagement": "Quản lý người dùng",
+    "deviceUsage": "Thiết bị sử dụng",
+    "report": "Báo Cáo",
+    "courseGroup": "Group Khóa Học",
+    "languageSetting": "Ngôn Ngữ",
+
+    "socialText": "Kết nối với chúng tôi tại:",
+    "copyright": "© Copyright 2024",
+    "brand": "Khoahocre – Nơi chia sẻ khóa học tiết kiệm chuẩn gốc",
+
+    "tagSale": "SALE",
+    "tagPopular": "POPULAR",
+    "tagNew": "NEW",
+    "tagHiring": "HIRING"
+  },
+  "nearFooter": {
+    "imageAlt": "Trao đổi khóa học",
+    "title": "BẠN CÓ KHÓA HỌC NHƯNG ĐÃ HỌC XONG?",
+    "subtitle": "Cùng nhau chia sẻ tri thức và nhận lại nhiều giá trị hơn!",
+    "description": "Trao đổi khóa học là cách tuyệt vời để cả hai bên cùng có lợi: bạn sẽ mở rộng kiến thức với những khóa học chất lượng và chúng tôi sẽ gia tăng nội dung phong phú, giúp nhiều người có cơ hội tiếp cận hơn. Đây là cơ hội hợp tác Win-Win để mọi người cùng phát triển!",
+    "button": "Trao Đổi Khóa Học Ngay!"
+  },
+  "whyCourse": {
+    "heading": "Tại Sao Bạn Nên Lựa Chọn",
+    "brandHighlight": "Khóa Học Rẻ?",
+    "reason1Title": "Uy Tín - Chất Lượng",
+    "reason1Desc": "Được học thử trước khi thanh toán - Hoàn tiền khóa học nếu không đúng như mô tả!",
+    "reason2Title": "Kích Hoạt Nhanh Chóng",
+    "reason2Desc": "Học ngay online tại website sau khi thanh toán trong vòng 3s !! Duyệt tự động khóa học",
+    "reason3Title": "Tiết Kiệm Chi Phí",
+    "reason3Desc": "Khóa học tiết kiệm chi phí với giá rẻ nhất trên thị trường, ở đâu rẻ – \"Khóa Học Rẻ rẻ hơn\" ^^",
+    "reason4Title": "Học Trên Mọi Thiết Bị",
+    "reason4Desc": "Học Online dễ dàng với mọi thiết bị khác nhau như laptop, máy tính bảng, điện thoại,…",
+    "reason5Title": "Khóa Học Chuẩn Gốc",
+    "reason5Desc": "Khóa học chia sẻ nhưng vẫn đảm bảo đầy đủ bài giảng kèm tài liệu và video sắc nét full HD",
+    "reason6Title": "Hỗ Trợ 24/7",
+    "reason6Desc": "Zalo: 0888.993.991 (8h-24h)\nFanpage: Khóa Học Rẻ 5.0"
+  },
+  "voucher": {
+    "title": "TẶNG MÃ KHR10 GIẢM 10% DÀNH CHO BẠN MỚI! 🎉",
+    "highlight": "KHR10",
+    "description": "Nhập ngay mã KHR10 giảm 10% khi đăng ký lần đầu tại Khóa Học Rẻ – nền tảng chia sẻ khóa học trực tuyến giá tốt, đa dạng lĩnh vực như công nghệ, kinh doanh, tài chính, thiết kế.",
+    "btnCreate": "Tạo Tài Khoản Ngay",
+    "btnShop": "Ghé Shop Khóa Học",
+    "imgAlt": "Khóa học"
   }
 }

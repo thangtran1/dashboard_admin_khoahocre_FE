@@ -1,12 +1,3 @@
-import {
-  CheckCircle,
-  GraduationCap,
-  MonitorSmartphone,
-  PhoneCall,
-  PiggyBank,
-  Truck,
-} from "lucide-react";
-
 export const CourseData = [
   {
     id: "8",
@@ -590,39 +581,6 @@ export const aiCourses = [
     oldPrice: "599.000 ₫",
     image:
       "https://khoahocre.com/wp-content/uploads/2025/04/ChatGPT-Image-13_59_09-4-thg-4-2025-675x675.png",
-  },
-];
-
-export const reasons = [
-  {
-    icon: <CheckCircle className="text-blue-600 w-8 h-8" />,
-    title: "Uy Tín - Chất Lượng",
-    desc: "Được học thử trước khi thanh toán - Hoàn tiền khóa học nếu không đúng như mô tả!",
-  },
-  {
-    icon: <Truck className="text-blue-600 w-8 h-8" />,
-    title: "Kích Hoạt Nhanh Chóng",
-    desc: "Học ngay online tại website sau khi thanh toán trong vòng 3s !! Duyệt tự động khóa học",
-  },
-  {
-    icon: <PiggyBank className="text-blue-600 w-8 h-8" />,
-    title: "Tiết Kiệm Chi Phí",
-    desc: 'Khóa học tiết kiệm chi phí với giá rẻ nhất trên thị trường, ở đâu rẻ – "Khóa Học Rẻ rẻ hơn" ^^',
-  },
-  {
-    icon: <MonitorSmartphone className="text-blue-600 w-8 h-8" />,
-    title: "Học Trên Mọi Thiết Bị",
-    desc: "Học Online dễ dàng với mọi thiết bị khác nhau như laptop, máy tính bảng, điện thoại,…",
-  },
-  {
-    icon: <GraduationCap className="text-blue-600 w-8 h-8" />,
-    title: "Khóa Học Chuẩn Gốc",
-    desc: "Khóa học chia sẻ nhưng vẫn đảm bảo đầy đủ bài giảng kèm tài liệu và video sắc nét full HD",
-  },
-  {
-    icon: <PhoneCall className="text-blue-600 w-8 h-8" />,
-    title: "Hỗ Trợ 24/7",
-    desc: "Zalo: 0888.993.991 (8h-24h)\nFanpage: Khóa Học Rẻ 5.0",
   },
 ];
 
