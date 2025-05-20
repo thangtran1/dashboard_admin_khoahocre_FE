@@ -4,20 +4,24 @@ import Blog from "./public/blog";
 import Testimonials from "./public/testimonials";
 import MobileBottomNav from "./public/mobile-bottom";
 import Voucher from "./public/voucher";
-import WhyChooseCourse from "./public/why-choose-course";
 import YouTube from "./public/youtube";
+import NewCourses from "./public/new-courses";
+import Market from "./public/market";
+import GroupBuy from "./public/group-buy";
 
 const UserHomePage = () => {
   return (
     <>
       <Voucher />
-      <YouTube />
+      <NewCourses />
       <TopicList />
+      <YouTube />
+      <Market />
       <TipsAi />
-      <Blog />
+      <GroupBuy />
       <Testimonials />
+      <Blog />
       <MobileBottomNav />
-      <WhyChooseCourse />
     </>
   );
 };

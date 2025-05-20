@@ -101,6 +101,290 @@ export const CourseData = [
   },
 ];
 
+export const NewCourseData = [
+  {
+    id: "8",
+    title: "Khóa Học 3ds Max và Corona Render Cơ Bản 2025 – Huỳnh Ngọc Thịnh",
+    desc: "Khóa Học 3ds Max và Corona Render Cơ Bản 2025 là chương trình đào tạo DUY NHẤT tại Việt Nam giúp bạn thành thạo diễn họa kiến trúc chỉ sau 30 ngày. Với kinh nghiệm 10 năm từ đội ngũ Huỳnh Ngọc Thịnh – cựu",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "5.000.000 ₫",
+    price: "199.000 ₫",
+    image:
+      "	https://khoahocre.com/wp-content/uploads/2025/05/khoa-hoc-thay-tran-viet-quan.png",
+    badge: "ADS",
+  },
+  {
+    id: "7",
+
+    title: "Khóa Học Làm Video Hoạt Hình AI, Video Mèo Nấu Ăn…",
+    desc: "Khóa Học Làm Video Hoạt Hình AI Miễn Phí – Tạo Video Mèo Nấu Ăn Độc Đáo…",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "9.999.000 ₫",
+    price: "Miễn phí",
+    image:
+      "	https://khoahocre.com/wp-content/uploads/2025/02/QUY-TOC-675x675.png",
+    badge: "CHATGPT",
+  },
+  {
+    id: "6",
+
+    title: "Khóa Học Youtube NDGroup Việt Nam Mới 2025",
+    desc: "Lộ Trình Kiếm Tiền Bền Vững Trên YouTube 2025",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "5.499.000 ₫",
+    price: "299.000 ₫",
+    image:
+      "	https://khoahocre.com/wp-content/uploads/2025/05/AI-For-mkt-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "55",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/tu-dien-xay-kenh-2025-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "4444",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/tu-dien-xay-kenh-2025-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "3333",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "1111",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack Vanthang.com Vanthang.com Vanthang.com",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
+    badge: "YOUTUBE",
+  },
+];
+export const GroupBuyData = [
+  {
+    id: "8",
+    title: "Khóa Học 3ds Max và Corona Render Cơ Bản 2025 – Huỳnh Ngọc Thịnh",
+    desc: "Khóa Học 3ds Max và Corona Render Cơ Bản 2025 là chương trình đào tạo DUY NHẤT tại Việt Nam giúp bạn thành thạo diễn họa kiến trúc chỉ sau 30 ngày. Với kinh nghiệm 10 năm từ đội ngũ Huỳnh Ngọc Thịnh – cựu",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "5.000.000 ₫",
+    price: "199.000 ₫",
+    image:
+      "	https://khoahocre.com/wp-content/uploads/2025/05/Khoa-hoc-Cropfoto-1.png",
+    badge: "ADS",
+  },
+  {
+    id: "7",
+
+    title: "Khóa Học Làm Video Hoạt Hình AI, Video Mèo Nấu Ăn…",
+    desc: "Khóa Học Làm Video Hoạt Hình AI Miễn Phí – Tạo Video Mèo Nấu Ăn Độc Đáo…",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "9.999.000 ₫",
+    price: "Miễn phí",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/04/KINDCONTENT-ACADEMY-675x675.png",
+    badge: "CHATGPT",
+  },
+  {
+    id: "6",
+
+    title: "Khóa Học Youtube NDGroup Việt Nam Mới 2025",
+    desc: "Lộ Trình Kiếm Tiền Bền Vững Trên YouTube 2025",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "5.499.000 ₫",
+    price: "299.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/04/K…-Hoc-Fx-Dream-Trading-2025-Moi-Nhat-4-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "55",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/tu-dien-xay-kenh-2025-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "4444",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/tu-dien-xay-kenh-2025-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "3333",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "1111",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack Vanthang.com Vanthang.com Vanthang.com",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
+    badge: "YOUTUBE",
+  },
+];
+
+export const MarketData = [
+  {
+    id: "8",
+    title: "Khóa Học Nhà Du Hành FX | Price Action Trading",
+    desc: "Khóa Học Price Action Trading bởi Nhà Du Hành FX Bạn đang tìm một phương pháp giao dịch đơn giản, hiệu quả và thực chiến?👉 Khóa học Nhà Du Hành FX – Price Action Trading chính là lựa chọn bạn …",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "5.000.000 ₫",
+    price: "199.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/Khoa-hoc-Nha-du-hanh-Fx.png",
+    badge: "ADS",
+  },
+  {
+    id: "7",
+
+    title: "Khóa Học Làm Video Hoạt Hình AI, Video Mèo Nấu Ăn…",
+    desc: "Khóa Học Làm Video Hoạt Hình AI Miễn Phí – Tạo Video Mèo Nấu Ăn Độc Đáo…",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "9.999.000 ₫",
+    price: "Miễn phí",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/TPOP-scaled-675x675.png",
+    badge: "CHATGPT",
+  },
+  {
+    id: "6",
+
+    title: "Khóa Học Youtube NDGroup Việt Nam Mới 2025",
+    desc: "Lộ Trình Kiếm Tiền Bền Vững Trên YouTube 2025",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+    oldPrice: "5.499.000 ₫",
+    price: "299.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/04/Full-tron-bo-khoa-hoc-Crypto-hay-nhat-2025.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "55",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/tu-dien-xay-kenh-2025-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "4444",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image:
+      "https://khoahocre.com/wp-content/uploads/2025/05/tu-dien-xay-kenh-2025-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "3333",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
+    badge: "YOUTUBE",
+  },
+  {
+    id: "1111",
+
+    title: "Khóa Học Toàn Cảnh YouTube – TUT – TRICK",
+    desc: "Bagi Academy: Hành Trang Thành Công Trên YouTube",
+    subTitle:
+      "Khóa học Youtobe tại Vanthang.com - Lộ trình thăng tiến FullStack Vanthang.com Vanthang.com Vanthang.com",
+
+    oldPrice: "1.999.000 ₫",
+    price: "99.000 ₫",
+    image: "https://khoahocre.com/wp-content/uploads/2025/05/figma-675x675.png",
+    badge: "YOUTUBE",
+  },
+];
+
 export const Categories = [
   {
     id: "123",

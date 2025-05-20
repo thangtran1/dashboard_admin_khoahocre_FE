@@ -13,15 +13,17 @@ const NearFooter = () => {
           contentWrapper
         )}
       >
-        <div className="flex justify-center items-center bg-transparent w-full">
-          <Image
-            src="https://khoahocre.com/wp-content/uploads/2023/05/banner-footer-1.png"
-            alt="Trao đổi khóa học"
-            className="w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-3xl object-contain"
-          />
+        <div className="flex mt-6 md:mt-0 justify-center">
+          <div className="w-[300px] md:w-[400px]">
+            <Image
+              src="https://khoahocre.com/wp-content/uploads/2023/05/banner-footer-1.png"
+              alt="Trao đổi khóa học"
+              className="rounded-3xl object-contain w-full h-auto"
+            />
+          </div>
         </div>
 
-        <div className="text-center py-6 md:text-left flex flex-col items-center md:items-start">
+        <div className="text-center pb-6 md:text-left flex flex-col items-center md:items-start">
           <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
             BẠN CÓ KHÓA HỌC NHƯNG ĐÃ HỌC XONG?
           </h2>

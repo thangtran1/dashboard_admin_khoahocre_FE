@@ -29,6 +29,13 @@ import Introduce from "@/pages/user/information/introduce";
 import Contact from "@/pages/user/information/contact";
 import { BuyCourse } from "@/pages/user/information/buyCourse";
 import { ClearCache } from "@/pages/user/clear-cache";
+import NewCoursesDetail from "@/pages/user/new-courses/new-courses-detail";
+import NewCoursesPage from "@/pages/user/new-courses/new-courses";
+import Market from "@/pages/user/public/market";
+import MarketPage from "@/pages/user/market/market";
+import MarketDetail from "@/pages/user/market/market-detail";
+import GroupBuyPage from "@/pages/user/group-buy/group-buy";
+import GroupBuyDetail from "@/pages/user/group-buy/group-buy-detail";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -105,6 +112,27 @@ export default function Router() {
         children: [
           { index: true, element: <ListTopicsPage /> },
           { path: ":id", element: <ListTopicsDetail /> },
+        ],
+      },
+      {
+        path: "new-courses",
+        children: [
+          { index: true, element: <NewCoursesPage /> },
+          { path: ":id", element: <NewCoursesDetail /> },
+        ],
+      },
+      {
+        path: "market",
+        children: [
+          { index: true, element: <MarketPage /> },
+          { path: ":id", element: <MarketDetail /> },
+        ],
+      },
+      {
+        path: "group-buy",
+        children: [
+          { index: true, element: <GroupBuyPage /> },
+          { path: ":id", element: <GroupBuyDetail /> },
         ],
       },
       {

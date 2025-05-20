@@ -27,7 +27,7 @@ const Testimonials = () => {
           },
         }}
         slidesPerView={1}
-        spaceBetween={20}
+        spaceBetween={10}
       >
         {testimonials.map((t, idx) => (
           <SwiperSlide key={idx}>

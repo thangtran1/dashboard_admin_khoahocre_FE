@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const WhyChooseCourse = () => {
   return (
-    <section className="bg-background py-6">
+    <section className="bg-muted py-6">
       <div
         className={clsx(
           "w-full flex flex-col px-4 gap-6 py-3 mx-auto lg:px-16",

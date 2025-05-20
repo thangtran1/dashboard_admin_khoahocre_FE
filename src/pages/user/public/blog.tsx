@@ -47,7 +47,7 @@ const Blog = () => {
           },
         }}
         slidesPerView={3}
-        spaceBetween={20}
+        spaceBetween={10}
       >
         {blogs.map((blog, idx) => (
           <SwiperSlide key={idx}>

@@ -39,27 +39,8 @@ const Footer = () => {
           className={clsx("w-full px-4 lg:px-16 py-10 mx-auto", contentWrapper)}
         >
           {/* Logo + Info: Mobile -> flex row | Desktop -> block */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* Cột 1: Logo + Info */}
-            <div className="flex flex-wrap mx-auto items-center gap-4 w-full h-full">
-              <div className="w-52  h-16 md:w-52 md:h-16">
-                <Image
-                  src="https://khoahocre.com/wp-content/uploads/2023/05/noichiasenew-1.png"
-                  alt="logo"
-                  preview={false}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              <div className="flex flex-col justify-center text-sm text-muted-foreground">
-                <div className="flex items-center gap-2 mb-1">
-                  <Clock size={16} /> 7:00 - 24:00
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone size={16} /> 0888.993.991
-                </div>
-              </div>
-            </div>
 
             <div className="grid grid-cols-2 gap-6 md:col-span-4 md:grid-cols-4">
               {/* Cột 2 */}
