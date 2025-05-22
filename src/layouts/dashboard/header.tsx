@@ -26,7 +26,7 @@ export default function Header({ headerLeftSlot }: HeaderProps) {
         "h-[var(--layout-header-height)] grow-0 shrink-0"
       )}
     >
-      {role === "user" && (
+      {String(role) === "user" && (
         <div className="flex items-center">
           {headerLeftSlot}
 
