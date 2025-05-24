@@ -20,7 +20,7 @@ export default function Header({ headerLeftSlot }: HeaderProps) {
   const role = useUserInfo();
   return (
     <header
-      data-slot="slash-layout-header"
+      data-slot="TVT-layout-admin"
       className={cn(
         "sticky top-0 right-0 left-auto flex items-center bg-background justify-between px-2 ml-[1px]",
         "h-[var(--layout-header-height)] grow-0 shrink-0"

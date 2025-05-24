@@ -43,3 +43,18 @@ export interface Role {
   desc?: string;
   permission?: Permission[];
 }
+
+export interface Category {
+  id: string;
+  code: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Teacher {
+  id: string;
+  name: string;
+  avatar: string;
+  bio: string;
+}
