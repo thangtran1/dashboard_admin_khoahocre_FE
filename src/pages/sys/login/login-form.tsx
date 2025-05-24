@@ -1,4 +1,3 @@
-import { DEFAULT_USER } from "@/_mock/assets";
 import type { SignInReq } from "@/api/services/userService";
 import { Icon } from "@/components/icon";
 import { useSignIn } from "@/store/userStore";

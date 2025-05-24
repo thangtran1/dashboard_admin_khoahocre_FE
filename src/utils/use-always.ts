@@ -4,3 +4,5 @@ export const inputClass =
 
 export const buttonCancel = "border  border-error rounded-lg";
 export const buttonConfirm = "border border-success  rounded-lg";
+
+export const ALIGN_CENTER = "center" as const; // khai báo trong column tránh kiểu type

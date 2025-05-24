@@ -5,7 +5,12 @@ import { Table, Input } from "antd";
 import { toast } from "sonner";
 import { Button, useDisclosure } from "@heroui/react";
 import { Trash2, Pencil, Plus } from "lucide-react";
-import { buttonCancel, buttonConfirm, inputClass } from "@/utils/use-always";
+import {
+  ALIGN_CENTER,
+  buttonCancel,
+  buttonConfirm,
+  inputClass,
+} from "@/utils/use-always";
 import categoryApi from "@/api/services/categoryApi";
 import ModalCreateEditCategory from "./modal-create-edit";
 import ModalDeleteCategory from "./modal-delete";
@@ -133,7 +138,7 @@ export default function CategoryPage() {
     },
     {
       title: "Actions",
-      align: "center",
+      align: ALIGN_CENTER,
       render: (_: unknown, record: any) => (
         <div className="flex justify-center gap-1">
           <Button

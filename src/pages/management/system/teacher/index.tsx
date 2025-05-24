@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Table, Input } from "antd";
+import { Table, Input, Popconfirm } from "antd";
 import { toast } from "sonner";
 import { Button, useDisclosure } from "@heroui/react";
 import { Trash2, Pencil, Plus } from "lucide-react";
-import { buttonCancel, buttonConfirm, inputClass } from "@/utils/use-always";
+import {
+  ALIGN_CENTER,
+  buttonCancel,
+  buttonConfirm,
+  inputClass,
+} from "@/utils/use-always";
 import teacherApi from "@/api/services/teacherApi";
 import ModalCreateEditTeacher from "./modal-create-edit";
-import ModalDeleteTeacher from "./modal-delete";
-import dayjs from "dayjs";
 
 export default function TeacherPage() {
   const [teachers, setTeachers] = useState<any[]>([]);
@@ -19,12 +22,6 @@ export default function TeacherPage() {
   const [editAvatar, setEditAvatar] = useState("");
   const [editBio, setEditBio] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
-  const {
-    isOpen: isDeleteModalOpen,
-    onOpen: onDeleteModalOpen,
-    onClose: onDeleteModalClose,
-  } = useDisclosure();
 
   const {
     isOpen: isEditModalOpen,
@@ -85,22 +82,6 @@ export default function TeacherPage() {
     onEditModalClose();
   };
 
-  const handleDeleteConfirm = async () => {
-    if (!selectedTeacher) {
-      toast.error("No teacher selected", { closeButton: true });
-      return;
-    }
-
-    try {
-      await teacherApi.deleteTeachers(selectedTeacher.id);
-      setTeachers((prev) => prev.filter((t) => t.id !== selectedTeacher.id));
-      toast.success("Teacher deleted", { closeButton: true });
-      onDeleteModalClose();
-    } catch (e) {
-      throw e;
-    }
-  };
-
   const filteredTeachers = teachers.filter(
     (t) =>
       t?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -124,7 +105,7 @@ export default function TeacherPage() {
     { title: "Bio", dataIndex: "bio" },
     {
       title: "Actions",
-      align: "center",
+      align: ALIGN_CENTER,
       render: (_: unknown, record: any) => (
         <div className="flex justify-center gap-1">
           <Button
@@ -142,18 +123,27 @@ export default function TeacherPage() {
             <Pencil size={16} />
             Edit
           </Button>
-          <Button
-            className={buttonCancel}
-            variant="light"
-            size="sm"
-            onPress={() => {
-              setSelectedTeacher(record);
-              onDeleteModalOpen();
+
+          <Popconfirm
+            title="Are you sure to delete this teacher?"
+            onConfirm={async () => {
+              try {
+                await teacherApi.deleteTeachers(record.id);
+                setTeachers((prev) => prev.filter((u) => u.id !== record.id));
+                toast.success("Teacher deleted", { closeButton: true });
+              } catch (e) {
+                toast.error("Failed to delete user");
+              }
             }}
+            okText="Yes"
+            cancelText="No"
+            placement="left"
           >
-            <Trash2 size={16} />
-            Delete
-          </Button>
+            <Button className={buttonCancel} variant="light" size="sm">
+              <Trash2 size={16} />
+              Delete
+            </Button>
+          </Popconfirm>
         </div>
       ),
     },
@@ -206,9 +196,7 @@ export default function TeacherPage() {
         />
       </div>
 
-      {(isEditModalOpen || isDeleteModalOpen) && (
-        <div className="fixed inset-0 bg-black/50 z-40" />
-      )}
+      {isEditModalOpen && <div className="fixed inset-0 bg-black/50 z-40" />}
 
       <ModalCreateEditTeacher
         isOpen={isEditModalOpen}
@@ -221,13 +209,6 @@ export default function TeacherPage() {
         editBio={editBio}
         setEditBio={setEditBio}
         handleSave={handleSaveTeacher}
-      />
-
-      <ModalDeleteTeacher
-        isOpen={isDeleteModalOpen}
-        onClose={onDeleteModalClose}
-        teacher={selectedTeacher}
-        handleDelete={handleDeleteConfirm}
       />
     </div>
   );
