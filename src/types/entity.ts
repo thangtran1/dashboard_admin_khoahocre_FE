@@ -52,6 +52,21 @@ export interface Category {
   updatedAt: string;
 }
 
+export interface Courses {
+  id: string;
+  slug: string;
+  title: string;
+  subTitle: string;
+  price: string;
+  oldPrice: string;
+  discountCode: string;
+  thumbnail: string;
+  isFree: string;
+  level: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface User {
   id: string;
   email: string;
