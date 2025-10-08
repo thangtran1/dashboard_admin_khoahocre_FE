@@ -7,8 +7,7 @@ import AnalysisCard from "./analysis-card";
 
 function Analysis() {
   return (
-    <div className="p-2">
-      <h2>Hi, Welcome back 👋</h2>
+    <div className="p-2 border border-gray-200 rounded-xl">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <AnalysisCard
           cover={glass_bag}
@@ -47,8 +46,6 @@ function Analysis() {
           }}
         />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">Hello</div>
     </div>
   );
 }

@@ -1,7 +1,5 @@
-import { Icon } from "@/components/icon";
 import LocalePicker from "@/components/locale-picker";
 import { useSettings } from "@/store/settingStore";
-import { Button } from "@/ui/button";
 import { cn } from "@/utils";
 import type { ReactNode } from "react";
 import AccountDropdown from "../components/account-dropdown";
@@ -17,32 +15,37 @@ interface HeaderProps {
 
 export default function Header({ headerLeftSlot }: HeaderProps) {
   const { breadCrumb } = useSettings();
-  const role = useUserInfo();
+  const { role } = useUserInfo();
+
   return (
     <header
       data-slot="TVT-layout-admin"
       className={cn(
         "sticky top-0 right-0 left-auto flex items-center bg-background justify-between px-2 ml-[1px]",
-        "h-[var(--layout-header-height)] grow-0 shrink-0"
+        "h-[var(--layout-header-height)] grow-0 shrink-0 z-50 shadow-sm"
       )}
     >
-      {String(role) === "user" && (
+      {role === "user" ? (
         <div className="flex items-center">
           {headerLeftSlot}
-
           <div className="hidden md:block ml-4">
             {breadCrumb && <BreadCrumb />}
           </div>
         </div>
+      ) : (
+        <>  
+        <SearchBar />
+        <div className="flex flex-1" />
+        </>
       )}
 
-      <div className="flex w-ful justify-end items-end gap-1">
-        <SearchBar />
+      <div className="flex w-full justify-end items-center gap-2 pr-4">
         <LocalePicker />
-        {/* <NoticeButton /> */}
+        <NoticeButton />
         <SettingButton />
         <AccountDropdown />
       </div>
     </header>
   );
 }
+

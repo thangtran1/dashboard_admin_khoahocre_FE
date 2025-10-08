@@ -16,7 +16,7 @@ export default function Page() {
   return (
     <>
       <Helmet>
-        <title> {t("sys.error.error405.notFound")}</title>
+        <title> {t("sys.error.error500.notFound")}</title>
       </Helmet>
 
       <div className="m-auto max-w-[400px]">
@@ -24,13 +24,13 @@ export default function Page() {
           <m.div variants={varBounce().in}>
             <H3 className="text-center">
               {" "}
-              {t("sys.error.error405.pageNotFound")}
+              {t("sys.error.error500.pageNotFound")}
             </H3>
           </m.div>
 
           <m.div variants={varBounce().in}>
             <Muted className="text-center">
-              {t("sys.error.error405.content")}
+              {t("sys.error.error500.content")}
             </Muted>
           </m.div>
 

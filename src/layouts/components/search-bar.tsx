@@ -119,8 +119,8 @@ const SearchBar = () => {
 		<Dialog open={search} onOpenChange={toggle}>
 			<DialogTrigger asChild>
 				<div className="flex items-center justify-center">
-					<Button variant="ghost" className="bg-secondary px-2 rounded-lg" size="sm" onClick={handleOpen}>
-						<div className="flex items-center justify-center gap-2">
+					<Button variant="ghost" className="bg-secondary  rounded-lg" size="sm" onClick={handleOpen}>
+						<div className="flex items-center justify-between gap-2">
 							<Icon icon="local:ic-search" size="20" />
 							<span className="flex h-6 items-center justify-center rounded-md bg-common-white px-1.5 font-bold text-gray-800">
 								{" "}
@@ -130,7 +130,7 @@ const SearchBar = () => {
 					</Button>
 				</div>
 			</DialogTrigger>
-			<DialogContent>
+			<DialogContent className="px-7  py-10">
 				<DialogHeader>
 					<DialogDescription>
 						<Input
@@ -199,19 +199,19 @@ const SearchBar = () => {
 				</div>
 
 				<DialogFooter>
-					<div className="flex flex-wrap text-text-primary">
+					<div className="flex flex-wrap gap-3 text-text-primary">
 						<div className="flex">
 							<Badge variant="info">↑</Badge>
 							<Badge variant="info">↓</Badge>
-							<span>to navigate</span>
-						</div>
+							<span className="ml-1 text-green-700">Điều hướng</span>
+						</div> |
 						<div className="flex">
 							<Badge variant="info">↵</Badge>
-							<span>to select</span>
-						</div>
+							<span className="ml-1 text-green-700">Chọn</span>
+						</div> |
 						<div className="flex">
 							<Badge variant="info">ESC</Badge>
-							<span>to close</span>
+							<span className="ml-1 text-green-700">Đóng</span>
 						</div>
 					</div>
 				</DialogFooter>

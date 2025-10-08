@@ -4,16 +4,16 @@
 // import { Outlet } from "react-router";
 // import type { AppRouteObject } from "#/router";
 
-// const components: AppRouteObject = {
+// const chat: AppRouteObject = {
 //   order: 3,
-//   path: "components",
+//   path: "chat",
 //   element: (
 //     <Suspense fallback={<LineLoading />}>
 //       <Outlet />
 //     </Suspense>
 //   ),
 //   meta: {
-//     label: "sys.menu.components",
+//     label: "sys.menu.chat",
 //     icon: (
 //       <Icon
 //         icon="solar:widget-5-bold-duotone"
@@ -21,13 +21,11 @@
 //         size="24"
 //       />
 //     ),
-//     key: "/components",
+//     key: "/chat",
 //   },
 // };
 
-// export default components;
-
-// Bỏ check permission và trả về tất cả routes
+// export default chat;
 
 import { Icon } from "@/components/icon";
 import { LineLoading } from "@/components/loading";
@@ -36,19 +34,18 @@ import { Outlet } from "react-router";
 import type { AppRouteObject } from "#/router";
 
 // Lazy load components
-const MultiLanguage = lazy(() => import("@/pages/components/multi-language"));
-const Chart = lazy(() => import("@/pages/components/chart"));
+const ManagerChatUser = lazy(() => import("@/pages/chat/manager-chat-user"));
 
-const components: AppRouteObject = {
+const chat: AppRouteObject = {
   order: 3,
-  path: "components",
+  path: "chat",
   element: (
     <Suspense fallback={<LineLoading />}>
       <Outlet />
     </Suspense>
   ),
   meta: {
-    label: "sys.menu.components",
+    label: "sys.menu.chat",
     icon: (
       <Icon
         icon="solar:widget-5-bold-duotone"
@@ -56,28 +53,22 @@ const components: AppRouteObject = {
         size="24"
       />
     ),
-    key: "/components",
+    key: "/chat",
   },
   children: [
     {
-      path: "i18n",
+      path: "manager-chat-user",
       element: (
         <Suspense fallback={<LineLoading />}>
-          <MultiLanguage />
+          <ManagerChatUser />
         </Suspense>
       ),
-      meta: { label: "sys.menu.i18n", key: "/components/i18n" },
-    },
-    {
-      path: "chart",
-      element: (
-        <Suspense fallback={<LineLoading />}>
-          <Chart />
-        </Suspense>
-      ),
-      meta: { label: "sys.menu.chart", key: "/components/chart" },
+      meta: {
+        label: "sys.menu.manager-chat-user",
+        key: "/chat/manager-chat-user",
+      },
     },
   ],
 };
 
-export default components;
+export default chat;

@@ -119,6 +119,7 @@
         "profile": "Hồ sơ",
         "account": "Tài khoản"
       },
+      "manager-chat-user": "Quản lý đoạn chat người dùng",
       "system": {
         "index": "Hệ thống",
         "organization": "Tổ chức",
@@ -129,6 +130,7 @@
       },
       "blog": "Blog",
       "components": "Thành phần",
+      "chat": "Đoạn chat",
       "icon": "Biểu tượng",
       "animate": "Hoạt ảnh",
       "scroll": "Cuộn",
@@ -205,6 +207,27 @@
         "content": "Đã xảy ra lỗi, vui lòng thử lại sau."
       },
       "goHome": "Về trang chủ"
+    },
+    "multiLanguage": {
+      "title": "Chọn Ngôn Ngữ",
+      "vi": "Tiếng Việt",
+      "en": "Tiếng Anh",
+      "current": "Hiện tại",
+      "choose": "Chọn Ngôn Ngữ"
+    },
+    "chat": {
+      "manager-chat-user": "Quản lý đoạn chat người dùng",
+      "manager-chat-user-description": "Hỗ trợ khách hàng qua chat",
+      "conversation": "Cuộc trò chuyện",
+      "search": "Tìm kiếm",
+      "filter-status": "Lọc trạng thái",
+      "online": "Trực tuyến",
+      "busy": "Bận",
+      "offline": "Ngoại tuyến",
+      "all": "Tất cả",
+      "select-conversation": "Chọn cuộc trò chuyện",
+      "select-user-to-start-chat": "Chọn người dùng để bắt đầu chat",
+      "enter-message": "Nhập tin nhắn..."
     }
   }
 }

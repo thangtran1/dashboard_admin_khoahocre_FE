@@ -95,7 +95,7 @@ const ResetPassword = () => {
     <div className="reset-password-container flex justify-center items-center min-h-screen bg-gray-100">
       <Card className="w-full max-w-xl p-6 shadow-lg rounded-lg">
         <h1 className="text-xl font-semibold mb-6 text-center">
-          {t("sys.login.errorForgetPassword")};
+          {t("sys.login.forgetFormTitle")}
         </h1>
 
         <Form layout="vertical" onFinish={handleResetPassword}>

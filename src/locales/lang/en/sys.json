@@ -102,6 +102,7 @@
       "animate": "Animate",
       "blank": "Blank",
       "blog": "Blog",
+      "chat": "Chat",
       "calendar": "Calendar",
       "chart": "Chart",
       "clipboard": "Clipboard",
@@ -155,6 +156,7 @@
         "index": "User",
         "profile": "Profile"
       },
+      "manager-chat-user": "Manager Chat User",
       "workbench": "Workbench"
     },
     "settings": {
@@ -201,6 +203,27 @@
         "content": "There was an error, please try again later."
       },
       "goHome": "Go to Home"
+    },
+    "multiLanguage": {
+      "title": "Choose Language",
+      "vi": "Vietnamese",
+      "en": "English",
+      "current": "Current",
+      "choose": "Choose Language"
+    },
+    "chat": {
+      "manager-chat-user": "Manager Chat User",
+      "manager-chat-user-description": "Support customers through chat",
+      "conversation": "Conversation",
+      "search": "Search",
+      "filter-status": "Filter Status",
+      "online": "Online",
+      "busy": "Busy",
+      "offline": "Offline",
+      "all": "All",
+      "select-conversation": "Select Conversation",
+      "select-user-to-start-chat": "Select User to Start Chat",
+      "enter-message": "Enter Message..."
     }
   }
 }

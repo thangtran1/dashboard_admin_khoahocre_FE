@@ -7,6 +7,7 @@ import {
   LogOut,
   Menu,
   Search,
+  Shield,
   User,
   UserCircle,
   X,
@@ -18,6 +19,7 @@ import { useUserActions, useUserInfo, useUserToken } from "@/store/userStore";
 import { useFavoriteStore } from "@/store/favoriteStore";
 import { toast } from "sonner";
 import { Link } from "react-router";
+import header from "@/layouts/dashboard/header";
 
 const navLinks = [
   { label: "Trang Chủ", href: "/", className: "text-primary font-semibold" },
@@ -33,7 +35,7 @@ const HeaderTop = () => {
   const [subGuideOpen, setSubGuideOpen] = useState(false);
   const router = useRouter();
   const { accessToken } = useUserToken();
-  const { username } = useUserInfo();
+  const { username, role } = useUserInfo();
   const { clearUserInfoAndToken } = useUserActions();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { favorites } = useFavoriteStore();
@@ -218,6 +220,18 @@ const HeaderTop = () => {
                           <span className="text-xs">Tài khoản cá nhân</span>
                         </div>
                       </div>
+
+                      {role === "admin" && (
+                        <Link to={"/dashboard/workbench"}>
+                        <button
+                          onClick={() => router.push("/dashboard/workbench")}
+                          className="flex justify-between items-center w-full px-4 py-2 text-sm hover:bg-primary transition"
+                        >
+                          <span>Trang Quản Trị</span>
+                          <Shield className="w-4 h-4" />
+                        </button>
+                        </Link>
+                      )}
 
                       {/* Nút Hồ sơ */}
                       <button

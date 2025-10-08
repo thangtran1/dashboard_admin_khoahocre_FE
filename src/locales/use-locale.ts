@@ -18,7 +18,7 @@ type Language = {
 export const LANGUAGE_MAP: Record<Locale, Language> = {
   [LocalEnum.vi]: {
     locale: LocalEnum.vi,
-    label: "Vietnamese",
+    label: "Tiếng Việt",
     icon: "flag-vn",
     antdLocal: vi,
   },
