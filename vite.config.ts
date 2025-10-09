@@ -11,6 +11,10 @@ export default defineConfig(({ mode }) => {
   const base = env.VITE_APP_BASE_PATH || "/";
   const isProduction = mode === "production";
 
+  // Set default environment variables
+  process.env.VITE_API_URL =
+    process.env.VITE_API_URL || "http://localhost:5000";
+
   return {
     base,
     plugins: [
@@ -47,6 +51,12 @@ export default defineConfig(({ mode }) => {
           rewrite: (path) => path.replace(/^\/api/, ""),
           secure: false,
         },
+        "/socket.io": {
+          target: "http://localhost:5000",
+          changeOrigin: true,
+          ws: true,
+          secure: false,
+        },
       },
     },
 
@@ -74,6 +84,7 @@ export default defineConfig(({ mode }) => {
               "@iconify/react",
             ],
             "vendor-charts": ["apexcharts", "react-apexcharts"],
+            "vendor-socket": ["socket.io-client"],
           },
         },
       },

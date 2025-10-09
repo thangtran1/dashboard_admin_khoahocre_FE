@@ -5,6 +5,7 @@ import { MotionLazy } from "./components/animate/motion-lazy";
 import Toast from "./components/toast";
 import { AntdAdapter } from "./theme/adapter/antd.adapter";
 import { ThemeProvider } from "./theme/theme-provider";
+import SimpleChatWrapper from "./components/chat/SimpleChatWrapper";
 function App() {
   return (
     <ThemeProvider adapters={[AntdAdapter]}>
@@ -16,6 +17,7 @@ function App() {
       <MotionLazy>
         <Router />
       </MotionLazy>
+      <SimpleChatWrapper />
     </ThemeProvider>
   );
 }

@@ -337,12 +337,8 @@ export function usePermissionRoutes() {
   const user = useUserInfo();
 
   return useMemo(() => {
-    console.log("🚀 ~ usePermissionRoutes ~ user:", user);
-    console.log("🚀 ~ usePermissionRoutes ~ ROUTE_MODE:", ROUTE_MODE);
-
     // Admin có thể truy cập tất cả routes - không cần kiểm tra permissions
     if (user && (user.role as any) === "admin") {
-      console.log("🚀 ~ Admin detected, returning getRoutesFromModules()");
       return getRoutesFromModules();
     }
 

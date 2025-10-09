@@ -82,3 +82,31 @@ export interface Teacher {
   avatar: string;
   bio: string;
 }
+
+export interface ChatMessage {
+  id: string;
+  senderId: string;
+  recipientId: string;
+  content: string;
+  timestamp: string;
+  senderRole: string;
+  messageId?: string;
+  conversationId?: string;
+}
+
+export interface CurrentUser {
+  id: string;
+  email: string;
+  username: string;
+  role: string;
+}
+
+export interface Conversation {
+  userId: string;
+  userEmail: string;
+  userName?: string;
+  lastMessage?: ChatMessage;
+  unreadCount: number;
+  isOnline: boolean;
+  hasConversation?: boolean;
+}
