@@ -61,3 +61,10 @@ export enum HtmlDataAttribute {
   ColorPalette = "data-color-palette",
   ThemeMode = "data-theme-mode",
 }
+
+export enum NotificationType {
+  SYSTEM = "Hệ thống",
+  PROMOTION = "Khuyến mãi",
+  MAINTENANCE = "Bảo trì",
+  UPDATE = "Cập nhật",
+}

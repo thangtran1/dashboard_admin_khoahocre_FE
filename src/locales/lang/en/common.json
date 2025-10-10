@@ -94,5 +94,19 @@
     "btnCreate": "Create Account Now",
     "btnShop": "Visit Course Shop",
     "imgAlt": "Online Course"
+  },
+  "notification": {
+    "mark-as-read-success": "Mark as read successfully",
+    "mark-as-read-error": "Mark as read error",
+    "mark-all-as-read-success": "Mark all as read successfully",
+    "mark-all-as-read-error": "Mark all as read error",
+    "title": "Notifications",
+    "view-all-notifications": "View all notifications",
+    "loading": "Loading...",
+    "no-notifications": "No notifications",
+    "all": "All",
+    "unread": "Unread",
+    "read": "Read",
+    "type": "Notification Type"
   }
 }

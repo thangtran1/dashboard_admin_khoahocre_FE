@@ -94,5 +94,19 @@
     "btnCreate": "Tạo Tài Khoản Ngay",
     "btnShop": "Ghé Shop Khóa Học",
     "imgAlt": "Khóa học"
+  },
+  "notification": {
+    "mark-as-read-success": "Đánh dấu đã đọc thành công",
+    "mark-as-read-error": "Đánh dấu đã đọc thất bại",
+    "mark-all-as-read-success": "Đánh dấu tất cả đã đọc thành công",
+    "mark-all-as-read-error": "Đánh dấu tất cả đã đọc thất bại",
+    "title": "Thông báo",
+    "view-all-notifications": "Xem tất cả thông báo",
+    "loading": "Đang tải...",
+    "no-notifications": "Không có thông báo nào",
+    "all": "Tất cả",
+    "unread": "Chưa đọc",
+    "read": "Đã đọc",
+    "type": "Loại thông báo"
   }
 }

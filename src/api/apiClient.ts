@@ -12,14 +12,18 @@ import type { Result } from "#/api";
 import { ResultEnum } from "#/enum";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
   timeout: 50000,
   headers: { "Content-Type": "application/json;charset=utf-8" },
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = "Bearer Token";
+    const userStore = JSON.parse(localStorage.getItem("userStore") || "{}");
+    const token = userStore?.state?.userToken?.accessToken;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {

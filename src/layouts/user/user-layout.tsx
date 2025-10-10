@@ -11,6 +11,7 @@ import ScrollToTop from "@/utils/ScrollToTop";
 import LocalePicker from "@/components/locale-picker";
 import SettingButton from "../components/setting-button";
 import WhyChooseCourse from "@/pages/user/public/why-choose-course";
+import NoticeButton from "../components/notice";
 
 export default function UserLayout() {
   return (
@@ -24,6 +25,7 @@ export default function UserLayout() {
         </div>
         <div className="flex items-center">
           <LocalePicker />
+          <NoticeButton />
           <SettingButton />
         </div>
       </div>

@@ -110,3 +110,20 @@ export interface Conversation {
   isOnline: boolean;
   hasConversation?: boolean;
 }
+
+export interface Notification {
+  _id: string;
+  title: string;
+  content: string;
+  shortDescription: string;
+  type: string;
+  actionUrl?: string;
+  readByUsers?: string[];
+  isReadByUser?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface Notifications {
+  data: Notification;
+}
