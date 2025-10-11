@@ -21,7 +21,6 @@ function LoginPage() {
       return <Navigate to={HOMEPAGEUSER} replace />;
     }
 
-    console.log("🚀 ~ 123132");
     return <Navigate to={HOMEPAGE} replace />;
   }
 

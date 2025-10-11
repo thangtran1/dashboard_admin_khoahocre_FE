@@ -85,6 +85,10 @@ class APIClient {
     return this.request({ ...config, method: "DELETE" });
   }
 
+  patch<T = any>(config: AxiosRequestConfig): Promise<T> {
+    return this.request({ ...config, method: "PATCH" });
+  }
+
   request<T = any>(config: AxiosRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       axiosInstance

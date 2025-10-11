@@ -12,6 +12,7 @@ import LocalePicker from "@/components/locale-picker";
 import SettingButton from "../components/setting-button";
 import WhyChooseCourse from "@/pages/user/public/why-choose-course";
 import NoticeButton from "../components/notice";
+import UserBannerMarquee from "@/components/banner-marquee/user-banner";
 
 export default function UserLayout() {
   return (
@@ -39,6 +40,10 @@ export default function UserLayout() {
           BẤM VÀO ĐÂY
         </Link>
       </div>
+
+      {/* Banner Marquee - chỉ hiển thị ở user UI */}
+      <UserBannerMarquee />
+
       <div className="bg-background text-foreground">
         <main
           className={clsx(
