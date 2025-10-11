@@ -1,5 +1,6 @@
 import type { SignInReq } from "@/api/services/userService";
 import { Icon } from "@/components/icon";
+import { GoogleOAuthButton } from "@/components/google-oauth-button";
 import { useSignIn } from "@/store/userStore";
 import { Button } from "@/ui/button";
 import { Checkbox } from "@/ui/checkbox";
@@ -138,9 +139,7 @@ export function LoginForm({
             <Button type="button" variant="ghost" size="icon">
               <Icon icon="mdi:github" size={24} />
             </Button>
-            <Button type="button" variant="ghost" size="icon">
-              <Icon icon="ant-design:google-circle-filled" size={24} />
-            </Button>
+            <GoogleOAuthButton />
           </div>
 
           <div className="text-center text-sm">

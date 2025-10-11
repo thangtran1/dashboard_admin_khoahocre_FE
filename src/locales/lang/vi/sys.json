@@ -98,7 +98,12 @@
       "logout": "Đăng xuất",
       "login": "Đăng nhập",
       "signInFormDescription": "Nhập tài khoản để đăng nhập",
-      "noAccount": "Chưa có tài khoản?"
+      "noAccount": "Chưa có tài khoản?",
+
+      "googleLoginSuccess": "Đăng nhập Google thành công!",
+      "googleLoginError": "Đăng nhập Google thất bại!",
+      "googleLoginProcessing": "Đang xử lý đăng nhập Google...",
+      "googleLoginErrorDescription": "Có lỗi xảy ra khi đăng nhập với Google. Vui lòng thử lại."
     },
     "tab": {
       "fullscreen": "Toàn màn hình nội dung",

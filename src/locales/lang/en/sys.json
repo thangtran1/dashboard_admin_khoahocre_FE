@@ -95,7 +95,12 @@
       "termsOfService": " Terms of service ",
       "userName": "Username",
       "signInFormDescription": "Enter your username to login to your account",
-      "noAccount": "Don't have an account?"
+      "noAccount": "Don't have an account?",
+
+      "googleLoginSuccess": "Google login successful!",
+      "googleLoginError": "Google login error!",
+      "googleLoginProcessing": "Google login processing...",
+      "googleLoginErrorDescription": "An error occurred when logging in with Google. Please try again."
     },
     "menu": {
       "notifications": "Notifications",

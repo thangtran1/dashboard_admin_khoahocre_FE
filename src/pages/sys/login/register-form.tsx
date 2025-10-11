@@ -12,6 +12,8 @@ import {
 } from "./providers/login-provider";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import { Icon } from "@/components/icon";
+import { GoogleOAuthButton } from "@/components/google-oauth-button";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -125,6 +127,19 @@ function RegisterForm() {
         <Button type="submit" className="w-full">
           {t("sys.login.registerButton")}
         </Button>
+
+        <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+          <span className="relative z-10 bg-background px-2 text-muted-foreground">
+            {t("sys.login.otherSignIn")}
+          </span>
+        </div>
+
+        <div className="flex cursor-pointer justify-around text-2xl">
+          <Button type="button" variant="ghost" size="icon">
+            <Icon icon="mdi:github" size={24} />
+          </Button>
+          <GoogleOAuthButton />
+        </div>
 
         <div className="mb-2 text-xs text-gray">
           <span>{t("sys.login.registerAndAgree")}</span>

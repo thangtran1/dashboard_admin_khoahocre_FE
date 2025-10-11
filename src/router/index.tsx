@@ -9,6 +9,8 @@ import { Navigate, type RouteObject, createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
 import ResetPassword from "@/pages/sys/login/resetPassword";
+import GoogleSuccess from "@/pages/sys/login/google-success";
+import GoogleError from "@/pages/sys/login/google-error";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
 import BlogGridPage from "@/pages/user/blog/blog";
@@ -76,6 +78,25 @@ export default function Router() {
       </ErrorBoundary>
     ),
   };
+
+  const GOOGLE_AUTH_ROUTES: AppRouteObject[] = [
+    {
+      path: "/auth/google/success",
+      element: (
+        <ErrorBoundary FallbackComponent={PageError}>
+          <GoogleSuccess />
+        </ErrorBoundary>
+      ),
+    },
+    {
+      path: "/auth/google/error",
+      element: (
+        <ErrorBoundary FallbackComponent={PageError}>
+          <GoogleError />
+        </ErrorBoundary>
+      ),
+    },
+  ];
 
   const APP_HOMEPAGE_USER: AppRouteObject = {
     path: "/",
@@ -177,6 +198,7 @@ export default function Router() {
   const routes = [
     APP_HOMEPAGE_USER,
     RESET_PASSWORD_ROUTE,
+    ...GOOGLE_AUTH_ROUTES,
     PUBLIC_ROUTE,
     PROTECTED_ROUTE,
     ERROR_ROUTE,
