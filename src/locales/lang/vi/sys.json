@@ -217,10 +217,17 @@
     },
     "multiLanguage": {
       "title": "Chọn Ngôn Ngữ",
+      "description": "Thay đổi ngôn ngữ hiển thị của hệ thống",
       "vi": "Tiếng Việt",
       "en": "Tiếng Anh",
       "current": "Hiện tại",
-      "choose": "Chọn Ngôn Ngữ"
+      "choose": "Chọn Ngôn Ngữ",
+      "available-languages": "Ngôn Ngữ Hỗ Trợ",
+      "languages-supported": "Ngôn ngữ được hỗ trợ",
+      "current-language": "Ngôn Ngữ Hiện Tại",
+      "active-now": "Đang sử dụng",
+      "select-language": "Lựa Chọn Ngôn Ngữ",
+      "select-language-description": "Chọn ngôn ngữ bạn muốn sử dụng trong hệ thống"
     },
     "chat": {
       "manager-chat-user": "Quản lý đoạn chat người dùng",
@@ -238,6 +245,7 @@
     },
     "notification": {
       "management": "Quản lý thông báo",
+      "management-description": "Quản lý và gửi thông báo đến người dùng trong hệ thống",
       "new-notification": "Thêm mới thông báo",
       "detail": "Chi tiết thông báo",
       "title": "Tiêu đề",
@@ -248,15 +256,19 @@
       "content-placeholder": "Nhập nội dung",
       "type": "Loại thông báo",
       "type-placeholder": "Chọn loại",
+      "type-required": "Vui lòng chọn loại thông báo",
       "cancel": "Hủy",
       "update": "Cập nhật",
       "created-at": "Ngày tạo",
       "created-at-placeholder": "Ngày tạo",
       "search": "Tìm kiếm",
-      "search-placeholder": "Tìm kiếu",
+      "search-placeholder": "Tìm kiếm thông báo...",
       "clear-filter": "Xóa bộ lọc",
+      "filter": "Bộ lọc",
       "total": "Tổng cộng",
       "items": "mục",
+      "showing": "Hiển thị",
+      "of": "trên",
       "system": "Hệ thống",
       "promotion": "Khuyến mãi",
       "maintenance": "Bảo trì",
@@ -284,7 +296,14 @@
       "update-notification-success": "Cập nhật thông báo thành công",
       "update-notification-description": "Thông báo đã được cập nhật thành công",
       "update-notification-error": "Có lỗi xảy ra khi cập nhật",
-      "update-notification-error-description": "Vui lòng thử lại sau"
+      "update-notification-error-description": "Vui lòng thử lại sau",
+      "total-notifications": "Tổng Thông Báo",
+      "total-notifications-description": "Tổng số thông báo trong hệ thống",
+      "system-notifications": "Thông Báo Hệ Thống",
+      "system-notifications-description": "Thông báo từ hệ thống",
+      "total-reads": "Tổng Lượt Đọc",
+      "total-reads-description": "Tổng số lượt đọc của tất cả thông báo",
+      "notification-list": "Danh sách thông báo"
     },
     "banner-config": {
       "manager-banner": "Quản lý banner",

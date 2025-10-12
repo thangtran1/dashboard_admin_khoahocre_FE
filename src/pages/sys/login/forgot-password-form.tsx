@@ -20,7 +20,7 @@ import { Radio } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import userService from "@/api/services/userService";
+import userService from "@/api/services/userApi";
 import { toast } from "sonner";
 import VerifyOTP from "./verifyOTP";
 

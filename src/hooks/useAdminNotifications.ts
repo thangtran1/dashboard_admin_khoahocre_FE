@@ -3,7 +3,7 @@ import {
   notificationAdminService,
   CreateNotificationDto,
   Notification,
-} from "../api/services/notificationService";
+} from "../api/services/notificationApi";
 import { useUserInfo } from "@/store/userStore";
 
 export const useAdminNotifications = () => {

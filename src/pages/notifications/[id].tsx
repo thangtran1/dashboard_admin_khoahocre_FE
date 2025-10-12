@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { useParams, Link } from "react-router";
 import dayjs from "dayjs";
-import { notificationAdminService } from "../../api/services/notificationService";
+import { notificationAdminService } from "../../api/services/notificationApi";
 import { Notifications } from "../../types/entity";
 import { NotificationType } from "../../types/enum";
 

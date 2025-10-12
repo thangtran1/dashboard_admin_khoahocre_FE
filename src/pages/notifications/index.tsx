@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
-  Card,
   Table,
   Button,
   Space,
   Input,
   DatePicker,
-  Row,
-  Col,
-  Typography,
   Popconfirm,
   Form,
-  Divider,
   Modal,
   Tag,
   Select,
@@ -23,15 +18,19 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import { Link } from "react-router";
 import dayjs from "dayjs";
 import { toast } from "sonner";
 import { useAdminNotifications } from "../../hooks/useAdminNotifications";
 import { useTranslation } from "react-i18next";
 import { Notification } from "../../types/entity";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
+import { Separator } from "@/ui/separator";
+import { Icon } from "@/components/icon";
+import { Label } from "@/ui/label";
 
 const { RangePicker } = DatePicker;
-const { Title } = Typography;
 
 const NotificationManagement: React.FC = () => {
   const {
@@ -51,6 +50,8 @@ const NotificationManagement: React.FC = () => {
   const [editingNotification, setEditingNotification] =
     useState<Notification | null>(null);
   const [editForm] = Form.useForm();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     if (isAdmin) {
@@ -122,40 +123,54 @@ const NotificationManagement: React.FC = () => {
     setEditingNotification(null);
   };
 
+
+  const renderWithTooltip = (text?: string) =>
+  text ? (
+    <Tooltip placement="topLeft" title={text}>
+      <span className="truncate block max-w-[140px]">{text}</span>
+    </Tooltip>
+  ) : (
+    "-"
+  );
+
   const columns = [
     {
       title: t("sys.notification.id"),
       dataIndex: "_id",
       key: "_id",
-      width: 150,
+      width: 120,
       ellipsis: true,
+      render: (text: string) => renderWithTooltip(text),
     },
     {
       title: t("sys.notification.title"),
       dataIndex: "title",
       key: "title",
-      width: 200,
+      width: 150,
       ellipsis: true,
+      render: (text: string) => renderWithTooltip(text),
     },
     {
       title: t("sys.notification.content"),
       dataIndex: "content",
       key: "content",
-      width: 200,
+      width: 150,
       ellipsis: true,
-    },
+      render: (text: string) => renderWithTooltip(text),
+          },
     {
       title: t("sys.notification.short-description"),
       dataIndex: "shortDescription",
       key: "shortDescription",
-      width: 200,
+      width: 150,
       ellipsis: true,
-    },
+      render: (text: string) => renderWithTooltip(text),
+          },
     {
       title: t("sys.notification.image-video"),
       dataIndex: "actionUrl",
       key: "actionUrl",
-      width: 200,
+      width: 150,
       ellipsis: true,
       render: (url: string) => {
         if (!url) return null;
@@ -198,12 +213,12 @@ const NotificationManagement: React.FC = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       width: 150,
-      render: (date: string) => dayjs(date).format("DD/MM/YYYY HH:mm:ss"),
+      render: (date: string) => renderWithTooltip(dayjs(date).format("DD/MM/YYYY HH:mm:ss")),
     },
     {
       title: t("sys.notification.actions"),
       key: "actions",
-      width: 200,
+      width: 150,
       render: (record: Notification) => {
         return (
           <Space>
@@ -229,109 +244,205 @@ const NotificationManagement: React.FC = () => {
     },
   ];
 
-  return (
-    <Card>
-      <div style={{ marginBottom: "24px" }}>
-        <div className="flex justify-between items-center">
-          <Title level={3}>{t("sys.notification.management")}</Title>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div></div>
-            <Link to="/notifications/new-notification">
-              <Button type="primary" icon={<PlusOutlined />} size="middle">
-                {t("sys.notification.new-notification")}
-              </Button>
-            </Link>
-          </div>
-        </div>
-        <Divider style={{ margin: "12px 0" }} />
+  // Tính toán thống kê
+  const totalNotifications = notifications.length;
+  const systemNotifications = notifications.filter(n => n.type === "system").length;
+  const totalReadByUsers = notifications.reduce((sum, n) => sum + (n.readByUsers?.length || 0), 0);
 
-        <Row gutter={16} align="middle">
-          <Col span={6}>
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "4px",
-                  fontWeight: 500,
-                }}
-              >
-                {t("sys.notification.search")}
-              </label>
-              <Input
-                placeholder={t("sys.notification.search-placeholder")}
-                value={searchTitle}
-                onChange={(e) => setSearchTitle(e.target.value)}
-                prefix={<SearchOutlined />}
+  return (
+    <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
+      {/* Header */}
+      <div className="pt-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">
+              🔔 {t("sys.notification.management")}
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              {t("sys.notification.management-description")}
+            </p>
+          </div>
+          <Link to="/notifications/new-notification">
+            <Button
+              type="primary"
+              size="large"
+              icon={<PlusOutlined />}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              {t("sys.notification.new-notification")}
+            </Button>
+          </Link>
+        </div>
+      </div>
+      <Separator />
+
+      {/* Thống kê */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-foreground">
+              {t("sys.notification.total-notifications")}
+            </CardTitle>
+            <div className="p-2 bg-primary rounded-full">
+              <Icon
+                icon="lucide:bell"
+                className="h-4 w-4 text-white"
               />
             </div>
-          </Col>
-          <Col span={6}>
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "4px",
-                  fontWeight: 500,
-                }}
-              >
-                {t("sys.notification.created-at")}
-              </label>
-              <RangePicker
-                style={{ width: "100%" }}
-                placeholder={[
-                  t("sys.notification.created-at-placeholder"),
-                  t("sys.notification.created-at-placeholder"),
-                ]}
-                value={dateRange}
-                onChange={(dates) =>
-                  setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
-                }
-              />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">
+              {totalNotifications}
             </div>
-          </Col>
-          <Col span={12}>
-            <div style={{ display: "flex", gap: "8px", marginTop: "24px" }}>
+            <p className="text-xs text-muted-foreground mt-1">
+              {t("sys.notification.total-notifications-description")}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-foreground">
+              {t("sys.notification.system-notifications")}
+            </CardTitle>
+            <div className="p-2 bg-green-500 rounded-full">
+              <Icon icon="lucide:shield-check" className="h-4 w-4 text-white" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">
+              {systemNotifications}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {t("sys.notification.system-notifications-description")}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-foreground">
+              {t("sys.notification.total-reads")}
+            </CardTitle>
+            <div className="p-2 bg-purple-500 rounded-full">
+              <Icon icon="lucide:users" className="h-4 w-4 text-white" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">
+              {totalReadByUsers}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {t("sys.notification.total-reads-description")}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Bộ lọc */}
+      <div className="py-4">
+        <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+          <Icon icon="lucide:filter" className="h-5 w-5 text-blue-600" />
+          {t("sys.notification.filter")}
+        </h2>
+        <Separator className="my-4" />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold text-muted-foreground">
+              {t("sys.notification.search")}
+            </Label>
+            <Input
+              placeholder={t("sys.notification.search-placeholder")}
+              value={searchTitle}
+              onChange={(e) => setSearchTitle(e.target.value)}
+              prefix={<SearchOutlined />}
+              size="large"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold text-muted-foreground">
+              {t("sys.notification.created-at")}
+            </Label>
+            <RangePicker
+              style={{ width: "100%" }}
+              size="large"
+              placeholder={[
+                t("sys.notification.created-at-placeholder"),
+                t("sys.notification.created-at-placeholder"),
+              ]}
+              value={dateRange}
+              onChange={(dates) =>
+                setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
+              }
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold text-muted-foreground invisible">
+              Actions
+            </Label>
+            <div className="flex gap-2">
               <Button
                 type="primary"
                 onClick={handleSearch}
                 icon={<SearchOutlined />}
+                size="large"
+                className="bg-blue-600 hover:bg-blue-700"
               >
                 {t("sys.notification.search")}
               </Button>
-              <Button onClick={handleClearFilter}>
+              <Button onClick={handleClearFilter} size="large">
                 {t("sys.notification.clear-filter")}
               </Button>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
+      <Separator />
 
-      <Table
-        columns={columns}
-        dataSource={notifications}
-        rowKey="_id"
-        loading={loading}
-        pagination={{
-          total: notifications.length,
-          pageSize: 10,
-          showSizeChanger: true,
-          showQuickJumper: true,
-          showTotal: (total, _range) =>
-            `${t("sys.notification.total")} ${total} ${t(
-              "sys.notification.items"
-            )}`,
-        }}
-      />
+      {/* Danh sách thông báo */}
+      <div className="pb-4">
+        <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mb-4">
+          <Icon icon="lucide:list" className="h-5 w-5 text-blue-600" />
+          {t("sys.notification.notification-list")} ({totalNotifications})
+        </h2>
+        <Separator className="my-4" />
+
+        <div className="overflow-x-auto">
+          <Table
+            columns={columns}
+            dataSource={notifications}
+            rowKey="_id"
+            loading={loading}
+            scroll={{ x: 1500 }}
+            pagination={{
+              current: currentPage,
+              pageSize: pageSize,
+              total: totalNotifications,
+              showSizeChanger: true,
+              showQuickJumper: true,
+              pageSizeOptions: ['5', '10', '20', '50'],
+              onChange: (page, size) => {
+                setCurrentPage(page);
+                setPageSize(size);
+              },
+              showTotal: (total, range) =>
+                `${t("sys.notification.showing")} ${range[0]}-${range[1]} ${t("sys.notification.of")} ${total} ${t("sys.notification.items")}`,
+            }}
+          />
+        </div>
+      </div>
 
       {/* Edit Modal */}
       <Modal
-        title={t("sys.notification.edit-notification")}
+        title={
+          <div className="flex items-center gap-2">
+            <Icon icon="lucide:edit" className="h-5 w-5 text-blue-600" />
+            {t("sys.notification.edit-notification")}
+          </div>
+        }
         open={editModalVisible}
         onCancel={handleEditModalCancel}
         footer={null}
@@ -418,16 +529,16 @@ const NotificationManagement: React.FC = () => {
           <Form.Item style={{ marginBottom: 0, textAlign: "right" }}>
             <Space>
               <Button onClick={handleEditModalCancel}>
-                {t("sys.notification.cancel")}
+                ❌ {t("sys.notification.cancel")}
               </Button>
-              <Button type="primary" htmlType="submit">
-                {t("sys.notification.update")}
+              <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-700">
+                💾 {t("sys.notification.update")}
               </Button>
             </Space>
           </Form.Item>
         </Form>
       </Modal>
-    </Card>
+    </div>
   );
 };
 

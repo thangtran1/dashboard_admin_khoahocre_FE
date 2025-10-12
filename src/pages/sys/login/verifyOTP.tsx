@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Button } from "antd";
 import { InputOtp } from "@heroui/react";
 import { useMutation } from "@tanstack/react-query";
-import userService from "@/api/services/userService";
+import userService from "@/api/services/userApi";
 import ModalBase from "./modalBase";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";

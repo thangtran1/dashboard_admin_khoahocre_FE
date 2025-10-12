@@ -1,4 +1,4 @@
-import userService from "@/api/services/userService";
+import userService from "@/api/services/userApi";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Input, Button, Card } from "antd";
 import { useEffect, useState } from "react";

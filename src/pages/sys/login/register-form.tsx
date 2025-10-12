@@ -1,4 +1,4 @@
-import userService from "@/api/services/userService";
+import userService from "@/api/services/userApi";
 import { Button } from "@/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/ui/form";
 import { Input } from "@/ui/input";

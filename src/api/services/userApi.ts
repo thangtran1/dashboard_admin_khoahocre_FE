@@ -1,62 +1,81 @@
 import apiClient from "../apiClient";
 
-// import type { User } from "#/entity";
-export type CreateUserReq = {
-  email: string;
-  name: string;
-  password: string;
-};
+import type { UserInfo, UserToken } from "#/entity";
 
-export interface User {
-  id: number;
+export interface SignInReq {
   email: string;
-  name: string;
   password: string;
-  role: string;
-  otp: string | null;
-  otpExpiry: string | null;
-  createdAt: string;
-  updatedAt: string;
 }
 
-export interface GetUsersRes {
-  success: boolean;
-  message: string;
-  data: User[];
+export interface SignUpReq extends SignInReq {
+  email: string;
+}
+export type SignInRes = UserToken & { user: UserInfo };
+
+//  forgot Password
+export interface ForgotPasswordReq {
+  email: string;
 }
 
-export type UpdateUserReq = {
+export interface VerifyOtpReq {
   email: string;
-  name: string;
-  password?: string;
-  role: string;
+  otp: string;
+}
+
+export interface ResetPasswordReq {
+  token: string;
+  newPassword: string;
+}
+
+export interface ForgotPasswordRes {
+  data?: {
+    success: boolean;
+    message?: string;
+  };
+}
+
+export type VerifyOtpRes = {
+  data?: {
+    success: boolean;
+    message?: string;
+    token?: string;
+  };
 };
-export type DeleteUserRes = { success: boolean; message?: string };
+
+export interface ResetPasswordRes {
+  data?: {
+    success: boolean;
+    message?: string;
+  };
+}
+//  forgot Password
 
 export enum UserApi {
-  GetAll = "/user",
-  Create = "/user",
-  Update = "/user/:id",
-  Delete = "/user/:id",
+  Login = "/auth/login",
+  Register = "/auth/register",
+  ForgotPassword = "/auth/forgot-password",
+  VerifyOtp = "/auth/verify-otp",
+  ResetPassword = "/auth/reset-password",
 }
-const getUsers = () => apiClient.get<GetUsersRes>({ url: UserApi.GetAll });
-const createUser = (data: CreateUserReq) =>
-  apiClient.post<CreateUserReq>({ url: UserApi.Create, data });
 
-const updateUser = (id: string, data: UpdateUserReq) =>
-  apiClient.put<UpdateUserReq>({
-    url: UserApi.Update.replace(":id", id),
-    data,
-  });
+const login = (data: SignInReq) =>
+  apiClient.post<SignInRes>({ url: UserApi.Login, data });
 
-const deleteUser = (id: string) =>
-  apiClient.delete<DeleteUserRes>({
-    url: UserApi.Delete.replace(":id", id),
-  });
+const register = (data: SignInReq) =>
+  apiClient.post<SignInRes>({ url: UserApi.Register, data });
 
+const forgotPassword = (data: ForgotPasswordReq) =>
+  apiClient.post<ForgotPasswordRes>({ url: UserApi.ForgotPassword, data });
+
+const verifyOtp = (data: VerifyOtpReq) =>
+  apiClient.post<VerifyOtpRes>({ url: UserApi.VerifyOtp, data });
+
+const resetPassword = (data: ResetPasswordReq) =>
+  apiClient.post<ResetPasswordRes>({ url: UserApi.ResetPassword, data });
 export default {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
+  login,
+  register,
+  forgotPassword,
+  verifyOtp,
+  resetPassword,
 };

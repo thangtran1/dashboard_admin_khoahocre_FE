@@ -1,4 +1,4 @@
-import type { SignInReq } from "@/api/services/userService";
+import type { SignInReq } from "@/api/services/userApi";
 import { Icon } from "@/components/icon";
 import { GoogleOAuthButton } from "@/components/google-oauth-button";
 import { useSignIn } from "@/store/userStore";

@@ -26,7 +26,7 @@ import { toast } from "sonner";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/vi";
-import { notificationUserService } from "@/api/services/notificationService";
+import { notificationUserService } from "@/api/services/notificationApi";
 import { NotificationType } from "@/types/enum";
 import { useTranslation } from "react-i18next";
 import { Notification } from "@/types/entity";

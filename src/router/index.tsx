@@ -163,9 +163,9 @@ export default function Router() {
       {
         path: "thanh-toan",
         children: [
-          { index: true, element: <CheckoutPage /> }, // điền form
-          { path: "xac-nhan", element: <CheckoutConfirmPage /> }, // xác nhận
-          { path: "thanh-cong", element: <CheckoutSuccessPage /> }, // kết thúc
+          { index: true, element: <CheckoutPage /> },
+          { path: "xac-nhan", element: <CheckoutConfirmPage /> },
+          { path: "thanh-cong", element: <CheckoutSuccessPage /> },
         ],
       },
       {
