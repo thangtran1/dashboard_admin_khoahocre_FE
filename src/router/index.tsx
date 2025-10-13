@@ -11,6 +11,7 @@ import type { AppRouteObject } from "#/router";
 import ResetPassword from "@/pages/sys/login/resetPassword";
 import GoogleSuccess from "@/pages/sys/login/google-success";
 import GoogleError from "@/pages/sys/login/google-error";
+import ProfilePage from "@/pages/profile";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
 import BlogGridPage from "@/pages/user/blog/blog";
@@ -33,7 +34,6 @@ import { BuyCourse } from "@/pages/user/information/buyCourse";
 import { ClearCache } from "@/pages/user/clear-cache";
 import NewCoursesDetail from "@/pages/user/new-courses/new-courses-detail";
 import NewCoursesPage from "@/pages/user/new-courses/new-courses";
-import Market from "@/pages/user/public/market";
 import MarketPage from "@/pages/user/market/market";
 import MarketDetail from "@/pages/user/market/market-detail";
 import GroupBuyPage from "@/pages/user/group-buy/group-buy";
@@ -68,6 +68,15 @@ export default function Router() {
     children: [
       { index: true, element: <Navigate to={HOMEPAGE} replace /> },
       ...permissionRoutes,
+      // Profile route - không hiển thị trong sidebar
+      {
+        path: "profile",
+        element: (
+          <ErrorBoundary FallbackComponent={PageError}>
+            <ProfilePage />
+          </ErrorBoundary>
+        ),
+      },
     ],
   };
   const RESET_PASSWORD_ROUTE: AppRouteObject = {
