@@ -1,48 +1,381 @@
+import { useState, useEffect } from "react";
+import { Card, Avatar, Button, Drawer, Tooltip } from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  CameraOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  CalendarOutlined,
+  HomeOutlined,
+  MenuOutlined,
+  LeftOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
+import { useUserProfile } from "@/hooks/useUserProfile";
 import CoverImage from "@/assets/images/cover/cover_4.jpg";
-import { useUserInfo } from "@/store/userStore";
-import { Card } from "@/ui/card";
+import PersonalInfoTab from "./components/PersonalInfoTab";
+import SecurityTab from "./components/SecurityTab";
 import { type CSSProperties } from "react";
-import ProfileTab from "./profile-tab";
-import AccountPage from "./account";
-import Breadcrumbs from "@/utils/Breadcrumb";
 
 function UserProfile() {
-  const { avatar, username } = useUserInfo();
+  const [activeTab, setActiveTab] = useState("profile");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const { profile, loading, error, updateProfile } = useUserProfile();
+
+  // Listen for profile updates (không reload page)
+  useEffect(() => {
+    const handleProfileUpdate = (event: CustomEvent) => {
+      // Chỉ cập nhật state, không reload page
+      if (event.detail) {
+        updateProfile(event.detail);
+      }
+    };
+
+    window.addEventListener(
+      "profileUpdated",
+      handleProfileUpdate as EventListener
+    );
+    return () => {
+      window.removeEventListener(
+        "profileUpdated",
+        handleProfileUpdate as EventListener
+      );
+    };
+  }, [updateProfile]);
 
   const bgStyle: CSSProperties = {
-    background: `url(${CoverImage})`,
+    background: `linear-gradient(135deg, rgba(59,130,246,0.9), rgba(147,51,234,0.9)), url(${CoverImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   };
 
-  return (
-    <div>
-      <div className="p-2 mb-2 rounded-lg bg-muted">
-        <Breadcrumbs />
+  const avatarUrl = profile?.avatar
+    ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
+    : undefined;
+
+  const menuItems = [
+    {
+      key: "profile",
+      icon: <UserOutlined />,
+      label: "Thông tin cá nhân",
+      description: "Cập nhật thông tin và ảnh đại diện",
+      color: "from-blue-500 to-indigo-600",
+      bgColor: "bg-blue-50",
+      iconColor: "text-blue-600",
+    },
+    {
+      key: "security",
+      icon: <LockOutlined />,
+      label: "Bảo mật",
+      description: "Thay đổi mật khẩu và cài đặt bảo mật",
+      color: "from-red-500 to-pink-600",
+      bgColor: "bg-red-50",
+      iconColor: "text-red-600",
+    },
+  ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background to-border blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="relative">
+            <div className="animate-spin rounded-full h-20 w-20 border-4 border-border border-t-transparent mx-auto mb-4"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <UserOutlined className="text-2xl text-border" />
+            </div>
+          </div>
+          <p className="text-muted text-lg font-medium">
+            Đang tải thông tin...
+          </p>
+        </div>
       </div>
-      <Card className="relative mb-6 h-[300px] flex-col rounded-2xl p-0! gap-0">
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background to-border red-50 flex items-center justify-center p-4">
+        <Card className="max-w-md text-center shadow-2xl border-0">
+          <div className="text-muted text-6xl mb-4">⚠️</div>
+          <h3 className="text-xl font-bold mb-2 text-muted">Có lỗi xảy ra</h3>
+          <p className="text-muted mb-4">{error}</p>
+          <Button
+            type="primary"
+            size="large"
+            className="bg-gradient-to-r from-border to-border border-0"
+            onClick={() => window.location.reload()}
+          >
+            Thử lại
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
+  const SidebarContent = ({ isMobile = false }) => (
+    <div className="h-full flex flex-col bg-muted border-r border-border">
+      {/* Header */}
+      <div
+        className={`p-4 border-b border-border flex items-center ${
+          sidebarCollapsed && !isMobile ? "justify-center" : ""
+        }`}
+      >
+        {!sidebarCollapsed || isMobile ? (
+          <div className="text-center">
+            <h2 className="text-lg font-bold text-foreground">⚙️ Cài đặt</h2>
+            <p className="text-xs text-muted-foreground">
+              Quản lý tài khoản của bạn
+            </p>
+          </div>
+        ) : (
+          <span className="text-xl text-foreground">⚙️</span>
+        )}
+
+        <Button
+          type="text"
+          icon={sidebarCollapsed ? <RightOutlined /> : <LeftOutlined />}
+          onClick={() =>
+            isMobile
+              ? setMobileDrawerOpen(false)
+              : setSidebarCollapsed(!sidebarCollapsed)
+          }
+          className="ml-auto text-muted-foreground hover:text-foreground hover:bg-foreground/10 rounded-lg transition-all duration-200"
+        />
+      </div>
+
+      {/* Menu Items */}
+      <div
+        className={`flex-1 py-3 ${
+          sidebarCollapsed ? "flex flex-col items-center" : "px-2"
+        } space-y-2`}
+      >
+        {menuItems.map((item) => (
+          <Tooltip
+            key={item.key}
+            title={
+              sidebarCollapsed && !isMobile ? (
+                <div className="flex flex-col">
+                  <span className="font-semibold text-sm">{item.label}</span>
+                  <span className="text-xs text-muted-foreground mt-0.5">
+                    {item.description}
+                  </span>
+                </div>
+              ) : (
+                ""
+              )
+            }
+            placement="right"
+          >
+            <div
+              onClick={() => {
+                setActiveTab(item.key);
+                if (isMobile) setMobileDrawerOpen(false);
+              }}
+              className={`group relative cursor-pointer w-full rounded-xl transition-all duration-300 flex items-center gap-3 ${
+                activeTab === item.key
+                  ? "bg-gradient-to-r from-indigo-500/10 to-indigo-600/10 border border-indigo-500 shadow-md"
+                  : "hover:bg-foreground/10 border border-transparent"
+              } ${sidebarCollapsed ? "p-3 justify-center" : "p-3"}`}
+            >
+              <div
+                className={`flex items-center justify-center text-xl rounded-lg transition-all duration-300 ${
+                  activeTab === item.key
+                    ? "text-indigo-400 bg-indigo-500/10"
+                    : "text-muted-foreground group-hover:text-foreground"
+                }`}
+              >
+                {item.icon}
+              </div>
+
+              {!sidebarCollapsed && (
+                <div className="flex-1">
+                  <div className="font-medium text-foreground">
+                    {item.label}
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    {item.description}
+                  </div>
+                </div>
+              )}
+            </div>
+          </Tooltip>
+        ))}
+      </div>
+
+      {/* Footer Quick Info */}
+      {!sidebarCollapsed && (
+        <div className="p-4 border-t border-border bg-foreground/5">
+          <h4 className="font-semibold text-muted-foreground mb-3 flex items-center gap-2">
+            📊 Thông tin nhanh
+          </h4>
+          <div className="space-y-3 text-sm">
+            {profile?.email && (
+              <div className="flex items-center gap-2">
+                <MailOutlined className="text-muted-foreground" />
+                <span className="truncate">{profile.email}</span>
+              </div>
+            )}
+            {profile?.phone && (
+              <div className="flex items-center gap-2">
+                <PhoneOutlined className="text-muted-foreground" />
+                <span>{profile.phone}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card transition-colors duration-500">
+      {/* Header */}
+      <div className="relative h-80 mb-8">
         <div style={bgStyle} className="h-full w-full">
-          <div className="flex flex-col items-center justify-center pt-12 md:absolute md:bottom-6 md:left-6 md:flex-row md:pt-0">
-            <img
-              src={"https://vanthang.io.vn/avatar.jpg"}
-              className="h-16 w-16 rounded-full md:h-32 md:w-32"
-              alt=""
-            />
-            <div className="ml-6 mt-6 flex flex-col justify-center md:mt-0">
-              <span className="mb-2 text-2xl font-medium text-common-white">
-                {username}
-              </span>
-              <span className="text-center text-text-secondary md:text-left">
-                TS FullStack
-              </span>
+          <div className="absolute inset-0 bg-background/30 backdrop-blur-sm"></div>
+          <div className="absolute inset-0 flex items-end justify-center pb-8">
+            <div className="text-center text-foreground z-10">
+              {/* Avatar */}
+              <div className="relative inline-block mb-4">
+                <Avatar
+                  size={120}
+                  icon={<UserOutlined />}
+                  src={avatarUrl}
+                  className="border-4 border-border shadow-lg bg-card"
+                />
+                <div className="absolute bottom-2 right-2 bg-primary rounded-full p-2 shadow-md hover:scale-105 transition">
+                  <CameraOutlined className="text-primary-foreground text-lg" />
+                </div>
+              </div>
+
+              {/* Name & Email */}
+              <h1 className="text-4xl font-bold mb-2 drop-shadow">
+                {profile?.name || "Người dùng"}
+              </h1>
+              <p className="text-foreground text-lg mb-2">{profile?.email}</p>
+
+              {/* Role & Verification */}
+              <div className="flex items-center justify-center gap-2">
+                <span className="px-4 py-2 bg-muted rounded-full text-sm border border-border backdrop-blur-sm">
+                  {profile?.role === "admin"
+                    ? "👑 Quản trị viên"
+                    : profile?.role === "moderator"
+                    ? "🛡️ Kiểm duyệt viên"
+                    : "👤 Người dùng"}
+                </span>
+                {profile?.isEmailVerified && (
+                  <span className="px-4 py-2 bg-green-500/20 text-green-400 rounded-full text-sm border border-green-400/20">
+                    ✅ Đã xác thực
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </Card>
-      <div className="flex flex-col gap-6">
-        <AccountPage />
-        <ProfileTab />
+      </div>
+
+      {/* Main */}
+      <div className="max-w-7xl mx-auto px-4 pb-12">
+        {/* Mobile Menu Button */}
+        <div className="lg:hidden mb-4">
+          <Button
+            type="primary"
+            icon={<MenuOutlined />}
+            onClick={() => setMobileDrawerOpen(true)}
+            className="shadow-lg bg-primary hover:bg-primary/90 border-none transition"
+            size="large"
+          >
+            Menu cài đặt
+          </Button>
+        </div>
+
+        <div className="flex gap-6">
+          {/* Desktop Sidebar */}
+          <div
+            className={`hidden lg:block transition-all duration-500 ${
+              sidebarCollapsed ? "w-20" : "w-80"
+            }`}
+          >
+            <Card className="sticky top-6 shadow-md bg-card border-border backdrop-blur-md h-fit">
+              <SidebarContent />
+            </Card>
+          </div>
+
+          {/* Mobile Drawer */}
+          <Drawer
+            title={
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-muted rounded-lg">
+                  <UserOutlined className="text-foreground" />
+                </div>
+                <span className="text-foreground">Cài đặt tài khoản</span>
+              </div>
+            }
+            placement="left"
+            onClose={() => setMobileDrawerOpen(false)}
+            open={mobileDrawerOpen}
+            className="lg:hidden"
+            width={320}
+            styles={{
+              body: { padding: 0 },
+              header: { borderBottom: "1px solid var(--border)" },
+            }}
+          >
+            <SidebarContent isMobile />
+          </Drawer>
+
+          {/* Main Content */}
+          <div className="flex-1">
+            <Card className="shadow-lg bg-card border-border backdrop-blur-md">
+              <div className="p-6">
+                {activeTab === "profile" && (
+                  <section>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
+                        <UserOutlined className="text-2xl" />
+                      </div>
+                      <div>
+                        <h2 className="text-3xl font-bold text-foreground">
+                          Thông tin cá nhân
+                        </h2>
+                        <p className="text-muted-foreground">
+                          Quản lý thông tin và ảnh đại diện của bạn
+                        </p>
+                      </div>
+                    </div>
+                    <PersonalInfoTab
+                      profile={profile}
+                      loading={loading}
+                      onProfileUpdate={updateProfile}
+                    />
+                  </section>
+                )}
+
+                {activeTab === "security" && (
+                  <section>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
+                        <LockOutlined className="text-2xl" />
+                      </div>
+                      <div>
+                        <h2 className="text-3xl font-bold text-foreground">
+                          Bảo mật tài khoản
+                        </h2>
+                        <p className="text-muted-foreground">
+                          Thay đổi mật khẩu và cài đặt bảo mật
+                        </p>
+                      </div>
+                    </div>
+                    <SecurityTab />
+                  </section>
+                )}
+              </div>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

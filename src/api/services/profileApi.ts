@@ -100,6 +100,17 @@ export const updateUserProfile = async (
   return response.data.data;
 };
 
+// User change password
+export const changePassword = async (data: {
+  currentPassword: string;
+  newPassword: string;
+}): Promise<void> => {
+  await apiClient.patch({
+    url: "/user/profile/password",
+    data,
+  });
+};
+
 // Admin change password
 export const adminChangePassword = async (data: AdminChangePasswordReq) => {
   const response = await apiClient.patch({
