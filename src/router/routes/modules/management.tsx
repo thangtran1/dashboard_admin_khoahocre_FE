@@ -7,8 +7,7 @@ import { LineLoading } from "@/components/loading";
 import type { AppRouteObject } from "#/router";
 
 // Lazy load components
-  const ManagementUserPage = lazy(() => import("@/pages/management/user"));
-
+const ManagementUserPage = lazy(() => import("@/pages/management/user"));
 
 const management: AppRouteObject = {
   order: 2,
@@ -38,7 +37,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.user",
+        label: "sys.menu.management-user",
         key: "/management/user",
       },
     },

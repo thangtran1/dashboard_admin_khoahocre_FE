@@ -49,7 +49,7 @@ export default function AccountDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <NavLink to="/management/user/profile">
-            {t("sys.menu.user.profile")}
+            {t("sys.menu.management-user")}
           </NavLink>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
