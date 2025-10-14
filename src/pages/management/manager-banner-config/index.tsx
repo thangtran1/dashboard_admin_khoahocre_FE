@@ -15,7 +15,7 @@ import type {
   UpdateBannerSettingsRequest,
 } from "@/api/services/bannerApi";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
+import { Card, CardContent } from "@/ui/card";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 
@@ -217,64 +217,84 @@ export default function BannerConfigPage() {
       <Separator />
 
       {/* Thống kê */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-foreground">
-              {t("sys.banner-config.total-banner")}
-            </CardTitle>
-            <div className="p-2 bg-primary rounded-full">
-              <Icon
-                icon="lucide:layout-dashboard"
-                className="h-4 w-4 text-white"
-              />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 dark:from-blue-900/20 dark:to-blue-800/30 dark:border-blue-700">
+          <CardContent className="px-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-blue-800 dark:text-blue-300">
+                  {t("sys.banner-config.total-banner")}
+                </p>
+                <div className="flex flex-col mt-3">
+                  <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                    {stats.total}
+                  </p>
+                  <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">
+                    {t("sys.banner-config.total-banner-description")}
+                  </p>
+                </div>
+              </div>
+              <div className="p-2 bg-blue-500 rounded-full">
+                <Icon
+                  icon="lucide:layout-dashboard"
+                  className="h-5 w-5 text-white"
+                />
+              </div>
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-foreground">
-              {stats.total}
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {t("sys.banner-config.total-banner-description")}
-            </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-foreground">
-              {t("sys.banner-config.active-banner")}
-            </CardTitle>
-            <div className="p-2 bg-green-500 rounded-full">
-              <Icon icon="lucide:check-circle" className="h-4 w-4 text-white" />
+        {/* Active banner */}
+        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200 dark:from-green-900/20 dark:to-green-800/30 dark:border-green-700">
+          <CardContent className="px-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-green-800 dark:text-green-300">
+                  {t("sys.banner-config.active-banner")}
+                </p>
+                <div className="flex flex-col mt-2">
+                  <p className="text-2xl font-bold text-green-900 dark:text-green-100">
+                    {stats.active}
+                  </p>
+                  <p className="text-xs text-green-700 dark:text-green-400 mt-1">
+                    {t("sys.banner-config.active-banner-description")}
+                  </p>
+                </div>
+              </div>
+              <div className="p-2 bg-green-500 rounded-full">
+                <Icon
+                  icon="lucide:check-circle"
+                  className="h-5 w-5 text-white"
+                />
+              </div>
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-foreground">
-              {stats.active}
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {t("sys.banner-config.active-banner-description")}
-            </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-foreground">
-              {t("sys.banner-config.paused-banner")}
-            </CardTitle>
-            <div className="p-2 bg-red-500 rounded-full">
-              <Icon icon="lucide:pause-circle" className="h-4 w-4 text-white" />
+        {/* Paused banner */}
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200 dark:from-red-900/20 dark:to-red-800/30 dark:border-red-700">
+          <CardContent className="px-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-red-800 dark:text-red-300">
+                  {t("sys.banner-config.paused-banner")}
+                </p>
+                <div className="flex flex-col mt-2">
+                  <p className="text-2xl font-bold text-red-900 dark:text-red-100">
+                    {stats.inactive}
+                  </p>
+                  <p className="text-xs text-red-700 dark:text-red-400 mt-1">
+                    {t("sys.banner-config.paused-banner-description")}
+                  </p>
+                </div>
+              </div>
+              <div className="p-2 bg-red-500 rounded-full">
+                <Icon
+                  icon="lucide:pause-circle"
+                  className="h-5 w-5 text-white"
+                />
+              </div>
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-foreground">
-              {stats.inactive}
-            </div>
-            <p className="text-xs text-red-600 mt-1">
-              {t("sys.banner-config.paused-banner-description")}
-            </p>
           </CardContent>
         </Card>
       </div>
