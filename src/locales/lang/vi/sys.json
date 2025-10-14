@@ -480,6 +480,9 @@
       "loading": "Đang tải...",
       "vi": "Tiếng Việt",
       "en": "Tiếng Anh"
+    },
+    "database": {
+      "title": "Quản lý Cơ sở dữ liệu"
     }
   }
 }

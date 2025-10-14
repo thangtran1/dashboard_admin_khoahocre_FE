@@ -7,6 +7,7 @@ import { LineLoading } from "@/components/loading";
 import type { AppRouteObject } from "#/router";
 import BannerConfigPage from "@/pages/management/manager-banner-config";
 import ManagerChatUser from "@/pages/management/manager-chat-user/manager-chat-user";
+import DatabaseManagement from "@/pages/management/database";
 
 // Lazy load components
 const ManagementUserPage = lazy(() => import("@/pages/management/user"));
@@ -65,6 +66,18 @@ const management: AppRouteObject = {
       meta: {
         label: "sys.menu.manager-chat-user",
         key: "/management/manager-chat-user",
+      },
+    },
+    {
+      path: "database",
+      element: (
+        <Suspense fallback={<LineLoading />}>
+          <DatabaseManagement />
+        </Suspense>
+      ),
+      meta: {
+        label: "sys.database.title",
+        key: "/management/database",
       },
     },
   ],

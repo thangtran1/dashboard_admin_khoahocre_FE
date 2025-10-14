@@ -480,6 +480,9 @@
       "loading": "Loading...",
       "vi": "Vietnamese",
       "en": "English"
+    },
+    "database": {
+      "title": "Database Management"
     }
   }
 }
