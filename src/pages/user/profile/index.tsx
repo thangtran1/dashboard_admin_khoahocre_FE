@@ -17,8 +17,10 @@ import CoverImage from "@/assets/images/cover/cover_4.jpg";
 import PersonalInfoTab from "./components/PersonalInfoTab";
 import SecurityTab from "./components/SecurityTab";
 import { type CSSProperties } from "react";
+import { useTranslation } from "react-i18next";
 
 function UserProfile() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("profile");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -60,8 +62,8 @@ function UserProfile() {
     {
       key: "profile",
       icon: <UserOutlined />,
-      label: "Thông tin cá nhân",
-      description: "Cập nhật thông tin và ảnh đại diện",
+      label: t("userProfile.personal-info"),
+      description: t("userProfile.manage-personal-info"),
       color: "from-blue-500 to-indigo-600",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600",
@@ -69,8 +71,8 @@ function UserProfile() {
     {
       key: "security",
       icon: <LockOutlined />,
-      label: "Bảo mật",
-      description: "Thay đổi mật khẩu và cài đặt bảo mật",
+      label: t("userProfile.security"),
+      description: t("userProfile.manage-security"),
       color: "from-red-500 to-pink-600",
       bgColor: "bg-red-50",
       iconColor: "text-red-600",
@@ -88,7 +90,7 @@ function UserProfile() {
             </div>
           </div>
           <p className="text-muted text-lg font-medium">
-            Đang tải thông tin...
+            {t("userProfile.loading")}
           </p>
         </div>
       </div>
@@ -100,7 +102,9 @@ function UserProfile() {
       <div className="min-h-screen bg-gradient-to-br from-background to-border red-50 flex items-center justify-center p-4">
         <Card className="max-w-md text-center shadow-2xl border-0">
           <div className="text-muted text-6xl mb-4">⚠️</div>
-          <h3 className="text-xl font-bold mb-2 text-muted">Có lỗi xảy ra</h3>
+          <h3 className="text-xl font-bold mb-2 text-muted">
+            {t("userProfile.error")}
+          </h3>
           <p className="text-muted mb-4">{error}</p>
           <Button
             type="primary"
@@ -108,7 +112,7 @@ function UserProfile() {
             className="bg-gradient-to-r from-border to-border border-0"
             onClick={() => window.location.reload()}
           >
-            Thử lại
+            {t("userProfile.try-again")}
           </Button>
         </Card>
       </div>
@@ -125,9 +129,11 @@ function UserProfile() {
       >
         {!sidebarCollapsed || isMobile ? (
           <div>
-            <h2 className="text-lg font-bold text-foreground">⚙️ Cài đặt</h2>
+            <h2 className="text-lg font-bold text-foreground">
+              ⚙️ {t("userProfile.settings")}
+            </h2>
             <p className="text-xs text-muted-foreground">
-              Quản lý tài khoản của bạn
+              {t("userProfile.manage-personal-info")}
             </p>
           </div>
         ) : (
@@ -209,7 +215,7 @@ function UserProfile() {
       {!sidebarCollapsed && (
         <div className="py-4 px-1 border-t border-border bg-background/30">
           <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-1">
-            📊 Thông tin nhanh
+            📊 {t("userProfile.quick-info")}
           </h3>
           <div className="space-y-3 text-sm">
             {profile?.email && (
@@ -253,7 +259,7 @@ function UserProfile() {
 
             {/* Name & Email */}
             <h1 className="text-3xl font-bold mb-1 text-foreground drop-shadow-sm">
-              {profile?.name || "Người dùng"}
+              {profile?.name || t("userProfile.user")}
             </h1>
             <p className="text-foreground text-sm mb-3">
               {profile?.email || "example@email.com"}
@@ -263,15 +269,15 @@ function UserProfile() {
             <div className="flex flex-wrap items-center justify-center gap-2">
               <span className="px-4 py-1.5 rounded-full text-sm bg-primary/10 border border-primary/30 text-primary backdrop-blur-sm">
                 {profile?.role === "admin"
-                  ? "👑 Quản trị viên"
+                  ? "👑 " + t("userProfile.admin")
                   : profile?.role === "moderator"
-                  ? "🛡️ Kiểm duyệt viên"
-                  : "👤 Người dùng"}
+                  ? "🛡️ " + t("userProfile.moderator")
+                  : "👤 " + t("userProfile.user")}
               </span>
 
               {profile?.isEmailVerified && (
                 <span className="px-4 py-1.5 rounded-full text-sm bg-primary/10 border border-primary/30 text-primary backdrop-blur-sm">
-                  ✅ Đã xác thực
+                  ✅ {t("userProfile.verified")}
                 </span>
               )}
             </div>
@@ -290,7 +296,7 @@ function UserProfile() {
             className="shadow-lg bg-primary hover:bg-primary/90 border-none transition"
             size="large"
           >
-            Menu cài đặt
+            {t("userProfile.settings")}
           </Button>
         </div>
 
@@ -313,7 +319,9 @@ function UserProfile() {
                 <div className="p-2 bg-muted rounded-lg">
                   <UserOutlined className="text-foreground" />
                 </div>
-                <span className="text-foreground">Cài đặt tài khoản</span>
+                <span className="text-foreground">
+                  {t("userProfile.settings")}
+                </span>
               </div>
             }
             placement="left"
@@ -340,10 +348,10 @@ function UserProfile() {
                     </div>
                     <div>
                       <h2 className="text-3xl font-bold text-foreground">
-                        Thông tin cá nhân
+                        {t("userProfile.personal-info")}
                       </h2>
                       <p className="text-muted-foreground">
-                        Quản lý thông tin và ảnh đại diện của bạn
+                        {t("userProfile.manage-personal-info")}
                       </p>
                     </div>
                   </div>
@@ -363,10 +371,10 @@ function UserProfile() {
                     </div>
                     <div>
                       <h2 className="text-3xl font-bold text-foreground">
-                        Bảo mật tài khoản
+                        {t("userProfile.security")}
                       </h2>
                       <p className="text-muted-foreground">
-                        Thay đổi mật khẩu và cài đặt bảo mật
+                        {t("userProfile.manage-security")}
                       </p>
                     </div>
                   </div>

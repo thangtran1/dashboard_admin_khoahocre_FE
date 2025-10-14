@@ -4,6 +4,7 @@ import {
   AdminChangePasswordReq,
   adminChangePassword,
 } from "@/api/services/profileApi";
+import { useTranslation } from "react-i18next";
 
 interface SecurityTabProps {
   loading: boolean;
@@ -11,6 +12,7 @@ interface SecurityTabProps {
 }
 
 export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
+  const { t } = useTranslation();
   const [passwordForm] = Form.useForm();
 
   const handlePasswordChange = async (values: any) => {
@@ -22,12 +24,12 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
       };
       await adminChangePassword(passwordData);
       passwordForm.resetFields();
-      toast.success("Đổi mật khẩu thành công!");
+      toast.success(t("sys.profile.change-password-success"));
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message ||
         error?.message ||
-        "Lỗi khi đổi mật khẩu";
+        t("sys.profile.change-password-error");
       if (Array.isArray(errorMessage)) {
         toast.error(errorMessage.join(", "));
       } else {
@@ -40,7 +42,9 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
 
   return (
     <div className="pb-6">
-      <h3 className="text-lg font-semibold mb-4">Đổi mật khẩu</h3>
+      <h3 className="text-lg font-semibold mb-4">
+        {t("sys.profile.change-password")}
+      </h3>
       <Form
         form={passwordForm}
         layout="vertical"
@@ -48,9 +52,12 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
       >
         <Form.Item
           name="currentPassword"
-          label="Mật khẩu hiện tại"
+          label={t("sys.profile.current-password")}
           rules={[
-            { required: true, message: "Vui lòng nhập mật khẩu hiện tại!" },
+            {
+              required: true,
+              message: t("sys.profile.current-password-error"),
+            },
           ]}
         >
           <Input.Password size="large" />
@@ -58,10 +65,10 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
 
         <Form.Item
           name="newPassword"
-          label="Mật khẩu mới"
+          label={t("sys.profile.new-password")}
           rules={[
-            { required: true, message: "Vui lòng nhập mật khẩu mới!" },
-            { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
+            { required: true, message: t("sys.profile.new-password-error") },
+            { min: 6, message: t("sys.profile.new-password-error") },
           ]}
         >
           <Input.Password size="large" />
@@ -69,17 +76,20 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
 
         <Form.Item
           name="confirmPassword"
-          label="Xác nhận mật khẩu mới"
+          label={t("sys.profile.confirm-password")}
           dependencies={["newPassword"]}
           rules={[
-            { required: true, message: "Vui lòng xác nhận mật khẩu!" },
+            {
+              required: true,
+              message: t("sys.profile.confirm-password-error"),
+            },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue("newPassword") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
-                  new Error("Mật khẩu xác nhận không khớp!")
+                  new Error(t("sys.profile.confirm-password-error"))
                 );
               },
             }),
@@ -89,7 +99,7 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
         </Form.Item>
 
         <Button type="primary" htmlType="submit" size="large" loading={loading}>
-          🔒 Đổi mật khẩu
+          🔒 {t("sys.profile.change-password")}
         </Button>
       </Form>
     </div>

@@ -7,6 +7,7 @@ import {
   updateSystemSettings,
   SystemSettings,
 } from "@/api/services/profileApi";
+import { useTranslation } from "react-i18next";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -24,6 +25,7 @@ export default function PreferencesTab({
   setSystemSettings,
   systemSettings,
 }: PreferencesTabProps) {
+  const { t } = useTranslation();
   const [settingsForm] = Form.useForm();
   const { refreshSettings } = useSystemSettings();
   const [isChanged, setIsChanged] = useState(false);
@@ -62,7 +64,7 @@ export default function PreferencesTab({
       setSystemSettings(updatedSettings);
       await refreshSettings();
 
-      toast.success("Cập nhật cài đặt hệ thống thành công!");
+      toast.success(t("sys.profile.update-system-settings-success"));
       setIsChanged(false);
     } catch (error) {
       throw error;
@@ -73,7 +75,9 @@ export default function PreferencesTab({
 
   return (
     <div className="pb-6">
-      <h3 className="text-lg font-semibold mb-4">Tùy chỉnh giao diện</h3>
+      <h3 className="text-lg font-semibold mb-4">
+        {t("sys.profile.preferences")}
+      </h3>
 
       <Form
         form={settingsForm}
@@ -83,20 +87,29 @@ export default function PreferencesTab({
       >
         <Form.Item
           name="defaultLanguage"
-          label="Ngôn ngữ mặc định cho hệ thống"
+          label={t("sys.profile.default-language")}
         >
           <Select size="large">
-            <Option value="vi">Tiếng Việt</Option>
-            <Option value="en">English</Option>
+            <Option value="vi">{t("sys.profile.vi")}</Option>
+            <Option value="en">{t("sys.profile.en")}</Option>
           </Select>
         </Form.Item>
 
-        <Form.Item name="systemName" label="Tên hệ thống">
-          <Input size="large" placeholder="Nhập tên hệ thống" />
+        <Form.Item name="systemName" label={t("sys.profile.system-name")}>
+          <Input
+            size="large"
+            placeholder={t("sys.profile.system-name-placeholder")}
+          />
         </Form.Item>
 
-        <Form.Item name="systemDescription" label="Mô tả hệ thống">
-          <TextArea rows={3} placeholder="Nhập mô tả hệ thống" />
+        <Form.Item
+          name="systemDescription"
+          label={t("sys.profile.system-description")}
+        >
+          <TextArea
+            rows={3}
+            placeholder={t("sys.profile.system-description-placeholder")}
+          />
         </Form.Item>
 
         <Button
@@ -106,7 +119,7 @@ export default function PreferencesTab({
           loading={loading}
           disabled={!isChanged}
         >
-          ⚙️ Lưu cài đặt
+          ⚙️ {t("sys.profile.save-settings")}
         </Button>
       </Form>
     </div>

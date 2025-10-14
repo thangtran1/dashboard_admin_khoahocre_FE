@@ -24,6 +24,7 @@ import {
   UserProfile,
 } from "@/api/services/profileApi";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 
@@ -46,6 +47,7 @@ export default function PersonalInfoTab({
   loading,
   onProfileUpdate,
 }: PersonalInfoTabProps) {
+  const { t } = useTranslation();
   const [profileForm] = Form.useForm();
   const [uploading, setUploading] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
@@ -98,14 +100,14 @@ export default function PersonalInfoTab({
         new CustomEvent("profileUpdated", { detail: updatedProfile })
       );
 
-      toast.success("🎉 Cập nhật thông tin thành công!", {
-        description: "Thông tin của bạn đã được lưu",
+      toast.success(t("userProfile.update-profile-success"), {
+        description: t("userProfile.update-profile-success-description"),
         duration: 3000,
       });
       setIsChanged(false);
     } catch (error: any) {
-      toast.error("❌ Có lỗi xảy ra", {
-        description: error.message || "Vui lòng thử lại sau",
+      toast.error(t("userProfile.update-profile-error"), {
+        description: error.message || t("userProfile.please-try-again"),
         duration: 4000,
       });
       throw error;
@@ -117,8 +119,8 @@ export default function PersonalInfoTab({
       setUploading(true);
 
       // Show loading toast
-      const loadingToast = toast.loading("📤 Đang tải ảnh lên...", {
-        description: "Vui lòng đợi trong giây lát",
+      const loadingToast = toast.loading(t("userProfile.uploading-avatar"), {
+        description: t("userProfile.please-wait"),
       });
 
       const avatarUrl = await uploadAvatar(file);
@@ -138,15 +140,15 @@ export default function PersonalInfoTab({
         new CustomEvent("avatarUpdated", { detail: { avatar: avatarUrl } })
       );
 
-      toast.success("🖼️ Cập nhật ảnh đại diện thành công!", {
-        description: "Ảnh của bạn đã được cập nhật",
+      toast.success(t("userProfile.update-avatar-success"), {
+        description: t("userProfile.update-avatar-success-description"),
         duration: 3000,
       });
 
       return false;
     } catch (error: any) {
-      toast.error("❌ Upload ảnh thất bại", {
-        description: error.message || "Vui lòng thử lại với ảnh khác",
+      toast.error(t("userProfile.upload-avatar-error"), {
+        description: error.message || t("userProfile.please-try-again"),
         duration: 4000,
       });
       return false;
@@ -160,11 +162,11 @@ export default function PersonalInfoTab({
     const isValidSize = file.size / 1024 / 1024 < 2;
 
     if (!isValidType) {
-      message.error("Chỉ có thể upload file JPG/PNG!");
+      message.error(t("userProfile.only-upload-jpg-png"));
       return false;
     }
     if (!isValidSize) {
-      message.error("Ảnh phải nhỏ hơn 2MB!");
+      message.error(t("userProfile.avatar-must-be-less-than-2mb"));
       return false;
     }
 
@@ -204,20 +206,20 @@ export default function PersonalInfoTab({
           </div>
           <div>
             <h3 className="text-xl font-bold text-foreground mb-1">
-              {profile?.name || "Tên người dùng"}
+              {profile?.name || t("userProfile.user")}
             </h3>
             <p className="text-muted-foreground mb-2">{profile?.email}</p>
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
                 {profile?.role === "admin"
-                  ? "👑 Admin"
+                  ? "👑 " + t("userProfile.admin")
                   : profile?.role === "moderator"
-                  ? "🛡️ Moderator"
-                  : "👤 User"}
+                  ? "🛡️ " + t("userProfile.moderator")
+                  : "👤 " + t("userProfile.user")}
               </span>
               {profile?.isEmailVerified && (
                 <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                  ✅ Đã xác thực
+                  ✅ {t("userProfile.verified")}
                 </span>
               )}
             </div>
@@ -240,14 +242,16 @@ export default function PersonalInfoTab({
               label={
                 <span className="text-foreground font-medium">
                   <UserOutlined className="mr-2 text-blue-500" />
-                  Họ và tên
+                  {t("userProfile.name")}
                 </span>
               }
-              rules={[{ required: true, message: "Vui lòng nhập họ tên!" }]}
+              rules={[
+                { required: true, message: t("userProfile.name-required") },
+              ]}
             >
               <Input
                 size="large"
-                placeholder="Nhập họ và tên của bạn"
+                placeholder={t("userProfile.name-placeholder")}
                 className="rounded-lg"
               />
             </Form.Item>
@@ -257,7 +261,7 @@ export default function PersonalInfoTab({
               label={
                 <span className="text-foreground font-medium">
                   <MailOutlined className="mr-2 text-green-500" />
-                  Email
+                  {t("userProfile.email")}
                 </span>
               }
             >
@@ -271,13 +275,13 @@ export default function PersonalInfoTab({
               label={
                 <span className="text-foreground font-medium">
                   <PhoneOutlined className="mr-2 text-purple-500" />
-                  Số điện thoại
+                  {t("userProfile.phone")}
                 </span>
               }
             >
               <Input
                 size="large"
-                placeholder="Nhập số điện thoại"
+                placeholder={t("userProfile.phone-placeholder")}
                 className="rounded-lg"
               />
             </Form.Item>
@@ -286,7 +290,7 @@ export default function PersonalInfoTab({
               name="dateOfBirth"
               label={
                 <span className="text-foreground font-medium">
-                  🎂 Ngày sinh
+                  🎂 {t("userProfile.date-of-birth")}
                 </span>
               }
             >
@@ -294,7 +298,7 @@ export default function PersonalInfoTab({
                 size="large"
                 className="w-full rounded-lg"
                 format="DD/MM/YYYY"
-                placeholder="Chọn ngày sinh"
+                placeholder={t("userProfile.date-of-birth-placeholder")}
               />
             </Form.Item>
           </div>
@@ -304,13 +308,13 @@ export default function PersonalInfoTab({
             label={
               <span className="text-foreground font-medium">
                 <HomeOutlined className="mr-2 text-orange-500" />
-                Địa chỉ
+                {t("userProfile.address")}
               </span>
             }
           >
             <Input
               size="large"
-              placeholder="Nhập địa chỉ của bạn"
+              placeholder={t("userProfile.address-placeholder")}
               className="rounded-lg"
             />
           </Form.Item>
@@ -319,13 +323,13 @@ export default function PersonalInfoTab({
             name="bio"
             label={
               <span className="text-foreground font-medium">
-                📝 Giới thiệu bản thân
+                📝 {t("userProfile.bio")}
               </span>
             }
           >
             <TextArea
               rows={4}
-              placeholder="Viết một vài dòng giới thiệu về bản thân..."
+              placeholder={t("userProfile.bio-placeholder")}
               className="rounded-lg"
             />
           </Form.Item>
@@ -344,7 +348,7 @@ export default function PersonalInfoTab({
                   : ""
               }`}
             >
-              💾 Lưu thay đổi
+              💾 {t("userProfile.save-changes")}
             </Button>
           </div>
         </Form>

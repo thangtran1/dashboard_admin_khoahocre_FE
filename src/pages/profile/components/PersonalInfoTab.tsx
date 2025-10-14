@@ -16,6 +16,7 @@ import {
   uploadAvatar,
 } from "@/api/services/profileApi";
 import dayjs from "dayjs";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 
@@ -30,6 +31,7 @@ export default function PersonalInfoTab({
   loading,
   onProfileUpdate,
 }: PersonalInfoTabProps) {
+  const { t } = useTranslation();
   const [profileForm] = Form.useForm();
   const [uploading, setUploading] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
@@ -81,7 +83,7 @@ export default function PersonalInfoTab({
         new CustomEvent("profileUpdated", { detail: updatedProfile })
       );
 
-      toast.success("Cập nhật thông tin thành công!");
+      toast.success(t("sys.profile.update-profile-success"));
       setIsChanged(false);
     } catch (error) {
       throw error;
@@ -100,7 +102,7 @@ export default function PersonalInfoTab({
         new CustomEvent("profileUpdated", { detail: updatedProfile })
       );
 
-      toast.success("Cập nhật ảnh đại diện thành công!");
+      toast.success(t("sys.profile.update-avatar-success"));
       return false;
     } catch (error) {
       throw error;
@@ -114,11 +116,11 @@ export default function PersonalInfoTab({
     const isValidSize = file.size / 1024 / 1024 < 2;
 
     if (!isValidType) {
-      message.error("Chỉ có thể upload file JPG/PNG!");
+      message.error(t("sys.profile.upload-file-error"));
       return false;
     }
     if (!isValidSize) {
-      message.error("Ảnh phải nhỏ hơn 2MB!");
+      message.error(t("sys.profile.upload-file-size-error"));
       return false;
     }
 
@@ -151,17 +153,17 @@ export default function PersonalInfoTab({
         </div>
         <div>
           <h3 className="text-lg font-semibold">
-            {profile?.name || "Loading..."}
+            {profile?.name || t("sys.profile.loading")}
           </h3>
           <p className="text-muted-foreground">
-            {profile?.email || "Loading..."}
+            {profile?.email || t("sys.profile.loading")}
           </p>
           <p className="text-sm text-muted-foreground">
             {profile?.role === "admin"
-              ? "Quản trị viên"
+              ? t("sys.profile.role-admin")
               : profile?.role === "moderator"
-              ? "Kiểm duyệt viên"
-              : "Người dùng"}
+              ? t("sys.profile.role-moderator")
+              : t("sys.profile.role-user")}
           </p>
         </div>
       </div>
@@ -175,33 +177,35 @@ export default function PersonalInfoTab({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Form.Item
             name="name"
-            label="Họ và tên"
-            rules={[{ required: true, message: "Vui lòng nhập họ tên!" }]}
+            label={t("sys.profile.name")}
+            rules={[
+              { required: true, message: t("sys.profile.name-required") },
+            ]}
           >
             <Input size="large" prefix={<UserOutlined />} />
           </Form.Item>
 
-          <Form.Item name="email" label="Email">
+          <Form.Item name="email" label={t("sys.profile.email")}>
             <Input size="large" prefix={<MailOutlined />} disabled />
           </Form.Item>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Form.Item name="phone" label="Số điện thoại">
+          <Form.Item name="phone" label={t("sys.profile.phone")}>
             <Input size="large" prefix={<PhoneOutlined />} />
           </Form.Item>
 
-          <Form.Item name="dateOfBirth" label="Ngày sinh">
+          <Form.Item name="dateOfBirth" label={t("sys.profile.date-of-birth")}>
             <DatePicker size="large" className="w-full" format="YYYY-MM-DD" />
           </Form.Item>
         </div>
 
-        <Form.Item name="address" label="Địa chỉ">
+        <Form.Item name="address" label={t("sys.profile.address")}>
           <Input size="large" prefix={<HomeOutlined />} />
         </Form.Item>
 
-        <Form.Item name="bio" label="Tiểu sử">
-          <TextArea rows={4} placeholder="Nhập giới thiệu về bản thân..." />
+        <Form.Item name="bio" label={t("sys.profile.bio")}>
+          <TextArea rows={4} placeholder={t("sys.profile.bio-placeholder")} />
         </Form.Item>
 
         <div className="flex gap-3 pt-4">
@@ -213,7 +217,7 @@ export default function PersonalInfoTab({
             loading={loading}
             disabled={!isChanged}
           >
-            💾 Cập nhật thông tin
+            💾 {t("sys.profile.update-profile")}
           </Button>
         </div>
       </Form>

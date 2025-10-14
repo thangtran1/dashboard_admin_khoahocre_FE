@@ -9,8 +9,10 @@ import { Separator } from "@/ui/separator";
 import PersonalInfoTab from "./components/PersonalInfoTab";
 import SecurityTab from "./components/SecurityTab";
 import PreferencesTab from "./components/PreferencesTab";
+import { useTranslation } from "react-i18next";
 
 export default function ProfilePage() {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const { profile, loading: profileLoading, updateProfile } = useUserProfile();
 
@@ -48,7 +50,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:user" className="h-4 w-4" />
-          Thông tin cá nhân
+          {t("sys.profile.title")}
         </span>
       ),
       children: (
@@ -64,7 +66,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:shield" className="h-4 w-4" />
-          Bảo mật
+          {t("sys.profile.security")}
         </span>
       ),
       children: <SecurityTab loading={loading} setLoading={setLoading} />,
@@ -74,7 +76,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:settings" className="h-4 w-4" />
-          Tùy chỉnh
+          {t("sys.profile.preferences")}
         </span>
       ),
       children: (
@@ -95,10 +97,10 @@ export default function ProfilePage() {
           <div>
             <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
               <Icon icon="lucide:user" className="h-7 w-7 text-primary" />
-              Hồ sơ người dùng
+              {t("sys.profile.title")}
             </CardTitle>
             <p className="text-muted-foreground mt-1">
-              Quản lý thông tin cá nhân, bảo mật và tùy chỉnh hệ thống
+              {t("sys.profile.description")}
             </p>
           </div>
         </div>

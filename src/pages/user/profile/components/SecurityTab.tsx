@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { changePassword } from "@/api/services/profileApi";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 interface PasswordFormData {
   currentPassword: string;
@@ -16,6 +17,7 @@ interface PasswordFormData {
 }
 
 export default function SecurityTab() {
+  const { t } = useTranslation();
   const [passwordForm] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
@@ -48,8 +50,8 @@ export default function SecurityTab() {
       setLoading(true);
 
       // Show loading toast
-      const loadingToast = toast.loading("🔐 Đang cập nhật mật khẩu...", {
-        description: "Vui lòng đợi trong giây lát",
+      const loadingToast = toast.loading(t("userProfile.loading-password"), {
+        description: t("userProfile.please-wait"),
       });
 
       const passwordData = {
@@ -62,16 +64,17 @@ export default function SecurityTab() {
       // Dismiss loading toast
       toast.dismiss(loadingToast);
 
-      toast.success("🔐 Đổi mật khẩu thành công!", {
-        description: "Mật khẩu của bạn đã được cập nhật",
+      toast.success(t("userProfile.password-updated-success"), {
+        description: t("userProfile.password-updated-success-description"),
         duration: 3000,
       });
 
       passwordForm.resetFields();
       setPasswordStrength(0);
     } catch (error: any) {
-      toast.error("❌ Đổi mật khẩu thất bại", {
-        description: error.message || "Vui lòng kiểm tra lại mật khẩu hiện tại",
+      toast.error(t("userProfile.password-updated-error"), {
+        description:
+          error.message || t("userProfile.please-check-current-password"),
         duration: 4000,
       });
     } finally {
@@ -94,17 +97,17 @@ export default function SecurityTab() {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-foreground">
-              Trạng thái bảo mật
+              {t("userProfile.security-status")}
             </h3>
             <p className="text-muted-foreground">
-              Tài khoản của bạn được bảo vệ tốt
+              {t("userProfile.security-status-description")}
             </p>
             <div className="flex items-center gap-2 mt-2">
               <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                ✅ Mật khẩu mạnh
+                ✅ {t("userProfile.strong-password")}
               </span>
               <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                🔐 Đăng nhập an toàn
+                🔐 {t("userProfile.secure-login")}
               </span>
             </div>
           </div>
@@ -120,17 +123,17 @@ export default function SecurityTab() {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-foreground">
-                Đổi mật khẩu
+                {t("userProfile.change-password")}
               </h3>
               <p className="text-muted-foreground">
-                Cập nhật mật khẩu để bảo vệ tài khoản
+                {t("userProfile.change-password-description")}
               </p>
             </div>
           </div>
 
           <Alert
-            message="Lời khuyên bảo mật"
-            description="Sử dụng mật khẩu có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt."
+            message={t("userProfile.security-tips")}
+            description={t("userProfile.security-tips-description")}
             type="info"
             showIcon
             className="mb-6"
@@ -149,16 +152,19 @@ export default function SecurityTab() {
             label={
               <span className="text-foreground font-medium">
                 <LockOutlined className="mr-2 text-foreground" />
-                Mật khẩu hiện tại
+                {t("userProfile.current-password")}
               </span>
             }
             rules={[
-              { required: true, message: "Vui lòng nhập mật khẩu hiện tại!" },
+              {
+                required: true,
+                message: t("userProfile.please-enter-current-password"),
+              },
             ]}
           >
             <Input.Password
               size="large"
-              placeholder="Nhập mật khẩu hiện tại"
+              placeholder={t("userProfile.current-password")}
               className="rounded-lg"
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -171,18 +177,26 @@ export default function SecurityTab() {
             label={
               <span className="text-foreground font-medium">
                 <SafetyOutlined className="mr-2 text-primary" />
-                Mật khẩu mới
+                {t("userProfile.new-password")}
               </span>
             }
             rules={[
-              { required: true, message: "Vui lòng nhập mật khẩu mới!" },
-              { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
+              {
+                required: true,
+                message: t("userProfile.please-enter-new-password"),
+              },
+              {
+                min: 6,
+                message: t(
+                  "userProfile.password-must-be-at-least-6-characters"
+                ),
+              },
             ]}
           >
             <div>
               <Input.Password
                 size="large"
-                placeholder="Nhập mật khẩu mới"
+                placeholder={t("userProfile.new-password")}
                 className="rounded-lg"
                 onChange={handleNewPasswordChange}
                 iconRender={(visible) =>
@@ -192,7 +206,9 @@ export default function SecurityTab() {
               {passwordStrength > 0 && (
                 <div className="mt-2">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm text-foreground">Độ mạnh:</span>
+                    <span className="text-sm text-foreground">
+                      {t("userProfile.password-strength")}:
+                    </span>
                     <span
                       className="text-sm font-medium"
                       style={{
@@ -218,19 +234,24 @@ export default function SecurityTab() {
             label={
               <span className="text-foreground font-medium">
                 <LockOutlined className="mr-2 text-primary" />
-                Xác nhận mật khẩu mới
+                {t("userProfile.confirm-new-password")}
               </span>
             }
             dependencies={["newPassword"]}
             rules={[
-              { required: true, message: "Vui lòng xác nhận mật khẩu mới!" },
+              {
+                required: true,
+                message: t("userProfile.please-confirm-new-password"),
+              },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue("newPassword") === value) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
-                    new Error("Mật khẩu xác nhận không khớp!")
+                    new Error(
+                      t("userProfile.password-confirmation-does-not-match")
+                    )
                   );
                 },
               }),
@@ -238,7 +259,7 @@ export default function SecurityTab() {
           >
             <Input.Password
               size="large"
-              placeholder="Nhập lại mật khẩu mới"
+              placeholder={t("userProfile.confirm-new-password")}
               className="rounded-lg"
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -255,7 +276,7 @@ export default function SecurityTab() {
               className="w-full h-12 rounded-lg bg-gradient-to-r from-primary to-primary border-0 font-medium text-lg shadow-lg hover:from-primary hover:to-primary"
               icon={<LockOutlined />}
             >
-              🔐 Cập nhật mật khẩu
+              🔐 {t("userProfile.update-password")}
             </Button>
           </div>
         </Form>
@@ -264,24 +285,26 @@ export default function SecurityTab() {
       {/* Security Tips */}
       <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
         <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-          💡Mẹo bảo mật
+          💡{t("userProfile.security-tips")}
         </h3>
         <ul className=" flex gap-3 flex-col text-sm text-foreground">
           <li className="flex items-start gap-2">
             <span className="text-foreground ">✓</span>
-            <span>Sử dụng mật khẩu duy nhất cho mỗi tài khoản</span>
+            <span>{t("userProfile.use-unique-password-for-each-account")}</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-foreground">✓</span>
-            <span>Thay đổi mật khẩu định kỳ (3-6 tháng một lần)</span>
+            <span>{t("userProfile.change-password-periodically")}</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-foreground">✓</span>
-            <span>Không chia sẻ mật khẩu với bất kỳ ai</span>
+            <span>{t("userProfile.do-not-share-password-with-anyone")}</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-foreground">✓</span>
-            <span>Sử dụng trình quản lý mật khẩu để lưu trữ an toàn</span>
+            <span>
+              {t("userProfile.use-password-manager-to-store-securely")}
+            </span>
           </li>
         </ul>
       </Card>
