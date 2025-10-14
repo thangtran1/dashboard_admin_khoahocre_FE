@@ -46,7 +46,7 @@ function UserProfile() {
   }, [updateProfile]);
 
   const bgStyle: CSSProperties = {
-    background: `linear-gradient(135deg, rgba(59,130,246,0.9), rgba(147,51,234,0.9)), url(${CoverImage})`,
+    background: `linear-gradient(135deg, rgba(56,189,248,0.85), rgba(168,85,247,0.85)), url(${CoverImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -116,15 +116,15 @@ function UserProfile() {
   }
 
   const SidebarContent = ({ isMobile = false }) => (
-    <div className="h-full flex flex-col bg-muted border-r border-border">
+    <div className={`flex flex-col border-r ${isMobile ? "px-2" : ""}`}>
       {/* Header */}
       <div
-        className={`p-4 border-b border-border flex items-center ${
-          sidebarCollapsed && !isMobile ? "justify-center" : ""
+        className={` border-b pb-3 border-border flex items-center ${
+          sidebarCollapsed && !isMobile ? "justify-center" : "px-1"
         }`}
       >
         {!sidebarCollapsed || isMobile ? (
-          <div className="text-center">
+          <div>
             <h2 className="text-lg font-bold text-foreground">⚙️ Cài đặt</h2>
             <p className="text-xs text-muted-foreground">
               Quản lý tài khoản của bạn
@@ -149,7 +149,7 @@ function UserProfile() {
       {/* Menu Items */}
       <div
         className={`flex-1 py-3 ${
-          sidebarCollapsed ? "flex flex-col items-center" : "px-2"
+          sidebarCollapsed ? "flex flex-col items-center" : "px-1"
         } space-y-2`}
       >
         {menuItems.map((item) => (
@@ -207,10 +207,10 @@ function UserProfile() {
 
       {/* Footer Quick Info */}
       {!sidebarCollapsed && (
-        <div className="p-4 border-t border-border bg-foreground/5">
-          <h4 className="font-semibold text-muted-foreground mb-3 flex items-center gap-2">
+        <div className="py-4 px-1 border-t border-border bg-background/30">
+          <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-1">
             📊 Thông tin nhanh
-          </h4>
+          </h3>
           <div className="space-y-3 text-sm">
             {profile?.email && (
               <div className="flex items-center gap-2">
@@ -233,52 +233,54 @@ function UserProfile() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card transition-colors duration-500">
       {/* Header */}
-      <div className="relative h-80 mb-8">
-        <div style={bgStyle} className="h-full w-full">
-          <div className="absolute inset-0 bg-background/30 backdrop-blur-sm"></div>
-          <div className="absolute inset-0 flex items-end justify-center pb-8">
-            <div className="text-center text-foreground z-10">
-              {/* Avatar */}
-              <div className="relative inline-block mb-4">
-                <Avatar
-                  size={120}
-                  icon={<UserOutlined />}
-                  src={avatarUrl}
-                  className="border-4 border-border shadow-lg bg-card"
-                />
-                <div className="absolute bottom-2 right-2 bg-primary rounded-full p-2 shadow-md hover:scale-105 transition">
-                  <CameraOutlined className="text-primary-foreground text-lg" />
-                </div>
-              </div>
+      <div className="relative h-80 mb-8 rounded-3xl overflow-hidden shadow-2xl">
+        {/* Cover background (tùy bgStyle là ảnh hoặc gradient) */}
+        <div style={bgStyle} className="h-full w-full object-cover">
+          {/* Overlay gradient + blur effect */}
+          <div className="absolute inset-0 bg-gradient-to-b from-foreground/10 via-background/40 to-background/90 backdrop-blur-sm"></div>
 
-              {/* Name & Email */}
-              <h1 className="text-4xl font-bold mb-2 drop-shadow">
-                {profile?.name || "Người dùng"}
-              </h1>
-              <p className="text-foreground text-lg mb-2">{profile?.email}</p>
+          {/* Avatar & Info */}
+          <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 text-center z-10">
+            {/* Avatar */}
+            <div className="relative inline-block mb-4">
+              <Avatar
+                size={120}
+                icon={<UserOutlined />}
+                src={avatarUrl}
+                className="border-4 border-border bg-card shadow-xl transition-transform hover:scale-105 duration-300"
+              />
+            </div>
 
-              {/* Role & Verification */}
-              <div className="flex items-center justify-center gap-2">
-                <span className="px-4 py-2 bg-muted rounded-full text-sm border border-border backdrop-blur-sm">
-                  {profile?.role === "admin"
-                    ? "👑 Quản trị viên"
-                    : profile?.role === "moderator"
-                    ? "🛡️ Kiểm duyệt viên"
-                    : "👤 Người dùng"}
+            {/* Name & Email */}
+            <h1 className="text-3xl font-bold mb-1 text-foreground drop-shadow-sm">
+              {profile?.name || "Người dùng"}
+            </h1>
+            <p className="text-foreground text-sm mb-3">
+              {profile?.email || "example@email.com"}
+            </p>
+
+            {/* Role & Verification */}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="px-4 py-1.5 rounded-full text-sm bg-primary/10 border border-primary/30 text-primary backdrop-blur-sm">
+                {profile?.role === "admin"
+                  ? "👑 Quản trị viên"
+                  : profile?.role === "moderator"
+                  ? "🛡️ Kiểm duyệt viên"
+                  : "👤 Người dùng"}
+              </span>
+
+              {profile?.isEmailVerified && (
+                <span className="px-4 py-1.5 rounded-full text-sm bg-primary/10 border border-primary/30 text-primary backdrop-blur-sm">
+                  ✅ Đã xác thực
                 </span>
-                {profile?.isEmailVerified && (
-                  <span className="px-4 py-2 bg-green-500/20 text-green-400 rounded-full text-sm border border-green-400/20">
-                    ✅ Đã xác thực
-                  </span>
-                )}
-              </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       {/* Main */}
-      <div className="max-w-7xl mx-auto px-4 pb-12">
+      <div className="pb-12">
         {/* Mobile Menu Button */}
         <div className="lg:hidden mb-4">
           <Button
@@ -299,7 +301,7 @@ function UserProfile() {
               sidebarCollapsed ? "w-20" : "w-80"
             }`}
           >
-            <Card className="sticky top-6 shadow-md bg-card border-border backdrop-blur-md h-fit">
+            <Card className="sticky shadow-md bg-card border-border backdrop-blur-md h-fit">
               <SidebarContent />
             </Card>
           </div>
@@ -330,49 +332,47 @@ function UserProfile() {
           {/* Main Content */}
           <div className="flex-1">
             <Card className="shadow-lg bg-card border-border backdrop-blur-md">
-              <div className="p-6">
-                {activeTab === "profile" && (
-                  <section>
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
-                        <UserOutlined className="text-2xl" />
-                      </div>
-                      <div>
-                        <h2 className="text-3xl font-bold text-foreground">
-                          Thông tin cá nhân
-                        </h2>
-                        <p className="text-muted-foreground">
-                          Quản lý thông tin và ảnh đại diện của bạn
-                        </p>
-                      </div>
+              {activeTab === "profile" && (
+                <section>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
+                      <UserOutlined className="text-2xl" />
                     </div>
-                    <PersonalInfoTab
-                      profile={profile}
-                      loading={loading}
-                      onProfileUpdate={updateProfile}
-                    />
-                  </section>
-                )}
+                    <div>
+                      <h2 className="text-3xl font-bold text-foreground">
+                        Thông tin cá nhân
+                      </h2>
+                      <p className="text-muted-foreground">
+                        Quản lý thông tin và ảnh đại diện của bạn
+                      </p>
+                    </div>
+                  </div>
+                  <PersonalInfoTab
+                    profile={profile}
+                    loading={loading}
+                    onProfileUpdate={updateProfile}
+                  />
+                </section>
+              )}
 
-                {activeTab === "security" && (
-                  <section>
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
-                        <LockOutlined className="text-2xl" />
-                      </div>
-                      <div>
-                        <h2 className="text-3xl font-bold text-foreground">
-                          Bảo mật tài khoản
-                        </h2>
-                        <p className="text-muted-foreground">
-                          Thay đổi mật khẩu và cài đặt bảo mật
-                        </p>
-                      </div>
+              {activeTab === "security" && (
+                <section>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
+                      <LockOutlined className="text-2xl" />
                     </div>
-                    <SecurityTab />
-                  </section>
-                )}
-              </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-foreground">
+                        Bảo mật tài khoản
+                      </h2>
+                      <p className="text-muted-foreground">
+                        Thay đổi mật khẩu và cài đặt bảo mật
+                      </p>
+                    </div>
+                  </div>
+                  <SecurityTab />
+                </section>
+              )}
             </Card>
           </div>
         </div>

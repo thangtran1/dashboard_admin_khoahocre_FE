@@ -197,16 +197,16 @@ export default function PersonalInfoTab({
                 shape="circle"
                 size="large"
                 icon={<CameraOutlined />}
-                className="absolute -bottom-2 -right-2 shadow-lg bg-blue-500 border-blue-500 text-white hover:bg-blue-600"
+                className="absolute -bottom-8 right-8 shadow-lg bg-blue-500 border-blue-500 text-white hover:bg-blue-600"
                 loading={uploading}
               />
             </Upload>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-1">
+            <h3 className="text-xl font-bold text-foreground mb-1">
               {profile?.name || "Tên người dùng"}
             </h3>
-            <p className="text-gray-600 mb-2">{profile?.email}</p>
+            <p className="text-muted-foreground mb-2">{profile?.email}</p>
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
                 {profile?.role === "admin"
@@ -238,7 +238,7 @@ export default function PersonalInfoTab({
             <Form.Item
               name="name"
               label={
-                <span className="text-gray-700 font-medium">
+                <span className="text-foreground font-medium">
                   <UserOutlined className="mr-2 text-blue-500" />
                   Họ và tên
                 </span>
@@ -255,7 +255,7 @@ export default function PersonalInfoTab({
             <Form.Item
               name="email"
               label={
-                <span className="text-gray-700 font-medium">
+                <span className="text-foreground font-medium">
                   <MailOutlined className="mr-2 text-green-500" />
                   Email
                 </span>
@@ -269,7 +269,7 @@ export default function PersonalInfoTab({
             <Form.Item
               name="phone"
               label={
-                <span className="text-gray-700 font-medium">
+                <span className="text-foreground font-medium">
                   <PhoneOutlined className="mr-2 text-purple-500" />
                   Số điện thoại
                 </span>
@@ -285,7 +285,9 @@ export default function PersonalInfoTab({
             <Form.Item
               name="dateOfBirth"
               label={
-                <span className="text-gray-700 font-medium">🎂 Ngày sinh</span>
+                <span className="text-foreground font-medium">
+                  🎂 Ngày sinh
+                </span>
               }
             >
               <DatePicker
@@ -300,7 +302,7 @@ export default function PersonalInfoTab({
           <Form.Item
             name="address"
             label={
-              <span className="text-gray-700 font-medium">
+              <span className="text-foreground font-medium">
                 <HomeOutlined className="mr-2 text-orange-500" />
                 Địa chỉ
               </span>
@@ -316,7 +318,7 @@ export default function PersonalInfoTab({
           <Form.Item
             name="bio"
             label={
-              <span className="text-gray-700 font-medium">
+              <span className="text-foreground font-medium">
                 📝 Giới thiệu bản thân
               </span>
             }

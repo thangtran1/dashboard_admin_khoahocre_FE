@@ -85,7 +85,7 @@ export default function SecurityTab() {
   };
 
   return (
-    <div className="max-w-2xl space-y-6">
+    <div className="max-w-3xl">
       {/* Security Status */}
       <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
         <div className="flex items-center gap-4">
@@ -93,10 +93,12 @@ export default function SecurityTab() {
             <SafetyOutlined className="text-2xl text-green-600" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-800">
+            <h3 className="text-lg font-semibold text-foreground">
               Trạng thái bảo mật
             </h3>
-            <p className="text-gray-600">Tài khoản của bạn được bảo vệ tốt</p>
+            <p className="text-muted-foreground">
+              Tài khoản của bạn được bảo vệ tốt
+            </p>
             <div className="flex items-center gap-2 mt-2">
               <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
                 ✅ Mật khẩu mạnh
@@ -117,17 +119,17 @@ export default function SecurityTab() {
               <LockOutlined className="text-xl text-red-600" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="text-lg font-semibold text-foreground">
                 Đổi mật khẩu
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Cập nhật mật khẩu để bảo vệ tài khoản
               </p>
             </div>
           </div>
 
           <Alert
-            message="💡 Lời khuyên bảo mật"
+            message="Lời khuyên bảo mật"
             description="Sử dụng mật khẩu có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt."
             type="info"
             showIcon
@@ -145,8 +147,8 @@ export default function SecurityTab() {
           <Form.Item
             name="currentPassword"
             label={
-              <span className="text-gray-700 font-medium">
-                <LockOutlined className="mr-2 text-gray-500" />
+              <span className="text-foreground font-medium">
+                <LockOutlined className="mr-2 text-foreground" />
                 Mật khẩu hiện tại
               </span>
             }
@@ -167,7 +169,7 @@ export default function SecurityTab() {
           <Form.Item
             name="newPassword"
             label={
-              <span className="text-gray-700 font-medium">
+              <span className="text-foreground font-medium">
                 <SafetyOutlined className="mr-2 text-primary" />
                 Mật khẩu mới
               </span>
@@ -190,7 +192,7 @@ export default function SecurityTab() {
               {passwordStrength > 0 && (
                 <div className="mt-2">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm text-gray-600">Độ mạnh:</span>
+                    <span className="text-sm text-foreground">Độ mạnh:</span>
                     <span
                       className="text-sm font-medium"
                       style={{
@@ -214,7 +216,7 @@ export default function SecurityTab() {
           <Form.Item
             name="confirmPassword"
             label={
-              <span className="text-gray-700 font-medium">
+              <span className="text-foreground font-medium">
                 <LockOutlined className="mr-2 text-primary" />
                 Xác nhận mật khẩu mới
               </span>
@@ -261,24 +263,24 @@ export default function SecurityTab() {
 
       {/* Security Tips */}
       <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
-        <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-          💡 Mẹo bảo mật
-        </h4>
-        <ul className="space-y-2 text-sm text-gray-700">
+        <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
+          💡Mẹo bảo mật
+        </h3>
+        <ul className=" flex gap-3 flex-col text-sm text-foreground">
           <li className="flex items-start gap-2">
-            <span className="text-green-500 mt-0.5">✓</span>
+            <span className="text-foreground ">✓</span>
             <span>Sử dụng mật khẩu duy nhất cho mỗi tài khoản</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-green-500 mt-0.5">✓</span>
+            <span className="text-foreground">✓</span>
             <span>Thay đổi mật khẩu định kỳ (3-6 tháng một lần)</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-green-500 mt-0.5">✓</span>
+            <span className="text-foreground">✓</span>
             <span>Không chia sẻ mật khẩu với bất kỳ ai</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-green-500 mt-0.5">✓</span>
+            <span className="text-foreground">✓</span>
             <span>Sử dụng trình quản lý mật khẩu để lưu trữ an toàn</span>
           </li>
         </ul>
