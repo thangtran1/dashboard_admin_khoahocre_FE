@@ -11,13 +11,6 @@ import ChartRadial from "./view/chart-radial";
 
 export default function ChartPage() {
   return (
-    <>
-      <Button variant="link" asChild>
-        <a href="https://apexcharts.com" target="_blank" rel="noreferrer">
-          https://apexcharts.com
-        </a>
-      </Button>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card title="Area">
           <CardHeader>
@@ -68,6 +61,5 @@ export default function ChartPage() {
           <ChartRadial />
         </Card>
       </div>
-    </>
   );
 }

@@ -71,4 +71,36 @@ export const databaseAdmin = {
       data: response.data,
     };
   },
+  // 6. Xóa bản sao lưu
+  deleteBackup: async (filename: string) => {
+    const response = await apiClient.delete<DatabaseInfoResponse>({
+      url: `/database/backups/${filename}`,
+    });
+    return {
+      success: response.success,
+      message: response.message,
+      data: response.data,
+    };
+  },
+  // 7. Tải file backup
+  downloadBackup: async (filename: string) => {
+        const response = await apiClient.get<Blob>({
+      url: `/database/backups/download/${filename}`,
+      responseType: 'blob',
+    });
+    return response; // blob ở đây
+  },
+  
+
+  // 8. Xem nội dung file backup
+  viewBackup: async (filename: string) => {
+    const response = await apiClient.get<DatabaseInfoResponse>({
+      url: `/database/backups/view/${filename}`,
+    });
+    return {
+      success: response.success,
+      message: response.message,
+      data: response.data,
+    };
+  },
 };

@@ -1,176 +1,146 @@
-import React, { useState, useEffect } from "react";
-import { Button, Card, Table, message, Upload, Modal } from "antd";
+import React, { useEffect, useState } from "react";
+import { Card, Button, Space, Modal, message, Spin, Popconfirm, Typography } from "antd";
 import {
-  UploadOutlined,
+  DatabaseOutlined,
   DeleteOutlined,
-  DownloadOutlined,
+  ExclamationCircleOutlined,
+  FileAddOutlined,
+  ReloadOutlined,
 } from "@ant-design/icons";
-import { databaseAdmin } from "@/api/services/databaseApi";
+import { databaseAdmin, DatabaseInfoResponse } from "@/api/services/databaseApi";
+import DatabaseInfo from "./components/inforCard";
+import BackupList from "./components/backup-list";
+import { toast } from "sonner";
+const { Text } = Typography;  
 
 export default function DatabaseManagement() {
   const [dbInfo, setDbInfo] = useState<any>(null);
   const [backups, setBackups] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [restoreModalVisible, setRestoreModalVisible] = useState(false);
-  const [restoreFile, setRestoreFile] = useState<File | null>(null);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
-  const fetchDbInfo = async () => {
+  const fetchData = async () => {
+    setLoading(true);
     try {
-      const res = await databaseAdmin.getDatabaseInfo();
-      setDbInfo(res.data.data);
-    } catch (err) {
-      message.error("Lấy thông tin DB thất bại");
-    }
-  };
+      const infoRes = await databaseAdmin.getDatabaseInfo();
+      const backupRes = await databaseAdmin.listBackups();
 
-  const fetchBackups = async () => {
-    try {
-      const res = await databaseAdmin.listBackups();
-      setBackups(res.data.data || []);
-    } catch (err) {
-      message.error("Lấy danh sách backup thất bại");
+      if (infoRes.data.success) setDbInfo(infoRes.data.data as unknown as DatabaseInfoResponse);
+      if (backupRes.data.success) setBackups(backupRes.data.data as unknown as any[]);
+    } catch (error) {
+      message.error("Không thể tải thông tin cơ sở dữ liệu!");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchDbInfo();
-    fetchBackups();
+    fetchData();
   }, []);
 
   const handleBackup = async () => {
     setLoading(true);
     try {
       const res = await databaseAdmin.backupDatabase();
-      message.success("Tạo backup thành công");
-      fetchBackups();
-    } catch {
-      message.error("Tạo backup thất bại");
+      if (res.data.success) {
+        toast.success("Tạo bản sao lưu thành công!", {
+          closeButton: true,
+        });
+        await fetchData();
+      } else {
+        toast.error(res.data.message || "Tạo bản sao lưu thất bại!");
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  const handleRestore = async () => {
-    if (!restoreFile) return message.warning("Chưa chọn file");
-    setLoading(true);
-    try {
-      await databaseAdmin.restoreDatabase(restoreFile);
-      message.success("Khôi phục thành công");
-      setRestoreModalVisible(false);
-      fetchDbInfo();
-      fetchBackups();
-    } catch {
-      message.error("Khôi phục thất bại");
-    } finally {
-      setLoading(false);
-      setRestoreFile(null);
-    }
-  };
-
-  const handleDelete = async () => {
-    Modal.confirm({
-      title: "Xác nhận xóa toàn bộ dữ liệu?",
-      onOk: async () => {
-        setLoading(true);
-        try {
-          await databaseAdmin.deleteDatabase();
-          message.success("Đã xóa dữ liệu");
-          fetchDbInfo();
-          fetchBackups();
-        } catch {
-          message.error("Xóa dữ liệu thất bại");
-        } finally {
-          setLoading(false);
-        }
-      },
-    });
-  };
-
-  const columns = [
-    { title: "Tên file", dataIndex: "filename", key: "filename" },
-    { title: "Ngày tạo", dataIndex: "createdAt", key: "createdAt" },
-    { title: "Kích thước", dataIndex: "size", key: "size" },
-    {
-      title: "Tác vụ",
-      key: "action",
-      render: (_: any, record: any) => (
-        <Button
-          icon={<DownloadOutlined />}
-          onClick={() => window.open(record.filename, "_blank")}
-          size="small"
-        >
-          Tải về
-        </Button>
-      ),
-    },
-  ];
 
   return (
-    <div className="space-y-6 p-6">
-      <Card title="Thông tin Database">
-        {dbInfo ? (
-          <div className="space-y-2">
-            <p>
-              <b>Tên DB:</b> {dbInfo.dbName}
-            </p>
-            <p>
-              <b>Collections ({dbInfo.collectionsCount}):</b>{" "}
-              {dbInfo.collections.join(", ")}
-            </p>
-            <p>
-              <b>Dung lượng dữ liệu:</b> {dbInfo.dataSize} /{" "}
-              {dbInfo.storageSize}
-            </p>
-            <p>
-              <b>Số index:</b> {dbInfo.indexes}
-            </p>
-            <p>
-              <b>Thời gian:</b> {dbInfo.timestamp}
-            </p>
+    <div className="p-6 space-y-6">
+      <Card
+        title={
+          <span className="text-blue-700 font-semibold">
+            <DatabaseOutlined /> Quản lý cơ sở dữ liệu
+          </span>
+        }
+        extra={
+          <Space>
+            <Button icon={<ReloadOutlined />} onClick={fetchData}>
+              Làm mới
+            </Button>
+            <Button
+              type="primary"
+              icon={<FileAddOutlined />}
+              onClick={handleBackup}
+            >
+              Tạo bản sao lưu
+            </Button>
+            <Button danger icon={<DeleteOutlined />} onClick={() => setDeleteModalVisible(true)}>
+              Xóa toàn bộ dữ liệu
+            </Button>
+          </Space>
+        }
+      >
+        {loading ? (
+          <div className="text-center py-6">
+            <Spin size="large" />
           </div>
         ) : (
-          <p>Đang tải...</p>
+          <>
+            <DatabaseInfo dbInfo={dbInfo} />
+            <BackupList backups={backups} reload={fetchData} />
+          </>
         )}
       </Card>
 
-      <Card title="Backup Database">
-        <div className="flex space-x-2">
-          <Button type="primary" loading={loading} onClick={handleBackup}>
-            Tạo backup
-          </Button>
-          <Button onClick={() => setRestoreModalVisible(true)}>
-            Khôi phục
-          </Button>
-          <Button danger onClick={handleDelete}>
-            Xóa toàn bộ dữ liệu
-          </Button>
-        </div>
 
-        <Table
-          columns={columns}
-          dataSource={backups}
-          rowKey="filename"
-          style={{ marginTop: 16 }}
-        />
-      </Card>
 
-      <Modal
-        title="Khôi phục Database"
-        open={restoreModalVisible}
-        onOk={handleRestore}
-        onCancel={() => setRestoreModalVisible(false)}
-        okText="Khôi phục"
-      >
-        <Upload
-          beforeUpload={(file) => {
-            setRestoreFile(file);
-            return false; // không auto upload
-          }}
-        >
-          <Button icon={<UploadOutlined />}>Chọn file backup</Button>
-        </Upload>
-        {restoreFile && <p>File đã chọn: {restoreFile.name}</p>}
-      </Modal>
+<Modal
+  open={deleteModalVisible}
+  onOk={async () => {
+    setLoading(true);
+    try {
+      const res = await databaseAdmin.deleteDatabase();
+      console.log(res);
+    
+      if (res?.data?.success) {
+        await fetchData();
+    
+        if (res.data.message === "Đã xóa toàn bộ dữ liệu!") {
+          toast.success(res.data.message, { closeButton: true });
+        } else if (res.data.message === "Không có dữ liệu để xóa!") {
+          toast.warning(res.data.message, { closeButton: true });
+        }
+      } else {
+        message.error("Xóa thất bại!");
+      }
+    } catch (error) {
+      message.error("Xóa thất bại!");
+    } finally {
+      setLoading(false);
+      setDeleteModalVisible(false);
+    }
+  }}
+  onCancel={() => setDeleteModalVisible(false)}
+  okText="Xóa"
+  okType="danger"
+  cancelText="Hủy"
+  centered
+  confirmLoading={loading}
+  className="rounded-xl"
+>
+  <div className="flex flex-col items-center justify-center text-center space-y-4">
+    <ExclamationCircleOutlined className="text-red-500 text-5xl mb-2" />
+    <Text className="text-lg font-semibold text-gray-800">
+      Xác nhận xóa toàn bộ dữ liệu?
+    </Text>
+    <Text type="secondary">
+      Hành động này sẽ <span className="text-red-500 font-medium">xóa vĩnh viễn</span> tất cả dữ liệu trong hệ thống.
+      Bạn có chắc chắn muốn tiếp tục?
+    </Text>
+  </div>
+</Modal>
+
     </div>
   );
 }

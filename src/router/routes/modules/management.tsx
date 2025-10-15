@@ -5,8 +5,8 @@ import { Icon } from "@/components/icon";
 import { LineLoading } from "@/components/loading";
 
 import type { AppRouteObject } from "#/router";
-import BannerConfigPage from "@/pages/management/manager-banner-config";
-import ManagerChatUser from "@/pages/management/manager-chat-user/manager-chat-user";
+import BannerConfigPage from "@/pages/management/banner-config";
+import ManagerChatUser from "@/pages/management/chat-user/manager-chat-user";
 import DatabaseManagement from "@/pages/management/database";
 
 // Lazy load components
@@ -45,7 +45,7 @@ const management: AppRouteObject = {
       },
     },
     {
-      path: "manager-banner-config",
+      path: "banner-config",
       element: (
         <Suspense fallback={<LineLoading />}>
           <BannerConfigPage />
@@ -53,11 +53,11 @@ const management: AppRouteObject = {
       ),
       meta: {
         label: "sys.banner-config.manager-banner",
-        key: "/management/manager-banner-config",
+        key: "/management/banner-config",
       },
     },
     {
-      path: "manager-chat-user",
+      path: "chat-user",
       element: (
         <Suspense fallback={<LineLoading />}>
           <ManagerChatUser />
@@ -65,7 +65,7 @@ const management: AppRouteObject = {
       ),
       meta: {
         label: "sys.menu.manager-chat-user",
-        key: "/management/manager-chat-user",
+        key: "/management/chat-user",
       },
     },
     {
