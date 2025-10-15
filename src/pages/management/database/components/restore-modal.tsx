@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Modal, Upload, Button, Typography, Space } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile } from "antd/es/upload/interface";
+import { useTranslation } from "react-i18next";
 
 export default function RestoreModal({
   visible,
@@ -14,6 +15,7 @@ export default function RestoreModal({
   onRestore: (file: File) => Promise<{ success: boolean; message: string }>;
   loading?: boolean;
 }) {
+  const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -38,18 +40,18 @@ export default function RestoreModal({
     <Modal
       title={
         <Typography.Title level={4} className="text-blue-600 m-0">
-          🔄 Khôi phục dữ liệu
+          🔄 {t("sys.database.restore-backup")}
         </Typography.Title>
       }
       open={visible}
       onCancel={onCancel}
       onOk={handleRestoreClick}
-      okText="Khôi phục"
-      cancelText="Hủy"
+      okText={t("sys.database.restore-backup")}
+      cancelText={t("sys.database.cancel")}
       okButtonProps={{ disabled: !file, loading }}
       width={500}
       centered
-      bodyStyle={{ padding: "24px" }}
+      className="p-6"
     >
       <Space direction="vertical" size="middle" className="w-full">
         <Upload
@@ -72,22 +74,22 @@ export default function RestoreModal({
             type="primary"
             className="w-full hover:bg-blue-700 transition-colors"
           >
-            Chọn file backup
+            {t("sys.database.select-backup-file")}
           </Button>
         </Upload>
 
         {file ? (
           <Typography.Text type="success" className="block text-center">
-            ✅ Đã chọn: {file.name}
+            ✅ {t("sys.database.selected-file")}: {file.name}
           </Typography.Text>
         ) : (
           <Typography.Text type="danger" className="block text-center">
-            ⚠️ Vui lòng chọn file để upload
+            ⚠️ {t("sys.database.please-select-file")}
           </Typography.Text>
         )}
 
         <Typography.Paragraph className="text-gray-500 text-sm text-center">
-          Chỉ hỗ trợ file JSON hoặc ZIP từ bản sao lưu.
+          {t("sys.database.only-support-json-or-zip-file")}
         </Typography.Paragraph>
       </Space>
     </Modal>

@@ -25,12 +25,14 @@ import BackupList from "./components/backup-list";
 import RestoreModal from "./components/restore-modal";
 import { toast } from "sonner";
 import { Separator } from "@/ui/separator";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { RangePicker } = DatePicker;
 const { Search } = Input;
 
 export default function DatabaseManagement() {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [dbInfo, setDbInfo] = useState<any>(null);
@@ -125,9 +127,9 @@ export default function DatabaseManagement() {
     try {
       const res = await databaseAdmin.backupDatabase();
       if (res.success) {
-        toast.success("Tạo bản sao lưu thành công!");
+        toast.success(t("sys.database.create-backup-success"));
         fetchBackups();
-      } else toast.error(res.message || "Tạo bản sao lưu thất bại!");
+      } else toast.error(res.message || t("sys.database.create-backup-error"));
     } finally {
       setLoading(false);
     }
@@ -143,8 +145,11 @@ export default function DatabaseManagement() {
         fetchBackups();
         return { success: true, message: res.message };
       } else {
-        toast.error(res.message || "Khôi phục thất bại!");
-        return { success: false, message: res.message || "Thất bại" };
+        toast.error(res.message || t("sys.database.restore-error"));
+        return {
+          success: false,
+          message: res.message || t("sys.database.restore-error"),
+        };
       }
     } finally {
       setLoading(false);
@@ -159,9 +164,9 @@ export default function DatabaseManagement() {
         toast.success(res.message);
         setDeleteModalVisible(false);
         fetchBackups();
-      } else message.error("Xóa thất bại!");
+      } else message.error(t("sys.database.delete-error"));
     } catch {
-      message.error("Xóa thất bại!");
+      message.error(t("sys.database.delete-error"));
     } finally {
       setLoading(false);
     }
@@ -175,11 +180,9 @@ export default function DatabaseManagement() {
         <div>
           <h1 className="text-3xl font-bold text-blue-700 flex items-center gap-2">
             <DatabaseOutlined className="text-blue-600" />
-            Quản lý cơ sở dữ liệu
+            {t("sys.database.title")}
           </h1>
-          <p className="text-gray-500 mt-1">
-            Quản lý thông tin cơ sở dữ liệu, tạo, khôi phục và xóa bản sao lưu.
-          </p>
+          <p className="text-gray-500 mt-1">{t("sys.database.description")}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button
@@ -187,21 +190,21 @@ export default function DatabaseManagement() {
             onClick={() => fetchBackups()}
             size="large"
           >
-            Làm mới
+            {t("sys.database.refresh")}
           </Button>
           <Button
             icon={<FileAddOutlined />}
             onClick={handleBackup}
             size="large"
           >
-            Tạo bản sao lưu
+            {t("sys.database.create-backup")}
           </Button>
           <Button
             icon={<FileAddOutlined />}
             onClick={() => setRestoreModalVisible(true)}
             size="large"
           >
-            Khôi phục dữ liệu
+            {t("sys.database.restore-backup")}
           </Button>
           <Button
             icon={<DeleteOutlined />}
@@ -209,7 +212,7 @@ export default function DatabaseManagement() {
             size="large"
             danger
           >
-            Xóa toàn bộ dữ liệu
+            {t("sys.database.delete-all-data")}
           </Button>
         </div>
       </div>
@@ -229,7 +232,7 @@ export default function DatabaseManagement() {
           <div className="flex flex-col lg:flex-row gap-3 items-center">
             <div className="flex-1">
               <Search
-                placeholder="Tìm theo tên file"
+                placeholder={t("sys.database.search-by-name")}
                 value={filters.search}
                 onChange={(e) => handleFilterChange("search", e.target.value)}
                 size="large"
@@ -261,10 +264,10 @@ export default function DatabaseManagement() {
               onClick={handleSearch}
               size="large"
             >
-              Tìm kiếm
+              {t("sys.database.search")}
             </Button>
             <Button danger onClick={handleClearFilters} size="large">
-              Xóa filter
+              {t("sys.database.clear-filters")}
             </Button>
           </div>
           <BackupList backups={backups} reload={fetchBackups} />
@@ -290,9 +293,9 @@ export default function DatabaseManagement() {
         open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={() => setDeleteModalVisible(false)}
-        okText="Xóa"
+        okText={t("sys.database.delete")}
         okType="danger"
-        cancelText="Hủy"
+        cancelText={t("sys.database.cancel")}
         centered
         confirmLoading={loading}
         className="rounded-xl"
@@ -300,12 +303,14 @@ export default function DatabaseManagement() {
         <div className="flex flex-col items-center justify-center text-center space-y-4">
           <ExclamationCircleOutlined className="text-red-500 text-5xl mb-2" />
           <Text className="text-lg font-semibold text-gray-800">
-            Xác nhận xóa toàn bộ dữ liệu?
+            {t("sys.database.confirm-delete-all-data")}
           </Text>
           <Text type="secondary">
-            Hành động này sẽ{" "}
-            <span className="text-red-500 font-medium">xóa vĩnh viễn</span> tất
-            cả dữ liệu.
+            {t("sys.database.confirm-delete-all-data-description")}
+            <span className="text-red-500 font-medium">
+              {t("sys.database.delete-forever")}
+            </span>
+            {t("sys.database.delete-all-data-description")}
           </Text>
         </div>
       </Modal>

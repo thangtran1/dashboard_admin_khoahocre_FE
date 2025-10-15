@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/ui/card";
 import { Icon } from "@/components/icon";
+import { useTranslation } from "react-i18next";
 
 interface DatabaseInfo {
   dbName: string;
@@ -24,29 +25,30 @@ export default function DatabaseInfoCard({
 }: {
   dbInfo: DatabaseInfo | null;
 }) {
+  const { t } = useTranslation();
   if (!dbInfo) return null;
 
   const stats: StatItem[] = [
     {
-      title: "Số Collections",
+      title: t("sys.database.collections-count"),
       value: dbInfo.collectionsCount,
       color: "blue",
       icon: "lucide:database",
     },
     {
-      title: "Dung lượng dữ liệu",
+      title: t("sys.database.data-size"),
       value: dbInfo.dataSize,
       color: "green",
       icon: "lucide:server",
     },
     {
-      title: "Dung lượng lưu trữ",
+      title: t("sys.database.storage-size"),
       value: dbInfo.storageSize,
       color: "red",
       icon: "lucide:hard-drive",
     },
     {
-      title: "Số Index",
+      title: t("sys.database.indexes"),
       value: dbInfo.indexes,
       color: "purple",
       icon: "lucide:hash",
@@ -94,13 +96,13 @@ export default function DatabaseInfoCard({
       {/* Danh sách collections */}
 
       <Card
-        key="Danh sách Collections"
+        key={t("sys.database.collections")}
         className={`bg-gradient-to-br ${colorMap["teal"]} border rounded-2xl`}
       >
         <CardContent className="px-4 flex items-center justify-between">
           <div>
             <p className="text-base font-bold opacity-80">
-              Danh sách Collections
+              {t("sys.database.collections")}
             </p>
             <p className="text-base mt-1">{dbInfo.collections.join(", ")}</p>
           </div>

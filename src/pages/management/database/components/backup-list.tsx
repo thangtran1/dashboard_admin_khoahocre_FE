@@ -10,6 +10,7 @@ import { databaseAdmin } from "@/api/services/databaseApi";
 import dayjs from "dayjs";
 import { toast } from "sonner";
 import { Icon } from "@/components/icon";
+import { useTranslation } from "react-i18next";
 
 interface Backup {
   filename: string;
@@ -24,6 +25,7 @@ export default function BackupList({
   backups: Backup[];
   reload: () => Promise<void>;
 }) {
+  const { t } = useTranslation();
   const [viewModal, setViewModal] = useState(false);
   const [viewContent, setViewContent] = useState<string>("");
 
@@ -34,12 +36,12 @@ export default function BackupList({
         toast.success(res.message, { closeButton: true });
         await reload();
       } else {
-        toast.error(res.message || "Không thể xóa bản sao lưu!", {
+        toast.error(res.message || t("sys.database.delete-backup-error"), {
           closeButton: true,
         });
       }
     } catch {
-      message.error("Lỗi khi xóa bản sao lưu!");
+      message.error(t("sys.database.delete-backup-error"));
     }
   };
 
@@ -50,10 +52,10 @@ export default function BackupList({
         setViewContent(JSON.stringify(res.data, null, 2));
         setViewModal(true);
       } else {
-        message.error("Không thể xem nội dung!");
+        message.error(t("sys.database.view-backup-error"));
       }
     } catch {
-      message.error("Lỗi khi xem nội dung file!");
+      message.error(t("sys.database.view-backup-error"));
     }
   };
 
@@ -61,7 +63,8 @@ export default function BackupList({
   const handleDownloadBackup = async (filename: string) => {
     try {
       const res = await databaseAdmin.downloadBackupJson(filename);
-      if (!res.success) throw new Error(res.message || "Tải file thất bại!");
+      if (!res.success)
+        throw new Error(res.message || t("sys.database.download-backup-error"));
 
       const { filename: name, content } = res.data;
 
@@ -86,25 +89,25 @@ export default function BackupList({
 
       toast.success(res.message);
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi tải file!");
+      toast.error(error.message || t("sys.database.download-backup-error"));
     }
   };
 
   const columns = [
     {
-      title: "Tên file",
+      title: t("sys.database.filename"),
       dataIndex: "filename",
       key: "filename",
     },
     {
-      title: "Ngày tạo",
+      title: t("sys.database.created-at"),
       dataIndex: "createdAt",
       key: "createdAt",
       render: (text: string) =>
         text ? dayjs(text).format("HH:mm:ss DD/MM/YYYY") : "—",
     },
     {
-      title: "Hành động",
+      title: t("sys.database.actions"),
       key: "actions",
       align: "center" as "center",
       render: (_: any, record: Backup) => (
@@ -113,20 +116,20 @@ export default function BackupList({
             icon={<EyeOutlined />}
             onClick={() => handleViewBackup(record.filename)}
           >
-            Xem
+            {t("sys.database.view")}
           </Button>
           <Button
             icon={<CloudDownloadOutlined />}
             onClick={() => handleDownloadBackup(record.filename)}
           >
-            Tải
+            {t("sys.database.download")}
           </Button>
           <Button
             danger
             icon={<DeleteOutlined />}
             onClick={() => handleDeleteBackup(record.filename)}
           >
-            Xóa
+            {t("sys.database.delete")}
           </Button>
         </Space>
       ),
@@ -138,7 +141,7 @@ export default function BackupList({
       {/* Title */}
       <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
         <Icon icon="lucide:database" className="h-5 w-5 text-blue-600" />
-        Danh sách bản sao lưu
+        {t("sys.database.backup-list")}
       </h2>
 
       {/* Backup Table */}
@@ -159,7 +162,7 @@ export default function BackupList({
       <Modal
         title={
           <span className="text-blue-600 font-semibold flex items-center gap-2">
-            <DatabaseOutlined /> Nội dung bản sao lưu
+            <DatabaseOutlined /> {t("sys.database.backup-content")}
           </span>
         }
         open={viewModal}
@@ -171,7 +174,7 @@ export default function BackupList({
             type="primary"
             className="bg-blue-600 hover:bg-blue-700"
           >
-            Đóng
+            {t("sys.database.close")}
           </Button>,
         ]}
         width={800}
