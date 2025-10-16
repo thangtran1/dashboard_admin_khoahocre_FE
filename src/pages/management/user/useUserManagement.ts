@@ -15,8 +15,6 @@ import {
   updateUserRole,
   updateUserStatus,
   deleteUser,
-  bulkUpdateUserStatus,
-  bulkDeleteUsers,
 } from "@/api/services/userManagementApi";
 
 export function useUserManagement() {
@@ -151,12 +149,12 @@ export function useUserManagement() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!id) return;
+  const handleDelete = async (ids: string | string[]) => {
+    if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
 
     try {
       setLoading(true);
-      await deleteUser(id);
+      await deleteUser(ids);
 
       toast.success(t("sys.user-management.delete-success"), {
         closeButton: true,
@@ -193,43 +191,11 @@ export function useUserManagement() {
     }
   };
 
-  // ========== BULK OPERATIONS ==========
-
-  const handleBulkUpdateStatus = async (status: string) => {
-    if (selectedUsers.length === 0) {
-      toast.warning(t("sys.user-management.select-at-least-one-user"), {
-        closeButton: true,
-      });
-      return;
-    }
+  const handleDeleteMany = async (ids: string | string[]) => {
+    if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
 
     try {
-      await bulkUpdateUserStatus(selectedUsers, status);
-      toast.success(
-        t("sys.user-management.bulk-update-status-success", {
-          count: selectedUsers.length,
-        }),
-        {
-          closeButton: true,
-        }
-      );
-      setSelectedUsers([]);
-      await Promise.all([fetchUsers(), fetchStats()]);
-    } catch (error) {
-      console.error("❌ bulkUpdateUserStatus ~ error:", error);
-    }
-  };
-
-  const handleBulkDelete = async () => {
-    if (selectedUsers.length === 0) {
-      toast.warning(t("sys.user-management.select-at-least-one-user"), {
-        closeButton: true,
-      });
-      return;
-    }
-
-    try {
-      await bulkDeleteUsers(selectedUsers);
+      await deleteUser(ids);
       toast.success(
         t("sys.user-management.bulk-delete-success", {
           count: selectedUsers.length,
@@ -241,7 +207,7 @@ export function useUserManagement() {
       setSelectedUsers([]);
       await Promise.all([fetchUsers(), fetchStats()]);
     } catch (error) {
-      console.error("❌ bulkDeleteUsers ~ error:", error);
+      console.error("❌ deleteUser ~ error:", error);
     }
   };
 
@@ -328,8 +294,7 @@ export function useUserManagement() {
     handleDelete,
     handleUpdateRole,
     handleUpdateStatus,
-    handleBulkUpdateStatus,
-    handleBulkDelete,
+    handleDeleteMany,
     handleFilterChange,
     handlePageChange,
     handleSelectUser,

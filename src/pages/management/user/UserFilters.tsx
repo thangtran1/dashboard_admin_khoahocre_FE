@@ -15,8 +15,7 @@ interface UserFiltersProps {
   selectedUsers: string[];
   onFilterChange: (key: keyof QueryUserParams, value: any) => void;
   onClearFilters: () => void;
-  onBulkUpdateStatus: (status: string) => void;
-  onBulkDelete: () => void;
+  onDeleteMany: (ids: string[]) => void;
 }
 
 export default function UserFilters({
@@ -24,8 +23,7 @@ export default function UserFilters({
   selectedUsers,
   onFilterChange,
   onClearFilters,
-  onBulkUpdateStatus,
-  onBulkDelete,
+  onDeleteMany,
 }: UserFiltersProps) {
   const { t } = useTranslation();
   return (
@@ -92,27 +90,13 @@ export default function UserFilters({
               })}
             </span>
             <Space>
-              <Button
-                size="middle"
-                onClick={() => onBulkUpdateStatus("active")}
-                className="text-success border-success bg-success/10"
-              >
-                {t("sys.user-management.activate-selected")}
-              </Button>
-              <Button
-                size="middle"
-                onClick={() => onBulkUpdateStatus("inactive")}
-                className="text-muted-foreground border-muted-foreground bg-muted-foreground/10"
-              >
-                {t("sys.user-management.deactivate-selected")}
-              </Button>
               <Popconfirm
                 title={t("sys.user-management.confirm-bulk-delete")}
                 description={t(
                   "sys.user-management.confirm-bulk-delete-description",
                   { count: selectedUsers.length }
                 )}
-                onConfirm={onBulkDelete}
+                onConfirm={() => onDeleteMany(selectedUsers as string[])}
                 okText={t("sys.user-management.delete")}
                 cancelText={t("sys.user-management.cancel")}
                 okButtonProps={{ danger: true }}

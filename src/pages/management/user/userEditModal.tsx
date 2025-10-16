@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 
 const { Option } = Select;
 
-interface UserModalProps {
+interface UserEditModalProps {
   isOpen: boolean;
   editingUser: User | null;
   loading: boolean;
@@ -19,13 +19,13 @@ interface UserModalProps {
   onSubmit: (values: CreateUserReq | UpdateUserReq) => Promise<boolean>;
 }
 
-export default function UserModal({
+export default function UserEditModal({
   isOpen,
   editingUser,
   loading,
   onClose,
   onSubmit,
-}: UserModalProps) {
+}: UserEditModalProps) {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 

@@ -371,8 +371,6 @@
       "all-roles": "All Roles",
       "all-statuses": "All Statuses",
       "bulk-actions": "Bulk Actions",
-      "activate-selected": "Activate Selected",
-      "deactivate-selected": "Deactivate Selected",
       "delete-selected": "Delete Selected",
       "selected-count": "{{count}} selected",
       "total-users": "Total Users",

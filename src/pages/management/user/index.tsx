@@ -12,9 +12,9 @@ import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
 import { useUserManagement } from "./useUserManagement";
-import UserFilters from "./UserFilters";
-import UserTable from "./UserTable";
-import UserModal from "./UserModal";
+import UserFilters from "./userFilters";
+import UserTable from "./userTable";
+import UserEditModal from "./userEditModal";
 
 export default function UserManagement() {
   const { t } = useTranslation();
@@ -30,8 +30,7 @@ export default function UserManagement() {
     handleDelete,
     handleUpdateRole,
     handleUpdateStatus,
-    handleBulkUpdateStatus,
-    handleBulkDelete,
+    handleDeleteMany,
     handleFilterChange,
     handlePageChange,
     handleSelectUser,
@@ -198,8 +197,7 @@ export default function UserManagement() {
           selectedUsers={selectedUsers}
           onFilterChange={handleFilterChange}
           onClearFilters={handleClearFilters}
-          onBulkUpdateStatus={handleBulkUpdateStatus}
-          onBulkDelete={handleBulkDelete}
+          onDeleteMany={() => handleDeleteMany(selectedUsers as string[])}
         />
 
         {/* User Table */}
@@ -218,7 +216,7 @@ export default function UserManagement() {
         />
 
         {/* Modal */}
-        <UserModal
+        <UserEditModal
           isOpen={isModalOpen}
           editingUser={editingUser}
           loading={loading}

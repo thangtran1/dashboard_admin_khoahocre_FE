@@ -371,8 +371,6 @@
       "all-roles": "Tất cả Vai trò",
       "all-statuses": "Tất cả Trạng thái",
       "bulk-actions": "Thao tác Hàng loạt",
-      "activate-selected": "Kích hoạt đã chọn",
-      "deactivate-selected": "Vô hiệu hóa đã chọn",
       "delete-selected": "Xóa đã chọn",
       "selected-count": "Đã chọn {{count}}",
       "total-users": "Tổng số",

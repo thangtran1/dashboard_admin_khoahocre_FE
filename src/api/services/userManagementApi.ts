@@ -102,12 +102,11 @@ export enum UserManagementApi {
   Create = "/user",
   GetById = "/user/:id",
   Update = "/user/:id",
-  Delete = "/user/:id",
+  Delete = "/user",
   Stats = "/user/stats",
   UpdateRole = "/user/:id/role",
   UpdateStatus = "/user/:id/status",
   BulkUpdateStatus = "/user/bulk/status",
-  BulkDelete = "/user/bulk",
 }
 
 // ========== API CALLS ==========
@@ -229,10 +228,11 @@ export const updateUserStatus = async (id: string, status: string) => {
   return response;
 };
 
-// Delete user
-export const deleteUser = async (id: string) => {
+// Delete one or many users
+export const deleteUser = async (ids: string | string[]) => {
   return await apiClient.delete({
-    url: UserManagementApi.Delete.replace(":id", id),
+    url: UserManagementApi.Delete,
+    data: { ids },
   });
 };
 
@@ -241,14 +241,6 @@ export const bulkUpdateUserStatus = async (ids: string[], status: string) => {
   return await apiClient.patch({
     url: UserManagementApi.BulkUpdateStatus,
     data: { ids, status },
-  });
-};
-
-// Bulk delete users
-export const bulkDeleteUsers = async (ids: string[]) => {
-  return await apiClient.delete({
-    url: UserManagementApi.BulkDelete,
-    data: { ids },
   });
 };
 
@@ -262,5 +254,4 @@ export default {
   updateUserStatus,
   deleteUser,
   bulkUpdateUserStatus,
-  bulkDeleteUsers,
 };
