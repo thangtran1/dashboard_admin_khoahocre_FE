@@ -75,6 +75,8 @@ export default function ActiveUsersTab() {
       {/* Header Actions */}
       <div className="flex gap-3 justify-end">
         <Button
+          color="cyan"
+          variant="outlined"
           icon={<ReloadOutlined />}
           onClick={refreshData}
           size="large"

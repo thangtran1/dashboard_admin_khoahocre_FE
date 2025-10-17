@@ -78,7 +78,12 @@ export default function DeletedUserFilters({
             {t("sys.user-management.status-banned")}
           </Option>
         </Select>
-        <Button icon={<FilterOutlined />} size="large" onClick={onClearFilters}>
+        <Button
+          danger
+          icon={<FilterOutlined />}
+          size="large"
+          onClick={onClearFilters}
+        >
           {t("sys.user-management.cancel")}
         </Button>
       </div>

@@ -81,7 +81,7 @@ export default function DatabaseInfoCard({
                 <p className="text-2xl font-bold mt-1">{stat.value}</p>
               </div>
               <div
-                className={`p-3 bg-white/70 rounded-full border border-muted`}
+                className={`p-3 bg-white/70 rounded-full border border-border`}
               >
                 <Icon
                   icon={stat.icon}
@@ -106,7 +106,7 @@ export default function DatabaseInfoCard({
             </p>
             <p className="text-base mt-1">{dbInfo.collections.join(", ")}</p>
           </div>
-          <div className={`p-3 bg-white/70 rounded-full border border-muted`}>
+          <div className={`p-3 bg-white/70 rounded-full border border-border`}>
             <Icon icon="lucide:list" className={`h-6 w-6 text-teal-600`} />
           </div>
         </CardContent>

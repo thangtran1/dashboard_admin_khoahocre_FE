@@ -88,7 +88,7 @@ const NewNotification: React.FC = () => {
   };
 
   return (
-    <Card>
+    <Card className="!bg-background">
       <Breadcrumb style={{ marginBottom: "8px" }}>
         <Breadcrumb.Item>
           <Link to="/notifications">{t("sys.notification.management")}</Link>

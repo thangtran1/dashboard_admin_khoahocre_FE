@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { toast } from "sonner";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
+import { Separator } from "@/ui/separator";
 
 interface Backup {
   filename: string;
@@ -137,13 +138,13 @@ export default function BackupList({
   ];
 
   return (
-    <div className="space-y-4">
+    <div>
       {/* Title */}
       <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
         <Icon icon="lucide:database" className="h-5 w-5 text-blue-600" />
         {t("sys.database.backup-list")}
       </h2>
-
+      <Separator className="my-4" />
       {/* Backup Table */}
       <div className="overflow-x-auto bg-background shadow-md rounded-xl border border-border">
         <Table

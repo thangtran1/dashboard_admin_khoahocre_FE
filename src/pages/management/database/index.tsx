@@ -26,6 +26,7 @@ import RestoreModal from "./components/restore-modal";
 import { toast } from "sonner";
 import { Separator } from "@/ui/separator";
 import { useTranslation } from "react-i18next";
+import { Icon } from "@/components/icon";
 
 const { Text } = Typography;
 const { RangePicker } = DatePicker;
@@ -176,7 +177,7 @@ export default function DatabaseManagement() {
   return (
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
       {/* Header */}
-      <div className="pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-blue-700 flex items-center gap-2">
             <DatabaseOutlined className="text-blue-600" />
@@ -184,7 +185,7 @@ export default function DatabaseManagement() {
           </h1>
           <p className="text-gray-500 mt-1">{t("sys.database.description")}</p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-end flex-wrap gap-2">
           <Button
             icon={<ReloadOutlined />}
             onClick={() => fetchBackups()}
@@ -227,49 +228,58 @@ export default function DatabaseManagement() {
       ) : (
         <>
           <DatabaseInfoCard dbInfo={dbInfo} />
-          <Separator className="my-6" />
+
           {/* Filters */}
-          <div className="flex flex-col lg:flex-row gap-3 items-center">
-            <div className="flex-1">
-              <Search
-                placeholder={t("sys.database.search-by-name")}
-                value={filters.search}
-                onChange={(e) => handleFilterChange("search", e.target.value)}
+          <div>
+            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+              <Icon icon="lucide:filter" className="h-5 w-5 text-blue-600" />
+              {t("sys.notification.filter")}
+            </h2>
+            <Separator className="my-4" />
+            <div className="flex flex-col lg:flex-row gap-3 items-center">
+              <div className="flex-1">
+                <Search
+                  placeholder={t("sys.database.search-by-name")}
+                  value={filters.search}
+                  onChange={(e) => handleFilterChange("search", e.target.value)}
+                  size="large"
+                  prefix={<SearchOutlined />}
+                  allowClear
+                />
+              </div>
+              <RangePicker
                 size="large"
-                prefix={<SearchOutlined />}
-                allowClear
+                value={
+                  filters.startDate && filters.endDate
+                    ? [dayjs(filters.startDate), dayjs(filters.endDate)]
+                    : null
+                }
+                onChange={(dates) => {
+                  handleFilterChange(
+                    "startDate",
+                    dates?.[0]?.format("YYYY-MM-DD") || ""
+                  );
+                  handleFilterChange(
+                    "endDate",
+                    dates?.[1]?.format("YYYY-MM-DD") || ""
+                  );
+                }}
               />
+              <Button
+                color="primary"
+                variant="outlined"
+                onClick={handleSearch}
+                size="large"
+              >
+                {t("sys.database.search")}
+              </Button>
+              <Button danger onClick={handleClearFilters} size="large">
+                {t("sys.database.clear-filters")}
+              </Button>
             </div>
-            <RangePicker
-              size="large"
-              value={
-                filters.startDate && filters.endDate
-                  ? [dayjs(filters.startDate), dayjs(filters.endDate)]
-                  : null
-              }
-              onChange={(dates) => {
-                handleFilterChange(
-                  "startDate",
-                  dates?.[0]?.format("YYYY-MM-DD") || ""
-                );
-                handleFilterChange(
-                  "endDate",
-                  dates?.[1]?.format("YYYY-MM-DD") || ""
-                );
-              }}
-            />
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={handleSearch}
-              size="large"
-            >
-              {t("sys.database.search")}
-            </Button>
-            <Button danger onClick={handleClearFilters} size="large">
-              {t("sys.database.clear-filters")}
-            </Button>
+            <Separator className="my-4" />
           </div>
+
           <BackupList backups={backups} reload={fetchBackups} />
           <div className="flex justify-end mt-4">
             <Pagination

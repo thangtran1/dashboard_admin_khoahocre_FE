@@ -54,11 +54,17 @@ export const notificationAdminService = {
 
   getAll: async (
     page: number = 1,
-    limit: number = 20
+    limit: number = 20,
+    options: {
+      search?: string;
+      type?: string;
+      startDate?: string;
+      endDate?: string;
+    }
   ): Promise<NotificationListResponse> => {
     const response = await apiClient.get({
       url: "/notifications/admin",
-      params: { page, limit },
+      params: { page, limit, ...(options || {}) },
     });
     return response.data;
   },

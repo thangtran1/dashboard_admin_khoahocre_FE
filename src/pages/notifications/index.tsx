@@ -11,12 +11,16 @@ import {
   Tag,
   Select,
 } from "antd";
+const { Search } = Input;
+const { RangePicker } = DatePicker;
+const { Option } = Select;
 import {
   PlusOutlined,
   SearchOutlined,
   EyeOutlined,
   EditOutlined,
   DeleteOutlined,
+  FilterOutlined,
 } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { Link } from "react-router";
@@ -28,21 +32,25 @@ import { Notification } from "../../types/entity";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
-import { Label } from "@/ui/label";
-
-const { RangePicker } = DatePicker;
 
 const NotificationManagement: React.FC = () => {
   const {
     notifications,
     loading,
-    isAdmin,
+    total,
+    page,
+    limit,
+    searchOptions,
     loadNotifications,
     updateNotification,
     deleteNotification,
+    handleFilterChange,
+    handlePageSizeChange,
+    clearFilters,
   } = useAdminNotifications();
   const { t } = useTranslation();
-  const [searchTitle, setSearchTitle] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs] | null>(
     null
   );
@@ -50,23 +58,45 @@ const NotificationManagement: React.FC = () => {
   const [editingNotification, setEditingNotification] =
     useState<Notification | null>(null);
   const [editForm] = Form.useForm();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
 
+  // Sync local state with searchOptions from hook
   useEffect(() => {
-    if (isAdmin) {
-      loadNotifications();
+    setSearchText(searchOptions.search || "");
+    setSelectedType(searchOptions.type || "");
+    if (searchOptions.startDate && searchOptions.endDate) {
+      setDateRange([
+        dayjs(searchOptions.startDate),
+        dayjs(searchOptions.endDate),
+      ]);
+    } else {
+      setDateRange(null);
     }
-  }, [isAdmin, loadNotifications]);
+  }, [searchOptions]);
 
-  const handleSearch = () => {
-    // Implement search logic
-    console.log("Searching:", { searchTitle, dateRange });
+  const handleSearchClick = () => {
+    const searchParams: any = {};
+
+    if (searchText.trim()) {
+      searchParams.search = searchText.trim();
+    }
+
+    if (selectedType) {
+      searchParams.type = selectedType;
+    }
+
+    if (dateRange && dateRange[0] && dateRange[1]) {
+      searchParams.startDate = dateRange[0].format("YYYY-MM-DD");
+      searchParams.endDate = dateRange[1].format("YYYY-MM-DD");
+    }
+
+    handleFilterChange(searchParams);
   };
 
   const handleClearFilter = () => {
-    setSearchTitle("");
+    setSearchText("");
+    setSelectedType("");
     setDateRange(null);
+    clearFilters();
   };
 
   const handleDelete = async (id: string) => {
@@ -123,15 +153,14 @@ const NotificationManagement: React.FC = () => {
     setEditingNotification(null);
   };
 
-
   const renderWithTooltip = (text?: string) =>
-  text ? (
-    <Tooltip placement="topLeft" title={text}>
-      <span className="truncate block max-w-[140px]">{text}</span>
-    </Tooltip>
-  ) : (
-    "-"
-  );
+    text ? (
+      <Tooltip placement="topLeft" title={text}>
+        <span className="truncate block max-w-[140px]">{text}</span>
+      </Tooltip>
+    ) : (
+      "-"
+    );
 
   const columns = [
     {
@@ -157,7 +186,7 @@ const NotificationManagement: React.FC = () => {
       width: 150,
       ellipsis: true,
       render: (text: string) => renderWithTooltip(text),
-          },
+    },
     {
       title: t("sys.notification.short-description"),
       dataIndex: "shortDescription",
@@ -165,7 +194,7 @@ const NotificationManagement: React.FC = () => {
       width: 150,
       ellipsis: true,
       render: (text: string) => renderWithTooltip(text),
-          },
+    },
     {
       title: t("sys.notification.image-video"),
       dataIndex: "actionUrl",
@@ -213,7 +242,8 @@ const NotificationManagement: React.FC = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       width: 150,
-      render: (date: string) => renderWithTooltip(dayjs(date).format("DD/MM/YYYY HH:mm:ss")),
+      render: (date: string) =>
+        renderWithTooltip(dayjs(date).format("DD/MM/YYYY HH:mm:ss")),
     },
     {
       title: t("sys.notification.actions"),
@@ -246,8 +276,13 @@ const NotificationManagement: React.FC = () => {
 
   // Tính toán thống kê
   const totalNotifications = notifications.length;
-  const systemNotifications = notifications.filter(n => n.type === "system").length;
-  const totalReadByUsers = notifications.reduce((sum, n) => sum + (n.readByUsers?.length || 0), 0);
+  const systemNotifications = notifications.filter(
+    (n) => n.type === "system"
+  ).length;
+  const totalReadByUsers = notifications.reduce(
+    (sum, n) => sum + (n.readByUsers?.length || 0),
+    0
+  );
 
   return (
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
@@ -280,21 +315,18 @@ const NotificationManagement: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-foreground">
+            <CardTitle className="text-sm font-medium text-muted">
               {t("sys.notification.total-notifications")}
             </CardTitle>
             <div className="p-2 bg-primary rounded-full">
-              <Icon
-                icon="lucide:bell"
-                className="h-4 w-4 text-white"
-              />
+              <Icon icon="lucide:bell" className="h-4 w-4 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">
+            <div className="text-3xl font-bold text-muted">
               {totalNotifications}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-muted mt-1">
               {t("sys.notification.total-notifications-description")}
             </p>
           </CardContent>
@@ -302,7 +334,7 @@ const NotificationManagement: React.FC = () => {
 
         <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-foreground">
+            <CardTitle className="text-sm font-medium text-muted">
               {t("sys.notification.system-notifications")}
             </CardTitle>
             <div className="p-2 bg-green-500 rounded-full">
@@ -310,10 +342,10 @@ const NotificationManagement: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">
+            <div className="text-3xl font-bold text-muted">
               {systemNotifications}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-muted mt-1">
               {t("sys.notification.system-notifications-description")}
             </p>
           </CardContent>
@@ -321,7 +353,7 @@ const NotificationManagement: React.FC = () => {
 
         <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-foreground">
+            <CardTitle className="text-sm font-medium text-muted">
               {t("sys.notification.total-reads")}
             </CardTitle>
             <div className="p-2 bg-purple-500 rounded-full">
@@ -329,10 +361,10 @@ const NotificationManagement: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">
+            <div className="text-3xl font-bold text-muted">
               {totalReadByUsers}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-muted mt-1">
               {t("sys.notification.total-reads-description")}
             </p>
           </CardContent>
@@ -345,68 +377,80 @@ const NotificationManagement: React.FC = () => {
           <Icon icon="lucide:filter" className="h-5 w-5 text-blue-600" />
           {t("sys.notification.filter")}
         </h2>
+
         <Separator className="my-4" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold text-muted-foreground">
-              {t("sys.notification.search")}
-            </Label>
-            <Input
-              placeholder={t("sys.notification.search-placeholder")}
-              value={searchTitle}
-              onChange={(e) => setSearchTitle(e.target.value)}
+        {/* Bộ lọc */}
+        <div className="flex flex-col lg:flex-row lg:items-end gap-3">
+          <div className="flex-1 flex flex-col sm:flex-row gap-3">
+            <Search
+              placeholder={t("Tìm kiếm theo tiêu đề và nội dung")}
+              size="large"
               prefix={<SearchOutlined />}
-              size="large"
+              allowClear
+              className="flex-[1.3]"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onSearch={handleSearchClick}
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold text-muted-foreground">
-              {t("sys.notification.created-at")}
-            </Label>
             <RangePicker
-              style={{ width: "100%" }}
               size="large"
-              placeholder={[
-                t("sys.notification.created-at-placeholder"),
-                t("sys.notification.created-at-placeholder"),
-              ]}
+              allowClear
+              className="flex-[0.7]"
+              style={{ minWidth: 220 }}
               value={dateRange}
               onChange={(dates) =>
-                setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
+                setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs] | null)
               }
             />
           </div>
 
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold text-muted-foreground invisible">
-              Actions
-            </Label>
-            <div className="flex gap-2">
-              <Button
-                type="primary"
-                onClick={handleSearch}
-                icon={<SearchOutlined />}
-                size="large"
-                className="bg-blue-600 hover:bg-blue-700"
-              >
-                {t("sys.notification.search")}
-              </Button>
-              <Button onClick={handleClearFilter} size="large">
-                {t("sys.notification.clear-filter")}
-              </Button>
-            </div>
+          <Select
+            size="large"
+            style={{ width: 220 }}
+            placeholder={t("Lọc theo loại thông báo")}
+            allowClear
+            value={selectedType}
+            onChange={setSelectedType}
+          >
+            <Option value="">{t("Tất cả")}</Option>
+            <Option value="system">{t("sys.notification.system")}</Option>
+            <Option value="promotion">{t("sys.notification.promotion")}</Option>
+            <Option value="maintenance">
+              {t("sys.notification.maintenance")}
+            </Option>
+            <Option value="update">{t("sys.notification.update")}</Option>
+          </Select>
+
+          <div className="flex gap-2">
+            <Button
+              icon={<SearchOutlined />}
+              size="large"
+              color="primary"
+              variant="outlined"
+              onClick={handleSearchClick}
+            >
+              {t("sys.notification.search")}
+            </Button>
+            <Button
+              danger
+              icon={<FilterOutlined />}
+              size="large"
+              onClick={handleClearFilter}
+            >
+              {t("sys.notification.clear-filter")}
+            </Button>
           </div>
         </div>
       </div>
+
       <Separator />
 
       {/* Danh sách thông báo */}
       <div className="pb-4">
         <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mb-4">
           <Icon icon="lucide:list" className="h-5 w-5 text-blue-600" />
-          {t("sys.notification.notification-list")} ({totalNotifications})
+          {t("sys.notification.notification-list")} ({total})
         </h2>
         <Separator className="my-4" />
 
@@ -416,20 +460,24 @@ const NotificationManagement: React.FC = () => {
             dataSource={notifications}
             rowKey="_id"
             loading={loading}
-            scroll={{ x: 1500 }}
+            scroll={{ y: 500, x: 1500 }}
             pagination={{
-              current: currentPage,
-              pageSize: pageSize,
-              total: totalNotifications,
+              current: page,
+              pageSize: limit,
+              total: total,
               showSizeChanger: true,
-              showQuickJumper: true,
-              pageSizeOptions: ['5', '10', '20', '50'],
-              onChange: (page, size) => {
-                setCurrentPage(page);
-                setPageSize(size);
+              showQuickJumper: false,
+              pageSizeOptions: ["10", "20", "50", "100"],
+              onChange: (pageNum) => {
+                loadNotifications(pageNum, limit, searchOptions);
+              },
+              onShowSizeChange: (_current, size) => {
+                handlePageSizeChange(size);
               },
               showTotal: (total, range) =>
-                `${t("sys.notification.showing")} ${range[0]}-${range[1]} ${t("sys.notification.of")} ${total} ${t("sys.notification.items")}`,
+                `${t("sys.notification.showing")} ${range[0]}-${range[1]} ${t(
+                  "sys.notification.of"
+                )} ${total} ${t("sys.notification.items")}`,
             }}
           />
         </div>
@@ -531,7 +579,11 @@ const NotificationManagement: React.FC = () => {
               <Button onClick={handleEditModalCancel}>
                 ❌ {t("sys.notification.cancel")}
               </Button>
-              <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-700">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="bg-blue-600 hover:bg-blue-700"
+              >
                 💾 {t("sys.notification.update")}
               </Button>
             </Space>
