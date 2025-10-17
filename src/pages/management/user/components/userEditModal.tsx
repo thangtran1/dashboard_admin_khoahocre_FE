@@ -53,14 +53,12 @@ export default function UserEditModal({
     onClose();
   };
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: CreateUserReq | UpdateUserReq) => {
     try {
-      const success = await onSubmit(values);
-      if (success) {
-        form.resetFields();
-      }
+      return await onSubmit(values);
     } catch (error) {
-      console.error("Form submit error:", error);
+      console.error("❌ handleSubmit ~ error:", error);
+      return false;
     }
   };
 

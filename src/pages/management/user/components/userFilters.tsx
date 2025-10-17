@@ -13,7 +13,7 @@ const { Option } = Select;
 interface UserFiltersProps {
   filters: QueryUserParams;
   selectedUsers: string[];
-  onFilterChange: (key: keyof QueryUserParams, value: any) => void;
+  onFilterChange: (key: keyof QueryUserParams, value: string) => void;
   onClearFilters: () => void;
   onDeleteMany: (ids: string[]) => void;
 }
@@ -96,7 +96,7 @@ export default function UserFilters({
                   "sys.user-management.confirm-bulk-delete-description",
                   { count: selectedUsers.length }
                 )}
-                onConfirm={() => onDeleteMany(selectedUsers as string[])}
+                onConfirm={async () => await onDeleteMany(selectedUsers)}
                 okText={t("sys.user-management.delete")}
                 cancelText={t("sys.user-management.cancel")}
                 okButtonProps={{ danger: true }}

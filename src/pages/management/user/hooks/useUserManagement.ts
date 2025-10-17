@@ -15,9 +15,11 @@ import {
   updateUserRole,
   updateUserStatus,
   deleteUser,
+  softDeleteUser,
+  restoreUser,
 } from "@/api/services/userManagementApi";
 
-export function useUserManagement() {
+export function useUserManagement(isDeleted: boolean = false) {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -34,6 +36,7 @@ export function useUserManagement() {
     status: searchParams.get("status") || "",
     sortBy: searchParams.get("sortBy") || "createdAt",
     sortOrder: (searchParams.get("sortOrder") as "asc" | "desc") || "desc",
+    isDeleted,
   });
 
   const [filters, setFilters] = useState<QueryUserParams>(getInitialFilters());
@@ -59,11 +62,13 @@ export function useUserManagement() {
 
   // Update URL params when filters change
   const updateUrlParams = (newFilters: QueryUserParams) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams);
 
     Object.entries(newFilters).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== "") {
         params.set(key, String(value));
+      } else {
+        params.delete(key);
       }
     });
 
@@ -149,6 +154,26 @@ export function useUserManagement() {
     }
   };
 
+  // Soft delete for active users
+  const handleSoftDelete = async (ids: string | string[]) => {
+    if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
+
+    try {
+      setLoading(true);
+      await softDeleteUser(ids);
+
+      toast.success(t("sys.user-management.delete-success"), {
+        closeButton: true,
+      });
+      await Promise.all([fetchUsers(), fetchStats()]);
+    } catch (error) {
+      console.error("❌ softDeleteUser ~ error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Permanent delete for deleted users
   const handleDelete = async (ids: string | string[]) => {
     if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
 
@@ -156,7 +181,7 @@ export function useUserManagement() {
       setLoading(true);
       await deleteUser(ids);
 
-      toast.success(t("sys.user-management.delete-success"), {
+      toast.success(t("sys.user-management.permanent-delete-success"), {
         closeButton: true,
       });
       await Promise.all([fetchUsers(), fetchStats()]);
@@ -195,10 +220,47 @@ export function useUserManagement() {
     if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
 
     try {
-      await deleteUser(ids);
+      if (isDeleted) {
+        // Permanent delete for already soft-deleted users
+        await deleteUser(ids);
+        toast.success(
+          t("sys.user-management.bulk-permanent-delete-success", {
+            count: selectedUsers.length,
+          }),
+          {
+            closeButton: true,
+          }
+        );
+      } else {
+        // Soft delete for active users
+        await softDeleteUser(ids);
+        toast.success(
+          t("sys.user-management.bulk-delete-success", {
+            count: selectedUsers.length,
+          }),
+          {
+            closeButton: true,
+          }
+        );
+      }
+      setSelectedUsers([]);
+      await Promise.all([fetchUsers(), fetchStats()]);
+    } catch (error) {
+      console.error("❌ deleteUser ~ error:", error);
+    }
+  };
+
+  const handleRestore = async (ids: string | string[]) => {
+    if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
+
+    try {
+      setLoading(true);
+      await restoreUser(ids);
+
+      const count = Array.isArray(ids) ? ids.length : 1;
       toast.success(
-        t("sys.user-management.bulk-delete-success", {
-          count: selectedUsers.length,
+        t("sys.user-management.restore-success", {
+          count,
         }),
         {
           closeButton: true,
@@ -207,8 +269,14 @@ export function useUserManagement() {
       setSelectedUsers([]);
       await Promise.all([fetchUsers(), fetchStats()]);
     } catch (error) {
-      console.error("❌ deleteUser ~ error:", error);
+      console.error("❌ restoreUser ~ error:", error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleRestoreMany = async (ids: string[]) => {
+    await handleRestore(ids);
   };
 
   // ========== UI HANDLERS ==========
@@ -252,6 +320,7 @@ export function useUserManagement() {
       status: "",
       sortBy: "createdAt",
       sortOrder: "desc",
+      isDeleted,
     };
     setFilters(defaultFilters);
     updateUrlParams(defaultFilters);
@@ -286,15 +355,19 @@ export function useUserManagement() {
     filters,
     pagination,
     stats,
+    isDeleted,
 
     // Actions
     handleCreate,
     handleUpdate,
     handleUpdateUser,
+    handleSoftDelete,
     handleDelete,
     handleUpdateRole,
     handleUpdateStatus,
     handleDeleteMany,
+    handleRestore,
+    handleRestoreMany,
     handleFilterChange,
     handlePageChange,
     handleSelectUser,

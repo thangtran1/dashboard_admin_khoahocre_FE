@@ -1,78 +1,43 @@
-import { useState } from "react";
-import { Button } from "antd";
+import { Tabs } from "antd";
 import { Card, CardContent, CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
-import {
-  User,
-  CreateUserReq,
-  UpdateUserReq,
-} from "@/api/services/userManagementApi";
-import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
-import { useUserManagement } from "./useUserManagement";
-import UserFilters from "./userFilters";
-import UserTable from "./userTable";
-import UserEditModal from "./userEditModal";
+import { useUserTabs } from "./hooks/useUserTabs";
+import { useUserManagement } from "./hooks/useUserManagement";
+import ActiveUsersTab from "./components/ActiveUsersTab";
+import DeletedUsersTab from "./components/DeletedUsersTab";
 
 export default function UserManagement() {
   const { t } = useTranslation();
-  const {
-    users,
-    loading,
-    selectedUsers,
-    filters,
-    pagination,
-    stats,
-    handleCreate,
-    handleUpdateUser,
-    handleDelete,
-    handleUpdateRole,
-    handleUpdateStatus,
-    handleDeleteMany,
-    handleFilterChange,
-    handlePageChange,
-    handleSelectUser,
-    handleSelectAll,
-    handleClearFilters,
-    refreshData,
-  } = useUserManagement();
+  const { activeTab, handleTabChange } = useUserTabs();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
+  // Get stats from active users hook
+  const { stats } = useUserManagement(false);
 
-  // ========== MODAL HANDLERS ==========
-
-  const handleOpenCreateModal = () => {
-    setEditingUser(null);
-    setIsModalOpen(true);
-  };
-
-  const handleEdit = (user: User) => {
-    setEditingUser(user);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditingUser(null);
-  };
-
-  const handleSubmit = async (values: CreateUserReq | UpdateUserReq) => {
-    let success = false;
-    if (editingUser) {
-      success = await handleUpdateUser(editingUser.id, values as UpdateUserReq);
-    } else {
-      success = await handleCreate(values as CreateUserReq);
-    }
-
-    if (success) {
-      handleCloseModal();
-    }
-
-    return success;
-  };
+  const tabItems = [
+    {
+      key: "active",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="lucide:users" className="h-4 w-4" />
+          {t("sys.user-management.active-users-tab")}
+        </span>
+      ),
+      children: <ActiveUsersTab />,
+    },
+    {
+      key: "deleted",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="lucide:trash-2" className="h-4 w-4" />
+          {t("sys.user-management.deleted-users-tab")}
+        </span>
+      ),
+      children: <DeletedUsersTab />,
+    },
+  ];
 
   return (
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
@@ -87,24 +52,6 @@ export default function UserManagement() {
             <p className="text-muted-foreground mt-1">
               {t("sys.user-management.description")}
             </p>
-          </div>
-          <div className="flex gap-3">
-            <Button
-              icon={<ReloadOutlined />}
-              onClick={refreshData}
-              size="large"
-              loading={loading}
-            >
-              {t("sys.user-management.refresh")}
-            </Button>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={handleOpenCreateModal}
-              size="large"
-            >
-              {t("sys.user-management.add-user")}
-            </Button>
           </div>
         </div>
 
@@ -191,37 +138,13 @@ export default function UserManagement() {
           </Card>
         </div>
 
-        {/* Filters */}
-        <UserFilters
-          filters={filters}
-          selectedUsers={selectedUsers}
-          onFilterChange={handleFilterChange}
-          onClearFilters={handleClearFilters}
-          onDeleteMany={() => handleDeleteMany(selectedUsers as string[])}
-        />
-
-        {/* User Table */}
-        <UserTable
-          users={users}
-          loading={loading}
-          selectedUsers={selectedUsers}
-          pagination={pagination}
-          onSelectUser={handleSelectUser}
-          onSelectAll={handleSelectAll}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          onUpdateRole={handleUpdateRole}
-          onUpdateStatus={handleUpdateStatus}
-          onPageChange={handlePageChange}
-        />
-
-        {/* Modal */}
-        <UserEditModal
-          isOpen={isModalOpen}
-          editingUser={editingUser}
-          loading={loading}
-          onClose={handleCloseModal}
-          onSubmit={handleSubmit}
+        {/* Tabs */}
+        <Tabs
+          activeKey={activeTab}
+          onChange={(key) => handleTabChange(key as "active" | "deleted")}
+          items={tabItems}
+          size="large"
+          className="user-management-tabs"
         />
       </div>
     </div>

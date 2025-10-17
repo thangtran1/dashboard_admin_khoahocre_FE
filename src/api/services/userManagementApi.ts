@@ -52,6 +52,7 @@ export interface QueryUserParams {
   status?: string;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
+  isDeleted?: boolean;
 }
 
 export interface GetUsersRes {
@@ -103,6 +104,8 @@ export enum UserManagementApi {
   GetById = "/user/:id",
   Update = "/user/:id",
   Delete = "/user",
+  SoftDelete = "/user/soft-delete",
+  Restore = "/user/restore",
   Stats = "/user/stats",
   UpdateRole = "/user/:id/role",
   UpdateStatus = "/user/:id/status",
@@ -244,6 +247,22 @@ export const bulkUpdateUserStatus = async (ids: string[], status: string) => {
   });
 };
 
+// Soft delete users
+export const softDeleteUser = async (ids: string | string[]) => {
+  return await apiClient.delete({
+    url: UserManagementApi.SoftDelete,
+    data: { ids },
+  });
+};
+
+// Restore users
+export const restoreUser = async (ids: string | string[]) => {
+  return await apiClient.patch({
+    url: UserManagementApi.Restore,
+    data: { ids },
+  });
+};
+
 export default {
   getUsers,
   getUserStats,
@@ -254,4 +273,6 @@ export default {
   updateUserStatus,
   deleteUser,
   bulkUpdateUserStatus,
+  softDeleteUser,
+  restoreUser,
 };

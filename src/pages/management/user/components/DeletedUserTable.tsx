@@ -2,20 +2,18 @@ import {
   Table,
   Checkbox,
   Avatar,
-  Select,
   Space,
   Button,
   Tooltip,
   Popconfirm,
+  Tag,
 } from "antd";
 import { Icon } from "@/components/icon";
 import { User } from "@/api/services/userManagementApi";
-import { UserOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { UserOutlined, UndoOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
-const { Option } = Select;
-
-interface UserTableProps {
+interface DeletedUserTableProps {
   users: User[];
   loading: boolean;
   selectedUsers: string[];
@@ -27,27 +25,24 @@ interface UserTableProps {
   };
   onSelectUser: (userId: string, checked: boolean) => void;
   onSelectAll: (checked: boolean) => void;
-  onEdit: (user: User) => void;
+  onRestore: (id: string) => void;
   onDelete: (id: string) => void;
-  onUpdateRole: (id: string, role: string) => void;
-  onUpdateStatus: (id: string, status: string) => void;
   onPageChange: (page: number, pageSize?: number) => void;
 }
 
-export default function UserTable({
+export default function DeletedUserTable({
   users,
   loading,
   selectedUsers,
   pagination,
   onSelectUser,
   onSelectAll,
-  onEdit,
+  onRestore,
   onDelete,
-  onUpdateRole,
-  onUpdateStatus,
   onPageChange,
-}: UserTableProps) {
+}: DeletedUserTableProps) {
   const { t } = useTranslation();
+
   const columns = [
     {
       title: (
@@ -61,7 +56,7 @@ export default function UserTable({
       ),
       key: "select",
       width: 50,
-      render: (_: any, user: User) => (
+      render: (_: React.ReactNode, user: User) => (
         <Checkbox
           checked={selectedUsers.includes(user.id)}
           onChange={(e) => onSelectUser(user.id, e.target.checked)}
@@ -71,11 +66,16 @@ export default function UserTable({
     {
       title: t("sys.user-management.user-info"),
       key: "user",
-      render: (_: any, user: User) => (
+      render: (_: React.ReactNode, user: User) => (
         <div className="flex items-center gap-3">
           <Avatar src={user.avatar} icon={<UserOutlined />} size={40} />
           <div>
-            <div className="font-semibold text-foreground">{user.name}</div>
+            <div className="font-semibold text-foreground flex items-center gap-2">
+              {user.name}
+              <Tag color="red" className="text-xs">
+                {t("sys.user-management.deleted")}
+              </Tag>
+            </div>
             <div className="text-sm text-muted-foreground">{user.email}</div>
           </div>
         </div>
@@ -84,47 +84,23 @@ export default function UserTable({
     {
       title: t("sys.user-management.role"),
       key: "role",
-      render: (_: any, user: User) => (
-        <Select
-          value={user.role}
-          onChange={(value) => onUpdateRole(user.id, value)}
-          size="middle"
-          style={{ width: 120 }}
-        >
-          <Option value="user">{t("sys.user-management.role-user")}</Option>
-          <Option value="moderator">
-            {t("sys.user-management.role-moderator")}
-          </Option>
-          <Option value="admin">{t("sys.user-management.role-admin")}</Option>
-        </Select>
+      render: (_: React.ReactNode, user: User) => (
+        <Tag color="blue">{t(`sys.user-management.role-${user.role}`)}</Tag>
       ),
     },
     {
       title: t("sys.user-management.status"),
       key: "status",
-      render: (_: any, user: User) => (
-        <Select
-          value={user.status || "active"}
-          onChange={(value) => onUpdateStatus(user.id, value)}
-          size="middle"
-          style={{ width: 120 }}
-        >
-          <Option value="active">
-            {t("sys.user-management.status-active")}
-          </Option>
-          <Option value="inactive">
-            {t("sys.user-management.status-inactive")}
-          </Option>
-          <Option value="banned">
-            {t("sys.user-management.status-banned")}
-          </Option>
-        </Select>
+      render: (_: React.ReactNode, user: User) => (
+        <Tag color="default">
+          {t(`sys.user-management.status-${user.status || "active"}`)}
+        </Tag>
       ),
     },
     {
       title: t("sys.user-management.info"),
       key: "info",
-      render: (_: any, user: User) => (
+      render: (_: React.ReactNode, user: User) => (
         <div className="text-sm text-muted-foreground">
           {user.phone && <div>📞 {user.phone}</div>}
           <div>📅 {new Date(user.createdAt).toLocaleDateString("vi-VN")}</div>
@@ -135,26 +111,36 @@ export default function UserTable({
       title: t("sys.user-management.actions"),
       key: "actions",
       width: 120,
-      render: (_: any, user: User) => (
+      render: (_: React.ReactNode, user: User) => (
         <Space>
-          <Tooltip title={t("sys.user-management.edit")}>
-            <Button
-              type="text"
-              size="middle"
-              icon={<EditOutlined />}
-              onClick={() => onEdit(user)}
-              className="text-primary hover:bg-primary/10"
-            />
-          </Tooltip>
           <Popconfirm
-            title={t("sys.user-management.confirm-delete")}
-            description={t("sys.user-management.confirm-delete-description")}
+            title={t("sys.user-management.confirm-restore")}
+            description={t("sys.user-management.confirm-restore-description")}
+            onConfirm={() => onRestore(user.id)}
+            okText={t("sys.user-management.restore")}
+            cancelText={t("sys.user-management.cancel")}
+          >
+            <Tooltip title={t("sys.user-management.restore")}>
+              <Button
+                type="text"
+                size="middle"
+                icon={<UndoOutlined />}
+                className="text-green-600 hover:bg-green-50"
+              />
+            </Tooltip>
+          </Popconfirm>
+
+          <Popconfirm
+            title={t("sys.user-management.confirm-permanent-delete")}
+            description={t(
+              "sys.user-management.confirm-permanent-delete-description"
+            )}
             onConfirm={() => onDelete(user.id)}
             okText={t("sys.user-management.delete")}
             cancelText={t("sys.user-management.cancel")}
             okButtonProps={{ danger: true }}
           >
-            <Tooltip title={t("sys.user-management.delete")}>
+            <Tooltip title={t("sys.user-management.permanent-delete")}>
               <Button
                 type="text"
                 size="middle"
@@ -194,14 +180,14 @@ export default function UserTable({
         emptyText: (
           <div className="py-12 text-center">
             <Icon
-              icon="lucide:users-x"
+              icon="lucide:trash-2"
               className="h-16 w-16 mx-auto text-muted-foreground mb-4"
             />
             <p className="text-lg font-semibold text-foreground">
-              {t("sys.user-management.no-users-found")}
+              {t("sys.user-management.no-deleted-users-found")}
             </p>
             <p className="text-muted-foreground mt-2">
-              {t("sys.user-management.no-users-description")}
+              {t("sys.user-management.no-deleted-users-description")}
             </p>
           </div>
         ),
