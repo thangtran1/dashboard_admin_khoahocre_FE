@@ -1,13 +1,11 @@
 import { Icon } from "@/components/icon";
 import { LineLoading } from "@/components/loading";
-import { H1 } from "@/ui/typography";
 import { Suspense } from "react";
 import { Navigate, Outlet } from "react-router";
 import type { AppRouteObject } from "#/router";
-
-function MenuLevel({ title }: { title: string }) {
-  return <H1>Menu Level: {title}</H1>;
-}
+import MenuLevel from "@/pages/menu-level/menu-level-1a";
+import MenuLevel2a from "@/pages/menu-level/menu-level-1b/menu-level-2a";
+import MenuLevel3a from "@/pages/menu-level/menu-level-1b/menu-level-2b/menu-level-3a";
 
 const menulevel: AppRouteObject = {
   order: 5,
@@ -31,7 +29,7 @@ const menulevel: AppRouteObject = {
   children: [
     {
       path: "menu_level_1a",
-      element: <MenuLevel title="1a" />,
+      element: <MenuLevel />,
       meta: {
         label: "sys.menu.menulevel.1a",
         key: "/menu_level/menu_level_1a",
@@ -50,7 +48,7 @@ const menulevel: AppRouteObject = {
         },
         {
           path: "menu_level_2a",
-          element: <MenuLevel title="2a" />,
+          element: <MenuLevel2a />,
           meta: {
             label: "sys.menu.menulevel.1b.2a",
             key: "/menu_level/menu_level_1b/menu_level_2a",
@@ -69,7 +67,7 @@ const menulevel: AppRouteObject = {
             },
             {
               path: "menu_level_3a",
-              element: <MenuLevel title="3a" />,
+              element: <MenuLevel3a />,
               meta: {
                 label: "sys.menu.menulevel.1b.2b.3a",
                 key: "/menu_level/menu_level_1b/menu_level_2b/menu_level_3a",
