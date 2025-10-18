@@ -2,7 +2,7 @@ import React, { useState, useMemo, lazy, Suspense } from "react";
 import { useUserInfo } from "@/store/userStore";
 import SimpleChatIcon from "./SimpleChatIcon";
 
-const SimpleChatModal = lazy(() => import("./SimpleChatModal"));
+const ModalChatUser = lazy(() => import("./ModalChatUser"));
 const ModalChatAdmin = lazy(() => import("./ModalChatAdmin"));
 
 const SimpleChatWrapper: React.FC = () => {
@@ -34,7 +34,7 @@ const SimpleChatWrapper: React.FC = () => {
               currentUser={currentUser}
             />
           ) : (
-            <SimpleChatModal
+            <ModalChatUser
               open={isOpen}
               onClose={() => setIsOpen(false)}
               currentUser={currentUser}

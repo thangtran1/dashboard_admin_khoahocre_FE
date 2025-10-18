@@ -542,7 +542,8 @@
       "close": "Close",
       "delete-backup-error": "Error deleting backup",
       "view-backup-error": "Error viewing backup content",
-      "download-backup-error": "Error downloading backup file"
+      "download-backup-error": "Error downloading backup file",
+      "cancel": "Cancel"
     }
   }
 }

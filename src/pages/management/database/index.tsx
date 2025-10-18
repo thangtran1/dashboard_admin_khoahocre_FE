@@ -178,14 +178,14 @@ export default function DatabaseManagement() {
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
       {/* Header */}
       <div className="pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
+        <div className="flex-1">
           <h1 className="text-3xl font-bold text-blue-700 flex items-center gap-2">
             <DatabaseOutlined className="text-blue-600" />
             {t("sys.database.title")}
           </h1>
           <p className="text-gray-500 mt-1">{t("sys.database.description")}</p>
         </div>
-        <div className="flex flex-end flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
           <Button
             icon={<ReloadOutlined />}
             onClick={() => fetchBackups()}
@@ -317,7 +317,7 @@ export default function DatabaseManagement() {
           </Text>
           <Text type="secondary">
             {t("sys.database.confirm-delete-all-data-description")}
-            <span className="text-red-500 font-medium">
+            <span className="text-red-500 font-medium mx-1">
               {t("sys.database.delete-forever")}
             </span>
             {t("sys.database.delete-all-data-description")}

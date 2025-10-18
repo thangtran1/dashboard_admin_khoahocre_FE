@@ -1,111 +1,16 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import { Input, Button, Tooltip, Popover, Avatar, Space } from "antd";
-import {
-  InfoCircleOutlined,
-  SendOutlined,
-  AudioOutlined,
-  PictureOutlined,
-  CameraOutlined,
-  PlusOutlined,
-  SmileOutlined,
-  RobotOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
-import { useChat } from "@/hooks/useChat";
+import React, { useState, useRef, useEffect } from "react";
+import { Button, Input, Avatar, List, Typography, Space } from "antd";
+import { SendOutlined, CloseOutlined, UserOutlined } from "@ant-design/icons";
 import { ChatMessage, CurrentUser } from "@/types/entity";
-import { format, isToday, isYesterday, differenceInMinutes } from "date-fns";
-import { vi } from "date-fns/locale";
-import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
+import { useChat } from "@/hooks/useChat";
 
-const userChatCss = `
-.chat-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(2px); z-index: 999;
-}
-.chat-window {
-  position: fixed; bottom: 70px; right: 60px; width: 380px; height: 520px;
-  background-color: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-  border-radius: 20px; display: flex; flex-direction: column; z-index: 1000;
-  overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-.chat-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 16px; border-bottom: 1px solid #f0f0f0; background-color: #fafafa; flex-shrink: 0;
-}
-.header-info { display: flex; align-items: center; gap: 10px; }
-.header-info-name { font-weight: 600; font-size: 15px; }
-.header-info-status { font-size: 12px; color: #52c41a; line-height: 1.3; }
-.header-actions { display: flex; gap: 4px; }
-.chat-messages {
-  flex: 1; padding: 8px 16px; overflow-y: auto; display: flex; flex-direction: column; background-color: #f0f2f5;
-}
-.date-separator { text-align: center; margin: 12px 0; }
-.date-separator span {
-  color: #888; font-size: 12px; padding: 2px 10px; background-color: #e0e5eb; border-radius: 12px;
-}
-.chat-bubble-container { display: flex; gap: 8px; margin-top: 2px; }
-.chat-bubble-container.user { justify-content: flex-end; }
-.chat-bubble-container.admin { justify-content: flex-start; }
-.bubble-wrapper { display: flex; flex-direction: column; max-width: 75%; }
-.bubble-content { padding: 10px 16px; word-break: break-word; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-.bubble-content.user {
-  background: linear-gradient(135deg, #0084ff, #006bb3); color: #fff; border-radius: 18px 18px 0 18px;
-}
-.bubble-content.admin { background: #fff; color: #000; border-radius: 18px 18px 18px 0; }
-.bubble-timestamp { font-size: 11px; color: #999; margin-top: 5px; padding: 0 5px; }
-.chat-bubble-container.user .bubble-timestamp { text-align: right; }
-.chat-bubble-container.admin .bubble-timestamp { text-align: left; }
-.chat-footer {
-  display: flex; align-items: center; padding: 10px 12px;
-  border-top: 1px solid #f0f0f0; background-color: #fafafa; gap: 6px; flex-shrink: 0;
-}
-.footer-input-wrapper { position: relative; flex: 1; }
-.footer-input {
-  width: 100% !important; border-radius: 22px !important; padding: 8px 40px 8px 16px !important;
-  background-color: #f0f2f5 !important; border: none !important; box-shadow: none !important; outline: none !important;
-}
-.emoji-popover-icon {
-  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  cursor: pointer; color: #888; font-size: 20px;
-}
-`;
+const { Text } = Typography;
 
 interface ModalChatUserProps {
   open: boolean;
   onClose: () => void;
   currentUser: CurrentUser;
 }
-const leftIcons = [
-  { icon: <PlusOutlined />, title: "Thêm" },
-  { icon: <CameraOutlined />, title: "Camera" },
-  { icon: <PictureOutlined />, title: "Hình ảnh" },
-  { icon: <AudioOutlined />, title: "Mic" },
-];
-
-const ChatBubble = ({
-  msg,
-  currentUserId,
-  showTimestamp,
-}: {
-  msg: ChatMessage;
-  currentUserId: string;
-  showTimestamp: boolean;
-}) => {
-  const isUser = msg.senderId === currentUserId;
-  const time = new Date(msg.timestamp);
-  const timeStr = format(time, "HH:mm");
-
-  return (
-    <div className={`chat-bubble-container ${isUser ? "user" : "admin"}`}>
-      <div className="bubble-wrapper">
-        <div className={`bubble-content ${isUser ? "user" : "admin"}`}>
-          {msg.content}
-        </div>
-        {showTimestamp && <div className="bubble-timestamp">{timeStr}</div>}
-      </div>
-    </div>
-  );
-};
 
 const ModalChatUser: React.FC<ModalChatUserProps> = ({
   open,
@@ -113,20 +18,28 @@ const ModalChatUser: React.FC<ModalChatUserProps> = ({
   currentUser,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const [showLeftIcons, setShowLeftIcons] = useState(true);
-  const listRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const { messages, sendMessage } = useChat(currentUser);
+  const {
+    messages,
+    isConnected,
+    onlineUsers,
+    selectedUserId,
+    sendMessage,
+    selectUser,
+  } = useChat(open ? currentUser : null);
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
+    if (messagesEndRef.current) {
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
   }, [messages]);
 
   const handleSendMessage = () => {
     if (inputValue.trim()) {
-      sendMessage(inputValue.trim());
+      sendMessage(inputValue.trim(), selectedUserId || undefined);
       setInputValue("");
     }
   };
@@ -138,133 +51,123 @@ const ModalChatUser: React.FC<ModalChatUserProps> = ({
     }
   };
 
-  const handleEmojiClick = (emojiData: EmojiClickData) => {
-    setInputValue((prev) => prev + emojiData.emoji);
-  };
-
-  const groupedMessages = useMemo(() => {
-    const groups: { [key: string]: ChatMessage[] } = {};
-    messages.forEach((msg) => {
-      const date = format(new Date(msg.timestamp), "yyyy-MM-dd");
-      if (!groups[date]) groups[date] = [];
-      groups[date].push(msg);
+  const formatTime = (timestamp: string) =>
+    new Date(timestamp).toLocaleTimeString("vi-VN", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
-    return groups;
-  }, [messages]);
-
-  const formatDateHeader = (dateStr: string) => {
-    const date = new Date(dateStr);
-    if (isToday(date)) return "Hôm nay";
-    if (isYesterday(date)) return "Hôm qua";
-    return format(date, "dd/MM/yyyy", { locale: vi });
-  };
 
   if (!open) return null;
 
   return (
-    <>
-      <style>{userChatCss}</style>
-      <div className="chat-overlay" onClick={onClose} />
-      <div className="chat-window" onClick={(e) => e.stopPropagation()}>
-        <div className="chat-header">
-          <div className="header-info">
-            <Avatar
-              size={32}
-              icon={<RobotOutlined />}
-              style={{ backgroundColor: "#1890ff" }}
-            />
+    <div
+      className="fixed inset-0 bg-background/50 z-[1000] flex items-center justify-center"
+      onClick={onClose}
+    >
+      <div
+        className="w-4/5 max-w-xl h-3/5 bg-background rounded-lg fixed right-[70px] bottom-[70px] flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center px-4 py-3 border-b border-border bg-muted">
+          <div>
+            <Text strong>Chat Support</Text>
             <div>
-              <div className="header-info-name">Hỗ trợ khách hàng</div>
-              <div className="header-info-status">Trực tuyến</div>
+              <Text
+                type={isConnected ? "success" : "danger"}
+                className="text-[12px]"
+              >
+                {isConnected ? "Connected" : "Disconnected"}
+              </Text>
             </div>
           </div>
-          <div className="header-actions">
-            <Tooltip title="Thông tin">
-              <Button type="text" size="small" icon={<InfoCircleOutlined />} />
-            </Tooltip>
-            <Tooltip title="Đóng">
-              <Button
-                type="text"
-                size="small"
-                icon={<CloseOutlined />}
-                onClick={onClose}
-              />
-            </Tooltip>
-          </div>
+          <Button type="text" icon={<CloseOutlined />} onClick={onClose} />
         </div>
 
-        <div className="chat-messages" ref={listRef}>
-          {Object.entries(groupedMessages).map(([date, msgs]) => (
-            <div key={date}>
-              <div className="date-separator">
-                <span>{formatDateHeader(date)}</span>
+        <div className="flex flex-1 overflow-hidden">
+          {currentUser.role === "admin" && (
+            <div className="w-64 border-r border-border flex flex-col">
+              <div className="px-3 py-2 border-b border-gray-200">
+                <Text strong>Online Users</Text>
               </div>
-              {msgs.map((msg, index) => {
-                const prevMsg = index > 0 ? msgs[index - 1] : null;
-                const currentTime = new Date(msg.timestamp);
-                const prevTime = prevMsg ? new Date(prevMsg.timestamp) : null;
-                const showTimestamp =
-                  !prevTime || differenceInMinutes(currentTime, prevTime) >= 5;
-
-                return (
-                  <ChatBubble
-                    key={msg.id}
-                    msg={msg}
-                    currentUserId={currentUser.id}
-                    showTimestamp={showTimestamp}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </div>
-
-        <div className="chat-footer">
-          {showLeftIcons && (
-            <Space size="small">
-              {leftIcons.map((item, index) => (
-                <Tooltip key={index} title={item.title}>
-                  <Button type="text" size="small" icon={item.icon} />
-                </Tooltip>
-              ))}
-            </Space>
-          )}
-          <div className="footer-input-wrapper">
-            <Input
-              className="footer-input"
-              placeholder="Nhập tin nhắn..."
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
-              onFocus={() => setShowLeftIcons(false)}
-              onBlur={() => setShowLeftIcons(true)}
-            />
-            <Popover
-              content={
-                <EmojiPicker
-                  onEmojiClick={handleEmojiClick}
-                  theme={Theme.LIGHT}
-                  width={300}
-                  height={400}
+              <div className="flex-1 overflow-auto">
+                <List
+                  dataSource={onlineUsers}
+                  renderItem={(userId: string) => (
+                    <List.Item
+                      className={`cursor-pointer ${
+                        selectedUserId === userId ? "bg-blue-50" : ""
+                      }`}
+                      onClick={() => selectUser(userId)}
+                    >
+                      <List.Item.Meta
+                        avatar={<Avatar icon={<UserOutlined />} />}
+                        title={`User ${userId.slice(-4)}`}
+                        description="Online"
+                      />
+                    </List.Item>
+                  )}
                 />
-              }
-              title="Chọn emoji"
-              trigger="click"
-              placement="topRight"
-            >
-              <SmileOutlined className="emoji-popover-icon" />
-            </Popover>
+              </div>
+            </div>
+          )}
+
+          <div className="flex-1 flex flex-col">
+            <div className="flex-1 p-4 overflow-auto bg-muted">
+              {messages.length === 0 ? (
+                <div className="text-center text-gray-400 mt-12">
+                  No messages yet. Start a conversation!
+                </div>
+              ) : (
+                messages.map((message: ChatMessage) => (
+                  <div
+                    key={message.id}
+                    className={`flex mb-3 ${
+                      message.senderId === currentUser.id
+                        ? "justify-end"
+                        : "justify-start"
+                    }`}
+                  >
+                    <div
+                      className={`max-w-[70%] px-3 py-2 rounded-xl shadow-sm ${
+                        message.senderId === currentUser.id
+                          ? "bg-blue-500 text-white"
+                          : "bg-background text-foreground"
+                      }`}
+                    >
+                      <div>{message.content}</div>
+                      <div className="text-[11px] opacity-70 mt-1 text-right">
+                        {formatTime(message.timestamp)}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            <div className=" py-3 border-t border-border bg-background">
+              <Space.Compact className="w-full">
+                <Input
+                  placeholder="Nhập tin nhắn..."
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  disabled={!isConnected}
+                />
+                <Button
+                  type="primary"
+                  icon={<SendOutlined />}
+                  onClick={handleSendMessage}
+                  disabled={!inputValue.trim() || !isConnected}
+                >
+                  Gửi tin nhắn
+                </Button>
+              </Space.Compact>
+            </div>
           </div>
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<SendOutlined />}
-            onClick={handleSendMessage}
-            disabled={!inputValue.trim()}
-          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

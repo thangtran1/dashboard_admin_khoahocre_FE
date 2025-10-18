@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { USER_LIST } from "@/_mock/assets";
 import type { KeepAliveTab } from "../types";
 
 export function useTabLabelRender() {
@@ -14,8 +13,7 @@ export function useTabLabelRender() {
         const userId = tab.params?.id;
         const defaultLabel = t(tab.label);
         if (userId) {
-          const user = USER_LIST.find((item) => item.id === userId);
-          return `${user?.username}-${defaultLabel}`;
+          return `${userId}-${defaultLabel}`;
         }
         return defaultLabel;
       },

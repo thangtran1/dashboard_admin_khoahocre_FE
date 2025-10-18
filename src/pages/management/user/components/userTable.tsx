@@ -189,7 +189,7 @@ export default function UserTable({
         onChange: onPageChange,
         onShowSizeChange: onPageChange,
       }}
-      scroll={{ x: 800 }}
+      scroll={{ x: 800, y: 500 }}
       locale={{
         emptyText: (
           <div className="py-12 text-center">

@@ -27,82 +27,6 @@ import { format, isToday, isYesterday, differenceInMinutes } from "date-fns";
 import { vi } from "date-fns/locale";
 import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
 
-const adminChatCss = `
-.admin-chat-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background-color: rgba(0,0,0,0.6); z-index: 999;
-}
-.admin-chat-window {
-  position: fixed; bottom: 70px; right: 70px; 
-  width: 700px; height: 600px; max-width: 90vw; max-height: 85vh;
-  background-color: #fff; box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-  border-radius: 16px; display: flex; z-index: 1000; overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-.user-list-panel {
-  width: 35%; border-right: 1px solid #f0f0f0; display: flex; flex-direction: column;
-}
-.user-list-header {
-  padding: 15px 20px; border-bottom: 1px solid #f0f0f0; font-weight: 600; font-size: 16px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.user-list-search { padding: 10px; border-bottom: 1px solid #f0f0f0; }
-.user-list { flex: 1; overflow-y: auto; }
-.user-list-item {
-  cursor: pointer; padding: 12px 20px !important; border-radius: 8px;
-  margin: 4px 8px; transition: background-color 0.2s; border: none !important;
-}
-.user-list-item:hover { background-color: #f5f5f5; }
-.user-list-item.active { background-color: #e6f7ff; }
-.user-list-item-title { font-weight: 500; }
-.user-list-item-desc { font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.chat-panel {
-  width: 65%; display: flex; flex-direction: column; background-color: #f6f6f6;
-}
-.chat-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 15px 20px; border-bottom: 1px solid #e0e0e0; background-color: #fff;
-}
-.chat-header-info { display: flex; align-items: center; }
-.chat-header-name { font-weight: 600; font-size: 16px; }
-.chat-header-status { font-size: 12px; transition: color 0.3s; }
-.chat-content {
-  flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column;
-}
-.date-separator { text-align: center; margin: 12px 0; }
-.date-separator span { color: #888; font-size: 12px; padding: 2px 10px; background-color: #e9ebee; border-radius: 12px; }
-.chat-bubble-container { display: flex; margin-top: 2px; }
-.bubble-user { justify-content: flex-start; }
-.bubble-admin { display: flex; justify-content: flex-end; }
-.bubble-wrapper { display: flex; flex-direction: column; max-width: 70%; }
-.bubble-wrapper.admin { align-items: flex-end; }
-.bubble-wrapper.user { align-items: flex-start; }
-.bubble-content {
-  padding: 10px 14px; border-radius: 18px; word-break: break-word;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-.content-user { background-color: #fff; color: #000; border-bottom-left-radius: 4px; }
-.content-admin { background-color: #1890ff; color: #fff; border-bottom-right-radius: 4px; }
-.bubble-timestamp { font-size: 11px; color: #999; margin-top: 5px; padding: 0 5px; }
-.chat-input-area {
-  display: flex; align-items: center; padding: 12px 20px;
-  background-color: #fff; border-top: 1px solid #e0e0e0;
-}
-.chat-input-wrapper { position: relative; flex: 1; margin: 0 8px; }
-.chat-input {
-  width: 100% !important; border-radius: 25px !important; padding: 10px 48px 10px 15px !important;
-  background-color: #f0f2f5 !important; border: none !important; box-shadow: none !important; outline: none !important;
-}
-.emoji-popover-icon {
-  position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
-  font-size: 22px; color: #888; cursor: pointer;
-}
-.no-user-selected {
-  flex: 1; display: flex; justify-content: center; align-items: center; color: #888; font-size: 14px;
-}
-`;
-
 interface ModalChatAdminProps {
   open: boolean;
   onClose: () => void;
@@ -123,20 +47,27 @@ const ChatBubble = ({
   const timeStr = format(time, "HH:mm");
 
   return (
-    <div
-      className={`chat-bubble-container ${
-        isAdmin ? "bubble-admin" : "bubble-user"
-      }`}
-    >
-      <div className={`bubble-wrapper ${isAdmin ? "admin" : "user"}`}>
+    <div className={`flex mt-2 ${isAdmin ? "justify-end" : "justify-start"}`}>
+      <div
+        className={`flex flex-col max-w-[70%] ${
+          isAdmin ? "items-end" : "items-start"
+        }`}
+      >
         <div
-          className={`bubble-content ${
-            isAdmin ? "content-admin" : "content-user"
-          }`}
+          className={`p-[10px_14px] rounded-[18px] break-words shadow-[0_1px_2px_rgba(0,0,0,0.1)] 
+            ${
+              isAdmin
+                ? "bg-primary text-primary-foreground rounded-br-[4px]"
+                : "bg-background text-muted-foreground rounded-bl-[4px]"
+            }`}
         >
           {msg.content}
         </div>
-        {showTimestamp && <div className="bubble-timestamp">{timeStr}</div>}
+        {showTimestamp && (
+          <div className="text-[11px] text-muted-foreground mt-[5px] px-[5px]">
+            {timeStr}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -240,12 +171,14 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
 
   return (
     <>
-      <style>{adminChatCss}</style>
-      <div className="admin-chat-overlay" onClick={onClose} />
-      <div className="admin-chat-window" onClick={(e) => e.stopPropagation()}>
-        <div className="user-list-panel">
-          <div className="user-list-header">
-            <span>Danh sách khách hàng</span>
+      <div className="fixed inset-0 bg-black/60 z-[999]" onClick={onClose} />
+      <div
+        className="fixed bottom-[70px] right-[70px] w-[700px] h-[600px] max-w-[90vw] max-h-[85vh] bg-background shadow-[0_15px_40px_rgba(0,0,0,0.35)] rounded-[16px] flex z-[1000] overflow-hidden font-sans"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="w-[35%] border-r border-border flex flex-col">
+          <div className="p-[15px_20px] border-b border-border flex justify-between items-center">
+            <span className="text-lg font-semibold">Danh sách khách hàng</span>
             <Button
               type="text"
               size="small"
@@ -253,7 +186,7 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
               onClick={onClose}
             />
           </div>
-          <div className="user-list-search">
+          <div className="p-[10px] border-b border-border">
             <Input
               placeholder="Tìm kiếm khách hàng..."
               prefix={<SearchOutlined />}
@@ -262,69 +195,35 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
             />
           </div>
           <div
-            className="user-list"
+            className="flex-1 overflow-y-auto"
             key={`user-list-${filteredConversations.length}`}
           >
             {filteredConversations.map((conversation: Conversation) => (
               <div
                 key={conversation.userId}
-                className={`user-list-item ${
-                  selectedUserId === conversation.userId ? "active" : ""
-                }`}
-                onClick={() => selectUser(conversation.userId)}
-                style={{
-                  cursor: "pointer",
-                  padding: "12px 20px",
-                  borderRadius: "8px",
-                  margin: "4px 8px",
-                  transition: "background-color 0.2s",
-                  border: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor:
+                className={`cursor-pointer gap-2 p-[12px_20px] rounded-[8px] m-[4px_8px] transition-colors duration-200 border-none flex items-center
+                  ${
                     selectedUserId === conversation.userId
-                      ? "#e6f7ff"
-                      : "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  if (selectedUserId !== conversation.userId) {
-                    e.currentTarget.style.backgroundColor = "#f5f5f5";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (selectedUserId !== conversation.userId) {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                  }
-                }}
+                      ? "bg-primary/10"
+                      : "hover:bg-muted/40"
+                  }`}
+                onClick={() => selectUser(conversation.userId)}
               >
                 <Avatar
                   size={40}
-                  style={{
-                    backgroundColor: onlineUsers.includes(conversation.userId)
-                      ? "#52c41a"
-                      : "#d9d9d9",
-                    marginRight: "12px",
-                  }}
+                  className={`mr-3 ${
+                    onlineUsers.includes(conversation.userId)
+                      ? "bg-success"
+                      : "bg-gray-400"
+                  }`}
                 >
                   {conversation.userEmail.charAt(0).toUpperCase()}
                 </Avatar>
-                <div style={{ flex: 1 }}>
-                  <div
-                    className="user-list-item-title"
-                    style={{ fontWeight: 500 }}
-                  >
+                <div className="flex-1">
+                  <div className="font-medium">
                     {conversation.userName || conversation.userEmail}
                   </div>
-                  <div
-                    className="user-list-item-desc"
-                    style={{
-                      fontSize: "12px",
-                      color: "#888",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
+                  <div className="text-xs text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis">
                     {conversation.lastMessage?.content ||
                       (conversation.hasConversation
                         ? "Chưa có tin nhắn"
@@ -336,36 +235,32 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
           </div>
         </div>
 
-        <div className="chat-panel">
+        <div className="w-[65%] flex flex-col bg-background">
           {activeConversation ? (
             <>
-              <div className="chat-header">
-                <div className="chat-header-info">
+              <div className="flex justify-between items-center p-[15px_20px] border-b border-border bg-background">
+                <div className="flex gap-2 items-center">
                   <Avatar
                     size={40}
-                    style={{
-                      backgroundColor: onlineUsers.includes(
-                        activeConversation.userId
-                      )
-                        ? "#52c41a"
-                        : "#d9d9d9",
-                      marginRight: 12,
-                    }}
+                    className={`mr-3 ${
+                      onlineUsers.includes(activeConversation.userId)
+                        ? "bg-success"
+                        : "bg-gray-400"
+                    }`}
                   >
                     {activeConversation.userEmail.charAt(0).toUpperCase()}
                   </Avatar>
                   <div>
-                    <div className="chat-header-name">
+                    <div className="font-semibold text-base">
                       {activeConversation.userName ||
                         activeConversation.userEmail}
                     </div>
                     <div
-                      className="chat-header-status"
-                      style={{
-                        color: onlineUsers.includes(activeConversation.userId)
-                          ? "#52c41a"
-                          : "#999",
-                      }}
+                      className={`text-xs transition-colors ${
+                        onlineUsers.includes(activeConversation.userId)
+                          ? "text-success"
+                          : "text-foreground"
+                      }`}
                     >
                       {onlineUsers.includes(activeConversation.userId)
                         ? "Trực tuyến"
@@ -389,11 +284,16 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
                 </Space>
               </div>
 
-              <div className="chat-content" ref={listRef}>
+              <div
+                className="flex-1 p-5 overflow-y-auto flex flex-col"
+                ref={listRef}
+              >
                 {Object.entries(groupedMessages).map(([date, msgs]) => (
                   <div key={date}>
-                    <div className="date-separator">
-                      <span>{formatDateHeader(date)}</span>
+                    <div className="text-center my-3">
+                      <span className="text-xs text-foreground px-[10px] py-[2px] bg-background  rounded-[12px]">
+                        {formatDateHeader(date)}
+                      </span>
                     </div>
                     {msgs.map((msg, index) => {
                       const prevMsg = index > 0 ? msgs[index - 1] : null;
@@ -418,7 +318,7 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
                 ))}
               </div>
 
-              <div className="chat-input-area">
+              <div className="flex items-center p-[12px_20px] bg-background border-t border-border">
                 <Space size="small">
                   <Tooltip title="Thêm">
                     <Button type="text" icon={<PlusOutlined />} />
@@ -433,9 +333,9 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
                     <Button type="text" icon={<AudioOutlined />} />
                   </Tooltip>
                 </Space>
-                <div className="chat-input-wrapper">
+                <div className="relative flex-1 mx-2">
                   <Input
-                    className="chat-input"
+                    className="w-full rounded-[25px] px-[48px_15px_15px] bg-background border-none shadow-none outline-none"
                     placeholder="Nhập tin nhắn..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
@@ -454,7 +354,7 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
                     trigger="click"
                     placement="topRight"
                   >
-                    <SmileOutlined className="emoji-popover-icon" />
+                    <SmileOutlined className="absolute right-[15px] top-1/2 -translate-y-1/2 text-[22px] text-foreground cursor-pointer" />
                   </Popover>
                 </div>
                 <Button
@@ -467,7 +367,7 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
               </div>
             </>
           ) : (
-            <div className="no-user-selected">
+            <div className="flex-1 flex justify-center items-center text-muted-foreground text-sm">
               Chọn một khách hàng để bắt đầu trò chuyện
             </div>
           )}

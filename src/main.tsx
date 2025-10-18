@@ -35,5 +35,3 @@ root.render(
     </QueryClientProvider>
   </HelmetProvider>
 );
-
-// worker.start({ onUnhandledRequest: "bypass" });

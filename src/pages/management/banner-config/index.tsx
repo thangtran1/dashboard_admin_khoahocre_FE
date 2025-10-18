@@ -316,7 +316,7 @@ export default function BannerConfigPage() {
         onCancel={resetForm}
         width={800}
         footer={[
-          <Button key="cancel" onClick={resetForm}>
+          <Button danger key="cancel" onClick={resetForm}>
             ❌ {t("sys.banner-config.cancel")}
           </Button>,
           <Button
@@ -337,7 +337,7 @@ export default function BannerConfigPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-sm font-semibold text-gray-700">
+                <Label className="text-sm font-semibold text-foreground">
                   {t("sys.banner-config.banner-content")} *
                 </Label>
                 <Textarea
@@ -354,7 +354,7 @@ export default function BannerConfigPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-sm font-semibold text-gray-700">
+                  <Label className="text-sm font-semibold text-foreground">
                     {t("sys.banner-config.banner-order")}
                   </Label>
                   <Input
@@ -371,7 +371,7 @@ export default function BannerConfigPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-sm font-semibold text-gray-700">
+                  <Label className="text-sm font-semibold text-foreground">
                     {t("sys.banner-config.banner-status")}
                   </Label>
                   <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -381,7 +381,7 @@ export default function BannerConfigPage() {
                         setFormData({ ...formData, isActive: checked })
                       }
                     />
-                    <Label className="text-sm font-medium text-gray-700">
+                    <Label className="text-sm font-medium text-foreground">
                       {formData.isActive
                         ? t("sys.banner-config.active-banner")
                         : t("sys.banner-config.paused-banner")}
@@ -393,11 +393,11 @@ export default function BannerConfigPage() {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-sm font-semibold text-gray-700">
+                <Label className="text-sm font-semibold text-foreground">
                   {t("sys.banner-config.preview-banner")}
                 </Label>
                 <div
-                  className="rounded-lg p-4 border-2 border-dashed border-gray-300 min-h-[100px] flex items-center justify-center overflow-hidden"
+                  className="rounded-lg p-4 border-2 border-dashed border-border min-h-[100px] flex items-center justify-center overflow-hidden"
                   style={{
                     backgroundColor: settingsForm.backgroundColor,
                     color: settingsForm.textColor,

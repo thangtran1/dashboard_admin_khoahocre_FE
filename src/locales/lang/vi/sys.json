@@ -542,7 +542,8 @@
       "close": "Đóng",
       "delete-backup-error": "Lỗi khi xóa bản sao lưu",
       "view-backup-error": "Lỗi khi xem nội dung bản sao lưu",
-      "download-backup-error": "Lỗi khi tải file bản sao lưu"
+      "download-backup-error": "Lỗi khi tải file bản sao lưu",
+      "cancel": "Hủy"
     }
   }
 }

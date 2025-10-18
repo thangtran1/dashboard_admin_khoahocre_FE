@@ -315,18 +315,18 @@ const NotificationManagement: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-muted">
+            <CardTitle className="text-2xl font-medium text-blue-800">
               {t("sys.notification.total-notifications")}
             </CardTitle>
             <div className="p-2 bg-primary rounded-full">
-              <Icon icon="lucide:bell" className="h-4 w-4 text-white" />
+              <Icon icon="lucide:bell" className="h-4 w-4 text-blue-500" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-muted">
+            <div className="text-3xl font-bold text-blue-800">
               {totalNotifications}
             </div>
-            <p className="text-xs text-muted mt-1">
+            <p className="text-xs text-blue-800 mt-1">
               {t("sys.notification.total-notifications-description")}
             </p>
           </CardContent>
@@ -334,18 +334,21 @@ const NotificationManagement: React.FC = () => {
 
         <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-muted">
+            <CardTitle className="text-2xl font-medium text-green-800">
               {t("sys.notification.system-notifications")}
             </CardTitle>
             <div className="p-2 bg-green-500 rounded-full">
-              <Icon icon="lucide:shield-check" className="h-4 w-4 text-white" />
+              <Icon
+                icon="lucide:shield-check"
+                className="h-4 w-4 text-green-700"
+              />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-muted">
+            <div className="text-3xl font-bold text-green-800">
               {systemNotifications}
             </div>
-            <p className="text-xs text-muted mt-1">
+            <p className="text-xs text-green-800 mt-1">
               {t("sys.notification.system-notifications-description")}
             </p>
           </CardContent>
@@ -353,18 +356,18 @@ const NotificationManagement: React.FC = () => {
 
         <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-muted">
+            <CardTitle className="text-2xl font-medium text-purple-800">
               {t("sys.notification.total-reads")}
             </CardTitle>
             <div className="p-2 bg-purple-500 rounded-full">
-              <Icon icon="lucide:users" className="h-4 w-4 text-white" />
+              <Icon icon="lucide:users" className="h-4 w-4 text-purple-700" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-muted">
+            <div className="text-3xl font-bold text-purple-800">
               {totalReadByUsers}
             </div>
-            <p className="text-xs text-muted mt-1">
+            <p className="text-xs text-purple-800 mt-1">
               {t("sys.notification.total-reads-description")}
             </p>
           </CardContent>
