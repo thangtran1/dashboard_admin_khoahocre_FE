@@ -7,6 +7,7 @@ import { AntdAdapter } from "./theme/adapter/antd.adapter";
 import { ThemeProvider } from "./theme/theme-provider";
 import SimpleChatWrapper from "./components/chat/SimpleChatWrapper";
 import { SystemSettingsProvider } from "./contexts/SystemSettingsContext";
+import { ConsoleWarning } from "./components/security/console-warning";
 function App() {
   return (
     <SystemSettingsProvider>
@@ -15,6 +16,7 @@ function App() {
           <title>TVT Admin</title>
           <link rel="icon" href={Logo} />
         </Helmet>
+        <ConsoleWarning />
         <Toast />
         <MotionLazy>
           <Router />
