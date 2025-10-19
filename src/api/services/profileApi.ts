@@ -60,31 +60,10 @@ export enum ProfileApi {
 
 // ========== API CALLS ==========
 
-// Simple cache implementation
-const cache = new Map<string, { data: any; timestamp: number }>();
-const CACHE_DURATION = 30000; // 30 seconds
-
-const getCachedData = (key: string) => {
-  const cached = cache.get(key);
-  return cached && Date.now() - cached.timestamp < CACHE_DURATION
-    ? cached.data
-    : null;
-};
-
-const setCachedData = (key: string, data: any) => {
-  cache.set(key, { data, timestamp: Date.now() });
-};
-
 // Get user profile
 export const getUserProfile = async (): Promise<UserProfile> => {
-  const cacheKey = "user-profile";
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
   const response = await apiClient.get({ url: ProfileApi.GetProfile });
-  const data = response.data.data;
-  setCachedData(cacheKey, data);
-  return data;
+  return response.data.data;
 };
 
 // Update user profile
@@ -95,8 +74,6 @@ export const updateUserProfile = async (
     url: ProfileApi.UpdateProfile,
     data,
   });
-  // Clear cache khi update
-  cache.delete("user-profile");
   return response.data.data;
 };
 
@@ -122,14 +99,8 @@ export const adminChangePassword = async (data: AdminChangePasswordReq) => {
 
 // Get system settings
 export const getSystemSettings = async (): Promise<SystemSettings> => {
-  const cacheKey = "system-settings";
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
   const response = await apiClient.get({ url: ProfileApi.GetSystemSettings });
-  const data = response.data.data;
-  setCachedData(cacheKey, data);
-  return data;
+  return response.data.data;
 };
 
 // Update system settings
@@ -140,21 +111,13 @@ export const updateSystemSettings = async (
     url: ProfileApi.UpdateSystemSettings,
     data,
   });
-  // Clear cache khi update
-  cache.delete("system-settings");
   return response.data.data;
 };
 
 // Get default language
 export const getDefaultLanguage = async (): Promise<string> => {
-  const cacheKey = "default-language";
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
   const response = await apiClient.get({ url: ProfileApi.GetDefaultLanguage });
-  const data = response.data.data.defaultLanguage;
-  setCachedData(cacheKey, data);
-  return data;
+  return response.data.data.defaultLanguage;
 };
 
 // Upload avatar
@@ -168,8 +131,6 @@ export const uploadAvatar = async (file: File): Promise<string> => {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
-  // Clear profile cache after upload
-  cache.delete("user-profile");
   return response.data.data.avatarUrl;
 };
 

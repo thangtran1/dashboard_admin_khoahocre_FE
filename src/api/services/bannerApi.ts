@@ -49,22 +49,6 @@ export interface BannerStats {
   inactive: number;
 }
 
-// ========== CACHE ==========
-let bannerSettingsCache: BannerSettings | null = null;
-let activeBannersCache: BannerConfig[] | null = null;
-let cacheTimestamp = 0;
-const CACHE_DURATION = 30000; // 30 seconds
-
-const isCacheValid = () => {
-  return Date.now() - cacheTimestamp < CACHE_DURATION;
-};
-
-const clearCache = () => {
-  bannerSettingsCache = null;
-  activeBannersCache = null;
-  cacheTimestamp = 0;
-};
-
 const transformBanner = (banner: any): BannerConfig => ({
   id: banner._id || banner.id,
   content: banner.content,
@@ -74,33 +58,9 @@ const transformBanner = (banner: any): BannerConfig => ({
   updatedAt: banner.updatedAt,
 });
 
-const transformBannerSettings = (settings: any): BannerSettings => ({
-  id: settings._id || settings.id,
-  backgroundColor: settings.backgroundColor,
-  textColor: settings.textColor,
-  scrollSpeed: settings.scrollSpeed,
-  bannerSpacing: settings.bannerSpacing,
-  isActive: settings.isActive,
-  createdAt: settings.createdAt,
-  updatedAt: settings.updatedAt,
-});
-
-export const getBannerSettings = async (
-  useCache = true
-): Promise<BannerSettings> => {
-  // Sử dụng cache nếu có và còn hiệu lực
-  if (useCache && bannerSettingsCache && isCacheValid()) {
-    return bannerSettingsCache;
-  }
-
+export const getBannerSettings = async (): Promise<BannerSettings> => {
   const response = await apiClient.get({ url: "/banners/settings" });
-  const settings = transformBannerSettings(response.data.data);
-
-  // Cache settings
-  bannerSettingsCache = settings;
-  cacheTimestamp = Date.now();
-
-  return settings;
+  return response.data.data;
 };
 
 export const updateBannerSettings = async (
@@ -111,24 +71,12 @@ export const updateBannerSettings = async (
     data: settings,
   });
 
-  const updatedSettings = transformBannerSettings(response.data.data);
-
-  // Update cache
-  bannerSettingsCache = updatedSettings;
-  cacheTimestamp = Date.now();
-
-  return updatedSettings;
+  return response.data.data;
 };
 
 export const resetBannerSettings = async (): Promise<BannerSettings> => {
   const response = await apiClient.post({ url: "/banners/settings/reset" });
-  const settings = transformBannerSettings(response.data.data);
-
-  // Update cache
-  bannerSettingsCache = settings;
-  cacheTimestamp = Date.now();
-
-  return settings;
+  return response.data.data;
 };
 
 // ========== BANNER API ==========
@@ -141,10 +89,7 @@ export const createBanner = async (
     data: banner,
   });
 
-  // Clear cache khi có thay đổi
-  clearCache();
-
-  return transformBanner(response.data.data);
+  return response.data.data;
 };
 
 export const getAllBanners = async (
@@ -170,24 +115,9 @@ export const getAllBanners = async (
   };
 };
 
-export const getActiveBanners = async (
-  useCache = true
-): Promise<BannerConfig[]> => {
-  // Sử dụng cache nếu có và còn hiệu lực
-  if (useCache && activeBannersCache && isCacheValid()) {
-    return activeBannersCache;
-  }
-
+export const getActiveBanners = async (): Promise<BannerConfig[]> => {
   const response = await apiClient.get({ url: "/banners/active" });
-  const banners = response.data.data.map(transformBanner);
-
-  // Cache active banners
-  activeBannersCache = banners;
-  if (!bannerSettingsCache) {
-    cacheTimestamp = Date.now();
-  }
-
-  return banners;
+  return response.data.data;
 };
 
 export const getBannerStats = async (): Promise<BannerStats> => {
@@ -197,7 +127,7 @@ export const getBannerStats = async (): Promise<BannerStats> => {
 
 export const getBannerById = async (id: string): Promise<BannerConfig> => {
   const response = await apiClient.get({ url: `/banners/${id}` });
-  return transformBanner(response.data.data);
+  return response.data.data;
 };
 
 export const updateBanner = async (
@@ -209,10 +139,7 @@ export const updateBanner = async (
     data: updateData,
   });
 
-  // Clear cache khi có thay đổi
-  clearCache();
-
-  return transformBanner(response.data.data);
+  return response.data.data;
 };
 
 export const toggleBanner = async (
@@ -224,10 +151,7 @@ export const toggleBanner = async (
     data: { isActive },
   });
 
-  // Clear cache khi có thay đổi
-  clearCache();
-
-  return transformBanner(response.data.data);
+  return response.data.data;
 };
 
 export const updateBannerOrder = async (
@@ -239,17 +163,12 @@ export const updateBannerOrder = async (
     data: { order },
   });
 
-  // Clear cache khi có thay đổi
-  clearCache();
-
-  return transformBanner(response.data.data);
+  return response.data.data;
 };
 
 export const deleteBanner = async (id: string): Promise<void> => {
-  await apiClient.delete({ url: `/banners/${id}` });
-
-  // Clear cache khi có thay đổi
-  clearCache();
+  const response = await apiClient.delete({ url: `/banners/${id}` });
+  return response.data.data;
 };
 
 // ========== BATCH OPERATIONS ==========
@@ -261,22 +180,11 @@ export const batchUpdateBanners = async (
 
   const results = await Promise.all(promises);
 
-  // Clear cache một lần sau khi batch update
-  clearCache();
-
   return results;
 };
 
 // ========== UTILITY FUNCTIONS ==========
 
 export const prefetchBannerData = async (): Promise<void> => {
-  // Prefetch cả settings và active banners cùng lúc
-  await Promise.all([
-    getBannerSettings(false), // Force refresh
-    getActiveBanners(false), // Force refresh
-  ]);
-};
-
-export const clearBannerCache = (): void => {
-  clearCache();
+  await Promise.all([getBannerSettings(), getActiveBanners()]);
 };
