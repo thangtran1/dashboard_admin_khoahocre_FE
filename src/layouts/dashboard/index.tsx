@@ -42,7 +42,7 @@ function PcLayout() {
       <div
         data-slot="slash-layout-content"
         className={cn(
-          "w-full h-screen flex flex-col content-transition layout-container",
+          "w-full min-h-screen flex flex-col content-transition layout-container",
           {
             "pl-[var(--layout-nav-width)]":
               themeLayout === ThemeLayout.Vertical,

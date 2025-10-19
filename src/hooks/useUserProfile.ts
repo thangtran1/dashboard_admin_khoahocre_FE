@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getUserProfile, UserProfile } from "@/api/services/profileApi";
 import { useUserActions } from "@/store/userStore";
-import { BasicStatus } from "#/enum";
 
 export const useUserProfile = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -15,7 +14,7 @@ export const useUserProfile = () => {
     username: profileData.name,
     avatar: profileData.avatar,
     role: profileData.role,
-    status: profileData.status as unknown as BasicStatus,
+    status: profileData.status,
     phone: profileData.phone,
     dateOfBirth: profileData.dateOfBirth,
     address: profileData.address,

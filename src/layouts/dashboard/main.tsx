@@ -11,13 +11,13 @@ const Main = () => {
   return (
     <main
       data-slot="TVT-layout"
-      className={cn("flex w-full grow bg-background", {
+      className={cn("flex w-full flex-1 bg-background overflow-hidden", {
         "md:pt-[var(--layout-multi-tabs-height)]": multiTab,
       })}
     >
       <ScrollArea
         className={cn(
-          "h-full w-full p-2 mx-auto transition-all duration-300 ease-in-out",
+          "w-full p-2 mx-auto transition-all duration-300 ease-in-out",
           themeStretch ? "" : "xl:max-w-screen-2xl"
         )}
       >

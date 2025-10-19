@@ -23,6 +23,3 @@ export const setItem = <T>(key: StorageEnum, value: T): void => {
 export const removeItem = (key: StorageEnum): void => {
   localStorage.removeItem(key);
 };
-export const clearItems = () => {
-  localStorage.clear();
-};

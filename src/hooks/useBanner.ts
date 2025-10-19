@@ -108,9 +108,8 @@ export const useBanner = (): UseBannerReturn => {
 
         setBanners(response.banners);
         setPagination(response.pagination);
-      } catch (error: any) {
+      } catch (error) {
         console.error("❌ fetchBanners ~ error:", error);
-        toast.error("Lỗi khi tải danh sách banner");
       } finally {
         setLoading(false);
       }
@@ -119,11 +118,10 @@ export const useBanner = (): UseBannerReturn => {
 
   const fetchActiveBanners = useCallback(async () => {
     try {
-      const banners = await getActiveBanners(true); // Sử dụng cache
+      const banners = await getActiveBanners();
       setActiveBanners(banners);
-    } catch (error: any) {
+    } catch (error) {
       console.error("❌ fetchActiveBanners ~ error:", error);
-      toast.error("Lỗi khi tải banner hoạt động");
     }
   }, []);
 
@@ -137,7 +135,7 @@ export const useBanner = (): UseBannerReturn => {
       try {
         const statsData = await getBannerStats();
         setStats(statsData);
-      } catch (error: any) {
+      } catch (error) {
         console.error("❌ fetchStats ~ error:", error);
         toast.error("Lỗi khi tải thống kê banner");
       }
@@ -147,9 +145,9 @@ export const useBanner = (): UseBannerReturn => {
   const fetchSettings = useCallback(async () => {
     try {
       setSettingsLoading(true);
-      const settingsData = await getBannerSettings(true); // Sử dụng cache
+      const settingsData = await getBannerSettings();
       setSettings(settingsData);
-    } catch (error: any) {
+    } catch (error) {
       console.error("❌ fetchSettings ~ error:", error);
       toast.error("Lỗi khi tải cài đặt banner");
     } finally {
@@ -173,11 +171,8 @@ export const useBanner = (): UseBannerReturn => {
         ]);
 
         return true;
-      } catch (error: any) {
+      } catch (error) {
         console.error("❌ createBanner ~ error:", error);
-        const errorMessage =
-          error?.response?.data?.message || error?.message || "Có lỗi xảy ra";
-        toast.error(`Lỗi khi tạo banner: ${errorMessage}`);
         return false;
       } finally {
         setLoading(false);
@@ -207,13 +202,8 @@ export const useBanner = (): UseBannerReturn => {
         await Promise.all([fetchStats(), fetchActiveBanners()]);
 
         return true;
-      } catch (error: any) {
+      } catch (error) {
         console.error("❌ updateBanner ~ error:", error);
-        const errorMessage =
-          error?.response?.data?.message || error?.message || "Có lỗi xảy ra";
-        toast.error(`Lỗi khi cập nhật banner: ${errorMessage}`);
-
-        // Rollback optimistic update
         await fetchBanners(pagination.page, pagination.limit);
         return false;
       } finally {
@@ -243,13 +233,8 @@ export const useBanner = (): UseBannerReturn => {
         await Promise.all([fetchStats(), fetchActiveBanners()]);
 
         return true;
-      } catch (error: any) {
+      } catch (error) {
         console.error("❌ deleteBanner ~ error:", error);
-        const errorMessage =
-          error?.response?.data?.message || error?.message || "Có lỗi xảy ra";
-        toast.error(`Lỗi khi xóa banner: ${errorMessage}`);
-
-        // Rollback
         await fetchBanners(pagination.page, pagination.limit);
         return false;
       } finally {
@@ -279,12 +264,8 @@ export const useBanner = (): UseBannerReturn => {
         await Promise.all([fetchStats(), fetchActiveBanners()]);
 
         return true;
-      } catch (error: any) {
+      } catch (error) {
         console.error("❌ toggleBanner ~ error:", error);
-        const errorMessage =
-          error?.response?.data?.message || error?.message || "Có lỗi xảy ra";
-        toast.error(`Lỗi khi thay đổi trạng thái banner: ${errorMessage}`);
-
         // Rollback
         await fetchBanners(pagination.page, pagination.limit);
         return false;
@@ -313,13 +294,8 @@ export const useBanner = (): UseBannerReturn => {
         await fetchActiveBanners();
 
         return true;
-      } catch (error: any) {
+      } catch (error) {
         console.error("❌ updateBannerOrder ~ error:", error);
-        const errorMessage =
-          error?.response?.data?.message || error?.message || "Có lỗi xảy ra";
-        toast.error(`Lỗi khi cập nhật thứ tự banner: ${errorMessage}`);
-
-        // Rollback
         await fetchBanners(pagination.page, pagination.limit);
         return false;
       }
@@ -490,10 +466,9 @@ export const useActiveBanners = () => {
     try {
       setLoading(true);
 
-      // Sử dụng cache để tăng tốc
       const [bannersData, settingsData] = await Promise.all([
-        getActiveBanners(true), // Use cache
-        getBannerSettings(true), // Use cache
+        getActiveBanners(),
+        getBannerSettings(),
       ]);
 
       setBanners(bannersData);

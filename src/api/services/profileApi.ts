@@ -1,3 +1,4 @@
+import { BasicStatus } from "@/types/enum";
 import apiClient from "../apiClient";
 
 // ========== INTERFACES ==========
@@ -6,7 +7,7 @@ export interface UserProfile {
   email: string;
   name: string;
   role: string;
-  status: string;
+  status: BasicStatus;
   bio?: string;
   phone?: string;
   address?: string;
