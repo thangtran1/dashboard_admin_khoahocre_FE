@@ -2,6 +2,7 @@
 @import "@fontsource-variable/inter";
 
 @import "react-quill/dist/quill.snow.css";
+@import "./styles/sidebar-animation.css";
 
 @import "tailwindcss";
 @import "tw-animate-css";

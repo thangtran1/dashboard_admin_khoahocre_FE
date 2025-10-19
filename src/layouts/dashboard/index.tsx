@@ -9,10 +9,15 @@ import Header from "./header";
 import Main from "./main";
 import NavBar from "./nav-bar";
 import { useUserInfo } from "@/store/userStore";
+import { useGlobalKeyboard } from "@/hooks/use-global-keyboard";
+import { SidebarToast } from "@/layouts/dashboard/nav-bar/sidebar-toast";
 
 export default function DashboardLayout() {
   const isMobile = useMediaQuery(down("md"));
   const { themeLayout } = useSettings();
+  // Kích hoạt global keyboard shortcuts
+  useGlobalKeyboard();
+
   return (
     <div
       data-slot="slash-layout-root"
@@ -21,6 +26,7 @@ export default function DashboardLayout() {
       })}
     >
       {isMobile ? <MobileLayout /> : <PcLayout />}
+      <SidebarToast />
     </div>
   );
 }
@@ -36,7 +42,7 @@ function PcLayout() {
       <div
         data-slot="slash-layout-content"
         className={cn(
-          "w-full h-screen flex flex-col transition-all duration-300 ease-in-out",
+          "w-full h-screen flex flex-col content-transition layout-container",
           {
             "pl-[var(--layout-nav-width)]":
               themeLayout === ThemeLayout.Vertical,

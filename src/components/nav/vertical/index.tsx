@@ -34,7 +34,7 @@ export function NavVertical({ data, className, ...props }: NavProps) {
         />
       </div>
 
-      <div className="flex-1 overflow-y-auto mt-1">
+      <div className="flex-1 overflow-y-auto mt-2">
         {filteredData.map((group, index) => (
           <NavGroup
             key={group.name || index}

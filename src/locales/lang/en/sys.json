@@ -544,6 +544,15 @@
       "view-backup-error": "Error viewing backup content",
       "download-backup-error": "Error downloading backup file",
       "cancel": "Cancel"
+    },
+    "sidebar": {
+      "press-ctrl-b": "Press Ctrl + B to toggle",
+      "sidebar-minimized": "Sidebar minimized",
+      "sidebar-maximized": "Sidebar maximized",
+      "collapse-sidebar": "Collapse sidebar (Ctrl + B)",
+      "expand-sidebar": "Expand sidebar (Ctrl + B)",
+      "sidebar-minimized-description": "🔓 Sidebar is minimized",
+      "sidebar-maximized-description": "🔒 Sidebar is maximized"
     }
   }
 }

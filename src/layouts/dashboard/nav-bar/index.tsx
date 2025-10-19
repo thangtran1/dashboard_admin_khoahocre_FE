@@ -14,6 +14,7 @@ import { cn } from "@/utils";
 import { m } from "motion/react";
 import { useMemo } from "react";
 import { ThemeLayout } from "#/enum";
+import SidebarToggle from "@/layouts/dashboard/nav-bar/sidebar-toggle";
 
 interface Props {
   className?: string;
@@ -75,13 +76,13 @@ export default function NavBar({ className }: Props) {
     <nav
       data-slot="slash-layout-nav"
       className={cn(
-        "hidden md:block fixed inset-y-0 left-0 flex-col h-full bg-background z-app-bar border-r border-dashed",
+        "hidden md:block fixed inset-y-0 left-0 flex-col h-full bg-background z-app-bar border-r border-dashed sidebar-transition sidebar-nav hw-accelerated",
         className
       )}
     >
       <div
         className={cn(
-          "relative flex items-center py-4 px-2 h-[var(--layout-header-height)]",
+          "relative flex items-center justify-between py-4 px-2 h-[var(--layout-header-height)]",
           {
             "justify-center": themeLayout === ThemeLayout.Mini,
           }
@@ -91,18 +92,30 @@ export default function NavBar({ className }: Props) {
           <Logo />
           {themeLayout !== ThemeLayout.Mini && (
             <m.span
-              className="text-xl font-bold text-primary"
+              className="text-xl font-bold text-primary sidebar-text-transition"
               variants={varFade().in}
             >
               TVT Admin
             </m.span>
           )}
         </div>
+
+        {/* Toggle button - luôn hiển thị ở góc phải */}
+        <div
+          className={cn(
+            "flex items-center transition-all duration-200",
+            themeLayout === ThemeLayout.Mini
+              ? "absolute -right-3 top-1/2 transform -translate-y-1/2"
+              : ""
+          )}
+        >
+          <SidebarToggle />
+        </div>
       </div>
 
       <ScrollArea
         className={cn(
-          "h-[calc(100vh-var(--layout-header-height))] px-2 bg-background",
+          "h-[calc(100vh-var(--layout-header-height))] px-2 bg-background sidebar-transition",
           {
             "w-[var(--layout-nav-width)]": themeLayout === ThemeLayout.Vertical,
             "w-[var(--layout-nav-width-mini)]":

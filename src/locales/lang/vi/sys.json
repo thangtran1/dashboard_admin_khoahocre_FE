@@ -544,6 +544,15 @@
       "view-backup-error": "Lỗi khi xem nội dung bản sao lưu",
       "download-backup-error": "Lỗi khi tải file bản sao lưu",
       "cancel": "Hủy"
+    },
+    "sidebar": {
+      "press-ctrl-b": "Nhấn Ctrl + B để toggle",
+      "sidebar-minimized": "Sidebar đã thu nhỏ",
+      "sidebar-maximized": "Sidebar đã mở rộng",
+      "collapse-sidebar": "Thu nhỏ sidebar (Ctrl + B)",
+      "expand-sidebar": "Mở rộng sidebar (Ctrl + B)",
+      "sidebar-minimized-description": "🔓 Sidebar đang thu nhỏ",
+      "sidebar-maximized-description": "🔒 Sidebar đang mở rộng"
     }
   }
 }
