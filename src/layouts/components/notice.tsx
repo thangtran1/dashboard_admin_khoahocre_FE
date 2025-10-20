@@ -86,7 +86,6 @@ export default function NoticeButton() {
       setNotifications(response.data.notifications as Notification[]);
     } catch (error) {
       console.error("Error loading notifications:", error);
-      toast.error("Không thể tải thông báo");
     } finally {
       setLoading(false);
     }
@@ -231,29 +230,29 @@ function NoticeTab({
   }) => {
     const getTypeColor = (type: string) => {
       switch (type) {
-        case "success":
+        case NotificationType.SYSTEM:
           return "green";
-        case "warning":
+        case NotificationType.PROMOTION:
           return "orange";
-        case "error":
+        case NotificationType.MAINTENANCE:
           return "red";
-        default:
+        case NotificationType.UPDATE:
           return "blue";
       }
     };
     const typeMap: Record<string, NotificationType> = {
-      system: NotificationType.SYSTEM,
-      promotion: NotificationType.PROMOTION,
-      maintenance: NotificationType.MAINTENANCE,
-      update: NotificationType.UPDATE,
+      [NotificationType.SYSTEM]: NotificationType.SYSTEM,
+      [NotificationType.PROMOTION]: NotificationType.PROMOTION,
+      [NotificationType.MAINTENANCE]: NotificationType.MAINTENANCE,
+      [NotificationType.UPDATE]: NotificationType.UPDATE,
     };
 
     return (
       <div
-        className={`py-2 border-b hover:bg-gray-50 transition-colors cursor-pointer ${
+        className={`py-2 border-b hover:bg-muted/20 transition-colors cursor-pointer ${
           !notification.isReadByUser
-            ? "bg-blue-50 border-l-4 border-l-blue-500"
-            : ""
+            ? "bg-muted border-primary border-l-1"
+            : "bg-muted"
         }`}
         onClick={() => {
           if (!notification.isReadByUser) {
@@ -264,50 +263,48 @@ function NoticeTab({
           }
         }}
       >
-        <div className="flex items-center gap-4 px-2">
-          <Avatar size={40} className="flex-shrink-0">
-            {notification.actionUrl ? (
-              <img
-                src={notification.actionUrl}
-                alt="preview"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                }}
-              />
-            ) : (
-              <Icon icon="solar:bell-off-bold" size={24} />
-            )}
-          </Avatar>
-
-          <div className="flex-1">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="text-base font-semibold">
-                  {t("notification.type")} :
-                </div>
-                <Tag color={getTypeColor(notification.type)}>
-                  {typeMap[notification.type] || notification.type}
-                </Tag>
-              </div>
-              <Text className="text-base font-semibold">
-                {dayjs(notification.createdAt).fromNow()}
-              </Text>
-            </div>
-
-            <Title level={5} className="mt-1 mb-2">
-              {notification.title}
-            </Title>
-
-            <Text className="text-sm text-gray-600 line-clamp-2">
-              {notification.shortDescription || notification.content}
-            </Text>
+        <div className="flex items-center gap-2 px-1">
+          {/* Avatar */}
+          <div className="relative inline-block">
+            <Avatar size={48} className="flex-shrink-0">
+              {notification.actionUrl && (
+                <img
+                  src={notification.actionUrl}
+                  alt="preview"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              )}
+            </Avatar>
 
             {!notification.isReadByUser && (
-              <div>
-                <div className="w-2 h-2 bg-blue-500 rounded-full inline-block"></div>
-              </div>
+              <span className="absolute top-0 right-0 w-3 h-3 bg-blue-500 rounded-full"></span>
             )}
+          </div>
+
+          {/* Nội dung thông báo */}
+          <div className="flex-1 flex flex-col gap-1">
+            {/* Header: Loại thông báo */}
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-foreground font-semibold">
+                {t("notification.type")}{" "}
+                <Tag color={getTypeColor(notification.type)}>
+                  {typeMap[notification.type]}
+                </Tag>
+              </div>
+            </div>
+
+            {/* Nội dung chính */}
+            <div className="flex-1 text-sm text-foreground break-words">
+              {notification.content}
+            </div>
+
+            {/* Ngày tạo */}
+            <div className="text-xs  text-muted-foreground">
+              {dayjs(notification.createdAt).format("DD/MM/YYYY HH:mm")}
+            </div>
           </div>
         </div>
       </div>

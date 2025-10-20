@@ -151,7 +151,7 @@ export default function BackupList({
           columns={columns}
           dataSource={backups}
           rowKey="filename"
-          pagination={{ pageSize: 5 }}
+          pagination={false}
           className="min-w-full"
           bordered
           size="middle"
