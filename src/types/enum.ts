@@ -63,8 +63,8 @@ export enum HtmlDataAttribute {
 }
 
 export enum NotificationType {
-  SYSTEM = "Hệ thống",
-  PROMOTION = "Khuyến mãi",
-  MAINTENANCE = "Bảo trì",
-  UPDATE = "Cập nhật",
+  SYSTEM = "system",
+  PROMOTION = "promotion",
+  MAINTENANCE = "maintenance",
+  UPDATE = "update",
 }

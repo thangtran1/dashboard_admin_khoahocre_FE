@@ -41,6 +41,7 @@ const NotificationManagement: React.FC = () => {
     page,
     limit,
     searchOptions,
+    statistics,
     loadNotifications,
     updateNotification,
     deleteNotification,
@@ -188,14 +189,6 @@ const NotificationManagement: React.FC = () => {
       render: (text: string) => renderWithTooltip(text),
     },
     {
-      title: t("sys.notification.short-description"),
-      dataIndex: "shortDescription",
-      key: "shortDescription",
-      width: 150,
-      ellipsis: true,
-      render: (text: string) => renderWithTooltip(text),
-    },
-    {
       title: t("sys.notification.image-video"),
       dataIndex: "actionUrl",
       key: "actionUrl",
@@ -274,15 +267,7 @@ const NotificationManagement: React.FC = () => {
     },
   ];
 
-  // Tính toán thống kê
-  const totalNotifications = notifications.length;
-  const systemNotifications = notifications.filter(
-    (n) => n.type === "system"
-  ).length;
-  const totalReadByUsers = notifications.reduce(
-    (sum, n) => sum + (n.readByUsers?.length || 0),
-    0
-  );
+  // Lấy thống kê từ hook
 
   return (
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
@@ -324,7 +309,7 @@ const NotificationManagement: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-blue-800">
-              {totalNotifications}
+              {statistics?.totalNotifications}
             </div>
             <p className="text-xs text-blue-800 mt-1">
               {t("sys.notification.total-notifications-description")}
@@ -346,7 +331,7 @@ const NotificationManagement: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-green-800">
-              {systemNotifications}
+              {statistics?.systemNotifications}
             </div>
             <p className="text-xs text-green-800 mt-1">
               {t("sys.notification.system-notifications-description")}
@@ -365,7 +350,7 @@ const NotificationManagement: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-purple-800">
-              {totalReadByUsers}
+              {statistics?.totalReadByUsers}
             </div>
             <p className="text-xs text-purple-800 mt-1">
               {t("sys.notification.total-reads-description")}
@@ -513,28 +498,6 @@ const NotificationManagement: React.FC = () => {
             ]}
           >
             <Input placeholder={t("sys.notification.title-placeholder")} />
-          </Form.Item>
-
-          <Form.Item
-            name="shortDescription"
-            label={t("sys.notification.short-description")}
-            rules={[
-              {
-                required: true,
-                message: t("sys.notification.short-description-required"),
-              },
-              {
-                max: 200,
-                message: t("sys.notification.short-description-max"),
-              },
-            ]}
-          >
-            <Input.TextArea
-              placeholder={t("sys.notification.short-description-placeholder")}
-              rows={3}
-              maxLength={200}
-              showCount
-            />
           </Form.Item>
 
           <Form.Item

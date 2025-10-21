@@ -1,19 +1,17 @@
 import apiClient from "../apiClient";
-
+import { NotificationType } from "@/types/enum";
 export interface CreateNotificationDto {
   title: string;
   content: string;
-  shortDescription: string;
   actionUrl?: string;
-  type: string;
+  type: NotificationType;
 }
 
 export interface Notification {
   _id: string;
   title: string;
   content: string;
-  shortDescription: string;
-  type: string;
+  type: NotificationType;
   actionUrl?: string;
   readByUsers: string[];
   isReadByUser?: boolean;
@@ -57,7 +55,7 @@ export const notificationAdminService = {
     limit: number = 20,
     options: {
       search?: string;
-      type?: string;
+      type?: NotificationType;
       startDate?: string;
       endDate?: string;
     }

@@ -107,7 +107,11 @@
     "all": "All",
     "unread": "Unread",
     "read": "Read",
-    "type": "Notification"
+    "type": "Notification",
+    "system": "System",
+    "promotion": "Promotion",
+    "maintenance": "Maintenance",
+    "update": "Update"
   },
   "userProfile": {
     "personal-info": "Personal Information",

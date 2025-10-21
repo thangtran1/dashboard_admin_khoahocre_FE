@@ -11,15 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/ui/sheet";
-import {
-  Tabs,
-  type TabsProps,
-  Empty,
-  Avatar,
-  Typography,
-  Space,
-  Tag,
-} from "antd";
+import { Tabs, type TabsProps, Avatar, Typography, Space, Tag } from "antd";
 import { type CSSProperties, useState, useEffect } from "react";
 import { Link } from "react-router";
 import { toast } from "sonner";
@@ -34,7 +26,7 @@ import { Notification } from "@/types/entity";
 dayjs.extend(relativeTime);
 dayjs.locale("vi");
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 export default function NoticeButton() {
   const { t } = useTranslation();
@@ -154,8 +146,10 @@ export default function NoticeButton() {
           className="w-[420px] p-0 [&>button]:hidden"
           style={style}
         >
-          <SheetHeader className="flex flex-row items-center justify-between px-6 py-4">
-            <SheetTitle>{t("notification.title")}</SheetTitle>
+          <SheetHeader className="flex flex-row items-center justify-between !pb-0">
+            <SheetTitle className="text-2xl font-semibold">
+              {t("notification.title")}
+            </SheetTitle>
             <Space>
               <Button
                 variant="ghost"
@@ -171,7 +165,7 @@ export default function NoticeButton() {
                 <Icon icon="solar:check-read-broken" size={28} />
               </Button>
               <Button
-                variant="ghost"
+                variant="secondary"
                 size="icon"
                 className="rounded-full"
                 onClick={() => setDrawerOpen(false)}
@@ -187,10 +181,10 @@ export default function NoticeButton() {
             onTabChange={setActiveTab}
           />
           <SheetFooter className="border-t">
-            <Link to="/notifications/my-notifications">
+            <Link to="#">
               <div
                 style={{ color: themeVars.colors.text.primary }}
-                className="flex h-10 w-full items-center justify-center font-semibold cursor-pointer hover:bg-gray-50 transition-colors"
+                className="flex w-full items-center justify-center font-semibold cursor-pointer transition-colors"
               >
                 {t("notification.view-all-notifications")}
               </div>
@@ -240,13 +234,12 @@ function NoticeTab({
           return "blue";
       }
     };
-    const typeMap: Record<string, NotificationType> = {
-      [NotificationType.SYSTEM]: NotificationType.SYSTEM,
-      [NotificationType.PROMOTION]: NotificationType.PROMOTION,
-      [NotificationType.MAINTENANCE]: NotificationType.MAINTENANCE,
-      [NotificationType.UPDATE]: NotificationType.UPDATE,
+    const typeMap: Record<NotificationType, string> = {
+      [NotificationType.SYSTEM]: t("notification.system"),
+      [NotificationType.PROMOTION]: t("notification.promotion"),
+      [NotificationType.MAINTENANCE]: t("notification.maintenance"),
+      [NotificationType.UPDATE]: t("notification.update"),
     };
-
     return (
       <div
         className={`py-2 border-b hover:bg-muted/20 transition-colors cursor-pointer ${
@@ -291,7 +284,7 @@ function NoticeTab({
               <div className="text-sm text-foreground font-semibold">
                 {t("notification.type")}{" "}
                 <Tag color={getTypeColor(notification.type)}>
-                  {typeMap[notification.type]}
+                  {typeMap[notification.type as NotificationType]}
                 </Tag>
               </div>
             </div>
@@ -328,11 +321,12 @@ function NoticeTab({
 
     if (notifications.length === 0) {
       return (
-        <Empty
-          image={<Icon icon="solar:bell-off-bold" size={48} />}
-          description={t("notification.no-notifications")}
-          className="py-8"
-        />
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-200px)]">
+          <Icon icon="solar:bell-off-bold" size={56} />
+          <Text className="block mt-2">
+            {t("notification.no-notifications")}
+          </Text>
+        </div>
       );
     }
 
@@ -385,7 +379,7 @@ function NoticeTab({
   ];
 
   return (
-    <div className="flex flex-col px-3">
+    <div className="flex flex-col px-4">
       <Tabs
         defaultActiveKey="all"
         items={items}

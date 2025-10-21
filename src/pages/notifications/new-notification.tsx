@@ -17,6 +17,7 @@ import { useAdminNotifications } from "../../hooks/useAdminNotifications";
 import { PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { Notification } from "../../types/entity";
+import { NotificationType } from "@/types/enum";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -58,9 +59,8 @@ const NewNotification: React.FC = () => {
       await createNotification({
         title: values.title,
         content: values.content,
-        shortDescription: values.shortDescription,
         actionUrl: actionUrlFile || undefined, // Sử dụng actionUrlFile thay vì values.actionUrl
-        type: values.type,
+        type: values.type as NotificationType,
       });
 
       toast.success("Tạo thông báo thành công", {
@@ -277,27 +277,6 @@ const NewNotification: React.FC = () => {
                   placeholder={t("sys.notification.title")}
                   showCount
                   maxLength={200}
-                />
-              </Form.Item>
-
-              <Form.Item
-                name="shortDescription"
-                label={t("sys.notification.short-description")}
-                rules={[
-                  {
-                    required: true,
-                    message: t("sys.notification.short-description-required"),
-                  },
-                  {
-                    max: 500,
-                    message: t("sys.notification.short-description-max"),
-                  },
-                ]}
-              >
-                <Input
-                  placeholder={t("sys.notification.short-description")}
-                  showCount
-                  maxLength={500}
                 />
               </Form.Item>
 

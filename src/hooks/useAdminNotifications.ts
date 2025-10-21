@@ -6,6 +6,7 @@ import {
   Notification,
 } from "../api/services/notificationApi";
 import { useUserInfo } from "@/store/userStore";
+import { NotificationType } from "@/types/enum";
 
 export const useAdminNotifications = () => {
   const userInfo = useUserInfo();
@@ -15,6 +16,11 @@ export const useAdminNotifications = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState<number>(0);
+  const [statistics, setStatistics] = useState({
+    totalNotifications: 0,
+    systemNotifications: 0,
+    totalReadByUsers: 0,
+  });
 
   // Get initial values from URL params
   const getInitialSearchOptions = (): {
@@ -93,7 +99,12 @@ export const useAdminNotifications = () => {
         const response = await notificationAdminService.getAll(
           pageNum,
           limitNum,
-          searchParams
+          searchParams as {
+            search?: string;
+            type?: NotificationType;
+            startDate?: string;
+            endDate?: string;
+          }
         );
         setNotifications(response.data.notifications);
         setTotal(response.data.total);
@@ -234,6 +245,27 @@ export const useAdminNotifications = () => {
     [loadNotifications, searchOptions, page]
   );
 
+  // Hàm lấy thống kê tổng quan
+  const fetchStatistics = useCallback(async () => {
+    if (!isAdmin) return;
+    try {
+      const response = await notificationAdminService.getAll(1, 9999999, {});
+      const allNotifications = response.data.notifications;
+
+      setStatistics({
+        totalNotifications: response.data.total,
+        systemNotifications: allNotifications.filter((n) => n.type === "system")
+          .length,
+        totalReadByUsers: allNotifications.reduce(
+          (sum, n) => sum + (n.readByUsers?.length || 0),
+          0
+        ),
+      });
+    } catch (error) {
+      console.error("Error fetching statistics:", error);
+    }
+  }, [isAdmin]);
+
   // Load data from URL params on mount
   useEffect(() => {
     if (isAdmin) {
@@ -246,10 +278,11 @@ export const useAdminNotifications = () => {
       setPage(initialPage);
       setLimit(initialLimit);
 
-      // Load data
+      // Load data và thống kê
       loadNotifications(initialPage, initialLimit, initialOptions);
+      fetchStatistics();
     }
-  }, [isAdmin]); // Only depend on isAdmin to avoid infinite loops
+  }, [isAdmin, fetchStatistics]); // Only depend on isAdmin and fetchStatistics to avoid infinite loops
 
   return {
     notifications,
@@ -260,6 +293,7 @@ export const useAdminNotifications = () => {
     limit,
     isAdmin,
     searchOptions,
+    statistics,
     loadNotifications,
     createNotification,
     updateNotification,
