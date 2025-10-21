@@ -176,22 +176,6 @@ export default function DeletedUserTable({
         onShowSizeChange: onPageChange,
       }}
       scroll={{ x: 800 }}
-      locale={{
-        emptyText: (
-          <div className="py-12 text-center">
-            <Icon
-              icon="lucide:trash-2"
-              className="h-16 w-16 mx-auto text-muted-foreground mb-4"
-            />
-            <p className="text-lg font-semibold text-foreground">
-              {t("sys.user-management.no-deleted-users-found")}
-            </p>
-            <p className="text-muted-foreground mt-2">
-              {t("sys.user-management.no-deleted-users-description")}
-            </p>
-          </div>
-        ),
-      }}
     />
   );
 }

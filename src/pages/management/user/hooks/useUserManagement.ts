@@ -19,7 +19,10 @@ import {
   restoreUser,
 } from "@/api/services/userManagementApi";
 
-export function useUserManagement(isDeleted: boolean = false) {
+export function useUserManagement(
+  isDeleted: boolean = false,
+  isNewUsers: boolean = false
+) {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -37,6 +40,7 @@ export function useUserManagement(isDeleted: boolean = false) {
     sortBy: searchParams.get("sortBy") || "createdAt",
     sortOrder: (searchParams.get("sortOrder") as "asc" | "desc") || "desc",
     isDeleted,
+    isNewUsers,
   });
 
   const [filters, setFilters] = useState<QueryUserParams>(getInitialFilters());
@@ -321,6 +325,7 @@ export function useUserManagement(isDeleted: boolean = false) {
       sortBy: "createdAt",
       sortOrder: "desc",
       isDeleted,
+      isNewUsers,
     };
     setFilters(defaultFilters);
     updateUrlParams(defaultFilters);

@@ -1,20 +1,53 @@
-import { Tabs } from "antd";
+import { Tabs, Button } from "antd";
+import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Card, CardContent, CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 import { useUserTabs } from "./hooks/useUserTabs";
 import { useUserManagement } from "./hooks/useUserManagement";
 import ActiveUsersTab from "./components/ActiveUsersTab";
 import DeletedUsersTab from "./components/DeletedUsersTab";
+import NewUsersTab from "./components/NewUsersTab";
+import UserEditModal from "./components/userEditModal";
+import {
+  User,
+  CreateUserReq,
+  UpdateUserReq,
+} from "@/api/services/userManagementApi";
 
 export default function UserManagement() {
   const { t } = useTranslation();
   const { activeTab, handleTabChange } = useUserTabs();
 
   // Get stats from active users hook
-  const { stats } = useUserManagement(false);
+  const { stats, handleCreate, refreshData, loading } =
+    useUserManagement(false);
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+
+  // ========== MODAL HANDLERS ==========
+  const handleOpenCreateModal = () => {
+    setEditingUser(null);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingUser(null);
+  };
+
+  const handleSubmit = async (values: CreateUserReq | UpdateUserReq) => {
+    const success = await handleCreate(values as CreateUserReq);
+    if (success) {
+      handleCloseModal();
+    }
+    return success;
+  };
 
   const tabItems = [
     {
@@ -26,6 +59,16 @@ export default function UserManagement() {
         </span>
       ),
       children: <ActiveUsersTab />,
+    },
+    {
+      key: "new",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="lucide:user-plus" className="h-4 w-4" />
+          {t("sys.user-management.new-users-tab")}
+        </span>
+      ),
+      children: <NewUsersTab />,
     },
     {
       key: "deleted",
@@ -52,6 +95,28 @@ export default function UserManagement() {
             <p className="text-muted-foreground mt-1">
               {t("sys.user-management.description")}
             </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3">
+            <Button
+              color="cyan"
+              variant="outlined"
+              icon={<ReloadOutlined />}
+              onClick={refreshData}
+              size="large"
+              loading={loading}
+            >
+              {t("sys.user-management.refresh")}
+            </Button>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={handleOpenCreateModal}
+              size="large"
+            >
+              {t("sys.user-management.add-user")}
+            </Button>
           </div>
         </div>
 
@@ -141,10 +206,21 @@ export default function UserManagement() {
         {/* Tabs */}
         <Tabs
           activeKey={activeTab}
-          onChange={(key) => handleTabChange(key as "active" | "deleted")}
+          onChange={(key) =>
+            handleTabChange(key as "active" | "deleted" | "new")
+          }
           items={tabItems}
           size="large"
           className="user-management-tabs"
+        />
+
+        {/* Modal */}
+        <UserEditModal
+          isOpen={isModalOpen}
+          editingUser={editingUser}
+          loading={loading}
+          onClose={handleCloseModal}
+          onSubmit={handleSubmit}
         />
       </div>
     </div>

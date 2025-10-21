@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 
-export type UserTabKey = "active" | "deleted";
+export type UserTabKey = "active" | "deleted" | "new";
 
 export function useUserTabs() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -9,11 +9,14 @@ export function useUserTabs() {
   const getInitialTab = (): UserTabKey => {
     const tabParam = searchParams.get("tab");
     const isDeletedParam = searchParams.get("isDeleted");
+    const isNewParam = searchParams.get("isNew");
 
     if (tabParam === "deleted") return "deleted";
     if (tabParam === "active") return "active";
+    if (tabParam === "new") return "new";
 
     if (isDeletedParam === "true") return "deleted";
+    if (isNewParam === "true") return "new";
 
     return "active";
   };
@@ -37,8 +40,13 @@ export function useUserTabs() {
 
     if (tab === "deleted") {
       params.set("isDeleted", "true");
+      params.delete("isNew");
+    } else if (tab === "new") {
+      params.set("isNew", "true");
+      params.delete("isDeleted");
     } else {
       params.set("isDeleted", "false");
+      params.delete("isNew");
     }
 
     setSearchParams(params);
@@ -54,7 +62,12 @@ export function useUserTabs() {
     if (newTab !== activeTab) {
       setActiveTab(newTab);
     }
-  }, [searchParams.get("tab"), searchParams.get("isDeleted"), activeTab]);
+  }, [
+    searchParams.get("tab"),
+    searchParams.get("isDeleted"),
+    searchParams.get("isNew"),
+    activeTab,
+  ]);
 
   return {
     activeTab,

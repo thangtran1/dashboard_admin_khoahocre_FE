@@ -53,6 +53,7 @@ export interface QueryUserParams {
   sortBy?: string;
   sortOrder?: "asc" | "desc";
   isDeleted?: boolean;
+  isNewUsers?: boolean;
 }
 
 export interface GetUsersRes {

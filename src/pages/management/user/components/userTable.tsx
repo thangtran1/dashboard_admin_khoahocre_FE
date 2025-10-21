@@ -190,22 +190,22 @@ export default function UserTable({
         onShowSizeChange: onPageChange,
       }}
       scroll={{ x: 800, y: 500 }}
-      locale={{
-        emptyText: (
-          <div className="py-12 text-center">
-            <Icon
-              icon="lucide:users-x"
-              className="h-16 w-16 mx-auto text-muted-foreground mb-4"
-            />
-            <p className="text-lg font-semibold text-foreground">
-              {t("sys.user-management.no-users-found")}
-            </p>
-            <p className="text-muted-foreground mt-2">
-              {t("sys.user-management.no-users-description")}
-            </p>
-          </div>
-        ),
-      }}
+      // locale={{
+      //   emptyText: (
+      //     <div className="py-12 text-center">
+      //       <Icon
+      //         icon="lucide:users-x"
+      //         className="h-16 w-16 mx-auto text-muted-foreground mb-4"
+      //       />
+      //       <p className="text-lg font-semibold text-foreground">
+      //         {t("sys.user-management.no-users-found")}
+      //       </p>
+      //       <p className="text-muted-foreground mt-2">
+      //         {t("sys.user-management.no-users-description")}
+      //       </p>
+      //     </div>
+      //   ),
+      // }}   NỘI DUNG CUSTOM KHI KHÔNG CÓ DỮ LIỆU
     />
   );
 }

@@ -1,25 +1,23 @@
 import { useUserManagement } from "../hooks/useUserManagement";
 import CommonUserFilters from "./CommonUserFilters";
 import UserActionBar from "./UserActionBar";
-import DeletedUserTable from "./DeletedUserTable";
+import NewUserTable from "./NewUserTable";
 
-export default function DeletedUsersTab() {
+export default function NewUsersTab() {
   const {
     users,
     loading,
     selectedUsers,
     filters,
     pagination,
-    handleDelete,
-    handleRestore,
+    handleSoftDelete,
     handleDeleteMany,
-    handleRestoreMany,
     handleFilterChange,
     handlePageChange,
     handleSelectUser,
     handleSelectAll,
     handleClearFilters,
-  } = useUserManagement(true); // true = deleted users
+  } = useUserManagement(false, true); // false = not deleted, true = new users
 
   return (
     <div className="space-y-6">
@@ -33,21 +31,19 @@ export default function DeletedUsersTab() {
       {/* Action Bar */}
       <UserActionBar
         selectedUsers={selectedUsers}
-        tabType="deleted"
+        tabType="new"
         onDeleteMany={() => handleDeleteMany(selectedUsers as string[])}
-        onRestoreMany={() => handleRestoreMany(selectedUsers as string[])}
       />
 
-      {/* Deleted User Table */}
-      <DeletedUserTable
+      {/* New User Table */}
+      <NewUserTable
         users={users}
         loading={loading}
         selectedUsers={selectedUsers}
         pagination={pagination}
         onSelectUser={handleSelectUser}
         onSelectAll={handleSelectAll}
-        onRestore={handleRestore}
-        onDelete={handleDelete}
+        onDelete={handleSoftDelete}
         onPageChange={handlePageChange}
       />
     </div>

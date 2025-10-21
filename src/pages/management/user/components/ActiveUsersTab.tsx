@@ -1,27 +1,23 @@
 import { useState } from "react";
-import { Button } from "antd";
 import {
   User,
   CreateUserReq,
   UpdateUserReq,
 } from "@/api/services/userManagementApi";
-import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
 
 import { useUserManagement } from "../hooks/useUserManagement";
-import UserFilters from "./userFilters";
+import CommonUserFilters from "./CommonUserFilters";
+import UserActionBar from "./UserActionBar";
 import UserTable from "./userTable";
 import UserEditModal from "./userEditModal";
 
 export default function ActiveUsersTab() {
-  const { t } = useTranslation();
   const {
     users,
     loading,
     selectedUsers,
     filters,
     pagination,
-    handleCreate,
     handleUpdateUser,
     handleSoftDelete,
     handleUpdateRole,
@@ -32,18 +28,12 @@ export default function ActiveUsersTab() {
     handleSelectUser,
     handleSelectAll,
     handleClearFilters,
-    refreshData,
   } = useUserManagement(false); // false = active users
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
   // ========== MODAL HANDLERS ==========
-
-  const handleOpenCreateModal = () => {
-    setEditingUser(null);
-    setIsModalOpen(true);
-  };
 
   const handleEdit = (user: User) => {
     setEditingUser(user);
@@ -56,50 +46,29 @@ export default function ActiveUsersTab() {
   };
 
   const handleSubmit = async (values: CreateUserReq | UpdateUserReq) => {
-    let success = false;
-    if (editingUser) {
-      success = await handleUpdateUser(editingUser.id, values as UpdateUserReq);
-    } else {
-      success = await handleCreate(values as CreateUserReq);
-    }
-
+    const success = await handleUpdateUser(
+      editingUser!.id,
+      values as UpdateUserReq
+    );
     if (success) {
       handleCloseModal();
     }
-
     return success;
   };
 
   return (
     <div className="space-y-6">
-      {/* Header Actions */}
-      <div className="flex gap-3 justify-end">
-        <Button
-          color="cyan"
-          variant="outlined"
-          icon={<ReloadOutlined />}
-          onClick={refreshData}
-          size="large"
-          loading={loading}
-        >
-          {t("sys.user-management.refresh")}
-        </Button>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={handleOpenCreateModal}
-          size="large"
-        >
-          {t("sys.user-management.add-user")}
-        </Button>
-      </div>
-
       {/* Filters */}
-      <UserFilters
+      <CommonUserFilters
         filters={filters}
-        selectedUsers={selectedUsers}
         onFilterChange={handleFilterChange}
         onClearFilters={handleClearFilters}
+      />
+
+      {/* Action Bar */}
+      <UserActionBar
+        selectedUsers={selectedUsers}
+        tabType="active"
         onDeleteMany={() => handleDeleteMany(selectedUsers as string[])}
       />
 
