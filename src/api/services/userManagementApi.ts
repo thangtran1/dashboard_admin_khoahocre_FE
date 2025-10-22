@@ -171,6 +171,22 @@ export const createUser = async (data: CreateUserReq) => {
   return response;
 };
 
+// Bulk create users from Excel
+export const bulkCreateUsers = async (file: File) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await apiClient.post<any>({
+    url: "/user/bulk-create",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response;
+};
+
 // Update user
 export const updateUser = async (id: string, data: UpdateUserReq) => {
   const response = await apiClient.put<any>({

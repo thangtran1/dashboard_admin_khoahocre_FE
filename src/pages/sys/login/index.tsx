@@ -17,7 +17,6 @@ function LoginPage() {
   const { role } = useUserInfo();
   if (token.accessToken) {
     if (String(role) === "user") {
-      console.log("🚀 ~ User role matched");
       return <Navigate to={HOMEPAGEUSER} replace />;
     }
 

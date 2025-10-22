@@ -52,10 +52,6 @@ const NewNotification: React.FC = () => {
   const handleSubmit = async (values: Notification) => {
     setLoading(true);
     try {
-      console.log("Form values:", values);
-      console.log("ActionUrl value:", values.actionUrl);
-      console.log("ActionUrlFile state:", actionUrlFile);
-
       await createNotification({
         title: values.title,
         content: values.content,

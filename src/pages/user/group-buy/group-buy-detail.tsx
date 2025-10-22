@@ -89,7 +89,6 @@ export default function GroupBuyDetail() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("📝 Submitted:", form);
     alert("Đã gửi bình luận!");
   };
   return (

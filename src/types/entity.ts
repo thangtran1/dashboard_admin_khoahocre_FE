@@ -127,3 +127,24 @@ export interface Notification {
 export interface Notifications {
   data: Notification;
 }
+
+// Created New User
+export interface PreviewUser {
+  row: number;
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  status: string;
+  phone?: string;
+  address?: string;
+  bio?: string;
+  isValid: boolean;
+  error?: string;
+}
+
+export interface BulkResult {
+  successCount: number;
+  errorCount: number;
+  errors: Array<{ row: number; email: string; error: string }>;
+}

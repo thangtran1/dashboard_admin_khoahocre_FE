@@ -158,8 +158,6 @@ export default function ManagerChatUserPage() {
   };
 
   const handleSelectUser = (user: ChatUser) => {
-    console.log("Selected user:", user.id, user.name);
-    console.log("Current selectedUser:", selectedUser?.id);
     setSelectedUser(user);
     // Reset messages khi chọn user mới (có thể load messages từ API)
     setMessages(mockMessages);
