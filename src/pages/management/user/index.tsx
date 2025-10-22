@@ -4,50 +4,19 @@ import { Card, CardContent, CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-
 import { useUserTabs } from "./hooks/useUserTabs";
 import { useUserManagement } from "./hooks/useUserManagement";
 import ActiveUsersTab from "./components/ActiveUsersTab";
 import DeletedUsersTab from "./components/DeletedUsersTab";
 import NewUsersTab from "./components/NewUsersTab";
-import UserEditModal from "./components/userEditModal";
-import {
-  User,
-  CreateUserReq,
-  UpdateUserReq,
-} from "@/api/services/userManagementApi";
+import { Link } from "react-router";
 
 export default function UserManagement() {
   const { t } = useTranslation();
   const { activeTab, handleTabChange } = useUserTabs();
 
   // Get stats from active users hook
-  const { stats, handleCreate, refreshData, loading } =
-    useUserManagement(false);
-
-  // Modal state
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
-
-  // ========== MODAL HANDLERS ==========
-  const handleOpenCreateModal = () => {
-    setEditingUser(null);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditingUser(null);
-  };
-
-  const handleSubmit = async (values: CreateUserReq | UpdateUserReq) => {
-    const success = await handleCreate(values as CreateUserReq);
-    if (success) {
-      handleCloseModal();
-    }
-    return success;
-  };
+  const { stats, refreshData, loading } = useUserManagement(false);
 
   const tabItems = [
     {
@@ -109,14 +78,16 @@ export default function UserManagement() {
             >
               {t("sys.user-management.refresh")}
             </Button>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={handleOpenCreateModal}
-              size="large"
-            >
-              {t("sys.user-management.add-user")}
-            </Button>
+            <Link to="/management/user/created-new-user">
+              <Button
+                type="primary"
+                size="large"
+                icon={<PlusOutlined />}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                {t("sys.user-management.add-user")}
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -212,15 +183,6 @@ export default function UserManagement() {
           items={tabItems}
           size="large"
           className="user-management-tabs"
-        />
-
-        {/* Modal */}
-        <UserEditModal
-          isOpen={isModalOpen}
-          editingUser={editingUser}
-          loading={loading}
-          onClose={handleCloseModal}
-          onSubmit={handleSubmit}
         />
       </div>
     </div>

@@ -1,81 +1,76 @@
-import { Modal, Form, Input, Select, Space, Button } from "antd";
-import { useEffect } from "react";
+import {
+  Form,
+  Input,
+  Select,
+  Space,
+  Button,
+  Card,
+  Typography,
+  Breadcrumb,
+} from "antd";
 import { Icon } from "@/components/icon";
-import { User, UpdateUserReq } from "@/api/services/userManagementApi";
-import { UserOutlined, MailOutlined } from "@ant-design/icons";
+import { CreateUserReq, createUser } from "@/api/services/userManagementApi";
+import { UserOutlined, MailOutlined, KeyOutlined } from "@ant-design/icons";
+import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-
+import { useState } from "react";
+import { Separator } from "@/ui/separator";
+import { toast } from "sonner";
+const { Title } = Typography;
 const { Option } = Select;
 
-interface UserEditModalProps {
-  isOpen: boolean;
-  editingUser: User;
-  loading: boolean;
-  onClose: () => void;
-  onSubmit: (values: UpdateUserReq) => Promise<boolean>;
-}
-
-export default function UserEditModal({
-  isOpen,
-  editingUser,
-  loading,
-  onClose,
-  onSubmit,
-}: UserEditModalProps) {
+export default function CreatedNewUser() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
-  // Set form values khi editingUser thay đổi
-  useEffect(() => {
-    if (isOpen && editingUser) {
-      form.setFieldsValue({
-        name: editingUser.name,
-        email: editingUser.email,
-        role: editingUser.role,
-        status: editingUser.status,
-        phone: editingUser.phone,
-        address: editingUser.address,
-        bio: editingUser.bio,
-      });
-    }
-  }, [isOpen, editingUser, form]);
-
-  const handleClose = () => {
-    form.resetFields();
-    onClose();
-  };
-
-  const handleSubmit = async (values: UpdateUserReq) => {
+  const handleSubmit = async (values: CreateUserReq) => {
     try {
-      return await onSubmit(values);
+      setLoading(true);
+      const response = await createUser(values);
+
+      if (response.data.success) {
+        toast.success(t("sys.user-management.create-success"));
+        form.resetFields();
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
-      console.error("❌ handleSubmit ~ error:", error);
-      return false;
+      throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Modal
-      title={
-        <div className="flex items-center gap-2">
-          <Icon icon="lucide:edit" className="h-5 w-5 text-primary" />
-          {t("sys.user-management.edit-user")}
-        </div>
-      }
-      open={isOpen}
-      onCancel={loading ? undefined : handleClose}
-      closable={!loading}
-      maskClosable={!loading}
-      footer={null}
-      width={700}
-    >
+    <Card className="!bg-background">
+      <Breadcrumb style={{ marginBottom: "8px" }}>
+        <Breadcrumb.Item>
+          <Link to="/management/user">{t("sys.user-management.title")}</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          {t("sys.user-management.create-new-user")}
+        </Breadcrumb.Item>
+      </Breadcrumb>
+
+      <Title level={3}>
+        <Icon icon="lucide:user-plus" className="h-6 w-6 text-primary mr-2" />
+        {t("sys.user-management.create-new-user")}
+      </Title>
+
+      <Separator className="my-4" />
+
       <Form
         form={form}
         layout="vertical"
         onFinish={handleSubmit}
-        className="mt-6"
+        className="space-y-4"
+        initialValues={{
+          role: "user",
+          status: "active",
+        }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Form.Item
             name="name"
             label={t("sys.user-management.name")}
@@ -116,7 +111,7 @@ export default function UserEditModal({
           </Form.Item>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Form.Item
             name="role"
             label={t("sys.user-management.role")}
@@ -168,6 +163,24 @@ export default function UserEditModal({
           </Form.Item>
         </div>
 
+        <Form.Item
+          name="password"
+          label={t("sys.user-management.password")}
+          rules={[
+            {
+              required: true,
+              message: t("sys.user-management.password-required"),
+            },
+            { min: 6, message: t("sys.user-management.password-min-length") },
+          ]}
+        >
+          <Input.Password
+            size="large"
+            prefix={<KeyOutlined />}
+            placeholder={t("sys.user-management.password")}
+          />
+        </Form.Item>
+
         <Form.Item name="phone" label={t("sys.user-management.phone")}>
           <Input size="large" placeholder={t("sys.user-management.phone")} />
         </Form.Item>
@@ -180,21 +193,25 @@ export default function UserEditModal({
           <Input.TextArea rows={3} placeholder={t("sys.user-management.bio")} />
         </Form.Item>
 
-        <div className="flex gap-3 pt-4">
+        <div className="flex gap-4 pt-6 justify-end">
+          <Button
+            danger
+            size="large"
+            disabled={loading}
+            onClick={() => form.resetFields()}
+          >
+            ❌ {t("sys.user-management.cancel")}
+          </Button>
           <Button
             type="primary"
             htmlType="submit"
             size="large"
             loading={loading}
-            className="flex-1"
           >
-            💾 {t("sys.user-management.update")}
-          </Button>
-          <Button size="large" onClick={handleClose} disabled={loading}>
-            ❌ {t("sys.user-management.cancel")}
+            ✨ {t("sys.user-management.create")}
           </Button>
         </div>
       </Form>
-    </Modal>
+    </Card>
   );
 }

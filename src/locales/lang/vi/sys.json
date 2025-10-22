@@ -472,7 +472,7 @@
       "search": "Tìm kiếm",
       "clear-filters": "Xóa bộ lọc",
       "all-status": "Tất cả Trạng thái",
-      "showing-results": "Hiển thị {{start}}-{{end}} của {{total}} người dùng"
+      "create-new-user": "Tạo Người dùng Mới"
     },
     "profile": {
       "title": "Thông tin cá nhân",

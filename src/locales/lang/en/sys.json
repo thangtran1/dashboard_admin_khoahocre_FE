@@ -472,7 +472,7 @@
       "search": "Search",
       "clear-filters": "Clear Filters",
       "all-status": "All Status",
-      "showing-results": "Showing {{start}}-{{end}} of {{total}} users"
+      "create-new-user": "Create New User"
     },
     "profile": {
       "title": "Personal Information",

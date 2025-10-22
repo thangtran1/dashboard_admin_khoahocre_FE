@@ -11,6 +11,9 @@ import DatabaseManagement from "@/pages/management/database";
 
 // Lazy load components
 const ManagementUserPage = lazy(() => import("@/pages/management/user"));
+const CreatedNewUserPage = lazy(
+  () => import("@/pages/management/user/created-new-user")
+);
 
 const management: AppRouteObject = {
   order: 2,
@@ -42,6 +45,19 @@ const management: AppRouteObject = {
       meta: {
         label: "sys.menu.management-user",
         key: "/management/user",
+      },
+    },
+    {
+      path: "user/created-new-user",
+      element: (
+        <Suspense fallback={<LineLoading />}>
+          <CreatedNewUserPage />
+        </Suspense>
+      ),
+      meta: {
+        label: "sys.menu.created-new-user",
+        key: "/management/user/created-new-user",
+        hideMenu: true,
       },
     },
     {

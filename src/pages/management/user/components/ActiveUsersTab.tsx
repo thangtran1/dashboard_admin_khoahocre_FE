@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  User,
-  CreateUserReq,
-  UpdateUserReq,
-} from "@/api/services/userManagementApi";
+import { User, UpdateUserReq } from "@/api/services/userManagementApi";
 
 import { useUserManagement } from "../hooks/useUserManagement";
 import CommonUserFilters from "./CommonUserFilters";
@@ -45,11 +41,8 @@ export default function ActiveUsersTab() {
     setEditingUser(null);
   };
 
-  const handleSubmit = async (values: CreateUserReq | UpdateUserReq) => {
-    const success = await handleUpdateUser(
-      editingUser!.id,
-      values as UpdateUserReq
-    );
+  const handleSubmit = async (values: UpdateUserReq) => {
+    const success = await handleUpdateUser(editingUser!.id, values);
     if (success) {
       handleCloseModal();
     }
@@ -88,13 +81,15 @@ export default function ActiveUsersTab() {
       />
 
       {/* Modal */}
-      <UserEditModal
-        isOpen={isModalOpen}
-        editingUser={editingUser}
-        loading={loading}
-        onClose={handleCloseModal}
-        onSubmit={handleSubmit}
-      />
+      {editingUser && (
+        <UserEditModal
+          isOpen={isModalOpen}
+          editingUser={editingUser}
+          loading={loading}
+          onClose={handleCloseModal}
+          onSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 }
