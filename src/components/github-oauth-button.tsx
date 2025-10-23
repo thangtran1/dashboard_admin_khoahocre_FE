@@ -3,24 +3,24 @@ import { Icon } from "@/components/icon";
 import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 
-interface GoogleOAuthButtonProps {
+interface GitHubOAuthButtonProps {
   className?: string;
   mode?: "login" | "register";
 }
 
-export function GoogleOAuthButton({
+export function GitHubOAuthButton({
   className,
   mode = "login",
-}: GoogleOAuthButtonProps) {
+}: GitHubOAuthButtonProps) {
   const { t } = useTranslation();
-  const handleGoogleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+  const handleGitHubLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/github`;
   };
 
   const tooltipTitle =
     mode === "register"
-      ? t("sys.login.googleLoginRegister")
-      : t("sys.login.googleLoginLogin");
+      ? t("sys.login.githubLoginRegister")
+      : t("sys.login.githubLoginLogin");
   const tooltipColor = mode === "register" ? "blue" : "green";
 
   return (
@@ -34,10 +34,10 @@ export function GoogleOAuthButton({
       <Button
         variant="outline"
         type="button"
-        onClick={handleGoogleLogin}
         className={className}
+        onClick={handleGitHubLogin}
       >
-        <Icon icon="ant-design:google-circle-filled" size={24} />
+        <Icon icon="mdi:github" size={24} />
       </Button>
     </Tooltip>
   );

@@ -23,7 +23,6 @@
       "successTip": "Success Tip",
       "timeoutMessage": "Login timed out, please log in again!"
     },
-    "docs": "Document",
     "login": {
       "accountPlaceholder": "Please input username",
       "backSignIn": "Back sign in",

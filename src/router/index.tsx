@@ -11,6 +11,8 @@ import type { AppRouteObject } from "#/router";
 import ResetPassword from "@/pages/sys/login/resetPassword";
 import GoogleSuccess from "@/pages/sys/login/google-success";
 import GoogleError from "@/pages/sys/login/google-error";
+import GitHubSuccess from "@/pages/sys/login/github-success";
+import GitHubError from "@/pages/sys/login/github-error";
 import ProfilePage from "@/pages/profile";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
@@ -88,7 +90,7 @@ export default function Router() {
     ),
   };
 
-  const GOOGLE_AUTH_ROUTES: AppRouteObject[] = [
+  const AUTH_ROUTES: AppRouteObject[] = [
     {
       path: "/auth/google/success",
       element: (
@@ -102,6 +104,22 @@ export default function Router() {
       element: (
         <ErrorBoundary FallbackComponent={PageError}>
           <GoogleError />
+        </ErrorBoundary>
+      ),
+    },
+    {
+      path: "/auth/github/success",
+      element: (
+        <ErrorBoundary FallbackComponent={PageError}>
+          <GitHubSuccess />
+        </ErrorBoundary>
+      ),
+    },
+    {
+      path: "/auth/github/error",
+      element: (
+        <ErrorBoundary FallbackComponent={PageError}>
+          <GitHubError />
         </ErrorBoundary>
       ),
     },
@@ -207,7 +225,7 @@ export default function Router() {
   const routes = [
     APP_HOMEPAGE_USER,
     RESET_PASSWORD_ROUTE,
-    ...GOOGLE_AUTH_ROUTES,
+    ...AUTH_ROUTES,
     PUBLIC_ROUTE,
     PROTECTED_ROUTE,
     ERROR_ROUTE,

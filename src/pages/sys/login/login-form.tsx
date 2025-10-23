@@ -1,6 +1,6 @@
 import type { SignInReq } from "@/api/services/userApi";
-import { Icon } from "@/components/icon";
 import { GoogleOAuthButton } from "@/components/google-oauth-button";
+import { GitHubOAuthButton } from "@/components/github-oauth-button";
 import { useSignIn } from "@/store/userStore";
 import { Button } from "@/ui/button";
 import { Checkbox } from "@/ui/checkbox";
@@ -136,10 +136,8 @@ export function LoginForm({
             </span>
           </div>
           <div className="flex cursor-pointer justify-around text-2xl">
-            <Button type="button" variant="ghost" size="icon">
-              <Icon icon="mdi:github" size={24} />
-            </Button>
-            <GoogleOAuthButton />
+            <GitHubOAuthButton mode="login" />
+            <GoogleOAuthButton mode="login" />
           </div>
 
           <div className="text-center text-sm">

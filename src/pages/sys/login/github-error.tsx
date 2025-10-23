@@ -5,7 +5,7 @@ import { Button } from "@/ui/button";
 import { AlertCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export default function GoogleError() {
+export default function GitHubError() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ export default function GoogleError() {
   useEffect(() => {
     const message = searchParams.get("message");
     if (message) {
-      toast.error(t("sys.login.googleLoginErrorDescription"), {
+      toast.error(t("sys.login.githubLoginErrorDescription"), {
         closeButton: true,
       });
     } else {
-      toast.error(t("sys.login.googleLoginErrorDescription"), {
+      toast.error(t("sys.login.githubLoginErrorDescription"), {
         closeButton: true,
       });
     }
@@ -32,10 +32,10 @@ export default function GoogleError() {
       <div className="text-center max-w-md mx-auto p-6">
         <AlertCircle className="mx-auto h-12 w-12 text-destructive mb-4" />
         <h1 className="text-2xl font-bold mb-2">
-          {t("sys.login.googleLoginError")}
+          {t("sys.login.githubLoginError")}
         </h1>
         <p className="text-muted-foreground mb-6">
-          {t("sys.login.googleLoginErrorDescription")}
+          {t("sys.login.githubLoginErrorDescription")}
         </p>
         <Button onClick={handleBackToLogin} className="w-full">
           {t("sys.login.backToLogin")}

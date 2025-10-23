@@ -103,7 +103,17 @@
       "googleLoginSuccess": "Đăng nhập Google thành công!",
       "googleLoginError": "Đăng nhập Google thất bại!",
       "googleLoginProcessing": "Đang xử lý đăng nhập Google...",
-      "googleLoginErrorDescription": "Có lỗi xảy ra khi đăng nhập với Google. Vui lòng thử lại."
+      "googleLoginErrorDescription": "Có lỗi xảy ra khi đăng nhập với Google. Vui lòng thử lại.",
+
+      "githubLoginRegister": "Đăng ký với GitHub",
+      "githubLoginLogin": "Đăng nhập với GitHub",
+      "googleLoginRegister": "Đăng ký với Google",
+      "googleLoginLogin": "Đăng nhập với Google",
+      "githubLoginError": "Đăng nhập GitHub thất bại!",
+      "githubLoginErrorDescription": "Có lỗi xảy ra khi đăng nhập với GitHub. Vui lòng thử lại.",
+      "backToLogin": "Quay lại đăng nhập",
+      "githubLoginSuccess": "Đăng nhập GitHub thành công!",
+      "githubLoginProcessing": "Đang xử lý đăng nhập GitHub..."
     },
     "tab": {
       "fullscreen": "Toàn màn hình nội dung",
@@ -174,7 +184,6 @@
         "500": "500"
       }
     },
-    "docs": "Tài liệu",
     "settings": {
       "title": "Cài đặt",
       "mode": "Chế độ",
