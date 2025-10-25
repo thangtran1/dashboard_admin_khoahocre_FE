@@ -44,16 +44,28 @@ export interface UpdateUserReq {
   bio?: string;
 }
 
+export enum MaintenanceType {
+  DATABASE = 'database',
+  SYSTEM = 'system',
+  NETWORK = 'network',
+  OTHER = 'other',
+}
+export enum MaintenanceStatus {
+  SCHEDULED = 'scheduled',
+  IN_PROGRESS = 'in_progress',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled',
+}
+
 export interface QueryUserParams {
   page?: number;
   limit?: number;
   search?: string;
-  role?: string;
-  status?: string;
+  type?: MaintenanceType;
+  status?: MaintenanceStatus;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
-  isDeleted?: boolean;
-  isNewUsers?: boolean;
+  isScheduled?: boolean;
 }
 
 export interface GetUsersRes {
