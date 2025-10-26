@@ -745,8 +745,7 @@
       "confirm-update-description": "Are you sure you want to update this maintenance?",
       "update-success": "Update maintenance successfully!",
       "update-error": "Error updating maintenance",
-      "close": "Close",
-      "cancel-edit": "Cancel edit"
+      "close": "Close"
     }
   }
 }

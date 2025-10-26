@@ -73,7 +73,7 @@ export default function MaintenanceScheduledTab() {
         isOpen={isModalOpen}
         maintenance={selectedMaintenance}
         onClose={handleCloseModal}
-        onUpdate={handleUpdate}
+        // onUpdate={handleUpdate}
       />
     </div>
   );

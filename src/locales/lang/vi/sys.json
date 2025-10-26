@@ -758,8 +758,7 @@
       "confirm-update-description": "Bạn có chắc chắn muốn cập nhật bảo trì này?",
       "update-success": "Cập nhật bảo trì thành công!",
       "update-error": "Lỗi khi cập nhật bảo trì",
-      "close": "Đóng",
-      "cancel-edit": "Hủy sửa"
+      "close": "Đóng"
     }
   }
 }

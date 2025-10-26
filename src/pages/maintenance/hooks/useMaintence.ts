@@ -185,7 +185,7 @@ export function useMaintence(isScheduled: boolean = false) {
           closeButton: true,
         });
         setSelectedMaintenances([]);
-        await Promise.all([fetchMaintenances(), fetchStats()]);
+        await refreshData(); 
         return true;
       } else {
         toast.error(response.data.message);
@@ -300,8 +300,8 @@ export function useMaintence(isScheduled: boolean = false) {
     fetchMaintenances(defaultFilters);
   };
 
-  const refreshData = () => {
-    Promise.all([fetchMaintenances(), fetchStats()]);
+  const refreshData = async () => {
+    await Promise.all([fetchMaintenances(), fetchStats()]);
   };
 
   // ========== EFFECTS ==========

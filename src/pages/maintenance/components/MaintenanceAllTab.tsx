@@ -82,7 +82,7 @@ export default function MaintenanceAllTab() {
         isOpen={isModalOpen}
         maintenance={selectedMaintenance}
         onClose={handleCloseModal}
-        onUpdate={handleUpdate}
+        // onUpdate={handleUpdate}
       />
     </div>
   );

@@ -331,7 +331,7 @@ export default function MaintenanceTable({
         <span className="font-semibold">{t("sys.maintenance.status")}</span>
       ),
       key: "status",
-      width: 150,
+      width: 120,
       render: (_: React.ReactNode, maintenance: Maintenance) => {
         const statusConfig = getStatusConfig(maintenance.status);
         return (
@@ -350,7 +350,7 @@ export default function MaintenanceTable({
         <span className="font-semibold">{t("sys.maintenance.schedule")}</span>
       ),
       key: "time",
-      width: 240,
+      width: 150,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
         <div className="text-sm space-y-1">
           <div className="flex items-center gap-2">

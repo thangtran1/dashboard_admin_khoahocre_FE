@@ -4,7 +4,6 @@ import { Card, CardContent, CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
 import { MaintenanceTabKey, useMaintenceTabs } from "./hooks/useMaintenceTabs";
 import { useMaintence } from "./hooks/useMaintence";
 import MaintenanceAllTab from "./components/MaintenanceAllTab";
@@ -16,12 +15,6 @@ export default function MaintenceSystemPage() {
   const { activeTab, handleTabChange } = useMaintenceTabs();
 
   const { stats, refreshData, loading } = useMaintence(false);
-
-  // Auto refresh stats every 1 second
-  useEffect(() => {
-    const interval = setInterval(refreshData, 1000);
-    return () => clearInterval(interval);
-  }, [refreshData]);
 
   const tabItems = [
     {
