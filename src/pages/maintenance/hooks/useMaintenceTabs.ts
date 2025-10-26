@@ -8,12 +8,9 @@ export function useMaintenceTabs() {
 
   const getInitialTab = (): MaintenanceTabKey => {
     const tabParam = searchParams.get("tab");
-    const isScheduledParam = searchParams.get("isScheduled");
 
     if (tabParam === "all") return "all";
     if (tabParam === "scheduled") return "scheduled";
-
-    if (isScheduledParam === "true") return "scheduled";
 
     return "all";
   };
@@ -33,22 +30,14 @@ export function useMaintenceTabs() {
     }
   }, []);
 
-  const updateTabInUrl = (tab: MaintenanceTabKey) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("tab", tab);
-
-    if (tab === "scheduled") {
-      params.set("isScheduled", "true");
-    } else {
-      params.delete("isScheduled");
-    }
-
-    setSearchParams(params);
-  };
-
   const handleTabChange = (tab: MaintenanceTabKey) => {
     setActiveTab(tab);
-    updateTabInUrl(tab);
+    // Clear search params except tab when changing tabs
+    const params = new URLSearchParams();
+    params.set("tab", tab);
+    params.set("page", "1");
+    params.set("limit", "10");
+    setSearchParams(params);
   };
 
   useEffect(() => {
@@ -56,7 +45,7 @@ export function useMaintenceTabs() {
     if (newTab !== activeTab) {
       setActiveTab(newTab);
     }
-  }, [searchParams.get("tab"), searchParams.get("isScheduled"), activeTab]);
+  }, [searchParams.get("tab"), activeTab]);
 
   return {
     activeTab,

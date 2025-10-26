@@ -45,6 +45,7 @@ export default function MaintenanceScheduledTab() {
         filters={filters}
         onFilterChange={handleFilterChange}
         onClearFilters={handleClearFilters}
+        isScheduledTab={true}
       />
 
       <MaintenanceActionBar

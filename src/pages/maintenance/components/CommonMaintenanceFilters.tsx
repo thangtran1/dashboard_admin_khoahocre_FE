@@ -11,12 +11,14 @@ interface CommonMaintenanceFiltersProps {
   filters: MaintenanceFilter;
   onFilterChange: (key: keyof MaintenanceFilter, value: any) => void;
   onClearFilters: () => void;
+  isScheduledTab?: boolean;
 }
 
 export default function CommonMaintenanceFilters({
   filters,
   onFilterChange,
   onClearFilters,
+  isScheduledTab = false,
 }: CommonMaintenanceFiltersProps) {
   const { t } = useTranslation();
 
@@ -73,21 +75,36 @@ export default function CommonMaintenanceFilters({
           <Select
             size="large"
             placeholder={t("sys.maintenance.all-status")}
-            value={filters.status || undefined}
-            onChange={(value) => onFilterChange("status", value)}
-            allowClear
+            value={
+              isScheduledTab
+                ? MaintenanceStatus.SCHEDULED
+                : filters.status || undefined
+            }
+            onChange={(value) =>
+              !isScheduledTab && onFilterChange("status", value)
+            }
+            allowClear={!isScheduledTab}
             className="w-full"
           >
             <Select.Option value={MaintenanceStatus.SCHEDULED}>
               {t("sys.maintenance.status-scheduled")}
             </Select.Option>
-            <Select.Option value={MaintenanceStatus.IN_PROGRESS}>
+            <Select.Option
+              value={MaintenanceStatus.IN_PROGRESS}
+              disabled={isScheduledTab}
+            >
               {t("sys.maintenance.status-in-progress")}
             </Select.Option>
-            <Select.Option value={MaintenanceStatus.COMPLETED}>
+            <Select.Option
+              value={MaintenanceStatus.COMPLETED}
+              disabled={isScheduledTab}
+            >
               {t("sys.maintenance.status-completed")}
             </Select.Option>
-            <Select.Option value={MaintenanceStatus.CANCELLED}>
+            <Select.Option
+              value={MaintenanceStatus.CANCELLED}
+              disabled={isScheduledTab}
+            >
               {t("sys.maintenance.status-cancelled")}
             </Select.Option>
           </Select>

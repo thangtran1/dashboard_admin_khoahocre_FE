@@ -50,6 +50,7 @@ export default function MaintenanceAllTab() {
         filters={filters}
         onFilterChange={handleFilterChange}
         onClearFilters={handleClearFilters}
+        isScheduledTab={false}
       />
 
       {/* Action Bar */}
