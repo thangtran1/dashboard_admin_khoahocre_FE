@@ -18,7 +18,9 @@ export function useMaintenceTabs() {
     return "all";
   };
 
-  const [activeTab, setActiveTab] = useState<MaintenanceTabKey>(getInitialTab());
+  const [activeTab, setActiveTab] = useState<MaintenanceTabKey>(
+    getInitialTab()
+  );
 
   useEffect(() => {
     const currentTab = getInitialTab();
@@ -54,11 +56,7 @@ export function useMaintenceTabs() {
     if (newTab !== activeTab) {
       setActiveTab(newTab);
     }
-  }, [
-    searchParams.get("tab"),
-    searchParams.get("isScheduled"),
-    activeTab,
-  ]);
+  }, [searchParams.get("tab"), searchParams.get("isScheduled"), activeTab]);
 
   return {
     activeTab,

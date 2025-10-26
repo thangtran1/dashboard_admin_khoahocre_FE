@@ -4,6 +4,7 @@ import { Card, CardContent, CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 import { MaintenanceTabKey, useMaintenceTabs } from "./hooks/useMaintenceTabs";
 import { useMaintence } from "./hooks/useMaintence";
 import MaintenanceAllTab from "./components/MaintenanceAllTab";
@@ -15,6 +16,12 @@ export default function MaintenceSystemPage() {
   const { activeTab, handleTabChange } = useMaintenceTabs();
 
   const { stats, refreshData, loading } = useMaintence(false);
+
+  // Auto refresh stats every 1 second
+  useEffect(() => {
+    const interval = setInterval(refreshData, 1000);
+    return () => clearInterval(interval);
+  }, [refreshData]);
 
   const tabItems = [
     {
@@ -112,7 +119,10 @@ export default function MaintenceSystemPage() {
                   </p>
                 </div>
                 <div className="p-2 bg-cyan-500 rounded-full">
-                  <Icon icon="lucide:calendar-clock" className="h-5 w-5 text-white" />
+                  <Icon
+                    icon="lucide:calendar-clock"
+                    className="h-5 w-5 text-white"
+                  />
                 </div>
               </div>
             </CardContent>
@@ -148,7 +158,10 @@ export default function MaintenceSystemPage() {
                   </p>
                 </div>
                 <div className="p-2 bg-green-500 rounded-full">
-                  <Icon icon="lucide:check-circle" className="h-5 w-5 text-white" />
+                  <Icon
+                    icon="lucide:check-circle"
+                    className="h-5 w-5 text-white"
+                  />
                 </div>
               </div>
             </CardContent>
@@ -166,7 +179,10 @@ export default function MaintenceSystemPage() {
                   </p>
                 </div>
                 <div className="p-2 bg-purple-500 rounded-full">
-                  <Icon icon="lucide:plus-circle" className="h-5 w-5 text-white" />
+                  <Icon
+                    icon="lucide:plus-circle"
+                    className="h-5 w-5 text-white"
+                  />
                 </div>
               </div>
             </CardContent>
@@ -176,9 +192,7 @@ export default function MaintenceSystemPage() {
         {/* Tabs */}
         <Tabs
           activeKey={activeTab}
-          onChange={(key) =>
-            handleTabChange(key as MaintenanceTabKey)
-          }
+          onChange={(key) => handleTabChange(key as MaintenanceTabKey)}
           items={tabItems}
           size="large"
           className="maintenance-tabs"

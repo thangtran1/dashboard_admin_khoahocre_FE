@@ -25,20 +25,26 @@ export function useMaintence(isScheduled: boolean = false) {
 
   const [maintenances, setMaintenances] = useState<Maintenance[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedMaintenances, setSelectedMaintenances] = useState<string[]>([]);
+  const [selectedMaintenances, setSelectedMaintenances] = useState<string[]>(
+    []
+  );
 
   // Get initial filters from URL params
   const getInitialFilters = (): MaintenanceFilter => ({
     page: parseInt(searchParams.get("page") || "1", 10),
     limit: parseInt(searchParams.get("limit") || "10", 10),
     title: searchParams.get("title") || undefined,
-    type: searchParams.get("type") as any || undefined,
-    status: isScheduled ? MaintenanceStatus.SCHEDULED : (searchParams.get("status") as any || undefined),
+    type: (searchParams.get("type") as any) || undefined,
+    status: isScheduled
+      ? MaintenanceStatus.SCHEDULED
+      : (searchParams.get("status") as any) || undefined,
     from: searchParams.get("from") || undefined,
     to: searchParams.get("to") || undefined,
   });
 
-  const [filters, setFilters] = useState<MaintenanceFilter>(getInitialFilters());
+  const [filters, setFilters] = useState<MaintenanceFilter>(
+    getInitialFilters()
+  );
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -104,14 +110,20 @@ export function useMaintence(isScheduled: boolean = false) {
         const all = response.data.data;
         const now = new Date();
         const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-        
+
         setStats({
           total: all.length,
-          scheduled: all.filter(m => m.status === MaintenanceStatus.SCHEDULED).length,
-          inProgress: all.filter(m => m.status === MaintenanceStatus.IN_PROGRESS).length,
-          completed: all.filter(m => m.status === MaintenanceStatus.COMPLETED).length,
-          cancelled: all.filter(m => m.status === MaintenanceStatus.CANCELLED).length,
-          newThisMonth: all.filter(m => new Date(m.createdAt) >= thisMonth).length,
+          scheduled: all.filter((m) => m.status === MaintenanceStatus.SCHEDULED)
+            .length,
+          inProgress: all.filter(
+            (m) => m.status === MaintenanceStatus.IN_PROGRESS
+          ).length,
+          completed: all.filter((m) => m.status === MaintenanceStatus.COMPLETED)
+            .length,
+          cancelled: all.filter((m) => m.status === MaintenanceStatus.CANCELLED)
+            .length,
+          newThisMonth: all.filter((m) => new Date(m.createdAt) >= thisMonth)
+            .length,
         });
       }
     } catch (error) {
@@ -142,15 +154,20 @@ export function useMaintence(isScheduled: boolean = false) {
   const handleUpdate = async (id: string, values: UpdateMaintenanceDto) => {
     try {
       setLoading(true);
-      await maintenanceApi.update(id, values);
-
-      toast.success(t("sys.maintenance.update-success"), {
-        closeButton: true,
-      });
-      await Promise.all([fetchMaintenances(), fetchStats()]);
-      return true;
+      const response = await maintenanceApi.update(id, values);
+      if (response.data.success) {
+        toast.success(t("sys.maintenance.update-success"), {
+          closeButton: true,
+        });
+        await Promise.all([fetchMaintenances(), fetchStats()]);
+        return true;
+      } else {
+        toast.error(response.data.message);
+        return false;
+      }
     } catch (error) {
       console.error("❌ updateMaintenance ~ error:", error);
+      toast.error(t("sys.maintenance.update-error"));
       return false;
     } finally {
       setLoading(false);
@@ -185,7 +202,7 @@ export function useMaintence(isScheduled: boolean = false) {
     try {
       setLoading(true);
       await maintenanceApi.startNow(id);
-      
+
       toast.success(t("sys.maintenance.start-success"), {
         closeButton: true,
       });
@@ -202,7 +219,7 @@ export function useMaintence(isScheduled: boolean = false) {
     try {
       setLoading(true);
       await maintenanceApi.stop(id);
-      
+
       toast.success(t("sys.maintenance.stop-success"), {
         closeButton: true,
       });
@@ -219,7 +236,7 @@ export function useMaintence(isScheduled: boolean = false) {
     try {
       setLoading(true);
       await maintenanceApi.cancel(id);
-      
+
       toast.success(t("sys.maintenance.cancel-success"), {
         closeButton: true,
       });

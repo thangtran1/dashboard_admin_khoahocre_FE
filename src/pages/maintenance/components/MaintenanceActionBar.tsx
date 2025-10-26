@@ -1,8 +1,5 @@
 import { Button, Space, Popconfirm } from "antd";
-import {
-  DeleteOutlined,
-  InfoCircleOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
 interface MaintenanceActionBarProps {
@@ -41,9 +38,12 @@ export default function MaintenanceActionBar({
           {(tabType === "all" || tabType === "scheduled") && (
             <Popconfirm
               title={t("sys.maintenance.confirm-delete")}
-              description={t("sys.maintenance.confirm-delete-many-description", {
-                count: selectedMaintenances.length,
-              })}
+              description={t(
+                "sys.maintenance.confirm-delete-many-description",
+                {
+                  count: selectedMaintenances.length,
+                }
+              )}
               onConfirm={onDeleteMany}
               okText={t("sys.maintenance.delete")}
               cancelText={t("sys.maintenance.cancel-action")}

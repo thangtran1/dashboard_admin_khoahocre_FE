@@ -13,11 +13,19 @@ import {
   PlayCircleOutlined,
   CloseCircleOutlined,
   EyeOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { Maintenance, MaintenanceType } from "@/api/services/maintenanceApi";
+import {
+  Maintenance,
+  MaintenanceType,
+  MaintenanceStatus,
+  UpdateMaintenanceDto,
+} from "@/api/services/maintenanceApi";
+import MaintenanceModal from "./MaintenanceModal";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
+import { useState } from "react";
 
 interface MaintenanceScheduledTableProps {
   maintenances: Maintenance[];
@@ -35,6 +43,7 @@ interface MaintenanceScheduledTableProps {
   onStartNow: (id: string) => void;
   onCancel: (id: string) => void;
   onPageChange: (page: number, pageSize?: number) => void;
+  onUpdate: (id: string, values: UpdateMaintenanceDto) => Promise<boolean>;
 }
 
 export default function MaintenanceScheduledTable({
@@ -48,7 +57,10 @@ export default function MaintenanceScheduledTable({
   onStartNow,
   onCancel,
   onPageChange,
+  onUpdate,
 }: MaintenanceScheduledTableProps) {
+  const [editingMaintenance, setEditingMaintenance] =
+    useState<Maintenance | null>(null);
   const { t } = useTranslation();
   const getTypeColor = (type: MaintenanceType) => {
     switch (type) {
@@ -69,9 +81,13 @@ export default function MaintenanceScheduledTable({
     {
       title: (
         <Checkbox
-          checked={selectedMaintenances.length === maintenances.length && maintenances.length > 0}
+          checked={
+            selectedMaintenances.length === maintenances.length &&
+            maintenances.length > 0
+          }
           indeterminate={
-            selectedMaintenances.length > 0 && selectedMaintenances.length < maintenances.length
+            selectedMaintenances.length > 0 &&
+            selectedMaintenances.length < maintenances.length
           }
           onChange={(e) => onSelectAll(e.target.checked)}
         />
@@ -107,7 +123,9 @@ export default function MaintenanceScheduledTable({
       key: "type",
       width: 120,
       render: (type: MaintenanceType) => (
-        <Tag color={getTypeColor(type)}>{t(`sys.maintenance.type-${type}`)}</Tag>
+        <Tag color={getTypeColor(type)}>
+          {t(`sys.maintenance.type-${type}`)}
+        </Tag>
       ),
     },
     {
@@ -116,13 +134,20 @@ export default function MaintenanceScheduledTable({
       key: "startTime",
       width: 180,
       render: (startTime: string, record: Maintenance) => (
-        <Tooltip title={`${new Date(startTime).toLocaleString("vi-VN")} - ${new Date(record.endTime).toLocaleString("vi-VN")}`}>
+        <Tooltip
+          title={`${new Date(startTime).toLocaleString("vi-VN")} - ${new Date(
+            record.endTime
+          ).toLocaleString("vi-VN")}`}
+        >
           <div className="flex items-center gap-1 text-sm">
             <CalendarOutlined className="text-muted-foreground" />
             <div>
               <div>{new Date(startTime).toLocaleDateString("vi-VN")}</div>
               <div className="text-xs text-muted-foreground">
-                {new Date(startTime).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}
+                {new Date(startTime).toLocaleTimeString("vi-VN", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </div>
             </div>
           </div>
@@ -134,11 +159,16 @@ export default function MaintenanceScheduledTable({
       key: "duration",
       width: 100,
       render: (_: any, record: Maintenance) => {
-        const duration = record.duration || 
-          (new Date(record.endTime).getTime() - new Date(record.startTime).getTime()) / (1000 * 60);
+        const duration =
+          record.duration ||
+          (new Date(record.endTime).getTime() -
+            new Date(record.startTime).getTime()) /
+            (1000 * 60);
         return (
           <div className="text-sm">
-            {duration > 60 ? `${Math.round(duration / 60)}h` : `${Math.round(duration)}m`}
+            {duration > 60
+              ? `${Math.round(duration / 60)}h`
+              : `${Math.round(duration)}m`}
           </div>
         );
       },
@@ -174,6 +204,18 @@ export default function MaintenanceScheduledTable({
               className="text-blue-600 hover:bg-blue-50"
             />
           </Tooltip>
+
+          {record.status === MaintenanceStatus.SCHEDULED && (
+            <Tooltip title={t("sys.maintenance.edit")}>
+              <Button
+                type="text"
+                size="small"
+                icon={<EditOutlined />}
+                onClick={() => setEditingMaintenance(record)}
+                className="text-yellow-600 hover:bg-yellow-50"
+              />
+            </Tooltip>
+          )}
 
           <Tooltip title={t("sys.maintenance.start-now")}>
             <Popconfirm
@@ -245,6 +287,14 @@ export default function MaintenanceScheduledTable({
           }
         />
       </div>
+
+      {/* Edit Modal */}
+      <MaintenanceModal
+        isOpen={!!editingMaintenance}
+        maintenance={editingMaintenance}
+        onClose={() => setEditingMaintenance(null)}
+        onUpdate={onUpdate}
+      />
     </div>
   );
 }

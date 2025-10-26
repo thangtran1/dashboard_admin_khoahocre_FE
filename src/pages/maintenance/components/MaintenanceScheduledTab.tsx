@@ -5,7 +5,7 @@ import { useMaintence } from "../hooks/useMaintence";
 import CommonMaintenanceFilters from "./CommonMaintenanceFilters";
 import MaintenanceScheduledTable from "./MaintenanceScheduledTable";
 import MaintenanceActionBar from "./MaintenanceActionBar";
-import MaintenanceDetailModal from "./MaintenanceDetailModal";
+import MaintenanceModal from "./MaintenanceModal";
 
 export default function MaintenanceScheduledTab() {
   const {
@@ -22,18 +22,20 @@ export default function MaintenanceScheduledTab() {
     handleSelectMaintenance,
     handleSelectAll,
     handleClearFilters,
+    handleUpdate,
   } = useMaintence(true); // true = scheduled only
 
-  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [selectedMaintenance, setSelectedMaintenance] = useState<Maintenance | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMaintenance, setSelectedMaintenance] =
+    useState<Maintenance | null>(null);
 
   const handleDetail = (maintenance: Maintenance) => {
     setSelectedMaintenance(maintenance);
-    setIsDetailModalOpen(true);
+    setIsModalOpen(true);
   };
 
-  const handleCloseDetailModal = () => {
-    setIsDetailModalOpen(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
     setSelectedMaintenance(null);
   };
 
@@ -62,13 +64,15 @@ export default function MaintenanceScheduledTab() {
         onStartNow={handleStartNow}
         onCancel={handleCancel}
         onPageChange={handlePageChange}
+        onUpdate={handleUpdate}
       />
 
       {/* Detail Modal */}
-      <MaintenanceDetailModal
-        isOpen={isDetailModalOpen}
+      <MaintenanceModal
+        isOpen={isModalOpen}
         maintenance={selectedMaintenance}
-        onClose={handleCloseDetailModal}
+        onClose={handleCloseModal}
+        onUpdate={handleUpdate}
       />
     </div>
   );

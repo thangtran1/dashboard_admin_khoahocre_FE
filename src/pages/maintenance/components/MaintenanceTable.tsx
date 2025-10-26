@@ -16,12 +16,20 @@ import {
   EyeOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { Maintenance, MaintenanceStatus, MaintenanceType } from "@/api/services/maintenanceApi";
+import {
+  Maintenance,
+  MaintenanceStatus,
+  MaintenanceType,
+  UpdateMaintenanceDto,
+} from "@/api/services/maintenanceApi";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 import { Icon } from "@/components/icon";
+import { useState } from "react";
+import MaintenanceModal from "./MaintenanceModal";
 
 interface MaintenanceTableProps {
   maintenances: Maintenance[];
@@ -41,6 +49,7 @@ interface MaintenanceTableProps {
   onStop: (id: string) => void;
   onCancel: (id: string) => void;
   onPageChange: (page: number, pageSize?: number) => void;
+  onUpdate: (id: string, values: UpdateMaintenanceDto) => Promise<boolean>;
 }
 
 export default function MaintenanceTable({
@@ -56,38 +65,41 @@ export default function MaintenanceTable({
   onStop,
   onCancel,
   onPageChange,
+  onUpdate,
 }: MaintenanceTableProps) {
+  const [editingMaintenance, setEditingMaintenance] =
+    useState<Maintenance | null>(null);
   const { t } = useTranslation();
 
   const getStatusConfig = (status: MaintenanceStatus) => {
     switch (status) {
       case MaintenanceStatus.SCHEDULED:
-        return { 
-          color: "blue", 
+        return {
+          color: "blue",
           icon: "lucide:calendar-clock",
           textClass: "text-blue-700",
         };
       case MaintenanceStatus.IN_PROGRESS:
-        return { 
-          color: "orange", 
+        return {
+          color: "orange",
           icon: "lucide:settings",
           textClass: "text-orange-700",
         };
       case MaintenanceStatus.COMPLETED:
-        return { 
-          color: "green", 
+        return {
+          color: "green",
           icon: "lucide:check-circle",
           textClass: "text-green-700",
         };
       case MaintenanceStatus.CANCELLED:
-        return { 
-          color: "red", 
+        return {
+          color: "red",
           icon: "lucide:x-circle",
           textClass: "text-red-700",
         };
       default:
-        return { 
-          color: "default", 
+        return {
+          color: "default",
           icon: "lucide:circle",
           textClass: "text-gray-700",
         };
@@ -160,9 +172,19 @@ export default function MaintenanceTable({
                 />
               </Popconfirm>
             </Tooltip>
+
+            <Tooltip title={t("sys.maintenance.edit")}>
+              <Button
+                type="text"
+                size="small"
+                icon={<EditOutlined />}
+                onClick={() => setEditingMaintenance(maintenance)}
+                className="text-yellow-600 hover:bg-yellow-50"
+              />
+            </Tooltip>
           </>
         )}
-  
+
         {status === MaintenanceStatus.IN_PROGRESS && (
           <>
             <Tooltip title={t("sys.maintenance.stop")}>
@@ -185,7 +207,8 @@ export default function MaintenanceTable({
           </>
         )}
 
-        {(status === MaintenanceStatus.COMPLETED || status === MaintenanceStatus.CANCELLED) && (
+        {(status === MaintenanceStatus.COMPLETED ||
+          status === MaintenanceStatus.CANCELLED) && (
           <Popconfirm
             title={t("sys.maintenance.confirm-delete")}
             description={t("sys.maintenance.confirm-delete-description")}
@@ -213,9 +236,13 @@ export default function MaintenanceTable({
     {
       title: (
         <Checkbox
-          checked={selectedMaintenances.length === maintenances.length && maintenances.length > 0}
+          checked={
+            selectedMaintenances.length === maintenances.length &&
+            maintenances.length > 0
+          }
           indeterminate={
-            selectedMaintenances.length > 0 && selectedMaintenances.length < maintenances.length
+            selectedMaintenances.length > 0 &&
+            selectedMaintenances.length < maintenances.length
           }
           onChange={(e) => onSelectAll(e.target.checked)}
         />
@@ -226,12 +253,18 @@ export default function MaintenanceTable({
       render: (_: React.ReactNode, maintenance: Maintenance) => (
         <Checkbox
           checked={selectedMaintenances.includes(maintenance._id)}
-          onChange={(e) => onSelectMaintenance(maintenance._id, e.target.checked)}
+          onChange={(e) =>
+            onSelectMaintenance(maintenance._id, e.target.checked)
+          }
         />
       ),
     },
     {
-      title: <span className="font-semibold">{t("sys.maintenance.maintenance-info")}</span>,
+      title: (
+        <span className="font-semibold">
+          {t("sys.maintenance.maintenance-info")}
+        </span>
+      ),
       key: "info",
       width: 300,
       fixed: "left" as const,
@@ -241,7 +274,10 @@ export default function MaintenanceTable({
           <div className="py-2">
             <div className="flex items-start gap-3">
               <div className={`p-2 rounded-lg bg-muted border border-border`}>
-                <Icon icon={statusConfig.icon} className={`h-5 w-5  ${statusConfig.textClass}`} />
+                <Icon
+                  icon={statusConfig.icon}
+                  className={`h-5 w-5  ${statusConfig.textClass}`}
+                />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="font-semibold text-foreground text-base mb-1 line-clamp-1">
@@ -254,9 +290,14 @@ export default function MaintenanceTable({
                 )}
                 <div className="flex items-center gap-2 flex-wrap">
                   {maintenance.isActive && (
-                    <Badge status="processing" text={
-                      <span className="text-xs font-medium">{t("sys.maintenance.active")}</span>
-                    } />
+                    <Badge
+                      status="processing"
+                      text={
+                        <span className="text-xs font-medium">
+                          {t("sys.maintenance.active")}
+                        </span>
+                      }
+                    />
                   )}
                   {maintenance.autoAdjusted && (
                     <Tag color="blue" className="text-xs">
@@ -286,13 +327,18 @@ export default function MaintenanceTable({
       },
     },
     {
-      title: <span className="font-semibold">{t("sys.maintenance.status")}</span>,
+      title: (
+        <span className="font-semibold">{t("sys.maintenance.status")}</span>
+      ),
       key: "status",
       width: 150,
       render: (_: React.ReactNode, maintenance: Maintenance) => {
         const statusConfig = getStatusConfig(maintenance.status);
         return (
-          <Tag color={statusConfig.color} className="font-medium text-xs px-3 py-1">
+          <Tag
+            color={statusConfig.color}
+            className="font-medium text-xs px-3 py-1"
+          >
             <Icon icon={statusConfig.icon} className="h-3 w-3 inline mr-1" />
             {t(`sys.maintenance.status-${maintenance.status}`)}
           </Tag>
@@ -300,7 +346,9 @@ export default function MaintenanceTable({
       },
     },
     {
-      title: <span className="font-semibold">{t("sys.maintenance.schedule")}</span>,
+      title: (
+        <span className="font-semibold">{t("sys.maintenance.schedule")}</span>
+      ),
       key: "time",
       width: 240,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
@@ -313,11 +361,11 @@ export default function MaintenanceTable({
                 month: "2-digit",
                 year: "numeric",
                 hour: "2-digit",
-                minute: "2-digit"
+                minute: "2-digit",
               })}
             </span>
           </div>
-    
+
           <div className="flex items-center gap-2">
             <ClockCircleOutlined className="text-red-600" />
             <span className="font-medium text-red-700">
@@ -326,28 +374,39 @@ export default function MaintenanceTable({
                 month: "2-digit",
                 year: "numeric",
                 hour: "2-digit",
-                minute: "2-digit"
+                minute: "2-digit",
               })}
             </span>
           </div>
-    
+
           <div className="text-xs text-muted-foreground flex items-center gap-1">
             <Icon icon="lucide:clock" className="h-3 w-3" />
             {maintenance.duration
-              ? `${maintenance.duration > 60 ? Math.round(maintenance.duration / 60) + ' giờ' : Math.round(maintenance.duration) + ' phút'}`
-              : `${Math.round((new Date(maintenance.endTime).getTime() - new Date(maintenance.startTime).getTime()) / (1000 * 60))} phút`
-            }
+              ? `${
+                  maintenance.duration > 60
+                    ? Math.round(maintenance.duration / 60) + " giờ"
+                    : Math.round(maintenance.duration) + " phút"
+                }`
+              : `${Math.round(
+                  (new Date(maintenance.endTime).getTime() -
+                    new Date(maintenance.startTime).getTime()) /
+                    (1000 * 60)
+                )} phút`}
           </div>
         </div>
       ),
     },
-    
+
     {
-      title: <span className="font-semibold">{t("sys.maintenance.created-at")}</span>,
+      title: (
+        <span className="font-semibold">{t("sys.maintenance.created-at")}</span>
+      ),
       key: "createdAt",
       width: 120,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
-        <Tooltip title={new Date(maintenance.createdAt).toLocaleString("vi-VN")}>
+        <Tooltip
+          title={new Date(maintenance.createdAt).toLocaleString("vi-VN")}
+        >
           <div className="text-sm">
             <div className="text-muted-foreground">
               {formatDistanceToNow(new Date(maintenance.createdAt), {
@@ -363,20 +422,28 @@ export default function MaintenanceTable({
       ),
     },
     {
-      title: <span className="font-semibold text-center block">{t("sys.maintenance.actions")}</span>,
+      title: (
+        <span className="font-semibold text-center block">
+          {t("sys.maintenance.actions")}
+        </span>
+      ),
       key: "actions",
       width: 120,
       fixed: "right" as const,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
-        <div className="flex justify-center">
-          {renderActions(maintenance)}
-        </div>
+        <div className="flex justify-center">{renderActions(maintenance)}</div>
       ),
     },
   ];
 
   return (
     <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
+      <MaintenanceModal
+        isOpen={!!editingMaintenance}
+        maintenance={editingMaintenance}
+        onClose={() => setEditingMaintenance(null)}
+        onUpdate={onUpdate}
+      />
       <Table
         columns={columns}
         dataSource={maintenances}
@@ -389,10 +456,12 @@ export default function MaintenanceTable({
           showSizeChanger: true,
           showQuickJumper: true,
           showTotal: (total, range) =>
-            `${range[0]}-${range[1]} ${t("sys.maintenance.of")} ${total} ${t("sys.maintenance.items")}`,
+            `${range[0]}-${range[1]} ${t("sys.maintenance.of")} ${total} ${t(
+              "sys.maintenance.items"
+            )}`,
           onChange: onPageChange,
           onShowSizeChange: onPageChange,
-          pageSizeOptions: ['10', '20', '50', '100'],
+          pageSizeOptions: ["10", "20", "50", "100"],
           className: "px-4 py-4",
         }}
         scroll={{ x: 1400, y: 600 }}
@@ -403,7 +472,10 @@ export default function MaintenanceTable({
         locale={{
           emptyText: (
             <div className="py-16">
-              <Icon icon="lucide:inbox" className="h-16 w-16 mx-auto text-muted-foreground/50 mb-4" />
+              <Icon
+                icon="lucide:inbox"
+                className="h-16 w-16 mx-auto text-muted-foreground/50 mb-4"
+              />
               <p className="text-base font-medium text-muted-foreground">
                 {t("sys.maintenance.no-data")}
               </p>

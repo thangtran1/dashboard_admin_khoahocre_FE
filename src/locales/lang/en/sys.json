@@ -149,7 +149,6 @@
         "index": "Menu Level"
       },
       "scroll": "Scroll",
-    
       "toast": "Toast",
       "token_expired": "Token Expired",
       "upload": "Upload",
@@ -739,7 +738,15 @@
       "stop-success": "Stop maintenance successfully!",
       "confirm-delete-many-description": "Are you sure you want to delete {{count}} maintenance?",
       "selected-count": "Selected {{count}} maintenance",
-      "title-min-length": "Title must be at least 3 characters"
+      "title-min-length": "Title must be at least 3 characters",
+      "edit": "Edit",
+      "update": "Update",
+      "confirm-update": "Confirm Update",
+      "confirm-update-description": "Are you sure you want to update this maintenance?",
+      "update-success": "Update maintenance successfully!",
+      "update-error": "Error updating maintenance",
+      "close": "Close",
+      "cancel-edit": "Cancel edit"
     }
   }
 }

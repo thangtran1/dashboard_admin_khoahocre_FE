@@ -45,16 +45,16 @@ export interface UpdateUserReq {
 }
 
 export enum MaintenanceType {
-  DATABASE = 'database',
-  SYSTEM = 'system',
-  NETWORK = 'network',
-  OTHER = 'other',
+  DATABASE = "database",
+  SYSTEM = "system",
+  NETWORK = "network",
+  OTHER = "other",
 }
 export enum MaintenanceStatus {
-  SCHEDULED = 'scheduled',
-  IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed',
-  CANCELLED = 'cancelled',
+  SCHEDULED = "scheduled",
+  IN_PROGRESS = "in_progress",
+  COMPLETED = "completed",
+  CANCELLED = "cancelled",
 }
 
 export interface QueryUserParams {

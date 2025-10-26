@@ -5,7 +5,7 @@ import { useMaintence } from "../hooks/useMaintence";
 import MaintenanceActionBar from "./MaintenanceActionBar";
 import MaintenanceTable from "./MaintenanceTable";
 import CommonMaintenanceFilters from "./CommonMaintenanceFilters";
-import MaintenanceDetailModal from "./MaintenanceDetailModal";
+import MaintenanceModal from "./MaintenanceModal";
 
 export default function MaintenanceAllTab() {
   const {
@@ -21,23 +21,25 @@ export default function MaintenanceAllTab() {
     handleDeleteMany,
     handleFilterChange,
     handlePageChange,
+    handleUpdate,
     handleSelectMaintenance,
     handleSelectAll,
     handleClearFilters,
   } = useMaintence(false); // false = all maintenances
 
-  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [selectedMaintenance, setSelectedMaintenance] = useState<Maintenance | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMaintenance, setSelectedMaintenance] =
+    useState<Maintenance | null>(null);
 
   // ========== MODAL HANDLERS ==========
 
   const handleDetail = (maintenance: Maintenance) => {
     setSelectedMaintenance(maintenance);
-    setIsDetailModalOpen(true);
+    setIsModalOpen(true);
   };
 
-  const handleCloseDetailModal = () => {
-    setIsDetailModalOpen(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
     setSelectedMaintenance(null);
   };
 
@@ -71,13 +73,15 @@ export default function MaintenanceAllTab() {
         onStop={handleStop}
         onCancel={handleCancel}
         onPageChange={handlePageChange}
+        onUpdate={handleUpdate}
       />
 
       {/* Detail Modal */}
-      <MaintenanceDetailModal
-        isOpen={isDetailModalOpen}
+      <MaintenanceModal
+        isOpen={isModalOpen}
         maintenance={selectedMaintenance}
-        onClose={handleCloseDetailModal}
+        onClose={handleCloseModal}
+        onUpdate={handleUpdate}
       />
     </div>
   );

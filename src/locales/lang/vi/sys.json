@@ -684,7 +684,7 @@
       "status-active": "Hoạt động",
       "time-range": "Khoảng thời gian",
       "created-maintenance": "Tạo Bảo trì Mới",
-      "cancel": "Hủy Bảo trì",
+      "cancel": "Hủy",
       "description-placeholder": "Nhập mô tả bảo trì...",
       "title-placeholder": "Nhập tiêu đề bảo trì...",
       "title-required": "Vui lòng nhập tiêu đề bảo trì!",
@@ -751,7 +751,15 @@
       "stop-success": "Dừng bảo trì thành công!",
       "confirm-delete-many-description": "Bạn có chắc chắn muốn xóa {{count}} bảo trì này?",
       "selected-count": "Đã chọn {{count}} bảo trì",
-      "title-min-length": "Tiêu đề phải có ít nhất 3 ký tự"
+      "title-min-length": "Tiêu đề phải có ít nhất 3 ký tự",
+      "edit": "Sửa",
+      "update": "Cập nhật",
+      "confirm-update": "Xác nhận cập nhật bảo trì",
+      "confirm-update-description": "Bạn có chắc chắn muốn cập nhật bảo trì này?",
+      "update-success": "Cập nhật bảo trì thành công!",
+      "update-error": "Lỗi khi cập nhật bảo trì",
+      "close": "Đóng",
+      "cancel-edit": "Hủy sửa"
     }
   }
 }
