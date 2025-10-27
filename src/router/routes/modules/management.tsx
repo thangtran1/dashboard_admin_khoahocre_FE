@@ -2,17 +2,17 @@ import { Suspense, lazy } from "react";
 import { Outlet } from "react-router";
 
 import { Icon } from "@/components/icon";
-import { LineLoading } from "@/components/loading";
+import { LineLoading } from "@/components/common/loading";
 
 import type { AppRouteObject } from "#/router";
-import BannerConfigPage from "@/pages/management/banner-config";
-import ManagerChatUser from "@/pages/management/chat-user/manager-chat-user";
-import DatabaseManagement from "@/pages/management/database";
+import BannerConfigPage from "@/pages/admin/management/banner-config";
+import ManagerChatUser from "@/pages/admin/management/chat-user/manager-chat-user";
+import DatabaseManagement from "@/pages/admin/management/database";
 
 // Lazy load components
-const ManagementUserPage = lazy(() => import("@/pages/management/user"));
+const ManagementUserPage = lazy(() => import("@/pages/admin/management/user"));
 const CreatedNewUserPage = lazy(
-  () => import("@/pages/management/user/created-new-user")
+  () => import("@/pages/admin/management/user/created-new-user")
 );
 
 const management: AppRouteObject = {

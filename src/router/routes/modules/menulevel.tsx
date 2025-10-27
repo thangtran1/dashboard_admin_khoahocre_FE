@@ -1,11 +1,11 @@
 import { Icon } from "@/components/icon";
-import { LineLoading } from "@/components/loading";
+import { LineLoading } from "@/components/common/loading";
 import { Suspense } from "react";
 import { Navigate, Outlet } from "react-router";
 import type { AppRouteObject } from "#/router";
-import MenuLevel from "@/pages/menu-level/menu-level-1a";
-import MenuLevel2a from "@/pages/menu-level/menu-level-1b/menu-level-2a";
-import MenuLevel3a from "@/pages/menu-level/menu-level-1b/menu-level-2b/menu-level-3a";
+import MenuLevel from "@/pages/admin/menu-level/menu-level-1a";
+import MenuLevel2a from "@/pages/admin/menu-level/menu-level-1b/menu-level-2a";
+import MenuLevel3a from "@/pages/admin/menu-level/menu-level-1b/menu-level-2b/menu-level-3a";
 
 const menulevel: AppRouteObject = {
   order: 5,

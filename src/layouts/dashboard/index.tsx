@@ -1,5 +1,5 @@
 import { Icon } from "@/components/icon";
-import Logo from "@/components/logo";
+import Logo from "@/components/common/logo";
 import { down, useMediaQuery } from "@/hooks";
 import { useSettingActions, useSettings } from "@/store/settingStore";
 import { Button } from "@/ui/button";

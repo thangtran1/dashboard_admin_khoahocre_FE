@@ -1,13 +1,13 @@
 import Logo from "@/assets/images/logo.png";
 import Router from "@/router/index";
 import { Helmet } from "react-helmet-async";
-import { MotionLazy } from "./components/animate/motion-lazy";
-import Toast from "./components/toast";
+import { MotionLazy } from "./components/admin/animate/motion-lazy";
+import Toast from "./components/common/toast";
 import { AntdAdapter } from "./theme/adapter/antd.adapter";
 import { ThemeProvider } from "./theme/theme-provider";
-import SimpleChatWrapper from "./components/chat/SimpleChatWrapper";
+import SimpleChatWrapper from "./components/common/chat/SimpleChatWrapper";
 import { SystemSettingsProvider } from "./contexts/SystemSettingsContext";
-import { ConsoleWarning } from "./components/security/console-warning";
+import { ConsoleWarning } from "./components/user/security/console-warning";
 function App() {
   return (
     <SystemSettingsProvider>

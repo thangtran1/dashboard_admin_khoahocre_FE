@@ -1,12 +1,14 @@
 import { Icon } from "@/components/icon";
-import { LineLoading } from "@/components/loading";
+import { LineLoading } from "@/components/common/loading";
 import { Suspense, lazy } from "react";
 import { Outlet } from "react-router";
 import type { AppRouteObject } from "#/router";
 
 // Lazy load components
-const MultiLanguage = lazy(() => import("@/pages/components/multi-language"));
-const Chart = lazy(() => import("@/pages/components/chart"));
+const MultiLanguage = lazy(
+  () => import("@/pages/admin/components/multi-language")
+);
+const Chart = lazy(() => import("@/pages/admin/components/chart"));
 
 const components: AppRouteObject = {
   order: 3,

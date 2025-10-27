@@ -1,5 +1,5 @@
 import { Icon } from "@/components/icon";
-import { LineLoading } from "@/components/loading";
+import { LineLoading } from "@/components/common/loading";
 import { useUserPermission, useUserInfo } from "@/store/userStore";
 import { Badge } from "@/ui/badge";
 import { flattenTrees } from "@/utils/tree";

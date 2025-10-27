@@ -1,19 +1,18 @@
 import DashboardLayout from "@/layouts/dashboard";
-import PageError from "@/pages/sys/error/PageError";
-import LoginPage from "@/pages/sys/login";
-import ProtectedRoute from "@/router/components/protected-route";
+import PageError from "@/pages/admin/sys/error/PageError";
+import LoginPage from "@/pages/admin/sys/login";
 import { usePermissionRoutes } from "@/router/hooks";
 import { ERROR_ROUTE } from "@/router/routes/error-routes";
 import { ErrorBoundary } from "react-error-boundary";
 import { Navigate, type RouteObject, createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
-import ResetPassword from "@/pages/sys/login/resetPassword";
-import GoogleSuccess from "@/pages/sys/login/google-success";
-import GoogleError from "@/pages/sys/login/google-error";
-import GitHubSuccess from "@/pages/sys/login/github-success";
-import GitHubError from "@/pages/sys/login/github-error";
-import ProfilePage from "@/pages/profile";
+import ResetPassword from "@/pages/admin/sys/login/resetPassword";
+import GoogleSuccess from "@/pages/admin/sys/login/google-success";
+import GoogleError from "@/pages/admin/sys/login/google-error";
+import GitHubSuccess from "@/pages/admin/sys/login/github-success";
+import GitHubError from "@/pages/admin/sys/login/github-error";
+import ProfilePage from "@/pages/admin/profile";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
 import BlogGridPage from "@/pages/user/blog/blog";
@@ -40,6 +39,7 @@ import MarketPage from "@/pages/user/market/market";
 import MarketDetail from "@/pages/user/market/market-detail";
 import GroupBuyPage from "@/pages/user/group-buy/group-buy";
 import GroupBuyDetail from "@/pages/user/group-buy/group-buy-detail";
+import ProtectedRoute from "./components/protected-route";
 
 const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 

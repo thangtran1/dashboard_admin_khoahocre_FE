@@ -7,7 +7,7 @@ import "./global.css";
 import "./theme/theme.css";
 import App from "./App";
 import { registerLocalIcons } from "./components/icon";
-import { RouteLoadingProgress } from "./components/loading";
+import { RouteLoadingProgress } from "./components/common/loading";
 
 const charAt = `
   ╔═══════ TVT 4 ADMIN ═══════╗
