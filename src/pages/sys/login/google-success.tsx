@@ -4,8 +4,7 @@ import { useUserActions } from "@/store/userStore";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE, VITE_APP_HOMEPAGE_USER: HOMEPAGEUSER } =
-  import.meta.env;
+const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 
 export default function GoogleSuccess() {
   const { t } = useTranslation();
@@ -40,7 +39,7 @@ export default function GoogleSuccess() {
           });
 
           if (payload.role === "user") {
-            navigate(HOMEPAGEUSER, { replace: true });
+            navigate("/", { replace: true });
           } else {
             navigate(HOMEPAGE, { replace: true });
           }

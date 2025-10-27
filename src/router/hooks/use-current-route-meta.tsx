@@ -7,7 +7,7 @@ import { useRouter } from "./use-router";
 
 import type { RouteMeta } from "#/router";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 
 export function useCurrentRouteMeta() {
   const { push } = useRouter();

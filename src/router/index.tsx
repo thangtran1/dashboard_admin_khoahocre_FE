@@ -41,7 +41,7 @@ import MarketDetail from "@/pages/user/market/market-detail";
 import GroupBuyPage from "@/pages/user/group-buy/group-buy";
 import GroupBuyDetail from "@/pages/user/group-buy/group-buy-detail";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 
 const PUBLIC_ROUTE: AppRouteObject = {
   path: "/login",

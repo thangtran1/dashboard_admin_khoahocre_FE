@@ -10,14 +10,13 @@ import { LoginProvider } from "./providers/login-provider";
 import RegisterForm from "./register-form";
 import ForgotPasswordForm from "./forgot-password-form";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE, VITE_APP_HOMEPAGE_USER: HOMEPAGEUSER } =
-  import.meta.env;
+const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 function LoginPage() {
   const token = useUserToken();
   const { role } = useUserInfo();
   if (token.accessToken) {
     if (String(role) === "user") {
-      return <Navigate to={HOMEPAGEUSER} replace />;
+      return <Navigate to={"/"} replace />;
     }
 
     return <Navigate to={HOMEPAGE} replace />;

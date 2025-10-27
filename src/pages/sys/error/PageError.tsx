@@ -9,8 +9,6 @@ import { m } from "motion/react";
 import type { FallbackProps } from "react-error-boundary";
 import { Helmet } from "react-helmet-async";
 
-const { VITE_APP_HOMEPAGE_USER: HOMEPAGE } = import.meta.env;
-
 export default function PageError({
   error,
   resetErrorBoundary,
@@ -19,7 +17,7 @@ export default function PageError({
 
   const goHome = () => {
     resetErrorBoundary();
-    replace(HOMEPAGE);
+    replace("/");
   };
   return (
     <div>

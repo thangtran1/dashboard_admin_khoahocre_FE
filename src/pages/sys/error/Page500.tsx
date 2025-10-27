@@ -9,8 +9,6 @@ import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 
-const { VITE_APP_HOMEPAGE_USER: HOMEPAGE } = import.meta.env;
-
 export default function Page() {
   const { t } = useTranslation();
   return (
@@ -169,7 +167,7 @@ export default function Page() {
             </svg>
           </m.div>
 
-          <NavLink to={HOMEPAGE}>
+          <NavLink to={"/"}>
             <Button size="lg">{t("sys.error.goHome")}</Button>
           </NavLink>
         </MotionContainer>

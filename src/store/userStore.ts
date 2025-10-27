@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import type { UserInfo, UserToken } from "#/entity";
 import { StorageEnum } from "#/enum";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 
 type UserStore = {
   userInfo: Partial<UserInfo>;

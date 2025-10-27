@@ -15,7 +15,7 @@ import { useNavigate } from "react-router";
 import { GoogleOAuthButton } from "@/components/google-oauth-button";
 import { GitHubOAuthButton } from "@/components/github-oauth-button";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 
 function RegisterForm() {
   const { t } = useTranslation();

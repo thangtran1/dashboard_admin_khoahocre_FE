@@ -156,7 +156,7 @@ function transformPermissionsToRoutes(
   });
 }
 
-const ROUTE_MODE = import.meta.env.VITE_APP_ROUTER_MODE;
+// const ROUTE_MODE = import.meta.env.VITE_APP_ROUTER_MODE;
 export function usePermissionRoutes() {
   const permissions = useUserPermission();
   const user = useUserInfo();
@@ -168,9 +168,9 @@ export function usePermissionRoutes() {
     }
 
     // Nếu ROUTE_MODE là "module", return getRoutesFromModules()
-    if (ROUTE_MODE === "module") {
-      return getRoutesFromModules();
-    }
+    // if (ROUTE_MODE === "module") {
+    //   return getRoutesFromModules();
+    // }
 
     if (!permissions) return [];
 
