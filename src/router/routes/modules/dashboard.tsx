@@ -2,12 +2,12 @@ import { Suspense, lazy } from "react";
 import { Navigate, Outlet } from "react-router";
 
 import { Icon } from "@/components/icon";
-import { LineLoading } from "@/components/loading";
+import { LineLoading } from "@/components/common/loading";
 
 import type { AppRouteObject } from "#/router";
 
-const HomePage = lazy(() => import("@/pages/dashboard/workbench"));
-const Analysis = lazy(() => import("@/pages/dashboard/analysis"));
+const HomePage = lazy(() => import("@/pages/admin/dashboard/workbench"));
+const Analysis = lazy(() => import("@/pages/admin/dashboard/analysis"));
 
 const dashboard: AppRouteObject = {
   order: 1,

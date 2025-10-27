@@ -1,11 +1,11 @@
-import LocalePicker from "@/components/locale-picker";
+import LocalePicker from "@/components/common/locale-picker";
 import { useSettings } from "@/store/settingStore";
 import { cn } from "@/utils";
 import type { ReactNode } from "react";
-import AccountDropdown from "../components/account-dropdown";
-import BreadCrumb from "../components/bread-crumb";
-import SearchBar from "../components/search-bar";
-import SettingButton from "../components/setting-button";
+import AccountDropdown from "./components/account-dropdown";
+import BreadCrumb from "./components/bread-crumb";
+import SearchBar from "./components/search-bar";
+import SettingButton from "./components/setting-button";
 import { useUserInfo } from "@/store/userStore";
 
 interface HeaderProps {

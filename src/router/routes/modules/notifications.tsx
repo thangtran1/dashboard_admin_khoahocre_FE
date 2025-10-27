@@ -1,16 +1,18 @@
 import { Icon } from "@/components/icon";
-import { LineLoading } from "@/components/loading";
+import { LineLoading } from "@/components/common/loading";
 import { Suspense, lazy } from "react";
 import { Outlet } from "react-router";
 import type { AppRouteObject } from "#/router";
 
 const NotificationManagement = lazy(
-  () => import("@/pages/notifications/index")
+  () => import("@/pages/admin/notifications/index")
 );
 const NewNotification = lazy(
-  () => import("@/pages/notifications/new-notification")
+  () => import("@/pages/admin/notifications/new-notification")
 );
-const NotificationDetail = lazy(() => import("@/pages/notifications/[id]"));
+const NotificationDetail = lazy(
+  () => import("@/pages/admin/notifications/[id]")
+);
 
 const notifications: AppRouteObject = {
   order: 4,

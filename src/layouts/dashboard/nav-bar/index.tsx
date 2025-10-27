@@ -1,7 +1,7 @@
-import { varFade } from "@/components/animate/variants/fade";
+import { varFade } from "@/components/admin/animate/variants/fade";
 import { Icon } from "@/components/icon";
-import Logo from "@/components/logo";
-import { NavHorizontal, NavMini, NavVertical } from "@/components/nav";
+import Logo from "@/components/common/logo";
+import { NavHorizontal, NavMini, NavVertical } from "@/components/admin/nav";
 import { down, useMediaQuery } from "@/hooks";
 import { useRouteToMenu } from "@/router/hooks";
 import { usePermissionRoutes } from "@/router/hooks";

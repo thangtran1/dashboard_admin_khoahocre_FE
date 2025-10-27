@@ -2,13 +2,15 @@ import { Suspense, lazy } from "react";
 import { Outlet } from "react-router";
 
 import { Icon } from "@/components/icon";
-import { LineLoading } from "@/components/loading";
+import { LineLoading } from "@/components/common/loading";
 
 import type { AppRouteObject } from "#/router";
 
-const MaintenceSystemPage = lazy(() => import("@/pages/maintenance/index"));
+const MaintenceSystemPage = lazy(
+  () => import("@/pages/admin/maintenance/index")
+);
 const CreatedNewMaintenance = lazy(
-  () => import("@/pages/maintenance/created-new-maintenance")
+  () => import("@/pages/admin/maintenance/created-new-maintenance")
 );
 
 const maintenance: AppRouteObject = {

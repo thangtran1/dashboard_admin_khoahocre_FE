@@ -3,16 +3,16 @@ import { AntdAdapter } from "@/theme/adapter/antd.adapter";
 import HeaderTop from "@/pages/user/public/header-top";
 import Footer from "@/pages/user/public/footer";
 import NearFooter from "@/pages/user/public/near-footer";
-import Logo from "@/components/logo";
+import Logo from "@/components/common/logo";
 import clsx from "clsx";
 import { contentWrapper } from "@/utils/use-always";
 import { Link, Outlet } from "react-router";
 import ScrollToTop from "@/utils/ScrollToTop";
-import LocalePicker from "@/components/locale-picker";
-import SettingButton from "../components/setting-button";
+import LocalePicker from "@/components/common/locale-picker";
+import SettingButton from "../dashboard/components/setting-button";
 import WhyChooseCourse from "@/pages/user/public/why-choose-course";
-import NoticeButton from "../components/notice";
-import UserBannerMarquee from "@/components/banner-marquee/user-banner";
+import NoticeButton from "../dashboard/components/notice";
+import UserBannerMarquee from "@/components/user/banner-marquee/user-banner";
 
 export default function UserLayout() {
   return (
