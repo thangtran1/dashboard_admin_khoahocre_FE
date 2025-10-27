@@ -14,7 +14,7 @@ export default function MaintenceSystemPage() {
   const { t } = useTranslation();
   const { activeTab, handleTabChange } = useMaintenceTabs();
 
-  const { stats, refreshData, loading } = useMaintence(false);
+    const { refreshData, loading } = useMaintence(false);
 
   const tabItems = [
     {
@@ -78,109 +78,7 @@ export default function MaintenceSystemPage() {
           </div>
         </div>
 
-        <Separator />
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-blue-800">
-                    {t("sys.maintenance.total-maintenance")}
-                  </p>
-                  <p className="text-2xl font-bold text-blue-900">
-                    {stats.total}
-                  </p>
-                </div>
-                <div className="p-2 bg-blue-500 rounded-full">
-                  <Icon icon="lucide:wrench" className="h-5 w-5 text-white" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-cyan-50 to-cyan-100 border-cyan-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-cyan-800">
-                    {t("sys.maintenance.scheduled-maintenance")}
-                  </p>
-                  <p className="text-2xl font-bold text-cyan-900">
-                    {stats.scheduled}
-                  </p>
-                </div>
-                <div className="p-2 bg-cyan-500 rounded-full">
-                  <Icon
-                    icon="lucide:calendar-clock"
-                    className="h-5 w-5 text-white"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-orange-800">
-                    {t("sys.maintenance.in-progress-maintenance")}
-                  </p>
-                  <p className="text-2xl font-bold text-orange-900">
-                    {stats.inProgress}
-                  </p>
-                </div>
-                <div className="p-2 bg-orange-500 rounded-full">
-                  <Icon icon="lucide:settings" className="h-5 w-5 text-white" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-green-800">
-                    {t("sys.maintenance.completed-maintenance")}
-                  </p>
-                  <p className="text-2xl font-bold text-green-900">
-                    {stats.completed}
-                  </p>
-                </div>
-                <div className="p-2 bg-green-500 rounded-full">
-                  <Icon
-                    icon="lucide:check-circle"
-                    className="h-5 w-5 text-white"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-purple-800">
-                    {t("sys.maintenance.new-maintenance-this-month")}
-                  </p>
-                  <p className="text-2xl font-bold text-purple-900">
-                    {stats.newThisMonth}
-                  </p>
-                </div>
-                <div className="p-2 bg-purple-500 rounded-full">
-                  <Icon
-                    icon="lucide:plus-circle"
-                    className="h-5 w-5 text-white"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <Separator className="mb-0" />
 
         {/* Tabs */}
         <Tabs

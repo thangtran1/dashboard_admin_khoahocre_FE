@@ -10,15 +10,6 @@ import maintenanceApi, {
   UpdateMaintenanceDto,
 } from "@/api/services/maintenanceApi";
 
-interface MaintenanceStats {
-  total: number;
-  scheduled: number;
-  inProgress: number;
-  completed: number;
-  cancelled: number;
-  newThisMonth: number;
-}
-
 export function useMaintence(isScheduled: boolean = false) {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,16 +42,6 @@ export function useMaintence(isScheduled: boolean = false) {
     limit: 10,
     total: 0,
     totalPages: 0,
-  });
-
-  // Stats
-  const [stats, setStats] = useState<MaintenanceStats>({
-    total: 0,
-    scheduled: 0,
-    inProgress: 0,
-    completed: 0,
-    cancelled: 0,
-    newThisMonth: 0,
   });
 
   // Update URL params when filters change
@@ -103,34 +84,6 @@ export function useMaintence(isScheduled: boolean = false) {
     }
   };
 
-  const fetchStats = async () => {
-    try {
-      const response = await maintenanceApi.getList({ limit: 1000 });
-      if (response.data.success) {
-        const all = response.data.data;
-        const now = new Date();
-        const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-
-        setStats({
-          total: all.length,
-          scheduled: all.filter((m) => m.status === MaintenanceStatus.SCHEDULED)
-            .length,
-          inProgress: all.filter(
-            (m) => m.status === MaintenanceStatus.IN_PROGRESS
-          ).length,
-          completed: all.filter((m) => m.status === MaintenanceStatus.COMPLETED)
-            .length,
-          cancelled: all.filter((m) => m.status === MaintenanceStatus.CANCELLED)
-            .length,
-          newThisMonth: all.filter((m) => new Date(m.createdAt) >= thisMonth)
-            .length,
-        });
-      }
-    } catch (error) {
-      console.error("❌ fetchStats ~ error:", error);
-    }
-  };
-
   // ========== CRUD OPERATIONS ==========
 
   const handleCreate = async (values: CreateMaintenanceDto) => {
@@ -141,7 +94,7 @@ export function useMaintence(isScheduled: boolean = false) {
       toast.success(t("sys.maintenance.create-success"), {
         closeButton: true,
       });
-      await Promise.all([fetchMaintenances(), fetchStats()]);
+      await fetchMaintenances();
       return true;
     } catch (error) {
       console.error("❌ createMaintenance ~ error:", error);
@@ -159,7 +112,7 @@ export function useMaintence(isScheduled: boolean = false) {
         toast.success(t("sys.maintenance.update-success"), {
           closeButton: true,
         });
-        await Promise.all([fetchMaintenances(), fetchStats()]);
+        await fetchMaintenances();
         return true;
       } else {
         toast.error(response.data.message);
@@ -206,7 +159,7 @@ export function useMaintence(isScheduled: boolean = false) {
       toast.success(t("sys.maintenance.start-success"), {
         closeButton: true,
       });
-      await Promise.all([fetchMaintenances(), fetchStats()]);
+      await fetchMaintenances();
     } catch (error) {
       console.error("❌ startMaintenance ~ error:", error);
       toast.error(t("sys.maintenance.start-error"));
@@ -223,7 +176,7 @@ export function useMaintence(isScheduled: boolean = false) {
       toast.success(t("sys.maintenance.stop-success"), {
         closeButton: true,
       });
-      await Promise.all([fetchMaintenances(), fetchStats()]);
+      await fetchMaintenances();
     } catch (error) {
       console.error("❌ stopMaintenance ~ error:", error);
       toast.error(t("sys.maintenance.stop-error"));
@@ -240,7 +193,7 @@ export function useMaintence(isScheduled: boolean = false) {
       toast.success(t("sys.maintenance.cancel-success"), {
         closeButton: true,
       });
-      await Promise.all([fetchMaintenances(), fetchStats()]);
+      await fetchMaintenances();
     } catch (error) {
       console.error("❌ cancelMaintenance ~ error:", error);
       toast.error(t("sys.maintenance.cancel-error"));
@@ -301,14 +254,14 @@ export function useMaintence(isScheduled: boolean = false) {
   };
 
   const refreshData = async () => {
-    await Promise.all([fetchMaintenances(), fetchStats()]);
+    await fetchMaintenances();
   };
 
   // ========== EFFECTS ==========
 
   useEffect(() => {
     const initialFetch = async () => {
-      await Promise.all([fetchMaintenances(filters), fetchStats()]);
+      await fetchMaintenances(filters);
     };
     initialFetch();
   }, []);
@@ -327,7 +280,6 @@ export function useMaintence(isScheduled: boolean = false) {
     selectedMaintenances,
     filters,
     pagination,
-    stats,
 
     // Actions
     handleCreate,
