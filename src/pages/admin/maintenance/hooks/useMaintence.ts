@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { useMaintenancePolling } from "./useMaintenancePolling";
 import maintenanceApi, {
   Maintenance,
   MaintenanceFilter,
@@ -95,6 +96,7 @@ export function useMaintence(isScheduled: boolean = false) {
         closeButton: true,
       });
       await fetchMaintenances();
+      setupTimers(); // Thiết lập lại timer khi tạo mới
       return true;
     } catch (error) {
       console.error("❌ createMaintenance ~ error:", error);
@@ -113,6 +115,7 @@ export function useMaintence(isScheduled: boolean = false) {
           closeButton: true,
         });
         await fetchMaintenances();
+        setupTimers(); // Thiết lập lại timer khi cập nhật
         return true;
       } else {
         toast.error(response.data.message);
@@ -138,7 +141,7 @@ export function useMaintence(isScheduled: boolean = false) {
           closeButton: true,
         });
         setSelectedMaintenances([]);
-        await refreshData(); 
+        await refreshData();
         return true;
       } else {
         toast.error(response.data.message);
@@ -258,6 +261,11 @@ export function useMaintence(isScheduled: boolean = false) {
   };
 
   // ========== EFFECTS ==========
+
+  // Sử dụng timer để tự động cập nhật đúng thời điểm
+  const { setupTimers } = useMaintenancePolling(() => {
+    fetchMaintenances(filters);
+  });
 
   useEffect(() => {
     const initialFetch = async () => {
