@@ -1,8 +1,7 @@
 import React from "react";
-import { Spin, Typography, Card } from "antd";
+import { Spin, Card } from "antd";
 import { Loader } from "lucide-react";
 
-const { Text } = Typography;
 
 interface LoadingMaintenanceProps {
   message?: string;
@@ -15,7 +14,7 @@ const LoadingMaintenance: React.FC<LoadingMaintenanceProps> = ({
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-200 via-white to-blue-100 p-6">
       <Card
         bordered={false}
-        className="shadow-xl rounded-2xl text-center w-full max-w-sm"
+        className="shadow-xl rounded-2xl !bg-white/40 text-center  w-full max-w-sm"
       >
         <Spin
           indicator={
@@ -24,7 +23,7 @@ const LoadingMaintenance: React.FC<LoadingMaintenanceProps> = ({
           size="large"
         />
         <div className="mt-5">
-          <Text className="text-base text-gray-600">{message}</Text>
+          <div className="text-base text-gray-700">{message}</div>
         </div>
       </Card>
     </div>

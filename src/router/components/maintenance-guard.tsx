@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import maintenanceApi from "@/api/services/maintenanceApi";
 import LoadingMaintenance from "@/components/admin/loading-maintenance";
+import { useLocation } from "react-router";
 
 interface MaintenanceGuardProps {
   children: ReactNode;
@@ -14,6 +15,9 @@ const MaintenanceGuard = ({
   delayMs = 1000,
 }: MaintenanceGuardProps) => {
   const [loading, setLoading] = useState(true);
+
+  const location = useLocation();
+  const pathname = location.pathname;
 
   useEffect(() => {
     const checkMaintenance = async () => {
@@ -34,7 +38,7 @@ const MaintenanceGuard = ({
     };
 
     checkMaintenance();
-  }, [redirectUrl, delayMs]);
+  }, [redirectUrl, delayMs, pathname]);
 
   if (loading) {
     return <LoadingMaintenance />;

@@ -21,7 +21,7 @@ export default function MaintenceSystemPage() {
       key: "all",
       label: (
         <span className="flex items-center gap-2">
-          <Icon icon="lucide:list" className="h-4 w-4" />
+          <Icon icon="lucide:list-check" className="h-4 w-4" />
           {t("sys.maintenance.maintenance-all")}
         </span>
       ),
