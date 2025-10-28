@@ -40,8 +40,10 @@ import MarketDetail from "@/pages/user/market/market-detail";
 import GroupBuyPage from "@/pages/user/group-buy/group-buy";
 import GroupBuyDetail from "@/pages/user/group-buy/group-buy-detail";
 import ProtectedRoute from "./components/protected-route";
+import MaintenanceGuard from "./components/maintenance-guard";
 
-const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
+const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
+  import.meta.env;
 
 const PUBLIC_ROUTE: AppRouteObject = {
   path: "/login",
@@ -128,9 +130,11 @@ export default function Router() {
   const APP_HOMEPAGE_USER: AppRouteObject = {
     path: "/",
     element: (
-      <ErrorBoundary FallbackComponent={PageError}>
-        <UserLayout />
-      </ErrorBoundary>
+      <MaintenanceGuard redirectUrl={MAIN_APP}>
+        <ErrorBoundary FallbackComponent={PageError}>
+          <UserLayout />
+        </ErrorBoundary>
+      </MaintenanceGuard>
     ),
     children: [
       { index: true, element: <UserHomePage /> },
@@ -223,10 +227,10 @@ export default function Router() {
   };
 
   const routes = [
-    APP_HOMEPAGE_USER,
+    PUBLIC_ROUTE,
     RESET_PASSWORD_ROUTE,
     ...AUTH_ROUTES,
-    PUBLIC_ROUTE,
+    APP_HOMEPAGE_USER,
     PROTECTED_ROUTE,
     ERROR_ROUTE,
     NO_MATCHED_ROUTE,

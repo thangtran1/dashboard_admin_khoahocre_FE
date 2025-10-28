@@ -1,17 +1,17 @@
 import apiClient from "../apiClient";
 
 export enum MaintenanceStatus {
-  SCHEDULED = 'scheduled',
-  IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed',
-  CANCELLED = 'cancelled',
+  SCHEDULED = "scheduled",
+  IN_PROGRESS = "in_progress",
+  COMPLETED = "completed",
+  CANCELLED = "cancelled",
 }
 
 export enum MaintenanceType {
-  DATABASE = 'database',
-  SYSTEM = 'system',
-  NETWORK = 'network',
-  OTHER = 'other',
+  DATABASE = "database",
+  SYSTEM = "system",
+  NETWORK = "network",
+  OTHER = "other",
 }
 
 export interface Maintenance {
@@ -78,8 +78,11 @@ export interface MaintenanceStatusResponse {
   success: boolean;
   message: string;
   data: {
-    isUnderMaintenance: boolean;
-    maintenance: Maintenance | null;
+    data: {
+      isUnderMaintenance: boolean;
+      maintenance: Maintenance;
+      estimatedDuration: number | null;
+    };
   };
 }
 
@@ -132,7 +135,6 @@ const maintenanceApi = {
     apiClient.get<MaintenanceStatusResponse>({
       url: "/maintenance/current-status",
     }),
-
 };
 
 export default maintenanceApi;
