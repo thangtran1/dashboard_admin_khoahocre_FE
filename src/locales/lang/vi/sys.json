@@ -553,7 +553,8 @@
       "no-valid-data-to-process": "Không có dữ liệu hợp lệ để xử lý",
       "loaded-users-from-file": "Đã tải {{count}} người dùng từ file",
       "total-users-description": "Tổng số",
-      "has": "Có"
+      "has": "Có",
+      "login-count": "Số lần đăng nhập"
     },
     "profile": {
       "title": "Thông tin cá nhân",

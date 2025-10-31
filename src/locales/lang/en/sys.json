@@ -543,7 +543,8 @@
       "no-valid-data-to-process": "No valid data to process",
       "loaded-users-from-file": "Loaded {{count}} users from file",
       "total-users-description": "Total users",
-      "has": "Has"
+      "has": "Has",
+      "login-count": "Login count"
     },
     "profile": {
       "title": "Personal Information",

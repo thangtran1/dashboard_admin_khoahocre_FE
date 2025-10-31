@@ -71,15 +71,20 @@ export default function UserTable({
     {
       title: t("sys.user-management.user-info"),
       key: "user",
-      render: (_: React.ReactNode, user: User) => (
-        <div className="flex items-center gap-3">
-          <Avatar src={user.avatar} icon={<UserOutlined />} size={40} />
-          <div>
-            <div className="font-semibold text-foreground">{user.name}</div>
-            <div className="text-sm text-muted-foreground">{user.email}</div>
+      render: (_: React.ReactNode, user: User) => {
+        const avatarUrl = user?.avatar
+          ? `${import.meta.env.VITE_API_URL}${user.avatar}`
+          : undefined;
+        return (
+          <div className="flex items-center gap-3">
+            <Avatar src={avatarUrl} size={40} icon={<UserOutlined />} />
+            <div>
+              <div className="font-semibold text-foreground">{user.name}</div>
+              <div className="text-sm text-muted-foreground">{user.email}</div>
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
     {
       title: t("sys.user-management.role"),
@@ -124,10 +129,22 @@ export default function UserTable({
     {
       title: t("sys.user-management.info"),
       key: "info",
+      width: 200,
+
       render: (_: React.ReactNode, user: User) => (
-        <div className="text-sm text-muted-foreground">
-          {user.phone && <div>📞 {user.phone}</div>}
-          <div>📅 {new Date(user.createdAt).toLocaleDateString("vi-VN")}</div>
+        <div className="text-sm text-foreground">
+          {user.phone && (
+            <div>
+              {t("sys.user-management.phone")}: {user.phone}
+            </div>
+          )}
+          <div>
+            {t("sys.user-management.created-at")}:{" "}
+            {new Date(user.createdAt).toLocaleDateString("vi-VN")}
+          </div>
+          <div>
+            {t("sys.user-management.login-count")}: {user.loginCount}
+          </div>
         </div>
       ),
     },
