@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { useState, useCallback, useEffect } from "react";
 import dayjs from "dayjs";
 
+const { Option } = Select;
 interface MaintenanceModalProps {
   isOpen: boolean;
   maintenance: Maintenance | null;
@@ -194,9 +195,9 @@ export default function MaintenanceModal({
             >
               <Select>
                 {Object.values(MaintenanceType).map((type) => (
-                  <Select.Option key={type} value={type}>
+                  <Option key={type} value={type}>
                     {t(`sys.maintenance.type-${type}`)}
-                  </Select.Option>
+                  </Option>
                 ))}
               </Select>
             </Form.Item>

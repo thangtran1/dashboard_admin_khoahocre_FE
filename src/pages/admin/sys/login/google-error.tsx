@@ -13,13 +13,9 @@ export default function GoogleError() {
   useEffect(() => {
     const message = searchParams.get("message");
     if (message) {
-      toast.error(t("sys.login.googleLoginErrorDescription"), {
-        closeButton: true,
-      });
+      toast.error(t("sys.login.googleLoginErrorDescription"));
     } else {
-      toast.error(t("sys.login.googleLoginErrorDescription"), {
-        closeButton: true,
-      });
+      toast.error(t("sys.login.googleLoginErrorDescription"));
     }
   }, [searchParams]);
 

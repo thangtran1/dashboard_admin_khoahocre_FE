@@ -2,18 +2,17 @@ import {
   Table,
   Checkbox,
   Avatar,
-  Select,
   Space,
   Button,
   Tooltip,
   Popconfirm,
+  Tag,
 } from "antd";
-import { Icon } from "@/components/icon";
-import { User } from "@/api/services/userManagementApi";
-import { UserOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { getRoleColor, getStatusColor, User } from "@/api/services/userManagementApi";
+import { UserOutlined, EditOutlined, DeleteOutlined, CalendarOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-
-const { Option } = Select;
+import { formatDistanceToNow } from "date-fns";
+import { vi } from "date-fns/locale";
 
 interface UserTableProps {
   users: User[];
@@ -29,8 +28,6 @@ interface UserTableProps {
   onSelectAll: (checked: boolean) => void;
   onEdit: (user: User) => void;
   onDelete: (id: string) => void;
-  onUpdateRole: (id: string, role: string) => void;
-  onUpdateStatus: (id: string, status: string) => void;
   onPageChange: (page: number, pageSize?: number) => void;
 }
 
@@ -43,8 +40,6 @@ export default function UserTable({
   onSelectAll,
   onEdit,
   onDelete,
-  onUpdateRole,
-  onUpdateStatus,
   onPageChange,
 }: UserTableProps) {
   const { t } = useTranslation();
@@ -71,13 +66,16 @@ export default function UserTable({
     {
       title: t("sys.user-management.user-info"),
       key: "user",
+      width: 250,
       render: (_: React.ReactNode, user: User) => {
         const avatarUrl = user?.avatar
           ? `${import.meta.env.VITE_API_URL}${user.avatar}`
           : undefined;
+  
         return (
           <div className="flex items-center gap-3">
             <Avatar src={avatarUrl} size={40} icon={<UserOutlined />} />
+  
             <div>
               <div className="font-semibold text-foreground">{user.name}</div>
               <div className="text-sm text-muted-foreground">{user.email}</div>
@@ -90,47 +88,39 @@ export default function UserTable({
       title: t("sys.user-management.role"),
       key: "role",
       render: (_: React.ReactNode, user: User) => (
-        <Select
-          value={user.role}
-          onChange={(value) => onUpdateRole(user.id, value)}
-          size="middle"
-          style={{ width: 120 }}
-        >
-          <Option value="user">{t("sys.user-management.role-user")}</Option>
-          <Option value="moderator">
-            {t("sys.user-management.role-moderator")}
-          </Option>
-          <Option value="admin">{t("sys.user-management.role-admin")}</Option>
-        </Select>
+        <Tag color={getRoleColor(user.role)}>
+          {t(`sys.user-management.role-${user.role}`)}
+        </Tag>
       ),
     },
     {
       title: t("sys.user-management.status"),
       key: "status",
       render: (_: React.ReactNode, user: User) => (
-        <Select
-          value={user.status || "active"}
-          onChange={(value) => onUpdateStatus(user.id, value)}
-          size="middle"
-          style={{ width: 120 }}
-        >
-          <Option value="active">
-            {t("sys.user-management.status-active")}
-          </Option>
-          <Option value="inactive">
-            {t("sys.user-management.status-inactive")}
-          </Option>
-          <Option value="banned">
-            {t("sys.user-management.status-banned")}
-          </Option>
-        </Select>
+        <Tag color={getStatusColor(user.status || "active")}>
+          {t(`sys.user-management.status-${user.status || "active"}`)}
+        </Tag>
+      ),
+    },
+    {
+      title: t("sys.user-management.created-at"),
+      key: "createdAt",
+      render: (_: React.ReactNode, user: User) => (
+        <Tooltip title={new Date(user.createdAt).toLocaleString("vi-VN")}>
+          <div className="flex items-center gap-1 text-sm">
+            <CalendarOutlined className="text-muted-foreground" />
+            {formatDistanceToNow(new Date(user.createdAt), {
+              addSuffix: true,
+              locale: vi,
+            })}
+          </div>
+        </Tooltip>
       ),
     },
     {
       title: t("sys.user-management.info"),
       key: "info",
-      width: 200,
-
+      width: 220,
       render: (_: React.ReactNode, user: User) => (
         <div className="text-sm text-foreground">
           {user.phone && (
@@ -139,15 +129,12 @@ export default function UserTable({
             </div>
           )}
           <div>
-            {t("sys.user-management.created-at")}:{" "}
-            {new Date(user.createdAt).toLocaleDateString("vi-VN")}
-          </div>
-          <div>
             {t("sys.user-management.login-count")}: {user.loginCount}
           </div>
         </div>
       ),
     },
+  
     {
       title: t("sys.user-management.actions"),
       key: "actions",
@@ -163,6 +150,7 @@ export default function UserTable({
               className="text-primary hover:bg-primary/10"
             />
           </Tooltip>
+  
           <Popconfirm
             title={t("sys.user-management.confirm-delete")}
             description={t("sys.user-management.confirm-delete-description")}
@@ -184,6 +172,7 @@ export default function UserTable({
       ),
     },
   ];
+  
 
   return (
     <Table
@@ -207,22 +196,6 @@ export default function UserTable({
         onShowSizeChange: onPageChange,
       }}
       scroll={{ x: 800, y: 500 }}
-      // locale={{
-      //   emptyText: (
-      //     <div className="py-12 text-center">
-      //       <Icon
-      //         icon="lucide:users-x"
-      //         className="h-16 w-16 mx-auto text-muted-foreground mb-4"
-      //       />
-      //       <p className="text-lg font-semibold text-foreground">
-      //         {t("sys.user-management.no-users-found")}
-      //       </p>
-      //       <p className="text-muted-foreground mt-2">
-      //         {t("sys.user-management.no-users-description")}
-      //       </p>
-      //     </div>
-      //   ),
-      // }}   NỘI DUNG CUSTOM KHI KHÔNG CÓ DỮ LIỆU
     />
   );
 }

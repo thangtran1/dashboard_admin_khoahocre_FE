@@ -12,6 +12,7 @@ import {
 } from "@/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
+import { toast } from "sonner";
 
 export default function AccountDropdown() {
   const { replace } = useRouter();
@@ -22,6 +23,7 @@ export default function AccountDropdown() {
   const logout = () => {
     try {
       clearUserInfoAndToken();
+      toast.success(t("sys.login.logoutSuccess"));
       backToLogin();
     } catch (error) {
       console.log(error);

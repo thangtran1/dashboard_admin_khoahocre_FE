@@ -21,11 +21,11 @@ export default function MaintenanceAllTab() {
     handleDeleteMany,
     handleFilterChange,
     handlePageChange,
-    handleUpdate,
+    handleUpdateUser,
     handleSelectMaintenance,
     handleSelectAll,
     handleClearFilters,
-  } = useMaintence(false); // false = all maintenances
+  } = useMaintence(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMaintenance, setSelectedMaintenance] =
@@ -74,7 +74,7 @@ export default function MaintenanceAllTab() {
         onStop={handleStop}
         onCancel={handleCancel}
         onPageChange={handlePageChange}
-        onUpdate={handleUpdate}
+        onUpdate={handleUpdateUser}
       />
 
       {/* Detail Modal */}

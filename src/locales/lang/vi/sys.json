@@ -113,7 +113,10 @@
       "githubLoginErrorDescription": "Có lỗi xảy ra khi đăng nhập với GitHub. Vui lòng thử lại.",
       "backToLogin": "Quay lại đăng nhập",
       "githubLoginSuccess": "Đăng nhập GitHub thành công!",
-      "githubLoginProcessing": "Đang xử lý đăng nhập GitHub..."
+      "githubLoginProcessing": "Đang xử lý đăng nhập GitHub...",
+      "logoutSuccess": "Đăng xuất thành công!",
+      "signInSuccess": "Đăng nhập thành công!",
+      "registerSuccess": "Đăng ký thành công!"
     },
     "tab": {
       "fullscreen": "Toàn màn hình nội dung",
@@ -407,7 +410,7 @@
       "role-moderator": "Kiểm duyệt viên",
       "role-admin": "Quản trị viên",
       "status-active": "Hoạt động",
-      "status-inactive": "Không hoạt động",
+      "status-inactive": "Không hoạt động", 
       "status-banned": "Bị cấm",
       "create-success": "Tạo người dùng thành công!",
       "update-success": "Cập nhật người dùng thành công!",

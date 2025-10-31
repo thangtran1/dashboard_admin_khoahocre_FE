@@ -3,6 +3,7 @@ import { SearchOutlined, ClearOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { QueryUserParams } from "@/api/services/userManagementApi";
 
+const { Option } = Select;
 interface CommonUserFiltersProps {
   filters: QueryUserParams;
   onFilterChange: (key: keyof QueryUserParams, value: any) => void;
@@ -47,15 +48,15 @@ export default function CommonUserFilters({
             allowClear
             className="w-full"
           >
-            <Select.Option value="admin">
+            <Option value="admin">
               {t("sys.user-management.admin")}
-            </Select.Option>
-            <Select.Option value="moderator">
+            </Option>
+            <Option value="moderator">
               {t("sys.user-management.moderator")}
-            </Select.Option>
-            <Select.Option value="user">
+            </Option>
+            <Option value="user">
               {t("sys.user-management.user")}
-            </Select.Option>
+            </Option>
           </Select>
         </div>
 
@@ -72,15 +73,15 @@ export default function CommonUserFilters({
             allowClear
             className="w-full"
           >
-            <Select.Option value="active">
+            <Option value="active">
               {t("sys.user-management.active")}
-            </Select.Option>
-            <Select.Option value="inactive">
+            </Option>
+            <Option value="inactive">
               {t("sys.user-management.inactive")}
-            </Select.Option>
-            <Select.Option value="banned">
+            </Option>
+            <Option value="banned">
               {t("sys.user-management.banned")}
-            </Select.Option>
+            </Option>
           </Select>
         </div>
 

@@ -22,7 +22,7 @@ export default function MaintenanceScheduledTab() {
     handleSelectMaintenance,
     handleSelectAll,
     handleClearFilters,
-    handleUpdate,
+    handleUpdateUser,
   } = useMaintence(true); // true = scheduled only
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,7 +65,7 @@ export default function MaintenanceScheduledTab() {
         onStartNow={handleStartNow}
         onCancel={handleCancel}
         onPageChange={handlePageChange}
-        onUpdate={handleUpdate}
+        onUpdate={handleUpdateUser}
       />
 
       {/* Detail Modal */}

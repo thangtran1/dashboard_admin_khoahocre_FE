@@ -7,6 +7,7 @@ import {
   MaintenanceType,
 } from "@/api/services/maintenanceApi";
 
+const { Option } = Select;
 interface CommonMaintenanceFiltersProps {
   filters: MaintenanceFilter;
   onFilterChange: (key: keyof MaintenanceFilter, value: any) => void;
@@ -52,18 +53,18 @@ export default function CommonMaintenanceFilters({
             allowClear
             className="w-full"
           >
-            <Select.Option value={MaintenanceType.DATABASE}>
+            <Option value={MaintenanceType.DATABASE}>
               {t("sys.maintenance.type-database")}
-            </Select.Option>
-            <Select.Option value={MaintenanceType.SYSTEM}>
+            </Option>
+            <Option value={MaintenanceType.SYSTEM}>
               {t("sys.maintenance.type-system")}
-            </Select.Option>
-            <Select.Option value={MaintenanceType.NETWORK}>
+            </Option>
+            <Option value={MaintenanceType.NETWORK}>
               {t("sys.maintenance.type-network")}
-            </Select.Option>
-            <Select.Option value={MaintenanceType.OTHER}>
+            </Option>
+            <Option value={MaintenanceType.OTHER}>
               {t("sys.maintenance.type-other")}
-            </Select.Option>
+            </Option>
           </Select>
         </div>
 
@@ -86,27 +87,27 @@ export default function CommonMaintenanceFilters({
             allowClear={!isScheduledTab}
             className="w-full"
           >
-            <Select.Option value={MaintenanceStatus.SCHEDULED}>
+            <Option value={MaintenanceStatus.SCHEDULED}>
               {t("sys.maintenance.status-scheduled")}
-            </Select.Option>
-            <Select.Option
+            </Option>
+            <Option
               value={MaintenanceStatus.IN_PROGRESS}
               disabled={isScheduledTab}
             >
               {t("sys.maintenance.status-in-progress")}
-            </Select.Option>
-            <Select.Option
+            </Option>
+            <Option
               value={MaintenanceStatus.COMPLETED}
               disabled={isScheduledTab}
             >
               {t("sys.maintenance.status-completed")}
-            </Select.Option>
-            <Select.Option
+            </Option>
+            <Option
               value={MaintenanceStatus.CANCELLED}
               disabled={isScheduledTab}
             >
               {t("sys.maintenance.status-cancelled")}
-            </Select.Option>
+            </Option>
           </Select>
         </div>
 

@@ -11,6 +11,7 @@ export default function Toast() {
   return (
     <ToasterStyleWrapper>
       <Toaster
+        closeButton={true}
         position="top-right"
         theme={themeMode}
         toastOptions={{

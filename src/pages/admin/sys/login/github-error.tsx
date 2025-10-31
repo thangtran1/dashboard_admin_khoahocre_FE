@@ -13,13 +13,9 @@ export default function GitHubError() {
   useEffect(() => {
     const message = searchParams.get("message");
     if (message) {
-      toast.error(t("sys.login.githubLoginErrorDescription"), {
-        closeButton: true,
-      });
+          toast.error(t("sys.login.githubLoginErrorDescription"));
     } else {
-      toast.error(t("sys.login.githubLoginErrorDescription"), {
-        closeButton: true,
-      });
+      toast.error(t("sys.login.githubLoginErrorDescription"));
     }
   }, [searchParams]);
 

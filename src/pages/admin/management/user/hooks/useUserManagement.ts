@@ -7,13 +7,9 @@ import {
   CreateUserReq,
   UpdateUserReq,
   QueryUserParams,
-  UserStats,
   getUsers,
-  getUserStats,
   createUser,
   updateUser,
-  updateUserRole,
-  updateUserStatus,
   deleteUser,
   softDeleteUser,
   restoreUser,
@@ -30,7 +26,6 @@ export function useUserManagement(
   const [loading, setLoading] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
-  // Get initial filters from URL params
   const getInitialFilters = (): QueryUserParams => ({
     page: parseInt(searchParams.get("page") || "1", 10),
     limit: parseInt(searchParams.get("limit") || "10", 10),
@@ -52,19 +47,6 @@ export function useUserManagement(
     totalPages: 0,
   });
 
-  // Stats
-  const [stats, setStats] = useState<UserStats>({
-    total: 0,
-    active: 0,
-    inactive: 0,
-    banned: 0,
-    admins: 0,
-    users: 0,
-    moderators: 0,
-    newUsersThisMonth: 0,
-  });
-
-  // Update URL params when filters change
   const updateUrlParams = (newFilters: QueryUserParams) => {
     const params = new URLSearchParams(searchParams);
 
@@ -78,8 +60,6 @@ export function useUserManagement(
 
     setSearchParams(params);
   };
-
-  // ========== FETCH DATA ==========
 
   const fetchUsers = async (queryParams?: QueryUserParams) => {
     try {
@@ -100,26 +80,13 @@ export function useUserManagement(
     }
   };
 
-  const fetchStats = async () => {
-    try {
-      const statsData = await getUserStats();
-      setStats(statsData);
-    } catch (error) {
-      console.error("❌ fetchStats ~ error:", error);
-    }
-  };
-
-  // ========== CRUD OPERATIONS ==========
-
   const handleCreate = async (values: CreateUserReq) => {
     try {
       setLoading(true);
       await createUser(values);
 
-      toast.success(t("sys.user-management.create-success"), {
-        closeButton: true,
-      });
-      await Promise.all([fetchUsers(), fetchStats()]);
+      toast.success(t("sys.user-management.create-success"));
+      await fetchUsers();
       return true;
     } catch (error) {
       console.error("❌ createUser ~ error:", error);
@@ -129,25 +96,11 @@ export function useUserManagement(
     }
   };
 
-  const handleUpdate = async (_values: UpdateUserReq) => {
-    try {
-      setLoading(true);
-      await Promise.all([fetchUsers(), fetchStats()]);
-    } catch (error) {
-      console.error("❌ updateUser ~ error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleUpdateUser = async (id: string, values: UpdateUserReq) => {
     try {
       setLoading(true);
       await updateUser(id, values);
-
-      toast.success(t("sys.user-management.update-success"), {
-        closeButton: true,
-      });
+      toast.success(t("sys.user-management.update-success"));
       await fetchUsers();
       return true;
     } catch (error) {
@@ -158,7 +111,6 @@ export function useUserManagement(
     }
   };
 
-  // Soft delete for active users
   const handleSoftDelete = async (ids: string | string[]) => {
     if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
 
@@ -166,57 +118,12 @@ export function useUserManagement(
       setLoading(true);
       await softDeleteUser(ids);
 
-      toast.success(t("sys.user-management.delete-success"), {
-        closeButton: true,
-      });
-      await Promise.all([fetchUsers(), fetchStats()]);
+      toast.success(t("sys.user-management.delete-success"));
+      await fetchUsers();
     } catch (error) {
       console.error("❌ softDeleteUser ~ error:", error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  // Permanent delete for deleted users
-  const handleDelete = async (ids: string | string[]) => {
-    if (!ids || (Array.isArray(ids) && ids.length === 0)) return;
-
-    try {
-      setLoading(true);
-      await deleteUser(ids);
-
-      toast.success(t("sys.user-management.permanent-delete-success"), {
-        closeButton: true,
-      });
-      await Promise.all([fetchUsers(), fetchStats()]);
-    } catch (error) {
-      console.error("❌ deleteUser ~ error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUpdateRole = async (id: string, role: string) => {
-    try {
-      await updateUserRole(id, role);
-      toast.success(t("sys.user-management.update-role-success"), {
-        closeButton: true,
-      });
-      await fetchUsers();
-    } catch (error) {
-      console.error("❌ updateUserRole ~ error:", error);
-    }
-  };
-
-  const handleUpdateStatus = async (id: string, status: string) => {
-    try {
-      await updateUserStatus(id, status);
-      toast.success(t("sys.user-management.update-status-success"), {
-        closeButton: true,
-      });
-      await Promise.all([fetchUsers(), fetchStats()]);
-    } catch (error) {
-      console.error("❌ updateUserStatus ~ error:", error);
     }
   };
 
@@ -225,30 +132,22 @@ export function useUserManagement(
 
     try {
       if (isDeleted) {
-        // Permanent delete for already soft-deleted users
         await deleteUser(ids);
         toast.success(
           t("sys.user-management.bulk-permanent-delete-success", {
             count: selectedUsers.length,
           }),
-          {
-            closeButton: true,
-          }
         );
       } else {
-        // Soft delete for active users
         await softDeleteUser(ids);
         toast.success(
           t("sys.user-management.bulk-delete-success", {
             count: selectedUsers.length,
           }),
-          {
-            closeButton: true,
-          }
         );
       }
       setSelectedUsers([]);
-      await Promise.all([fetchUsers(), fetchStats()]);
+      await fetchUsers();
     } catch (error) {
       console.error("❌ deleteUser ~ error:", error);
     }
@@ -265,25 +164,16 @@ export function useUserManagement(
       toast.success(
         t("sys.user-management.restore-success", {
           count,
-        }),
-        {
-          closeButton: true,
-        }
+        }), 
       );
       setSelectedUsers([]);
-      await Promise.all([fetchUsers(), fetchStats()]);
+      await fetchUsers();
     } catch (error) {
       console.error("❌ restoreUser ~ error:", error);
     } finally {
       setLoading(false);
     }
   };
-
-  const handleRestoreMany = async (ids: string[]) => {
-    await handleRestore(ids);
-  };
-
-  // ========== UI HANDLERS ==========
 
   const handleFilterChange = (key: keyof QueryUserParams, value: any) => {
     const newFilters = { ...filters, [key]: value, page: 1 };
@@ -332,15 +222,9 @@ export function useUserManagement(
     fetchUsers(defaultFilters);
   };
 
-  const refreshData = () => {
-    Promise.all([fetchUsers(), fetchStats()]);
-  };
-
-  // ========== EFFECTS ==========
-
   useEffect(() => {
     const initialFetch = async () => {
-      await Promise.all([fetchUsers(filters), fetchStats()]);
+      await fetchUsers(filters);
     };
     initialFetch();
   }, []);
@@ -353,31 +237,22 @@ export function useUserManagement(
   }, [searchParams]);
 
   return {
-    // State
     users,
     loading,
     selectedUsers,
     filters,
     pagination,
-    stats,
     isDeleted,
 
-    // Actions
     handleCreate,
-    handleUpdate,
     handleUpdateUser,
     handleSoftDelete,
-    handleDelete,
-    handleUpdateRole,
-    handleUpdateStatus,
     handleDeleteMany,
     handleRestore,
-    handleRestoreMany,
     handleFilterChange,
     handlePageChange,
     handleSelectUser,
     handleSelectAll,
     handleClearFilters,
-    refreshData,
   };
 }

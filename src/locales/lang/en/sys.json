@@ -99,7 +99,10 @@
       "googleLoginSuccess": "Google login successful!",
       "googleLoginError": "Google login error!",
       "googleLoginProcessing": "Google login processing...",
-      "googleLoginErrorDescription": "An error occurred when logging in with Google. Please try again."
+      "googleLoginErrorDescription": "An error occurred when logging in with Google. Please try again.",
+      "logoutSuccess": "Logout successful!",
+      "signInSuccess": "Sign in successful!",
+      "registerSuccess": "Register successful!"
     },
     "menu": {
       "maintenance": "Maintenance",

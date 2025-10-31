@@ -16,8 +16,6 @@ export default function ActiveUsersTab() {
     pagination,
     handleUpdateUser,
     handleSoftDelete,
-    handleUpdateRole,
-    handleUpdateStatus,
     handleDeleteMany,
     handleFilterChange,
     handlePageChange,
@@ -28,8 +26,6 @@ export default function ActiveUsersTab() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-
-  // ========== MODAL HANDLERS ==========
 
   const handleEdit = (user: User) => {
     setEditingUser(user);
@@ -51,21 +47,18 @@ export default function ActiveUsersTab() {
 
   return (
     <div className="space-y-6">
-      {/* Filters */}
       <CommonUserFilters
         filters={filters}
         onFilterChange={handleFilterChange}
         onClearFilters={handleClearFilters}
       />
 
-      {/* Action Bar */}
       <UserActionBar
         selectedUsers={selectedUsers}
         tabType="active"
         onDeleteMany={() => handleDeleteMany(selectedUsers as string[])}
       />
 
-      {/* User Table */}
       <UserTable
         users={users}
         loading={loading}
@@ -75,8 +68,6 @@ export default function ActiveUsersTab() {
         onSelectAll={handleSelectAll}
         onEdit={handleEdit}
         onDelete={handleSoftDelete}
-        onUpdateRole={handleUpdateRole}
-        onUpdateStatus={handleUpdateStatus}
         onPageChange={handlePageChange}
       />
 

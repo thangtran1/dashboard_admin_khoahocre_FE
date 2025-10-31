@@ -37,9 +37,7 @@ export default function GitHubSuccess() {
             role: payload.role,
           });
 
-          toast.success(t("sys.login.githubLoginSuccess"), {
-            closeButton: true,
-          });
+          toast.success(t("sys.login.githubLoginSuccess"));
 
           // Chuyển hướng dựa vào role
           if (payload.role === "user") {
@@ -54,9 +52,7 @@ export default function GitHubSuccess() {
 
       return () => clearTimeout(timer);
     } else {
-      toast.error(t("sys.login.githubLoginError"), {
-        closeButton: true,
-      });
+      toast.error(t("sys.login.githubLoginError"));
       navigate("/login", { replace: true });
     }
   }, []);

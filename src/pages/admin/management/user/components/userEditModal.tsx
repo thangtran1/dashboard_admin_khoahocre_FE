@@ -6,7 +6,6 @@ import { UserOutlined, MailOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
 const { Option } = Select;
-
 interface UserEditModalProps {
   isOpen: boolean;
   editingUser: User;
@@ -25,7 +24,6 @@ export default function UserEditModal({
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
-  // Set form values khi editingUser thay đổi
   useEffect(() => {
     if (isOpen && editingUser) {
       form.setFieldsValue({
@@ -48,8 +46,7 @@ export default function UserEditModal({
   const handleSubmit = async (values: UpdateUserReq) => {
     try {
       return await onSubmit(values);
-    } catch (error) {
-      console.error("❌ handleSubmit ~ error:", error);
+    } catch {
       return false;
     }
   };
@@ -182,16 +179,17 @@ export default function UserEditModal({
 
         <div className="flex gap-3 pt-4">
           <Button
-            type="primary"
+            color="primary"
+            variant="outlined"
             htmlType="submit"
             size="large"
             loading={loading}
             className="flex-1"
           >
-            💾 {t("sys.user-management.update")}
+            {t("sys.user-management.update")}
           </Button>
-          <Button size="large" onClick={handleClose} disabled={loading}>
-            ❌ {t("sys.user-management.cancel")}
+          <Button size="large" danger onClick={handleClose} disabled={loading}>
+            {t("sys.user-management.cancel")}
           </Button>
         </div>
       </Form>

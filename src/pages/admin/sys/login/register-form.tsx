@@ -39,9 +39,7 @@ function RegisterForm() {
     console.log("🚀 ~ onFinish ~ res:", res);
 
     navigate(HOMEPAGE, { replace: true });
-    toast.success("Register in success!", {
-      closeButton: true,
-    });
+    toast.success(t("sys.login.registerSuccess"));
     // backToLogin();
   };
 

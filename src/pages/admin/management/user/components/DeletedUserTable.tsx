@@ -8,8 +8,7 @@ import {
   Popconfirm,
   Tag,
 } from "antd";
-import { Icon } from "@/components/icon";
-import { User } from "@/api/services/userManagementApi";
+import { getRoleColor, getStatusColor, User } from "@/api/services/userManagementApi";
 import { UserOutlined, UndoOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
@@ -72,7 +71,7 @@ export default function DeletedUserTable({
           <div>
             <div className="font-semibold text-foreground flex items-center gap-2">
               {user.name}
-              <Tag color="red" className="text-xs">
+              <Tag color="default" className="text-xs">
                 {t("sys.user-management.deleted")}
               </Tag>
             </div>
@@ -85,14 +84,14 @@ export default function DeletedUserTable({
       title: t("sys.user-management.role"),
       key: "role",
       render: (_: React.ReactNode, user: User) => (
-        <Tag color="blue">{t(`sys.user-management.role-${user.role}`)}</Tag>
+        <Tag color={getRoleColor(user.role)}>{t(`sys.user-management.role-${user.role}`)}</Tag>
       ),
     },
     {
       title: t("sys.user-management.status"),
       key: "status",
       render: (_: React.ReactNode, user: User) => (
-        <Tag color="default">
+        <Tag color={getStatusColor(user.status || "active")}>
           {t(`sys.user-management.status-${user.status || "active"}`)}
         </Tag>
       ),

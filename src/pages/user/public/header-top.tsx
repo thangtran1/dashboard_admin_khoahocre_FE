@@ -62,9 +62,7 @@ const HeaderTop = () => {
   const handleLogout = () => {
     clearUserInfoAndToken();
     router.push("/login");
-    toast.success("Logout in success!", {
-      closeButton: true,
-    });
+    toast.success("Logout in success!");
   };
   return (
     <>

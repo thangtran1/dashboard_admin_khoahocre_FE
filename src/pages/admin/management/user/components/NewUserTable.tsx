@@ -14,7 +14,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { User } from "@/api/services/userManagementApi";
+import { getRoleColor, getStatusColor, User } from "@/api/services/userManagementApi";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 
@@ -45,33 +45,6 @@ export default function NewUserTable({
   onPageChange,
 }: NewUserTableProps) {
   const { t } = useTranslation();
-
-  const getRoleColor = (role: string) => {
-    switch (role) {
-      case "admin":
-        return "red";
-      case "moderator":
-        return "orange";
-      case "user":
-        return "blue";
-      default:
-        return "default";
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "green";
-      case "inactive":
-        return "orange";
-      case "banned":
-        return "red";
-      default:
-        return "default";
-    }
-  };
-
   const columns = [
     {
       title: (
@@ -83,34 +56,32 @@ export default function NewUserTable({
           onChange={(e) => onSelectAll(e.target.checked)}
         />
       ),
-      dataIndex: "select",
       key: "select",
       width: 50,
-      render: (_: any, record: User) => (
+      render: (_: React.ReactNode, user: User) => (
         <Checkbox
-          checked={selectedUsers.includes(record.id)}
-          onChange={(e) => onSelectUser(record.id, e.target.checked)}
+          checked={selectedUsers.includes(user.id)}
+          onChange={(e) => onSelectUser(user.id, e.target.checked)}
         />
       ),
     },
     {
       title: t("sys.user-management.user-info"),
-      dataIndex: "user",
       key: "user",
-      render: (_: any, record: User) => (
+      render: (_: React.ReactNode, user: User) => (
         <div className="flex items-center gap-3">
           <Avatar
             size={40}
-            src={record.avatar}
+            src={user.avatar}
             icon={<UserOutlined />}
             className="flex-shrink-0"
           />
           <div className="min-w-0 flex-1">
             <div className="font-medium text-foreground truncate">
-              {record.name}
+              {user.name}
             </div>
             <div className="text-sm text-muted-foreground truncate">
-              {record.email}
+              {user.email}
             </div>
           </div>
         </div>
@@ -118,34 +89,28 @@ export default function NewUserTable({
     },
     {
       title: t("sys.user-management.role"),
-      dataIndex: "role",
       key: "role",
-      width: 120,
-      render: (role: string) => (
-        <Tag color={getRoleColor(role)}>{t(`sys.user-management.${role}`)}</Tag>
+      render: (_: React.ReactNode, user: User) => (
+        <Tag color={getRoleColor(user.role)}>{t(`sys.user-management.${user.role}`)}</Tag>
       ),
     },
     {
       title: t("sys.user-management.status"),
-      dataIndex: "status",
       key: "status",
-      width: 120,
-      render: (status: string) => (
-        <Tag color={getStatusColor(status)}>
-          {t(`sys.user-management.${status}`)}
+      render: (_: React.ReactNode, user: User) => (
+        <Tag color={getStatusColor(user.status || "active")}>
+          {t(`sys.user-management.${user.status || "active"}`)}
         </Tag>
       ),
     },
     {
       title: t("sys.user-management.created-at"),
-      dataIndex: "createdAt",
       key: "createdAt",
-      width: 180,
-      render: (createdAt: string) => (
-        <Tooltip title={new Date(createdAt).toLocaleString("vi-VN")}>
+      render: (_: React.ReactNode, user: User) => (
+        <Tooltip title={new Date(user.createdAt).toLocaleString("vi-VN")}>
           <div className="flex items-center gap-1 text-sm">
             <CalendarOutlined className="text-muted-foreground" />
-            {formatDistanceToNow(new Date(createdAt), {
+            {formatDistanceToNow(new Date(user.createdAt), {
               addSuffix: true,
               locale: vi,
             })}
@@ -155,28 +120,27 @@ export default function NewUserTable({
     },
     {
       title: t("sys.user-management.email-verified"),
-      dataIndex: "isEmailVerified",
       key: "isEmailVerified",
-      width: 120,
-      render: (isEmailVerified: boolean) => (
-        <Tag color={isEmailVerified ? "green" : "orange"}>
-          {isEmailVerified
-            ? t("sys.user-management.verified")
-            : t("sys.user-management.not-verified")}
-        </Tag>
-      ),
+      render: (_: React.ReactNode, user: User) => (
+        <Tag color={user.isEmailVerified ? "green" : "orange"}>
+          {user.isEmailVerified
+              ? t("sys.user-management.verified")
+              : t("sys.user-management.not-verified")}
+          </Tag>
+        ),
     },
     {
       title: t("sys.user-management.actions"),
       key: "actions",
-      width: 100,
-      render: (_: any, record: User) => (
+      align: "center" as const,
+      width: 120,
+      render: (_: React.ReactNode, user: User) => (
         <Popconfirm
           title={t("sys.user-management.confirm-delete")}
           description={t(
             "sys.user-management.confirm-delete-single-description"
           )}
-          onConfirm={() => onDelete(record.id)}
+            onConfirm={() => onDelete(user.id)}
           okText={t("sys.user-management.delete")}
           cancelText={t("sys.user-management.cancel")}
           okButtonProps={{ danger: true }}
@@ -205,7 +169,6 @@ export default function NewUserTable({
         className="user-table"
       />
 
-      {/* Custom Pagination */}
       <div className=" justify-end flex p-4 border-t">
         <Pagination
           current={pagination.page}

@@ -34,9 +34,7 @@ export default function GoogleSuccess() {
             role: payload.role,
           });
 
-          toast.success(t("sys.login.googleLoginSuccess"), {
-            closeButton: true,
-          });
+          toast.success(t("sys.login.googleLoginSuccess"));
 
           if (payload.role === "user") {
             navigate("/", { replace: true });
@@ -45,18 +43,14 @@ export default function GoogleSuccess() {
           }
         } catch (error) {
           console.error("Error decoding token:", error);
-          toast.error(t("sys.login.googleLoginError"), {
-            closeButton: true,
-          });
+          toast.error(t("sys.login.googleLoginError"));
           navigate("/login", { replace: true });
         }
       }, 1000);
 
       return () => clearTimeout(timer);
     } else {
-      toast.error(t("sys.login.googleLoginError"), {
-        closeButton: true,
-      });
+      toast.error(t("sys.login.googleLoginError"));
       navigate("/login", { replace: true });
     }
   }, []);

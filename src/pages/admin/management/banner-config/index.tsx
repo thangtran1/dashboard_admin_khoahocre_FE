@@ -97,7 +97,7 @@ export default function BannerConfigPage() {
   };
 
   // Handle update banner
-  const handleUpdate = async () => {
+  const handleUpdateUser = async () => {
     if (!editingBanner) return;
     if (!formData.content.trim()) {
       toast.error(t("sys.banner-config.banner-content-required"));
@@ -322,7 +322,7 @@ export default function BannerConfigPage() {
           <Button
             key="submit"
             type="primary"
-            onClick={editingBanner ? handleUpdate : handleCreate}
+            onClick={editingBanner ? handleUpdateUser : handleCreate}
             loading={loading}
             disabled={!formData.content.trim()}
             className="bg-blue-600 hover:bg-blue-700"

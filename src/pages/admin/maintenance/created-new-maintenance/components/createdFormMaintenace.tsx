@@ -39,9 +39,7 @@ export default function CreatedFormMaintenace() {
 
       const response = await maintenanceApi.create(createData);
       if (response.data.success) {
-        toast.success(t("sys.maintenance.create-success"), {
-          closeButton: true,
-        });
+        toast.success(t("sys.maintenance.create-success"));
         form.resetFields();
         setTimeout(() => {
           navigate("/maintenance");

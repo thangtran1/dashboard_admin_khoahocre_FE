@@ -1,11 +1,10 @@
 import { Tabs, Button } from "antd";
-import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
-import { Card, CardContent, CardTitle } from "@/ui/card";
+import { PlusOutlined } from "@ant-design/icons";
+import { CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
 import { useUserTabs } from "./hooks/useUserTabs";
-import { useUserManagement } from "./hooks/useUserManagement";
 import ActiveUsersTab from "./components/ActiveUsersTab";
 import DeletedUsersTab from "./components/DeletedUsersTab";
 import NewUsersTab from "./components/NewUsersTab";
@@ -14,9 +13,6 @@ import { Link } from "react-router";
 export default function UserManagement() {
   const { t } = useTranslation();
   const { activeTab, handleTabChange } = useUserTabs();
-
-  // Get stats from active users hook
-  const { stats, refreshData, loading } = useUserManagement(false);
 
   const tabItems = [
     {
@@ -54,7 +50,6 @@ export default function UserManagement() {
   return (
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex pt-4 items-center justify-between">
           <div>
             <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
@@ -66,18 +61,7 @@ export default function UserManagement() {
             </p>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-3">
-            <Button
-              color="cyan"
-              variant="outlined"
-              icon={<ReloadOutlined />}
-              onClick={refreshData}
-              size="large"
-              loading={loading}
-            >
-              {t("sys.user-management.refresh")}
-            </Button>
             <Link to="/management/user/created-new-user">
               <Button
                 type="primary"
@@ -91,90 +75,8 @@ export default function UserManagement() {
           </div>
         </div>
 
-        <Separator />
+        <Separator className="my-0" />  
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-blue-800">
-                    {t("sys.user-management.total-users")}
-                  </p>
-                  <p className="text-2xl font-bold text-blue-900">
-                    {stats.total}
-                  </p>
-                </div>
-                <div className="p-2 bg-blue-500 rounded-full">
-                  <Icon icon="lucide:users" className="h-5 w-5 text-white" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-green-800">
-                    {t("sys.user-management.active-users")}
-                  </p>
-                  <p className="text-2xl font-bold text-green-900">
-                    {stats.active}
-                  </p>
-                </div>
-                <div className="p-2 bg-green-500 rounded-full">
-                  <Icon
-                    icon="lucide:user-check"
-                    className="h-5 w-5 text-white"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-red-800">
-                    {t("sys.user-management.admin-users")}
-                  </p>
-                  <p className="text-2xl font-bold text-red-900">
-                    {stats.admins}
-                  </p>
-                </div>
-                <div className="p-2 bg-red-500 rounded-full">
-                  <Icon icon="lucide:shield" className="h-5 w-5 text-white" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-purple-800">
-                    {t("sys.user-management.new-users-this-month")}
-                  </p>
-                  <p className="text-2xl font-bold text-purple-900">
-                    {stats.newUsersThisMonth}
-                  </p>
-                </div>
-                <div className="p-2 bg-purple-500 rounded-full">
-                  <Icon
-                    icon="lucide:user-plus"
-                    className="h-5 w-5 text-white"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Tabs */}
         <Tabs
           activeKey={activeTab}
           onChange={(key) =>
@@ -182,7 +84,6 @@ export default function UserManagement() {
           }
           items={tabItems}
           size="large"
-          className="user-management-tabs"
         />
       </div>
     </div>

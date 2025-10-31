@@ -34,15 +34,13 @@ export default function BackupList({
     try {
       const res = await databaseAdmin.deleteBackup(filename);
       if (res.success) {
-        toast.success(res.message, { closeButton: true });
+        toast.success(res.message);
         await reload();
       } else {
-        toast.error(res.message || t("sys.database.delete-backup-error"), {
-          closeButton: true,
-        });
+        toast.error(res.message || t("sys.database.delete-backup-error"));
       }
     } catch {
-      message.error(t("sys.database.delete-backup-error"));
+      toast.error(t("sys.database.delete-backup-error"));
     }
   };
 
@@ -56,7 +54,7 @@ export default function BackupList({
         message.error(t("sys.database.view-backup-error"));
       }
     } catch {
-      message.error(t("sys.database.view-backup-error"));
+      toast.error(t("sys.database.view-backup-error"));
     }
   };
 

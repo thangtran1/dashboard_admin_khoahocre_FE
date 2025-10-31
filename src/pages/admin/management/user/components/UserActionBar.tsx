@@ -10,14 +10,14 @@ interface UserActionBarProps {
   selectedUsers: string[];
   tabType: "active" | "deleted" | "new";
   onDeleteMany?: () => void;
-  onRestoreMany?: () => void;
+  onRestore?: (ids: string[]) => void;
 }
 
 export default function UserActionBar({
   selectedUsers,
   tabType,
   onDeleteMany,
-  onRestoreMany,
+  onRestore,
 }: UserActionBarProps) {
   const { t } = useTranslation();
 
@@ -51,11 +51,11 @@ export default function UserActionBar({
                     count: selectedUsers.length,
                   }
                 )}
-                onConfirm={onRestoreMany}
+                onConfirm={() => onRestore?.(selectedUsers)}
                 okText={t("sys.user-management.restore")}
                 cancelText={t("sys.user-management.cancel")}
               >
-                <Button type="primary" icon={<UndoOutlined />} size="large">
+                <Button color="primary" variant="outlined" icon={<UndoOutlined />} size="large">
                   {t("sys.user-management.restore")} ({selectedUsers.length})
                 </Button>
               </Popconfirm>
@@ -73,7 +73,7 @@ export default function UserActionBar({
                 cancelText={t("sys.user-management.cancel")}
                 okButtonProps={{ danger: true }}
               >
-                <Button danger icon={<DeleteOutlined />} size="large">
+                <Button color="danger" variant="outlined" icon={<DeleteOutlined />} size="large">
                   {t("sys.user-management.permanent-delete")} (
                   {selectedUsers.length})
                 </Button>
@@ -93,7 +93,7 @@ export default function UserActionBar({
               cancelText={t("sys.user-management.cancel")}
               okButtonProps={{ danger: true }}
             >
-              <Button danger icon={<DeleteOutlined />} size="large">
+              <Button color="danger" variant="outlined" icon={<DeleteOutlined />} size="large">
                 {t("sys.user-management.delete")} ({selectedUsers.length})
               </Button>
             </Popconfirm>

@@ -10,10 +10,8 @@ export default function DeletedUsersTab() {
     selectedUsers,
     filters,
     pagination,
-    handleDelete,
     handleRestore,
     handleDeleteMany,
-    handleRestoreMany,
     handleFilterChange,
     handlePageChange,
     handleSelectUser,
@@ -34,8 +32,8 @@ export default function DeletedUsersTab() {
       <UserActionBar
         selectedUsers={selectedUsers}
         tabType="deleted"
-        onDeleteMany={() => handleDeleteMany(selectedUsers as string[])}
-        onRestoreMany={() => handleRestoreMany(selectedUsers as string[])}
+        onDeleteMany={() => handleDeleteMany(selectedUsers)}
+        onRestore={handleRestore}
       />
 
       {/* Deleted User Table */}
@@ -47,7 +45,7 @@ export default function DeletedUsersTab() {
         onSelectUser={handleSelectUser}
         onSelectAll={handleSelectAll}
         onRestore={handleRestore}
-        onDelete={handleDelete}
+        onDelete={handleDeleteMany}
         onPageChange={handlePageChange}
       />
     </div>

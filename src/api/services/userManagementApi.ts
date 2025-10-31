@@ -1,5 +1,30 @@
 import apiClient from "../apiClient";
 
+// ========== FUNCTIONS ==========
+export const getStatusColor = (status: string) => {
+  switch (status) {
+    case "active":
+      return "green";
+    case "inactive":
+      return "orange";
+    case "banned":
+      return "red";
+    default:
+      return "default";
+  }
+};
+export const getRoleColor = (role: string) => {
+  switch (role) {
+    case "admin":
+      return "red";
+    case "moderator":
+      return "orange";
+    case "user":
+      return "blue";
+    default:
+      return "default";
+  }
+};
 // ========== TYPES ==========
 export interface User {
   id: string;
@@ -17,6 +42,18 @@ export interface User {
   isEmailVerified?: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export enum UserRole {
+  USER = "user",
+  ADMIN = "admin",
+  MODERATOR = "moderator",
+}
+
+export enum UserStatus {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+  BANNED = "banned",
 }
 
 export interface CreateUserReq {
@@ -44,28 +81,17 @@ export interface UpdateUserReq {
   bio?: string;
 }
 
-export enum MaintenanceType {
-  DATABASE = "database",
-  SYSTEM = "system",
-  NETWORK = "network",
-  OTHER = "other",
-}
-export enum MaintenanceStatus {
-  SCHEDULED = "scheduled",
-  IN_PROGRESS = "in_progress",
-  COMPLETED = "completed",
-  CANCELLED = "cancelled",
-}
 
 export interface QueryUserParams {
   page?: number;
   limit?: number;
   search?: string;
-  type?: MaintenanceType;
-  status?: MaintenanceStatus;
+  role?: UserRole | string;
+  status?: UserStatus | string;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
-  isScheduled?: boolean;
+  isDeleted?: boolean;
+  isNewUsers?: boolean;
 }
 
 export interface GetUsersRes {
@@ -78,17 +104,6 @@ export interface GetUsersRes {
     total: number;
     totalPages: number;
   };
-}
-
-export interface UserStats {
-  total: number;
-  active: number;
-  inactive: number;
-  banned: number;
-  admins: number;
-  users: number;
-  moderators: number;
-  newUsersThisMonth: number;
 }
 
 // ========== TRANSFORM FUNCTIONS ==========
@@ -119,9 +134,6 @@ export enum UserManagementApi {
   Delete = "/user",
   SoftDelete = "/user/soft-delete",
   Restore = "/user/restore",
-  Stats = "/user/stats",
-  UpdateRole = "/user/:id/role",
-  UpdateStatus = "/user/:id/status",
   BulkUpdateStatus = "/user/bulk/status",
 }
 
@@ -146,12 +158,6 @@ export const getUsers = async (params?: QueryUserParams) => {
   }
 
   return response;
-};
-
-// Get user statistics
-export const getUserStats = async (): Promise<UserStats> => {
-  const response = await apiClient.get({ url: UserManagementApi.Stats });
-  return response.data.data;
 };
 
 // Get user by ID
@@ -220,45 +226,6 @@ export const updateUser = async (id: string, data: UpdateUserReq) => {
   return response;
 };
 
-// Update user role
-export const updateUserRole = async (id: string, role: string) => {
-  const response = await apiClient.patch<any>({
-    url: UserManagementApi.UpdateRole.replace(":id", id),
-    data: { role },
-  });
-
-  if (response.data.success && response.data.data) {
-    return {
-      ...response,
-      data: {
-        ...response.data,
-        data: transformUser(response.data.data),
-      },
-    };
-  }
-
-  return response;
-};
-
-// Update user status
-export const updateUserStatus = async (id: string, status: string) => {
-  const response = await apiClient.patch<any>({
-    url: UserManagementApi.UpdateStatus.replace(":id", id),
-    data: { status },
-  });
-
-  if (response.data.success && response.data.data) {
-    return {
-      ...response,
-      data: {
-        ...response.data,
-        data: transformUser(response.data.data),
-      },
-    };
-  }
-
-  return response;
-};
 
 // Delete one or many users
 export const deleteUser = async (ids: string | string[]) => {
@@ -294,12 +261,9 @@ export const restoreUser = async (ids: string | string[]) => {
 
 export default {
   getUsers,
-  getUserStats,
   getUserById,
   createUser,
   updateUser,
-  updateUserRole,
-  updateUserStatus,
   deleteUser,
   bulkUpdateUserStatus,
   softDeleteUser,
