@@ -171,25 +171,13 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
       </Form.Item>
 
       <div className="flex justify-end gap-4 pt-6">
-        <Button
-          color="primary"
-          variant="outlined"
-          htmlType="submit"
-          size="large"
-          loading={loading}
-          className="flex-1"
-        >
-          <Icon icon="lucide:check-circle" className="h-5 w-5" />
-          {t("sys.user-management.create")}
-        </Button>
-        <Button
-          danger
-          size="large"
-          onClick={() => form.resetFields()}
-          className="flex-1"
-        >
+        <Button danger size="large" onClick={() => form.resetFields()}>
           <Icon icon="lucide:x-circle" className="h-5 w-5" />
           {t("sys.user-management.cancel")}
+        </Button>
+        <Button type="primary" htmlType="submit" size="large" loading={loading}>
+          <Icon icon="lucide:check-circle" className="h-5 w-5" />
+          {t("sys.user-management.create")}
         </Button>
       </div>
     </Form>

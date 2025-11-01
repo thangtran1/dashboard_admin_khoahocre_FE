@@ -2,6 +2,8 @@ import { Card, Table, Alert, Button, Divider } from "antd";
 import { Icon } from "@/components/icon";
 import { PreviewUser } from "@/types/entity";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 interface PreviewCardProps {
   users: PreviewUser[];
@@ -16,6 +18,14 @@ export default function PreviewCard({
   onBack,
   loading,
 }: PreviewCardProps) {
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    total: users.length,
+  });
+  const handlePageChange = (page: number, pageSize?: number) => {
+    setPagination({ ...pagination, page, limit: pageSize || pagination.limit });
+  };
   const { t } = useTranslation();
   const validUsers = users.filter((user) => user.isValid);
   const invalidUsers = users.filter((user) => !user.isValid);
@@ -25,8 +35,8 @@ export default function PreviewCard({
     {
       title: t("sys.user-management.row"),
       dataIndex: "row",
+      width: 80,
       key: "row",
-      width: 60,
       render: (row: number) => (
         <span className="font-mono text-xs text-foreground px-2 py-1 rounded">
           {row}
@@ -37,14 +47,12 @@ export default function PreviewCard({
       title: t("sys.user-management.name"),
       dataIndex: "name",
       key: "name",
-      width: 150,
       render: (name: string) => <span className="font-medium">{name}</span>,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: 200,
       render: (email: string) => (
         <span className="font-mono text-sm">{email}</span>
       ),
@@ -53,7 +61,6 @@ export default function PreviewCard({
       title: t("sys.user-management.role"),
       dataIndex: "role",
       key: "role",
-      width: 100,
       render: (role: string) => (
         <span
           className={`px-2 py-1 rounded text-xs font-medium ${
@@ -72,7 +79,6 @@ export default function PreviewCard({
       title: t("sys.user-management.status"),
       dataIndex: "status",
       key: "status",
-      width: 100,
       render: (status: string) => (
         <span
           className={`px-2 py-1 rounded text-xs font-medium ${
@@ -90,7 +96,6 @@ export default function PreviewCard({
     {
       title: t("sys.user-management.result"),
       key: "validation",
-      width: 120,
       render: (record: PreviewUser) =>
         record.isValid ? (
           <div className="flex items-center gap-1 text-green-600">
@@ -249,22 +254,13 @@ export default function PreviewCard({
       <Divider />
 
       <div className="mb-6">
-        <Table
+        <TableAntd
           columns={columns}
-          dataSource={users}
-          rowKey={(record) => `${record.row}-${record.email}`}
-          pagination={{
-            pageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total, range) =>
-              `${range[0]}-${range[1]} ${t(
-                "sys.user-management.of"
-              )} ${total} ${t("sys.user-management.users")}`,
-          }}
-          size="small"
-          scroll={{ x: 800 }}
-          rowClassName={(record) => (record.isValid ? "" : "bg-blue-600")}
+          data={users}
+          loading={loading}
+          pagination={pagination}
+          onPageChange={handlePageChange}
+          scroll={{ x: 800, y: 500 }}
         />
       </div>
 

@@ -14,9 +14,14 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { getRoleColor, getStatusColor, User } from "@/api/services/userManagementApi";
+import {
+  getRoleColor,
+  getStatusColor,
+  User,
+} from "@/api/services/userManagementApi";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 interface NewUserTableProps {
   users: User[];
@@ -91,7 +96,9 @@ export default function NewUserTable({
       title: t("sys.user-management.role"),
       key: "role",
       render: (_: React.ReactNode, user: User) => (
-        <Tag color={getRoleColor(user.role)}>{t(`sys.user-management.${user.role}`)}</Tag>
+        <Tag color={getRoleColor(user.role)}>
+          {t(`sys.user-management.${user.role}`)}
+        </Tag>
       ),
     },
     {
@@ -124,10 +131,10 @@ export default function NewUserTable({
       render: (_: React.ReactNode, user: User) => (
         <Tag color={user.isEmailVerified ? "green" : "orange"}>
           {user.isEmailVerified
-              ? t("sys.user-management.verified")
-              : t("sys.user-management.not-verified")}
-          </Tag>
-        ),
+            ? t("sys.user-management.verified")
+            : t("sys.user-management.not-verified")}
+        </Tag>
+      ),
     },
     {
       title: t("sys.user-management.actions"),
@@ -140,7 +147,7 @@ export default function NewUserTable({
           description={t(
             "sys.user-management.confirm-delete-single-description"
           )}
-            onConfirm={() => onDelete(user.id)}
+          onConfirm={() => onDelete(user.id)}
           okText={t("sys.user-management.delete")}
           cancelText={t("sys.user-management.cancel")}
           okButtonProps={{ danger: true }}
@@ -158,35 +165,13 @@ export default function NewUserTable({
   ];
 
   return (
-    <div className="bg-card rounded-lg border">
-      <Table
-        columns={columns}
-        dataSource={users}
-        loading={loading}
-        rowKey="id"
-        pagination={false}
-        scroll={{ x: 800 }}
-        className="user-table"
-      />
-
-      <div className=" justify-end flex p-4 border-t">
-        <Pagination
-          current={pagination.page}
-          total={pagination.total}
-          pageSize={pagination.limit}
-          onChange={onPageChange}
-          showSizeChanger
-          showQuickJumper
-          pageSizeOptions={["10", "20", "50", "100"]}
-          showTotal={(total, range) =>
-            t("sys.user-management.pagination-total", {
-              start: range[0],
-              end: range[1],
-              total,
-            })
-          }
-        />
-      </div>
-    </div>
+    <TableAntd
+      columns={columns}
+      data={users}
+      loading={loading}
+      pagination={pagination}
+      onPageChange={onPageChange}
+      scroll={{ x: 800, y: 500 }}
+    />
   );
 }

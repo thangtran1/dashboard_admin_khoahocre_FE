@@ -7,12 +7,24 @@ import {
   Tooltip,
   Popconfirm,
   Tag,
+  Pagination,
+  Select,
 } from "antd";
-import { getRoleColor, getStatusColor, User } from "@/api/services/userManagementApi";
-import { UserOutlined, EditOutlined, DeleteOutlined, CalendarOutlined } from "@ant-design/icons";
+import {
+  getRoleColor,
+  getStatusColor,
+  User,
+} from "@/api/services/userManagementApi";
+import {
+  UserOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 interface UserTableProps {
   users: User[];
@@ -71,11 +83,11 @@ export default function UserTable({
         const avatarUrl = user?.avatar
           ? `${import.meta.env.VITE_API_URL}${user.avatar}`
           : undefined;
-  
+
         return (
           <div className="flex items-center gap-3">
             <Avatar src={avatarUrl} size={40} icon={<UserOutlined />} />
-  
+
             <div>
               <div className="font-semibold text-foreground">{user.name}</div>
               <div className="text-sm text-muted-foreground">{user.email}</div>
@@ -134,7 +146,7 @@ export default function UserTable({
         </div>
       ),
     },
-  
+
     {
       title: t("sys.user-management.actions"),
       key: "actions",
@@ -150,7 +162,7 @@ export default function UserTable({
               className="text-primary hover:bg-primary/10"
             />
           </Tooltip>
-  
+
           <Popconfirm
             title={t("sys.user-management.confirm-delete")}
             description={t("sys.user-management.confirm-delete-description")}
@@ -172,29 +184,14 @@ export default function UserTable({
       ),
     },
   ];
-  
 
   return (
-    <Table
+    <TableAntd
       columns={columns}
-      dataSource={users}
-      rowKey="id"
+      data={users}
       loading={loading}
-      pagination={{
-        current: pagination.page,
-        pageSize: pagination.limit,
-        total: pagination.total,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: (total, range) =>
-          t("sys.user-management.pagination-total", {
-            start: range[0],
-            end: range[1],
-            total,
-          }),
-        onChange: onPageChange,
-        onShowSizeChange: onPageChange,
-      }}
+      pagination={pagination}
+      onPageChange={onPageChange}
       scroll={{ x: 800, y: 500 }}
     />
   );

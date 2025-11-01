@@ -2,6 +2,7 @@ import { Button, Input, Select } from "antd";
 import { SearchOutlined, ClearOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { QueryUserParams } from "@/api/services/userManagementApi";
+import { Separator } from "@/ui/separator";
 
 const { Option } = Select;
 interface CommonUserFiltersProps {
@@ -18,7 +19,7 @@ export default function CommonUserFilters({
   const { t } = useTranslation();
 
   return (
-    <div className="bg-card p-4 rounded-lg border">
+    <div className="py-2 !mb-4">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
         {/* Search */}
         <div>
@@ -48,15 +49,11 @@ export default function CommonUserFilters({
             allowClear
             className="w-full"
           >
-            <Option value="admin">
-              {t("sys.user-management.admin")}
-            </Option>
+            <Option value="admin">{t("sys.user-management.admin")}</Option>
             <Option value="moderator">
               {t("sys.user-management.moderator")}
             </Option>
-            <Option value="user">
-              {t("sys.user-management.user")}
-            </Option>
+            <Option value="user">{t("sys.user-management.user")}</Option>
           </Select>
         </div>
 
@@ -73,15 +70,11 @@ export default function CommonUserFilters({
             allowClear
             className="w-full"
           >
-            <Option value="active">
-              {t("sys.user-management.active")}
-            </Option>
+            <Option value="active">{t("sys.user-management.active")}</Option>
             <Option value="inactive">
               {t("sys.user-management.inactive")}
             </Option>
-            <Option value="banned">
-              {t("sys.user-management.banned")}
-            </Option>
+            <Option value="banned">{t("sys.user-management.banned")}</Option>
           </Select>
         </div>
 
@@ -98,6 +91,7 @@ export default function CommonUserFilters({
           </Button>
         </div>
       </div>
+      <Separator className="mt-8" />
     </div>
   );
 }

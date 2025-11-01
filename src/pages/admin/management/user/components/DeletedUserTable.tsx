@@ -1,5 +1,4 @@
 import {
-  Table,
   Checkbox,
   Avatar,
   Space,
@@ -8,9 +7,14 @@ import {
   Popconfirm,
   Tag,
 } from "antd";
-import { getRoleColor, getStatusColor, User } from "@/api/services/userManagementApi";
+import {
+  getRoleColor,
+  getStatusColor,
+  User,
+} from "@/api/services/userManagementApi";
 import { UserOutlined, UndoOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 interface DeletedUserTableProps {
   users: User[];
@@ -84,7 +88,9 @@ export default function DeletedUserTable({
       title: t("sys.user-management.role"),
       key: "role",
       render: (_: React.ReactNode, user: User) => (
-        <Tag color={getRoleColor(user.role)}>{t(`sys.user-management.role-${user.role}`)}</Tag>
+        <Tag color={getRoleColor(user.role)}>
+          {t(`sys.user-management.role-${user.role}`)}
+        </Tag>
       ),
     },
     {
@@ -154,27 +160,13 @@ export default function DeletedUserTable({
   ];
 
   return (
-    <Table
+    <TableAntd
       columns={columns}
-      dataSource={users}
-      rowKey="id"
+      data={users}
       loading={loading}
-      pagination={{
-        current: pagination.page,
-        pageSize: pagination.limit,
-        total: pagination.total,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: (total, range) =>
-          t("sys.user-management.pagination-total", {
-            start: range[0],
-            end: range[1],
-            total,
-          }),
-        onChange: onPageChange,
-        onShowSizeChange: onPageChange,
-      }}
-      scroll={{ x: 800 }}
+      pagination={pagination}
+      onPageChange={onPageChange}
+      scroll={{ x: 800, y: 500 }}
     />
   );
 }

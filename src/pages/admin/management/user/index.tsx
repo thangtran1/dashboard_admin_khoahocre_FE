@@ -1,5 +1,5 @@
 import { Tabs, Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
@@ -66,7 +66,7 @@ export default function UserManagement() {
               <Button
                 type="primary"
                 size="large"
-                icon={<PlusOutlined />}
+                icon={<PlusCircleOutlined />}
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 {t("sys.user-management.add-user")}
@@ -75,7 +75,7 @@ export default function UserManagement() {
           </div>
         </div>
 
-        <Separator className="my-0" />  
+        <Separator className="my-0" />
 
         <Tabs
           activeKey={activeTab}
