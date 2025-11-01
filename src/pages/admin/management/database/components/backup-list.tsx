@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Table, Button, Modal, message, Space } from "antd";
+import { Button, Modal, message, Space } from "antd";
 import {
   EyeOutlined,
   DeleteOutlined,
@@ -12,19 +12,26 @@ import { toast } from "sonner";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
 import { Separator } from "@/ui/separator";
-
-interface Backup {
-  filename: string;
-  size: number;
-  createdAt: string;
-}
+import TableAntd from "@/components/common/tables/custom-table-antd";
+import { Backup } from "@/types/entity";
 
 export default function BackupList({
   backups,
   reload,
+  loading,
+  pagination,
+  onPageChange,
 }: {
   backups: Backup[];
   reload: () => Promise<void>;
+  loading: boolean;
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+  onPageChange: (page: number, pageSize?: number) => void;
 }) {
   const { t } = useTranslation();
   const [viewModal, setViewModal] = useState(false);
@@ -58,7 +65,6 @@ export default function BackupList({
     }
   };
 
-  // backup-list.tsx
   const handleDownloadBackup = async (filename: string) => {
     try {
       const res = await databaseAdmin.downloadBackupJson(filename);
@@ -93,6 +99,13 @@ export default function BackupList({
   };
 
   const columns = [
+    {
+      title: t("sys.database.no"),
+      key: "no",
+      render: (_: any, __: any, index: number) => index + 1,
+      width: 100,
+      align: "center" as "center",
+    },
     {
       title: t("sys.database.filename"),
       dataIndex: "filename",
@@ -137,27 +150,20 @@ export default function BackupList({
 
   return (
     <div>
-      {/* Title */}
-      <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+      <h2 className="text-2xl font-semibold text-foreground flex items-center gap-2">
         <Icon icon="lucide:database" className="h-5 w-5 text-blue-600" />
         {t("sys.database.backup-list")}
       </h2>
       <Separator className="my-4" />
-      {/* Backup Table */}
-      <div className="overflow-x-auto bg-background shadow-md rounded-xl border border-border">
-        <Table
-          columns={columns}
-          dataSource={backups}
-          rowKey="filename"
-          pagination={false}
-          className="min-w-full"
-          bordered
-          size="middle"
-          scroll={{ x: 800 }}
-        />
-      </div>
+      <TableAntd
+        columns={columns}
+        data={backups}
+        loading={loading}
+        pagination={pagination}
+        onPageChange={onPageChange}
+        scroll={{ x: 800, y: 500 }}
+      />
 
-      {/* View Backup Modal */}
       <Modal
         title={
           <span className="text-blue-600 font-semibold flex items-center gap-2">

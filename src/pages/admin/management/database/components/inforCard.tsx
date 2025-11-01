@@ -1,24 +1,7 @@
 import { Card, CardContent } from "@/ui/card";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
-
-interface DatabaseInfo {
-  dbName: string;
-  collectionsCount: number;
-  dataSize: string;
-  storageSize: string;
-  indexes: number;
-  timestamp: string;
-  collections: string[];
-}
-
-interface StatItem {
-  title: string;
-  value: string | number;
-  color: string;
-  icon: string;
-  isArray?: boolean;
-}
+import { DatabaseInfo, StatItem } from "@/types/entity";
 
 export default function DatabaseInfoCard({
   dbInfo,
@@ -55,7 +38,6 @@ export default function DatabaseInfoCard({
     },
   ];
 
-  // Helper: ánh xạ màu sắc Tailwind an toàn
   const colorMap: Record<string, string> = {
     blue: "from-blue-50 to-blue-100 border-blue-200 text-blue-800",
     green: "from-green-50 to-green-100 border-green-200 text-green-800",
@@ -66,7 +48,6 @@ export default function DatabaseInfoCard({
 
   return (
     <div className="space-y-6">
-      {/* Thông tin tổng quan */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {stats.map((stat) => (
           <Card
@@ -92,8 +73,6 @@ export default function DatabaseInfoCard({
           </Card>
         ))}
       </div>
-
-      {/* Danh sách collections */}
 
       <Card
         key={t("sys.database.collections")}

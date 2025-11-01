@@ -601,13 +601,16 @@
       "en": "Tiếng Anh"
     },
     "database": {
+      "by-name": "Tên file",
+      "date-range": "Khoảng thời gian",
+      "no": "STT",
       "title": "Quản lý Cơ sở dữ liệu",
       "description": "Quản lý cơ sở dữ liệu, tạo, khôi phục và xóa bản sao lưu",
       "refresh": "Làm mới",
       "create-backup": "Tạo bản sao lưu",
       "restore-backup": "Khôi phục dữ liệu",
       "delete-all-data": "Xóa toàn bộ dữ liệu",
-      "search-by-name": "Tìm theo tên file",
+      "search-by-name": "Tìm kiếm theo thông tin",
       "search": "Tìm kiếm",
       "clear-filters": "Xóa bộ lọc",
       "delete": "Xóa",

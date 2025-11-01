@@ -6,10 +6,10 @@ import {
   Modal,
   DatePicker,
   Input,
-  Pagination,
   message,
 } from "antd";
 import {
+  ClearOutlined,
   DatabaseOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
@@ -26,7 +26,6 @@ import RestoreModal from "./components/restore-modal";
 import { toast } from "sonner";
 import { Separator } from "@/ui/separator";
 import { useTranslation } from "react-i18next";
-import { Icon } from "@/components/icon";
 
 const { Text } = Typography;
 const { RangePicker } = DatePicker;
@@ -52,7 +51,7 @@ export default function DatabaseManagement() {
 
   const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
   const [pageSize, setPageSize] = useState(
-    Number(searchParams.get("pageSize")) || 5
+    Number(searchParams.get("pageSize")) || 10
   );
   const [total, setTotal] = useState(0);
 
@@ -97,20 +96,18 @@ export default function DatabaseManagement() {
     setSearchParams(params, { replace: true });
   }, [appliedFilters, page, pageSize]);
 
-  // ================= Component mount =================
   useEffect(() => {
-    fetchDbInfo(); // chỉ gọi 1 lần khi mount
-    fetchBackups(); // fetch lần đầu theo appliedFilters
+    fetchDbInfo();
+    fetchBackups();
   }, []);
 
-  // ================= Handlers =================
   const handleFilterChange = (field: string, value: string) => {
     setFilters((prev) => ({ ...prev, [field]: value }));
-    setPage(1); // reset page khi filter thay đổi
+    setPage(1);
   };
 
   const handleSearch = () => {
-    setAppliedFilters(filters); // chỉ áp dụng khi nhấn tìm kiếm
+    setAppliedFilters(filters);
     setPage(1);
     fetchBackups({ page: 1 });
   };
@@ -173,7 +170,6 @@ export default function DatabaseManagement() {
     }
   };
 
-  // ================= Render =================
   return (
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
       {/* Header */}
@@ -229,24 +225,26 @@ export default function DatabaseManagement() {
         <>
           <DatabaseInfoCard dbInfo={dbInfo} />
 
-          {/* Filters */}
-          <div>
-            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
-              <Icon icon="lucide:filter" className="h-5 w-5 text-blue-600" />
-              {t("sys.notification.filter")}
-            </h2>
-            <Separator className="my-4" />
-            <div className="flex flex-col lg:flex-row gap-3 items-center">
-              <div className="flex-1">
-                <Search
-                  placeholder={t("sys.database.search-by-name")}
-                  value={filters.search}
-                  onChange={(e) => handleFilterChange("search", e.target.value)}
-                  size="large"
-                  prefix={<SearchOutlined />}
-                  allowClear
-                />
-              </div>
+          <div className="flex flex-col lg:flex-row gap-3 items-end">
+            <div className="flex-1">
+              <label className="block text-sm font-medium mb-2">
+                {t("sys.database.search-by-name")}
+              </label>
+              <Search
+                placeholder={t("sys.database.by-name")}
+                value={filters.search}
+                onChange={(e) => handleFilterChange("search", e.target.value)}
+                size="large"
+                prefix={<SearchOutlined />}
+                allowClear
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {t("sys.database.date-range")}
+              </label>
               <RangePicker
                 size="large"
                 value={
@@ -264,37 +262,49 @@ export default function DatabaseManagement() {
                     dates?.[1]?.format("YYYY-MM-DD") || ""
                   );
                 }}
+                className="w-full"
               />
+            </div>
+
+            <div className="flex gap-2">
+              <Button
+                danger
+                icon={<ClearOutlined />}
+                onClick={handleClearFilters}
+                size="large"
+                className="h-[40px]"
+              >
+                {t("sys.database.clear-filters")}
+              </Button>
               <Button
                 color="primary"
                 variant="outlined"
+                icon={<SearchOutlined />}
                 onClick={handleSearch}
                 size="large"
+                className="h-[40px]"
               >
                 {t("sys.database.search")}
               </Button>
-              <Button danger onClick={handleClearFilters} size="large">
-                {t("sys.database.clear-filters")}
-              </Button>
             </div>
-            <Separator className="my-4" />
           </div>
 
-          <BackupList backups={backups} reload={fetchBackups} />
-          <div className="flex justify-end mt-4">
-            <Pagination
-              current={page}
-              pageSize={pageSize}
-              total={total}
-              showSizeChanger
-              pageSizeOptions={["5", "10", "20", "50"]}
-              onChange={(p, ps) => {
-                setPage(p);
-                setPageSize(ps);
-                fetchBackups({ page: p, pageSize: ps });
-              }}
-            />
-          </div>
+          <BackupList
+            backups={backups}
+            reload={fetchBackups}
+            loading={loading}
+            pagination={{
+              page,
+              limit: pageSize,
+              total,
+              totalPages: Math.ceil(total / pageSize),
+            }}
+            onPageChange={(page, pageSize) => {
+              setPage(page);
+              setPageSize(pageSize || 10);
+              fetchBackups({ page, pageSize });
+            }}
+          />
         </>
       )}
 

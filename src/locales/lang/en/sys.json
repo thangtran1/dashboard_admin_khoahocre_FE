@@ -591,13 +591,16 @@
       "en": "English"
     },
     "database": {
+      "by-name": "File name",
+      "date-range": "Date range",
+      "no": "No",
       "title": "Database Management",
       "description": "Manage database, create, restore and delete backup",
       "refresh": "Refresh",
       "create-backup": "Create backup",
       "restore-backup": "Restore data",
       "delete-all-data": "Delete all data",
-      "search-by-name": "Search by name",
+      "search-by-name": "Search by information",
       "search": "Search",
       "clear-filters": "Clear filters",
       "delete": "Delete",

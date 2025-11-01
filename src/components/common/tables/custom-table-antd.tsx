@@ -60,7 +60,7 @@ const TableAntd: React.FC<TableAntdProps> = ({
               current={pagination?.page}
               pageSize={pagination?.limit}
               total={pagination?.total}
-              showQuickJumper
+              showQuickJumper={false}
               onChange={onPageChange}
             />
           </div>

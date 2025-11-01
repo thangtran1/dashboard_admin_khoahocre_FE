@@ -148,3 +148,34 @@ export interface BulkResult {
   errorCount: number;
   errors: Array<{ row: number; email: string; error: string }>;
 }
+
+export interface DatabaseInfo {
+  dbName: string;
+  collectionsCount: number;
+  dataSize: string;
+  storageSize: string;
+  indexes: number;
+  timestamp: string;
+  collections: string[];
+}
+
+export interface StatItem {
+  title: string;
+  value: string | number;
+  color: string;
+  icon: string;
+  isArray?: boolean;
+}
+export interface Backup {
+  filename: string;
+  size: number;
+  createdAt: string;
+  loading: boolean;
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+  onPageChange: (page: number, pageSize?: number) => void;
+}
