@@ -1,13 +1,4 @@
-import {
-  Table,
-  Tag,
-  Checkbox,
-  Pagination,
-  Tooltip,
-  Button,
-  Popconfirm,
-  Space,
-} from "antd";
+import { Tag, Checkbox, Tooltip, Button, Popconfirm, Space } from "antd";
 import {
   CalendarOutlined,
   PlayCircleOutlined,
@@ -21,11 +12,13 @@ import {
   MaintenanceType,
   MaintenanceStatus,
   UpdateMaintenanceDto,
+  getTypeConfig,
 } from "@/api/services/maintenanceApi";
 import MaintenanceModal from "./MaintenanceModal";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 import { useState } from "react";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 interface MaintenanceScheduledTableProps {
   maintenances: Maintenance[];
@@ -62,21 +55,6 @@ export default function MaintenanceScheduledTable({
   const [editingMaintenance, setEditingMaintenance] =
     useState<Maintenance | null>(null);
   const { t } = useTranslation();
-  const getTypeColor = (type: MaintenanceType) => {
-    switch (type) {
-      case MaintenanceType.DATABASE:
-        return "purple";
-      case MaintenanceType.SYSTEM:
-        return "cyan";
-      case MaintenanceType.NETWORK:
-        return "geekblue";
-      case MaintenanceType.OTHER:
-        return "default";
-      default:
-        return "default";
-    }
-  };
-
   const columns = [
     {
       title: (
@@ -106,6 +84,7 @@ export default function MaintenanceScheduledTable({
       title: t("sys.maintenance.title"),
       dataIndex: "title",
       key: "title",
+      width: 350,
       render: (_: any, record: Maintenance) => (
         <div>
           <div className="font-medium text-foreground">{record.title}</div>
@@ -121,9 +100,8 @@ export default function MaintenanceScheduledTable({
       title: t("sys.maintenance.type"),
       dataIndex: "type",
       key: "type",
-      width: 120,
       render: (type: MaintenanceType) => (
-        <Tag color={getTypeColor(type)}>
+        <Tag color={getTypeConfig(type).color}>
           {t(`sys.maintenance.type-${type}`)}
         </Tag>
       ),
@@ -132,18 +110,18 @@ export default function MaintenanceScheduledTable({
       title: t("sys.maintenance.scheduled-time"),
       dataIndex: "startTime",
       key: "startTime",
-      width: 180,
+      width: 200,
       render: (startTime: string, record: Maintenance) => (
         <Tooltip
           title={`${new Date(startTime).toLocaleString("vi-VN")} - ${new Date(
             record.endTime
           ).toLocaleString("vi-VN")}`}
         >
-          <div className="flex items-center gap-1 text-sm">
+          <div className="flex items-center gap-2 text-sm">
             <CalendarOutlined className="text-muted-foreground" />
-            <div>
+            <div className="flex items-center gap-2">
               <div>{new Date(startTime).toLocaleDateString("vi-VN")}</div>
-              <div className="text-xs text-muted-foreground">
+              <div>
                 {new Date(startTime).toLocaleTimeString("vi-VN", {
                   hour: "2-digit",
                   minute: "2-digit",
@@ -157,7 +135,6 @@ export default function MaintenanceScheduledTable({
     {
       title: t("sys.maintenance.duration"),
       key: "duration",
-      width: 100,
       render: (_: any, record: Maintenance) => {
         const duration =
           record.duration ||
@@ -177,7 +154,6 @@ export default function MaintenanceScheduledTable({
       title: t("sys.maintenance.created-at"),
       dataIndex: "createdAt",
       key: "createdAt",
-      width: 150,
       render: (createdAt: string) => (
         <Tooltip title={new Date(createdAt).toLocaleString("vi-VN")}>
           <div className="text-sm text-muted-foreground">
@@ -192,7 +168,8 @@ export default function MaintenanceScheduledTable({
     {
       title: t("sys.maintenance.actions"),
       key: "actions",
-      width: 180,
+      width: 150,
+      align: "center",
       render: (_: any, record: Maintenance) => (
         <Space>
           <Tooltip title={t("sys.maintenance.detail")}>
@@ -257,38 +234,16 @@ export default function MaintenanceScheduledTable({
   ];
 
   return (
-    <div className="bg-card rounded-lg border">
-      <Table
+    <div>
+      <TableAntd
         columns={columns}
-        dataSource={maintenances}
+        data={maintenances}
         loading={loading}
-        rowKey="_id"
-        pagination={false}
-        scroll={{ x: 1000 }}
-        className="maintenance-table"
+        pagination={pagination}
+        onPageChange={onPageChange}
+        scroll={{ x: 1000, y: 600 }}
       />
 
-      {/* Custom Pagination */}
-      <div className="justify-end flex p-4 border-t">
-        <Pagination
-          current={pagination.page}
-          total={pagination.total}
-          pageSize={pagination.limit}
-          onChange={onPageChange}
-          showSizeChanger
-          showQuickJumper
-          pageSizeOptions={["10", "20", "50", "100"]}
-          showTotal={(total, range) =>
-            t("sys.maintenance.pagination-total", {
-              start: range[0],
-              end: range[1],
-              total,
-            })
-          }
-        />
-      </div>
-
-      {/* Edit Modal */}
       <MaintenanceModal
         isOpen={!!editingMaintenance}
         maintenance={editingMaintenance}

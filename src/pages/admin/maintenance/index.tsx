@@ -1,6 +1,6 @@
 import { Tabs, Button } from "antd";
 import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
-import { Card, CardContent, CardTitle } from "@/ui/card";
+import { CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ export default function MaintenceSystemPage() {
   const { t } = useTranslation();
   const { activeTab, handleTabChange } = useMaintenceTabs();
 
-    const { refreshData, loading } = useMaintence(false);
+  const { refreshData, loading } = useMaintence(false);
 
   const tabItems = [
     {
@@ -53,7 +53,6 @@ export default function MaintenceSystemPage() {
             </p>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-3">
             <Button
               color="cyan"
@@ -80,7 +79,6 @@ export default function MaintenceSystemPage() {
 
         <Separator className="mb-0" />
 
-        {/* Tabs */}
         <Tabs
           activeKey={activeTab}
           onChange={(key) => handleTabChange(key as MaintenanceTabKey)}

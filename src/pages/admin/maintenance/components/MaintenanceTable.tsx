@@ -1,13 +1,4 @@
-import {
-  Table,
-  Checkbox,
-  Tag,
-  Space,
-  Button,
-  Tooltip,
-  Popconfirm,
-  Badge,
-} from "antd";
+import { Checkbox, Tag, Space, Button, Tooltip, Popconfirm, Badge } from "antd";
 import {
   DeleteOutlined,
   PlayCircleOutlined,
@@ -20,9 +11,10 @@ import {
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import {
+  getStatusConfig,
+  getTypeConfig,
   Maintenance,
   MaintenanceStatus,
-  MaintenanceType,
   UpdateMaintenanceDto,
 } from "@/api/services/maintenanceApi";
 import { formatDistanceToNow } from "date-fns";
@@ -30,6 +22,7 @@ import { vi } from "date-fns/locale";
 import { Icon } from "@/components/icon";
 import { useState } from "react";
 import MaintenanceModal from "./MaintenanceModal";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 interface MaintenanceTableProps {
   maintenances: Maintenance[];
@@ -70,56 +63,6 @@ export default function MaintenanceTable({
   const [editingMaintenance, setEditingMaintenance] =
     useState<Maintenance | null>(null);
   const { t } = useTranslation();
-
-  const getStatusConfig = (status: MaintenanceStatus) => {
-    switch (status) {
-      case MaintenanceStatus.SCHEDULED:
-        return {
-          color: "blue",
-          icon: "lucide:calendar-clock",
-          textClass: "text-blue-700",
-        };
-      case MaintenanceStatus.IN_PROGRESS:
-        return {
-          color: "orange",
-          icon: "lucide:settings",
-          textClass: "text-orange-700",
-        };
-      case MaintenanceStatus.COMPLETED:
-        return {
-          color: "green",
-          icon: "lucide:check-circle",
-          textClass: "text-green-700",
-        };
-      case MaintenanceStatus.CANCELLED:
-        return {
-          color: "red",
-          icon: "lucide:x-circle",
-          textClass: "text-red-700",
-        };
-      default:
-        return {
-          color: "default",
-          icon: "lucide:circle",
-          textClass: "text-gray-700",
-        };
-    }
-  };
-
-  const getTypeConfig = (type: MaintenanceType) => {
-    switch (type) {
-      case MaintenanceType.DATABASE:
-        return { color: "purple", icon: "lucide:database" };
-      case MaintenanceType.SYSTEM:
-        return { color: "cyan", icon: "lucide:settings" };
-      case MaintenanceType.NETWORK:
-        return { color: "geekblue", icon: "lucide:network" };
-      case MaintenanceType.OTHER:
-        return { color: "default", icon: "lucide:more-horizontal" };
-      default:
-        return { color: "default", icon: "lucide:circle" };
-    }
-  };
 
   const renderActions = (maintenance: Maintenance) => {
     const { status, _id } = maintenance;
@@ -249,7 +192,6 @@ export default function MaintenanceTable({
       ),
       key: "select",
       width: 50,
-      fixed: "left" as const,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
         <Checkbox
           checked={selectedMaintenances.includes(maintenance._id)}
@@ -266,8 +208,7 @@ export default function MaintenanceTable({
         </span>
       ),
       key: "info",
-      width: 300,
-      fixed: "left" as const,
+      width: 350,
       render: (_: React.ReactNode, maintenance: Maintenance) => {
         const statusConfig = getStatusConfig(maintenance.status);
         return (
@@ -315,7 +256,6 @@ export default function MaintenanceTable({
     {
       title: <span className="font-semibold">{t("sys.maintenance.type")}</span>,
       key: "type",
-      width: 120,
       render: (_: React.ReactNode, maintenance: Maintenance) => {
         const typeConfig = getTypeConfig(maintenance.type);
         return (
@@ -331,7 +271,6 @@ export default function MaintenanceTable({
         <span className="font-semibold">{t("sys.maintenance.status")}</span>
       ),
       key: "status",
-      width: 120,
       render: (_: React.ReactNode, maintenance: Maintenance) => {
         const statusConfig = getStatusConfig(maintenance.status);
         return (
@@ -350,7 +289,7 @@ export default function MaintenanceTable({
         <span className="font-semibold">{t("sys.maintenance.schedule")}</span>
       ),
       key: "time",
-      width: 150,
+      width: 180,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
         <div className="text-sm space-y-1">
           <div className="flex items-center gap-2">
@@ -402,7 +341,6 @@ export default function MaintenanceTable({
         <span className="font-semibold">{t("sys.maintenance.created-at")}</span>
       ),
       key: "createdAt",
-      width: 120,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
         <Tooltip
           title={new Date(maintenance.createdAt).toLocaleString("vi-VN")}
@@ -428,8 +366,7 @@ export default function MaintenanceTable({
         </span>
       ),
       key: "actions",
-      width: 120,
-      fixed: "right" as const,
+      width: 150,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
         <div className="flex justify-center">{renderActions(maintenance)}</div>
       ),
@@ -437,51 +374,20 @@ export default function MaintenanceTable({
   ];
 
   return (
-    <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
+    <div>
       <MaintenanceModal
         isOpen={!!editingMaintenance}
         maintenance={editingMaintenance}
         onClose={() => setEditingMaintenance(null)}
         onUpdate={onUpdate}
       />
-      <Table
+      <TableAntd
         columns={columns}
-        dataSource={maintenances}
-        rowKey="_id"
+        data={maintenances}
         loading={loading}
-        pagination={{
-          current: pagination.page,
-          pageSize: pagination.limit,
-          total: pagination.total,
-          showSizeChanger: true,
-          showQuickJumper: true,
-          showTotal: (total, range) =>
-            `${range[0]}-${range[1]} ${t("sys.maintenance.of")} ${total} ${t(
-              "sys.maintenance.items"
-            )}`,
-          onChange: onPageChange,
-          onShowSizeChange: onPageChange,
-          pageSizeOptions: ["10", "20", "50", "100"],
-          className: "px-4 py-4",
-        }}
-        scroll={{ x: 1400, y: 600 }}
-        className="maintenance-table"
-        rowClassName={() => {
-          return `hover:bg-muted cursor-pointer transition-colors`;
-        }}
-        locale={{
-          emptyText: (
-            <div className="py-16">
-              <Icon
-                icon="lucide:inbox"
-                className="h-16 w-16 mx-auto text-muted-foreground/50 mb-4"
-              />
-              <p className="text-base font-medium text-muted-foreground">
-                {t("sys.maintenance.no-data")}
-              </p>
-            </div>
-          ),
-        }}
+        pagination={pagination}
+        onPageChange={onPageChange}
+        scroll={{ x: 1000, y: 600 }}
       />
     </div>
   );

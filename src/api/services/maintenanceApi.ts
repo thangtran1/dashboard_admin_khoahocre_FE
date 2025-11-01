@@ -1,5 +1,54 @@
 import apiClient from "../apiClient";
 
+export const getStatusConfig = (status: MaintenanceStatus) => {
+  switch (status) {
+    case MaintenanceStatus.SCHEDULED:
+      return {
+        color: "blue",
+        icon: "lucide:calendar-clock",
+        textClass: "text-blue-700",
+      };
+    case MaintenanceStatus.IN_PROGRESS:
+      return {
+        color: "orange",
+        icon: "lucide:settings",
+        textClass: "text-orange-700",
+      };
+    case MaintenanceStatus.COMPLETED:
+      return {
+        color: "green",
+        icon: "lucide:check-circle",
+        textClass: "text-green-700",
+      };
+    case MaintenanceStatus.CANCELLED:
+      return {
+        color: "red",
+        icon: "lucide:x-circle",
+        textClass: "text-red-700",
+      };
+    default:
+      return {
+        color: "default",
+        icon: "lucide:circle",
+        textClass: "text-gray-700",
+      };
+  }
+};
+
+export const getTypeConfig = (type: MaintenanceType) => {
+  switch (type) {
+    case MaintenanceType.DATABASE:
+      return { color: "purple", icon: "lucide:database" };
+    case MaintenanceType.SYSTEM:
+      return { color: "cyan", icon: "lucide:settings" };
+    case MaintenanceType.NETWORK:
+      return { color: "geekblue", icon: "lucide:network" };
+    case MaintenanceType.OTHER:
+      return { color: "default", icon: "lucide:more-horizontal" };
+    default:
+      return { color: "default", icon: "lucide:circle" };
+  }
+};
 export enum MaintenanceStatus {
   SCHEDULED = "scheduled",
   IN_PROGRESS = "in_progress",
