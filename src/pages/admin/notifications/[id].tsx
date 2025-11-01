@@ -13,9 +13,9 @@ import {
 } from "antd";
 import { useParams, Link } from "react-router";
 import dayjs from "dayjs";
-import { notificationAdminService } from "../../api/services/notificationApi";
-import { Notifications } from "../../types/entity";
-import { NotificationType } from "../../types/enum";
+import { notificationAdminService } from "@/api/services/notificationApi";
+import { Notifications } from "@/types/entity";
+import { NotificationType } from "@/types/enum";
 
 const { Title, Text } = Typography;
 
@@ -184,20 +184,6 @@ const Notification: React.FC = () => {
                 }}
               >
                 {notification.data.title}
-              </div>
-            </div>
-
-            <div style={{ marginBottom: "16px" }}>
-              <Text strong>Mô tả ngắn:</Text>
-              <div
-                style={{
-                  marginTop: "4px",
-                  padding: "8px 12px",
-                  backgroundColor: "#f5f5f5",
-                  borderRadius: "4px",
-                }}
-              >
-                {notification.data.shortDescription}
               </div>
             </div>
 

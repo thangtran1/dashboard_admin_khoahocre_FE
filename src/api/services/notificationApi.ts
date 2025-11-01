@@ -7,6 +7,14 @@ export interface CreateNotificationDto {
   type: NotificationType;
 }
 
+export interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  onPageChange: (page: number, pageSize?: number) => void;
+}
+
 export interface Notification {
   _id: string;
   title: string;

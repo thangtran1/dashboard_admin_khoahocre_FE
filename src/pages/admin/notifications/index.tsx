@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Table,
   Button,
   Space,
   Input,
@@ -31,21 +30,21 @@ import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useAdminNotifications } from "@/hooks/useAdminNotifications";
 import { Notification } from "@/types/entity";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 const NotificationManagement: React.FC = () => {
   const {
     notifications,
     loading,
-    total,
-    page,
-    limit,
+    pagination,
     searchOptions,
     loadNotifications,
     updateNotification,
     deleteNotification,
     handleFilterChange,
-    handlePageSizeChange,
     clearFilters,
+  onPageChange,
+
   } = useAdminNotifications();
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
@@ -163,14 +162,6 @@ const NotificationManagement: React.FC = () => {
 
   const columns = [
     {
-      title: t("sys.notification.id"),
-      dataIndex: "_id",
-      key: "_id",
-      width: 120,
-      ellipsis: true,
-      render: (text: string) => renderWithTooltip(text),
-    },
-    {
       title: t("sys.notification.title"),
       dataIndex: "title",
       key: "title",
@@ -234,12 +225,13 @@ const NotificationManagement: React.FC = () => {
       key: "createdAt",
       width: 150,
       render: (date: string) =>
-        renderWithTooltip(dayjs(date).format("DD/MM/YYYY HH:mm:ss")),
+        renderWithTooltip(dayjs(date).format("DD/MM/YYYY HH:mm")),
     },
     {
       title: t("sys.notification.actions"),
       key: "actions",
-      width: 150,
+      width: 120,
+      align: "center",
       render: (record: Notification) => {
         return (
           <Space>
@@ -292,7 +284,7 @@ const NotificationManagement: React.FC = () => {
       </div>
       <Separator />
 
-      <div className="py-4">
+      <div className="pb-2">
         <div className="flex flex-col lg:flex-row lg:items-end gap-3">
           <div className="flex-1 flex flex-col sm:flex-row gap-3">
             <div>
@@ -335,10 +327,10 @@ const NotificationManagement: React.FC = () => {
               size="large"
               style={{ width: 220 }}
               allowClear
-              value={selectedType}
+              value={selectedType || undefined} 
               onChange={setSelectedType}
+              placeholder={t("sys.notification.type-placeholder")} 
             >
-              <Option value="">{t("sys.notification.type-placeholder")}</Option>
               <Option value="system">{t("sys.notification.system")}</Option>
               <Option value="promotion">
                 {t("sys.notification.promotion")}
@@ -375,37 +367,14 @@ const NotificationManagement: React.FC = () => {
       <Separator />
 
       <div className="pb-4">
-        <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mb-4">
-          <Icon icon="lucide:list" className="h-5 w-5 text-blue-600" />
-          {t("sys.notification.notification-list")} ({total})
-        </h2>
-        <Separator className="my-4" />
-
         <div className="overflow-x-auto">
-          <Table
+          <TableAntd
             columns={columns}
-            dataSource={notifications}
-            rowKey="_id"
+            data={notifications}
             loading={loading}
-            scroll={{ y: 500, x: 1500 }}
-            pagination={{
-              current: page,
-              pageSize: limit,
-              total: total,
-              showSizeChanger: true,
-              showQuickJumper: false,
-              pageSizeOptions: ["10", "20", "50", "100"],
-              onChange: (pageNum) => {
-                loadNotifications(pageNum, limit, searchOptions);
-              },
-              onShowSizeChange: (_current, size) => {
-                handlePageSizeChange(size);
-              },
-              showTotal: (total, range) =>
-                `${t("sys.notification.showing")} ${range[0]}-${range[1]} ${t(
-                  "sys.notification.of"
-                )} ${total} ${t("sys.notification.items")}`,
-            }}
+            pagination={pagination}
+            onPageChange={onPageChange}
+            scroll={{ y: 500, x: 600 }}
           />
         </div>
       </div>

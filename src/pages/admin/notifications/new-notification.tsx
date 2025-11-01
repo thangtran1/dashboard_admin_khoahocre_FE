@@ -13,11 +13,11 @@ import {
 } from "antd";
 import { Link } from "react-router";
 import { toast } from "sonner";
-import { useAdminNotifications } from "../../hooks/useAdminNotifications";
 import { PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { Notification } from "../../types/entity";
 import { NotificationType } from "@/types/enum";
+import { useAdminNotifications } from "@/hooks/useAdminNotifications";
+import { Notification } from "@/types/entity";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -129,90 +129,53 @@ const NewNotification: React.FC = () => {
           </Col>
         </Row>
 
-        <Divider />
 
-        <Title level={4} style={{ marginBottom: "16px" }}>
+        <Title level={4} style={{ marginBottom: "12px" }}>
           {t("sys.notification.content")}
         </Title>
 
         <Row gutter={24}>
           <Col span={8}>
-            <Form.Item
-              name="actionUrl"
-              label={t("sys.notification.image-video")}
-              rules={[
-                {
-                  validator: (_, value) => {
-                    if (!value) return Promise.resolve();
-                    if (validateUrl(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error(t("sys.notification.url-invalid"))
-                    );
-                  },
-                },
-              ]}
-            >
-              <div
-                style={{
-                  border: "2px dashed #d9d9d9",
-                  borderRadius: 8,
-                  padding: 8,
-                  textAlign: "center",
-                  minHeight: 200,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: 8,
-                  position: "relative",
-                }}
-              >
-                {actionUrlFile ? (
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      position: "relative",
-                    }}
-                  >
-                    <img
-                      src={actionUrlFile}
-                      alt="preview"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                        borderRadius: 4,
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 8,
-                        right: 8,
-                        background: "rgba(0,0,0,0.6)",
-                        color: "#fff",
-                        padding: "4px 8px",
-                        borderRadius: 4,
-                        cursor: "pointer",
-                        fontSize: 12,
-                      }}
-                      onClick={() => {
-                        setActionUrlFile(null);
-                        form.setFieldsValue({ actionUrl: undefined });
-                      }}
-                    >
-                      Xóa
-                    </div>
-                  </div>
-                ) : (
-                  <div style={{ color: "#999" }}>
-                    <PlusOutlined style={{ fontSize: 48, marginBottom: 8 }} />
-                    <div>{t("sys.notification.preview-image-video")}</div>
-                  </div>
-                )}
-              </div>
+          <Form.Item
+  name="actionUrl"
+  label={t("sys.notification.image-video")}
+  rules={[
+    {
+      validator: (_, value) => {
+        if (!value) return Promise.resolve();
+        if (validateUrl(value)) return Promise.resolve();
+        return Promise.reject(new Error(t("sys.notification.url-invalid")));
+      },
+    },
+  ]}
+>
+  <div
+    className="border border-border rounded-lg p-2 text-center h-[200px] flex items-center justify-center relative mb-3"
+  >
+    {actionUrlFile ? (
+      <div className="w-full h-full relative flex items-center justify-center">
+        <img
+          src={actionUrlFile}
+          alt="preview"
+          className="w-full h-full object-cover rounded-lg"
+        />
+        <div
+          className="absolute top-2 right-2 bg-black/60 text-white px-2 py-1 rounded-md text-xs cursor-pointer"
+          onClick={() => {
+            setActionUrlFile(null);
+            form.setFieldsValue({ actionUrl: undefined });
+          }}
+        >
+          Xóa
+        </div>
+      </div>
+    ) : (
+      <div style={{ color: "#999" }}>
+        <PlusOutlined style={{ fontSize: 48, marginBottom: 8 }} />
+        <div>{t("sys.notification.preview-image-video")}</div>
+      </div>
+    )}
+  </div>
 
               {/* Input luôn hiển thị */}
               <Input
@@ -254,11 +217,8 @@ const NewNotification: React.FC = () => {
           </Col>
           <Col span={16}>
             <div>
-              <Title level={5} style={{ marginBottom: "16px" }}>
-                {t("sys.notification.content")}
-              </Title>
-
               <Form.Item
+                style={{ marginBottom: 12 }} 
                 name="title"
                 label={t("sys.notification.title")}
                 rules={[
@@ -285,16 +245,16 @@ const NewNotification: React.FC = () => {
                     message: t("sys.notification.content-required"),
                   },
                   {
-                    max: 2000,
+                    max: 500,
                     message: t("sys.notification.content-max"),
                   },
                 ]}
               >
                 <TextArea
-                  rows={8}
+                  rows={7}
                   placeholder={t("sys.notification.content-placeholder")}
                   showCount
-                  maxLength={2000}
+                  maxLength={500}
                 />
               </Form.Item>
             </div>
@@ -302,18 +262,15 @@ const NewNotification: React.FC = () => {
         </Row>
 
         <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "12px",
-            marginTop: "24px",
-            paddingTop: "24px",
-            borderTop: "1px solid #f0f0f0",
-          }}
+          className="flex justify-end gap-2 mt-2 pt-2 border-t border-border pt-4"
         >
           <Button
             size="large"
-            style={{ borderColor: "#ff4d4f", color: "#ff4d4f" }}
+            danger
+            onClick={() => {
+              form.resetFields();
+              setActionUrlFile(null); 
+            }}
           >
             {t("sys.notification.cancel")}
           </Button>

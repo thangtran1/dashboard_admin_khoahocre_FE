@@ -4,6 +4,7 @@ import {
   notificationAdminService,
   CreateNotificationDto,
   Notification,
+  Pagination,
 } from "../api/services/notificationApi";
 import { useUserInfo } from "@/store/userStore";
 import { NotificationType } from "@/types/enum";
@@ -16,10 +17,12 @@ export const useAdminNotifications = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState<number>(0);
-  const [statistics, setStatistics] = useState({
-    totalNotifications: 0,
-    systemNotifications: 0,
-    totalReadByUsers: 0,
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    limit: 10,
+    total: 0,
+    totalPages: 0,
+    onPageChange: () => {},
   });
 
   // Get initial values from URL params
@@ -64,8 +67,8 @@ export const useAdminNotifications = () => {
       // Always set page, even if it's 1
       params.set("page", newPage.toString());
 
-      // Set limit if different from default
-      if (newLimit && newLimit !== 20) params.set("limit", newLimit.toString());
+      // Nếu limit khác 10 thì set limit = ''
+      if (newLimit && newLimit !== 10) params.set("limit", newLimit.toString());
 
       // Set search options
       if (newOptions.search) params.set("search", newOptions.search);
@@ -109,7 +112,15 @@ export const useAdminNotifications = () => {
         setNotifications(response.data.notifications);
         setTotal(response.data.total);
         setPage(pageNum);
-
+        setPagination({
+          page: pageNum,
+          limit: limitNum,
+          total: response.data.total,
+          totalPages: Math.ceil(response.data.total / limitNum),
+          onPageChange: (page: number, pageSize?: number) => {
+            loadNotifications(page, pageSize || limitNum, searchOptions);
+          },
+        });
         // Update search options and URL
         const finalOptions = options || searchOptions;
         if (options) {
@@ -235,37 +246,6 @@ export const useAdminNotifications = () => {
     loadNotifications(1, 20, emptyOptions);
   }, [loadNotifications, setSearchParams]);
 
-  // Handle page size change
-  const handlePageSizeChange = useCallback(
-    (newPageSize: number) => {
-      setLimit(newPageSize);
-      // Keep current page when changing page size (if possible)
-      loadNotifications(page, newPageSize, searchOptions);
-    },
-    [loadNotifications, searchOptions, page]
-  );
-
-  // Hàm lấy thống kê tổng quan
-  const fetchStatistics = useCallback(async () => {
-    if (!isAdmin) return;
-    try {
-      const response = await notificationAdminService.getAll(1, 9999999, {});
-      const allNotifications = response.data.notifications;
-
-      setStatistics({
-        totalNotifications: response.data.total,
-        systemNotifications: allNotifications.filter((n) => n.type === "system")
-          .length,
-        totalReadByUsers: allNotifications.reduce(
-          (sum, n) => sum + (n.readByUsers?.length || 0),
-          0
-        ),
-      });
-    } catch (error) {
-      console.error("Error fetching statistics:", error);
-    }
-  }, [isAdmin]);
-
   // Load data from URL params on mount
   useEffect(() => {
     if (isAdmin) {
@@ -280,20 +260,17 @@ export const useAdminNotifications = () => {
 
       // Load data và thống kê
       loadNotifications(initialPage, initialLimit, initialOptions);
-      fetchStatistics();
     }
-  }, [isAdmin, fetchStatistics]); // Only depend on isAdmin and fetchStatistics to avoid infinite loops
+  }, [isAdmin]);
 
   return {
     notifications,
     loading,
     error,
     total,
-    page,
-    limit,
+    pagination,
     isAdmin,
     searchOptions,
-    statistics,
     loadNotifications,
     createNotification,
     updateNotification,
@@ -301,10 +278,8 @@ export const useAdminNotifications = () => {
     getNotification,
     handleSearch,
     handleFilterChange,
-    handlePageSizeChange,
     clearFilters,
-    refresh: () => loadNotifications(page, limit, searchOptions),
-    nextPage: () => loadNotifications(page + 1, limit, searchOptions),
-    prevPage: () => loadNotifications(page - 1, limit, searchOptions),
+    refresh: () => loadNotifications(pagination.page, pagination.limit, searchOptions),
+    onPageChange: pagination.onPageChange,
   };
 };
