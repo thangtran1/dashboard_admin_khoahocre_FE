@@ -20,14 +20,13 @@ import {
   EyeOutlined,
   EditOutlined,
   DeleteOutlined,
-  FilterOutlined,
+  ClearOutlined,
 } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { Link } from "react-router";
 import dayjs from "dayjs";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useAdminNotifications } from "@/hooks/useAdminNotifications";
@@ -41,7 +40,6 @@ const NotificationManagement: React.FC = () => {
     page,
     limit,
     searchOptions,
-    statistics,
     loadNotifications,
     updateNotification,
     deleteNotification,
@@ -267,8 +265,6 @@ const NotificationManagement: React.FC = () => {
     },
   ];
 
-  // Lấy thống kê từ hook
-
   return (
     <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
       {/* Header */}
@@ -296,121 +292,73 @@ const NotificationManagement: React.FC = () => {
       </div>
       <Separator />
 
-      {/* Thống kê */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-2xl font-medium text-blue-800">
-              {t("sys.notification.total-notifications")}
-            </CardTitle>
-            <div className="p-2 bg-primary rounded-full">
-              <Icon icon="lucide:bell" className="h-4 w-4 text-blue-500" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-blue-800">
-              {statistics?.totalNotifications}
-            </div>
-            <p className="text-xs text-blue-800 mt-1">
-              {t("sys.notification.total-notifications-description")}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-2xl font-medium text-green-800">
-              {t("sys.notification.system-notifications")}
-            </CardTitle>
-            <div className="p-2 bg-green-500 rounded-full">
-              <Icon
-                icon="lucide:shield-check"
-                className="h-4 w-4 text-green-700"
-              />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-green-800">
-              {statistics?.systemNotifications}
-            </div>
-            <p className="text-xs text-green-800 mt-1">
-              {t("sys.notification.system-notifications-description")}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-2xl font-medium text-purple-800">
-              {t("sys.notification.total-reads")}
-            </CardTitle>
-            <div className="p-2 bg-purple-500 rounded-full">
-              <Icon icon="lucide:users" className="h-4 w-4 text-purple-700" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-purple-800">
-              {statistics?.totalReadByUsers}
-            </div>
-            <p className="text-xs text-purple-800 mt-1">
-              {t("sys.notification.total-reads-description")}
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Bộ lọc */}
       <div className="py-4">
-        <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
-          <Icon icon="lucide:filter" className="h-5 w-5 text-blue-600" />
-          {t("sys.notification.filter")}
-        </h2>
-
-        <Separator className="my-4" />
-
-        {/* Bộ lọc */}
         <div className="flex flex-col lg:flex-row lg:items-end gap-3">
           <div className="flex-1 flex flex-col sm:flex-row gap-3">
-            <Search
-              placeholder={t("Tìm kiếm theo tiêu đề và nội dung")}
-              size="large"
-              prefix={<SearchOutlined />}
-              allowClear
-              className="flex-[1.3]"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              onSearch={handleSearchClick}
-            />
-            <RangePicker
-              size="large"
-              allowClear
-              className="flex-[0.7]"
-              style={{ minWidth: 220 }}
-              value={dateRange}
-              onChange={(dates) =>
-                setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs] | null)
-              }
-            />
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {t("sys.notification.search")}
+              </label>
+              <Search
+                placeholder={t("sys.notification.search-placeholder")}
+                size="large"
+                prefix={<SearchOutlined />}
+                allowClear
+                className="flex-[1.3]"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onSearch={handleSearchClick}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {t("sys.notification.date-range")}
+              </label>
+              <RangePicker
+                size="large"
+                allowClear
+                className="flex-[0.7]"
+                style={{ minWidth: 220 }}
+                value={dateRange}
+                onChange={(dates) =>
+                  setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs] | null)
+                }
+              />
+            </div>
           </div>
 
-          <Select
-            size="large"
-            style={{ width: 220 }}
-            placeholder={t("Lọc theo loại thông báo")}
-            allowClear
-            value={selectedType}
-            onChange={setSelectedType}
-          >
-            <Option value="">{t("Tất cả")}</Option>
-            <Option value="system">{t("sys.notification.system")}</Option>
-            <Option value="promotion">{t("sys.notification.promotion")}</Option>
-            <Option value="maintenance">
-              {t("sys.notification.maintenance")}
-            </Option>
-            <Option value="update">{t("sys.notification.update")}</Option>
-          </Select>
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              {t("sys.notification.type")}
+            </label>
+            <Select
+              size="large"
+              style={{ width: 220 }}
+              allowClear
+              value={selectedType}
+              onChange={setSelectedType}
+            >
+              <Option value="">{t("sys.notification.type-placeholder")}</Option>
+              <Option value="system">{t("sys.notification.system")}</Option>
+              <Option value="promotion">
+                {t("sys.notification.promotion")}
+              </Option>
+              <Option value="maintenance">
+                {t("sys.notification.maintenance")}
+              </Option>
+              <Option value="update">{t("sys.notification.update")}</Option>
+            </Select>
+          </div>
 
           <div className="flex gap-2">
+            <Button
+              danger
+              icon={<ClearOutlined />}
+              size="large"
+              onClick={handleClearFilter}
+            >
+              {t("sys.notification.clear-filter")}
+            </Button>
             <Button
               icon={<SearchOutlined />}
               size="large"
@@ -420,21 +368,12 @@ const NotificationManagement: React.FC = () => {
             >
               {t("sys.notification.search")}
             </Button>
-            <Button
-              danger
-              icon={<FilterOutlined />}
-              size="large"
-              onClick={handleClearFilter}
-            >
-              {t("sys.notification.clear-filter")}
-            </Button>
           </div>
         </div>
       </div>
 
       <Separator />
 
-      {/* Danh sách thông báo */}
       <div className="pb-4">
         <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mb-4">
           <Icon icon="lucide:list" className="h-5 w-5 text-blue-600" />
