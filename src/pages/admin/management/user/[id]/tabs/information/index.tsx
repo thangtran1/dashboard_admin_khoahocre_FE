@@ -19,6 +19,7 @@ import {
 } from "@ant-design/icons";
 import { Separator } from "@/ui/separator";
 import {
+  adminUpdateUserPassword,
   getUserById,
   updateUser,
   UpdateUserReq,
@@ -38,7 +39,8 @@ export default function UserInformation({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [userData, setUserData] = useState<User | null>(null);
-
+  const [passwordValid, setPasswordValid] = useState(false);
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
   useEffect(() => {
     if (!userId) return;
     let isMounted = true;
@@ -102,236 +104,313 @@ export default function UserInformation({ userId }: { userId: string }) {
     inactive: "border-orange-500 text-orange-700 bg-orange-50",
     banned: "border-red-500 text-red-700 bg-red-50",
   };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPasswordValid(passwordRegex.test(value));
+  };
 
+  const handleUpdatePassword = async (values: { newPassword: string }) => {
+    if (!values.newPassword) return;
+    setLoading(true);
+    try {
+      const response = await adminUpdateUserPassword(userId, {
+        newPassword: values.newPassword,
+      });
+
+      if (response.data.success) {
+        toast.success("Cập nhật mật khẩu thành công");
+        form.resetFields();
+        setPasswordValid(false);
+      } else {
+        toast.error("Cập nhật mật khẩu thất bại");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <div className="bg-card text-card-foreground p-4 flex flex-col gap-6 rounded-md border shadow-sm">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-3">
-          <Avatar
-            size={84}
-            icon={<UserOutlined />}
-            className="border border-gray-200 shadow-sm"
-          />
-          <div>
-            <Title level={3} className="!mb-0">
-              {userData?.name}
-            </Title>
-            <Text type="secondary">{userData?.email}</Text>
-            <div className="mt-1 flex gap-2">
-              <div
-                className={`capitalize rounded-md px-2 py-1 text-sm border ${
-                  statusColor[userData?.status as UserStatus]
-                }`}
-              >
-                {userData?.status}
-              </div>
-              <div className="capitalize border border-sky-500 bg-sky-50 text-sky-700 rounded-md px-2 py-1 text-sm">
-                {userData?.role}
+    <div className="flex flex-col gap-6">
+      <div className="bg-card text-card-foreground p-4 flex flex-col gap-6 rounded-md border shadow-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Avatar
+              size={84}
+              icon={<UserOutlined />}
+              className="border border-gray-200 shadow-sm"
+            />
+            <div>
+              <Title level={3} className="!mb-0">
+                {userData?.name}
+              </Title>
+              <Text type="secondary">{userData?.email}</Text>
+              <div className="mt-1 flex gap-2">
+                <div
+                  className={`capitalize rounded-md px-2 py-1 text-sm border ${
+                    statusColor[userData?.status as UserStatus]
+                  }`}
+                >
+                  {userData?.status}
+                </div>
+                <div className="capitalize border border-sky-500 bg-sky-50 text-sky-700 rounded-md px-2 py-1 text-sm">
+                  {userData?.role}
+                </div>
               </div>
             </div>
           </div>
+
+          <Button
+            type={isEditing ? "default" : "primary"}
+            icon={isEditing ? <CloseOutlined /> : <EditOutlined />}
+            size="large"
+            onClick={() => setIsEditing(!isEditing)}
+            className="rounded-full px-6 font-medium"
+          >
+            {isEditing
+              ? t("sys.user-management.user-detail.cancel-edit")
+              : t("sys.user-management.user-detail.edit-information")}
+          </Button>
         </div>
 
-        <Button
-          type={isEditing ? "default" : "primary"}
-          icon={isEditing ? <CloseOutlined /> : <EditOutlined />}
-          size="large"
-          onClick={() => setIsEditing(!isEditing)}
-          className="rounded-full px-6 font-medium"
+        <Separator />
+
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          disabled={!isEditing}
         >
-          {isEditing
-            ? t("sys.user-management.user-detail.cancel-edit")
-            : t("sys.user-management.user-detail.edit-information")}
-        </Button>
-      </div>
-
-      <Separator />
-
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={handleSubmit}
-        disabled={!isEditing}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
-          <Form.Item
-            name="name"
-            label={t("sys.user-management.user-detail.name")}
-            rules={[
-              {
-                required: true,
-                message: t("sys.user-management.user-detail.name-required"),
-              },
-            ]}
-          >
-            <Input
-              size="large"
-              prefix={<UserOutlined />}
-              placeholder={t(
-                "sys.user-management.user-detail.name-placeholder"
-              )}
-              className="rounded-lg"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              {
-                required: true,
-                message: t("sys.user-management.user-detail.email-required"),
-              },
-              {
-                type: "email",
-                message: t("sys.user-management.user-detail.email-invalid"),
-              },
-            ]}
-          >
-            <Input
-              size="large"
-              prefix={<MailOutlined />}
-              placeholder={t(
-                "sys.user-management.user-detail.email-placeholder"
-              )}
-              className="rounded-lg"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="phone"
-            label={t("sys.user-management.user-detail.phone")}
-            rules={[
-              {
-                required: true,
-                message: t("sys.user-management.user-detail.phone-required"),
-              },
-            ]}
-          >
-            <Input
-              size="large"
-              prefix={<PhoneOutlined />}
-              placeholder={t(
-                "sys.user-management.user-detail.phone-placeholder"
-              )}
-              className="rounded-lg"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="address"
-            label={t("sys.user-management.user-detail.address")}
-            rules={[
-              {
-                required: true,
-                message: t("sys.user-management.user-detail.address-required"),
-              },
-            ]}
-          >
-            <Input
-              size="large"
-              prefix={<EnvironmentOutlined />}
-              placeholder={t(
-                "sys.user-management.user-detail.address-placeholder"
-              )}
-              className="rounded-lg"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="role"
-            label={t("sys.user-management.user-detail.role")}
-            rules={[
-              {
-                required: true,
-                message: t("sys.user-management.user-detail.role-required"),
-              },
-            ]}
-          >
-            <Select
-              size="large"
-              className="rounded-lg"
-              placeholder={t(
-                "sys.user-management.user-detail.role-placeholder"
-              )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+            <Form.Item
+              name="name"
+              label={t("sys.user-management.user-detail.name")}
+              rules={[
+                {
+                  required: true,
+                  message: t("sys.user-management.user-detail.name-required"),
+                },
+              ]}
             >
-              <Option value={UserRole.USER}>
-                {t("sys.user-management.user-detail.role-user")}
-              </Option>
-              <Option value={UserRole.MODERATOR}>
-                {t("sys.user-management.user-detail.role-moderator")}
-              </Option>
-              <Option value={UserRole.ADMIN}>
-                {t("sys.user-management.user-detail.role-admin")}
-              </Option>
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            name="status"
-            label={t("sys.user-management.user-detail.status")}
-            rules={[
-              {
-                required: true,
-                message: t("sys.user-management.user-detail.status-required"),
-              },
-            ]}
-          >
-            <Select
-              size="large"
-              className="rounded-lg"
-              placeholder={t(
-                "sys.user-management.user-detail.status-placeholder"
-              )}
-            >
-              <Option value={UserStatus.ACTIVE}>
-                {t("sys.user-management.user-detail.status-active")}
-              </Option>
-              <Option value={UserStatus.INACTIVE}>
-                {t("sys.user-management.user-detail.status-inactive")}
-              </Option>
-              <Option value={UserStatus.BANNED}>
-                {t("sys.user-management.user-detail.status-banned")}
-              </Option>
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            name="bio"
-            label={t("sys.user-management.user-detail.bio")}
-          >
-            <Input.TextArea
-              rows={4}
-              maxLength={200}
-              placeholder={t("sys.user-management.user-detail.bio-placeholder")}
-              className="rounded-lg"
-            />
-          </Form.Item>
-        </div>
-
-        {isEditing && (
-          <div className="flex justify-end mt-4">
-            <Space>
-              <Button
+              <Input
                 size="large"
-                onClick={handleCancel}
-                danger
-                disabled={loading}
+                prefix={<UserOutlined />}
+                placeholder={t(
+                  "sys.user-management.user-detail.name-placeholder"
+                )}
+                className="rounded-lg"
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="email"
+              label="Email"
+              rules={[
+                {
+                  required: true,
+                  message: t("sys.user-management.user-detail.email-required"),
+                },
+                {
+                  type: "email",
+                  message: t("sys.user-management.user-detail.email-invalid"),
+                },
+              ]}
+            >
+              <Input
+                size="large"
+                prefix={<MailOutlined />}
+                placeholder={t(
+                  "sys.user-management.user-detail.email-placeholder"
+                )}
+                className="rounded-lg"
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="phone"
+              label={t("sys.user-management.user-detail.phone")}
+              rules={[
+                {
+                  required: true,
+                  message: t("sys.user-management.user-detail.phone-required"),
+                },
+              ]}
+            >
+              <Input
+                size="large"
+                prefix={<PhoneOutlined />}
+                placeholder={t(
+                  "sys.user-management.user-detail.phone-placeholder"
+                )}
+                className="rounded-lg"
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="address"
+              label={t("sys.user-management.user-detail.address")}
+              rules={[
+                {
+                  required: true,
+                  message: t(
+                    "sys.user-management.user-detail.address-required"
+                  ),
+                },
+              ]}
+            >
+              <Input
+                size="large"
+                prefix={<EnvironmentOutlined />}
+                placeholder={t(
+                  "sys.user-management.user-detail.address-placeholder"
+                )}
+                className="rounded-lg"
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="role"
+              label={t("sys.user-management.user-detail.role")}
+              rules={[
+                {
+                  required: true,
+                  message: t("sys.user-management.user-detail.role-required"),
+                },
+              ]}
+            >
+              <Select
+                size="large"
+                className="rounded-lg"
+                placeholder={t(
+                  "sys.user-management.user-detail.role-placeholder"
+                )}
               >
-                {t("sys.user-management.user-detail.cancel")}
-              </Button>
+                <Option value={UserRole.USER}>
+                  {t("sys.user-management.user-detail.role-user")}
+                </Option>
+                <Option value={UserRole.MODERATOR}>
+                  {t("sys.user-management.user-detail.role-moderator")}
+                </Option>
+                <Option value={UserRole.ADMIN}>
+                  {t("sys.user-management.user-detail.role-admin")}
+                </Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="status"
+              label={t("sys.user-management.user-detail.status")}
+              rules={[
+                {
+                  required: true,
+                  message: t("sys.user-management.user-detail.status-required"),
+                },
+              ]}
+            >
+              <Select
+                size="large"
+                className="rounded-lg"
+                placeholder={t(
+                  "sys.user-management.user-detail.status-placeholder"
+                )}
+              >
+                <Option value={UserStatus.ACTIVE}>
+                  {t("sys.user-management.user-detail.status-active")}
+                </Option>
+                <Option value={UserStatus.INACTIVE}>
+                  {t("sys.user-management.user-detail.status-inactive")}
+                </Option>
+                <Option value={UserStatus.BANNED}>
+                  {t("sys.user-management.user-detail.status-banned")}
+                </Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="bio"
+              label={t("sys.user-management.user-detail.bio")}
+            >
+              <Input.TextArea
+                rows={4}
+                maxLength={200}
+                placeholder={t(
+                  "sys.user-management.user-detail.bio-placeholder"
+                )}
+                className="rounded-lg"
+              />
+            </Form.Item>
+          </div>
+
+          {isEditing && (
+            <div className="flex justify-end mt-4">
+              <Space>
+                <Button
+                  size="large"
+                  onClick={handleCancel}
+                  danger
+                  disabled={loading}
+                >
+                  {t("sys.user-management.user-detail.cancel")}
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  size="large"
+                >
+                  {t("sys.user-management.user-detail.update")}
+                </Button>
+              </Space>
+            </div>
+          )}
+        </Form>
+      </div>
+      <div>
+        <Text strong className="text-lg mb-4 block">
+          Thông tin bảo mật
+        </Text>
+        <div className="bg-card text-card-foreground p-6 rounded-md border shadow-sm">
+          <Form form={form} layout="vertical" onFinish={handleSubmit}>
+            <Form.Item
+              name="newPassword"
+              label="Mật khẩu cấp 1"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập mật khẩu mới",
+                },
+                {
+                  pattern: passwordRegex,
+                  message:
+                    "Mật khẩu phải ≥ 6 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt",
+                },
+              ]}
+              validateTrigger={["onChange", "onBlur"]}
+            >
+              <Input.Password
+                size="large"
+                placeholder="Nhập mật khẩu mới"
+                onChange={handleInputChange}
+              />
+            </Form.Item>
+            <div className="flex justify-end mt-2">
               <Button
                 type="primary"
-                htmlType="submit"
-                loading={loading}
                 size="large"
+                disabled={!passwordValid}
+                loading={loading}
+                onClick={() =>
+                  handleUpdatePassword({
+                    newPassword: form.getFieldValue("newPassword"),
+                  })
+                }
               >
-                {t("sys.user-management.user-detail.update")}
+                Cập nhật
               </Button>
-            </Space>
-          </div>
-        )}
-      </Form>
+            </div>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 }

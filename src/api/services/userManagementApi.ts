@@ -89,6 +89,9 @@ export interface UpdateUserReq {
   bio?: string;
 }
 
+export interface AdminUpdateUserPasswordReq {
+  newPassword: string;
+}
 export interface QueryUserParams {
   page?: number;
   limit?: number;
@@ -143,6 +146,7 @@ export enum UserManagementApi {
   Restore = "/user/restore",
   BulkUpdateStatus = "/user/bulk/status",
   GetActivityLogs = "/user/:id/activity-logs",
+  AdminUpdateUserPassword = "/user/admin/:id/password",
 }
 
 // ========== API CALLS ==========
@@ -279,6 +283,17 @@ export const getActivityLogs = async (userId: string) => {
   });
 };
 
+// Admin update user password
+export const adminUpdateUserPassword = async (
+  id: string,
+  data: AdminUpdateUserPasswordReq
+) => {
+  return await apiClient.patch({
+    url: UserManagementApi.AdminUpdateUserPassword.replace(":id", id),
+    data,
+  });
+};
+
 export default {
   getActivityLogs,
   getUsers,
@@ -289,4 +304,5 @@ export default {
   bulkUpdateUserStatus,
   softDeleteUser,
   restoreUser,
+  adminUpdateUserPassword,
 };
