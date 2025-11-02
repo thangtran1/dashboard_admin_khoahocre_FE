@@ -1,5 +1,4 @@
 import {
-  Table,
   Checkbox,
   Avatar,
   Space,
@@ -7,8 +6,6 @@ import {
   Tooltip,
   Popconfirm,
   Tag,
-  Pagination,
-  Select,
 } from "antd";
 import {
   getRoleColor,
@@ -17,9 +14,9 @@ import {
 } from "@/api/services/userManagementApi";
 import {
   UserOutlined,
-  EditOutlined,
   DeleteOutlined,
   CalendarOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { formatDistanceToNow } from "date-fns";
@@ -38,9 +35,9 @@ interface UserTableProps {
   };
   onSelectUser: (userId: string, checked: boolean) => void;
   onSelectAll: (checked: boolean) => void;
-  onEdit: (user: User) => void;
   onDelete: (id: string) => void;
   onPageChange: (page: number, pageSize?: number) => void;
+  onView: (userId: string) => void;
 }
 
 export default function UserTable({
@@ -50,9 +47,9 @@ export default function UserTable({
   pagination,
   onSelectUser,
   onSelectAll,
-  onEdit,
   onDelete,
   onPageChange,
+  onView,
 }: UserTableProps) {
   const { t } = useTranslation();
   const columns = [
@@ -150,19 +147,10 @@ export default function UserTable({
     {
       title: t("sys.user-management.actions"),
       key: "actions",
-      width: 120,
+      align: "center",
+      width: 150,
       render: (_: React.ReactNode, user: User) => (
         <Space>
-          <Tooltip title={t("sys.user-management.edit")}>
-            <Button
-              type="text"
-              size="middle"
-              icon={<EditOutlined />}
-              onClick={() => onEdit(user)}
-              className="text-primary hover:bg-primary/10"
-            />
-          </Tooltip>
-
           <Popconfirm
             title={t("sys.user-management.confirm-delete")}
             description={t("sys.user-management.confirm-delete-description")}
@@ -180,6 +168,14 @@ export default function UserTable({
               />
             </Tooltip>
           </Popconfirm>
+          <Tooltip title="Xem thông tin chi tiết">
+            <Button
+              type="text"
+              size="middle"
+              icon={<EyeOutlined />}
+              onClick={() => onView(user.id)}
+            />
+          </Tooltip>
         </Space>
       ),
     },

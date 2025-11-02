@@ -1,11 +1,8 @@
-import { useState } from "react";
-import { User, UpdateUserReq } from "@/api/services/userManagementApi";
-
 import { useUserManagement } from "../hooks/useUserManagement";
 import CommonUserFilters from "./CommonUserFilters";
 import UserActionBar from "./UserActionBar";
 import UserTable from "./userTable";
-import UserEditModal from "./userEditModal";
+import { useNavigate } from "react-router";
 
 export default function ActiveUsersTab() {
   const {
@@ -14,7 +11,6 @@ export default function ActiveUsersTab() {
     selectedUsers,
     filters,
     pagination,
-    handleUpdateUser,
     handleSoftDelete,
     handleDeleteMany,
     handleFilterChange,
@@ -24,25 +20,9 @@ export default function ActiveUsersTab() {
     handleClearFilters,
   } = useUserManagement(false); // false = active users
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
-
-  const handleEdit = (user: User) => {
-    setEditingUser(user);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditingUser(null);
-  };
-
-  const handleSubmit = async (values: UpdateUserReq) => {
-    const success = await handleUpdateUser(editingUser!.id, values);
-    if (success) {
-      handleCloseModal();
-    }
-    return success;
+  const navigate = useNavigate();
+  const handleView = async (userId: string) => {
+    navigate(`/management/user/${userId}`);
   };
 
   return (
@@ -66,21 +46,10 @@ export default function ActiveUsersTab() {
         pagination={pagination}
         onSelectUser={handleSelectUser}
         onSelectAll={handleSelectAll}
-        onEdit={handleEdit}
         onDelete={handleSoftDelete}
         onPageChange={handlePageChange}
+        onView={handleView}
       />
-
-      {/* Modal */}
-      {editingUser && (
-        <UserEditModal
-          isOpen={isModalOpen}
-          editingUser={editingUser}
-          loading={loading}
-          onClose={handleCloseModal}
-          onSubmit={handleSubmit}
-        />
-      )}
     </div>
   );
 }

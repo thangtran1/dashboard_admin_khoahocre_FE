@@ -1,6 +1,7 @@
 export enum BasicStatus {
-  DISABLE = 0,
-  ENABLE = 1,
+  INACTIVE = "inactive",
+  ACTIVE = "active",
+  BANNED = "banned",
 }
 
 export enum ResultEnum {

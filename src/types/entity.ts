@@ -72,6 +72,13 @@ export interface User {
   email: string;
   name: string;
   role: string;
+  phone?: string;
+  address?: string;
+  status?: string;
+  bio?: string;
+  lastLoginAt?: string;
+  loginCount?: number;
+  isEmailVerified?: boolean;
   createdAt: string;
   updatedAt: string;
 }

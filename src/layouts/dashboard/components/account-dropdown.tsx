@@ -1,5 +1,3 @@
-import { useLoginStateContext } from "@/pages/admin/sys/login/providers/login-provider";
-import { useRouter } from "@/router/hooks";
 import { useUserActions } from "@/store/userStore";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { Button } from "@/ui/button";
@@ -11,24 +9,26 @@ import {
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router";
+import { NavLink, replace } from "react-router";
 import { toast } from "sonner";
+import userApi from "@/api/services/userApi";
 
 export default function AccountDropdown() {
-  const { replace } = useRouter();
   const { profile } = useUserProfile();
   const { clearUserInfoAndToken } = useUserActions();
-  const { backToLogin } = useLoginStateContext();
   const { t } = useTranslation();
-  const logout = () => {
+  const logout = async () => {
     try {
-      clearUserInfoAndToken();
-      toast.success(t("sys.login.logoutSuccess"));
-      backToLogin();
+      const response = await userApi.logout();
+      if (response.data?.success) {
+        clearUserInfoAndToken();
+        toast.success(t("sys.login.logoutSuccess"));
+        replace("/login");
+      } else {
+        toast.error(response.data?.message);
+      }
     } catch (error) {
       console.log(error);
-    } finally {
-      replace("/login");
     }
   };
 

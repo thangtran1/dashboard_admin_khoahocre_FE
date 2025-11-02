@@ -43,8 +43,7 @@ const NotificationManagement: React.FC = () => {
     deleteNotification,
     handleFilterChange,
     clearFilters,
-  onPageChange,
-
+    onPageChange,
   } = useAdminNotifications();
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
@@ -327,9 +326,9 @@ const NotificationManagement: React.FC = () => {
               size="large"
               style={{ width: 220 }}
               allowClear
-              value={selectedType || undefined} 
+              value={selectedType || undefined}
               onChange={setSelectedType}
-              placeholder={t("sys.notification.type-placeholder")} 
+              placeholder={t("sys.notification.type-placeholder")}
             >
               <Option value="system">{t("sys.notification.system")}</Option>
               <Option value="promotion">

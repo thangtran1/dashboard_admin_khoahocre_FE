@@ -44,6 +44,14 @@ export interface User {
   updatedAt: string;
 }
 
+export interface ActivityLog {
+  id: string;
+  ip?: string;
+  timestamp: string;
+  type: string;
+  userAgent?: string;
+}
+
 export enum UserRole {
   USER = "user",
   ADMIN = "admin",
@@ -80,7 +88,6 @@ export interface UpdateUserReq {
   address?: string;
   bio?: string;
 }
-
 
 export interface QueryUserParams {
   page?: number;
@@ -135,6 +142,7 @@ export enum UserManagementApi {
   SoftDelete = "/user/soft-delete",
   Restore = "/user/restore",
   BulkUpdateStatus = "/user/bulk/status",
+  GetActivityLogs = "/user/:id/activity-logs",
 }
 
 // ========== API CALLS ==========
@@ -226,7 +234,6 @@ export const updateUser = async (id: string, data: UpdateUserReq) => {
   return response;
 };
 
-
 // Delete one or many users
 export const deleteUser = async (ids: string | string[]) => {
   return await apiClient.delete({
@@ -259,7 +266,21 @@ export const restoreUser = async (ids: string | string[]) => {
   });
 };
 
+// Get activity logs
+export const getActivityLogs = async (userId: string) => {
+  return await apiClient.get<{
+    data: {
+      success: boolean;
+      message: string;
+      data: ActivityLog[];
+    };
+  }>({
+    url: UserManagementApi.GetActivityLogs.replace(":id", userId),
+  });
+};
+
 export default {
+  getActivityLogs,
   getUsers,
   getUserById,
   createUser,

@@ -14,6 +14,7 @@ const ManagementUserPage = lazy(() => import("@/pages/admin/management/user"));
 const CreatedNewUserPage = lazy(
   () => import("@/pages/admin/management/user/created-new-user")
 );
+const UserDetailPage = lazy(() => import("@/pages/admin/management/user/[id]"));
 
 const management: AppRouteObject = {
   order: 2,
@@ -57,6 +58,19 @@ const management: AppRouteObject = {
       meta: {
         label: "sys.menu.created-new-user",
         key: "/management/user/created-new-user",
+        hideMenu: true,
+      },
+    },
+    {
+      path: "user/:userId",
+      element: (
+        <Suspense fallback={<LineLoading />}>
+          <UserDetailPage />
+        </Suspense>
+      ),
+      meta: {
+        label: "sys.menu.user-detail",
+        key: "/management/user/:userId",
         hideMenu: true,
       },
     },

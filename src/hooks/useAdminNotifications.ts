@@ -279,7 +279,8 @@ export const useAdminNotifications = () => {
     handleSearch,
     handleFilterChange,
     clearFilters,
-    refresh: () => loadNotifications(pagination.page, pagination.limit, searchOptions),
+    refresh: () =>
+      loadNotifications(pagination.page, pagination.limit, searchOptions),
     onPageChange: pagination.onPageChange,
   };
 };

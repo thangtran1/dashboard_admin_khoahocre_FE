@@ -56,6 +56,7 @@ export enum UserApi {
   ForgotPassword = "/auth/forgot-password",
   VerifyOtp = "/auth/verify-otp",
   ResetPassword = "/auth/reset-password",
+  Logout = "/auth/logout",
 }
 
 const login = (data: SignInReq) =>
@@ -72,10 +73,17 @@ const verifyOtp = (data: VerifyOtpReq) =>
 
 const resetPassword = (data: ResetPasswordReq) =>
   apiClient.post<ResetPasswordRes>({ url: UserApi.ResetPassword, data });
+
+const logout = () =>
+  apiClient.post<{ data: { success: boolean; message: string } }>({
+    url: UserApi.Logout,
+  });
+
 export default {
   login,
   register,
   forgotPassword,
   verifyOtp,
   resetPassword,
+  logout,
 };
