@@ -18,8 +18,10 @@ import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserToken } from "@/store/userStore";
 import { useFavoriteStore } from "@/store/favoriteStore";
 import { toast } from "sonner";
-import { Link } from "react-router";
+import { Link, replace } from "react-router";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import userApi from "@/api/services/userApi";
+import { useTranslation } from "react-i18next";
 
 const navLinks = [
   { label: "Trang Chủ", href: "/", className: "text-primary font-semibold" },
@@ -30,6 +32,7 @@ const navLinks = [
 ];
 
 const HeaderTop = () => {
+  const { t } = useTranslation();
   const { profile, refetch } = useUserProfile();
   const [menuOpen, setMenuOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
@@ -59,10 +62,19 @@ const HeaderTop = () => {
     router.push("/login");
   };
 
-  const handleLogout = () => {
-    clearUserInfoAndToken();
-    router.push("/login");
-    toast.success("Logout in success!");
+  const handleLogout = async () => {
+    try {
+      const response = await userApi.logout();
+      if (response.data?.success) {
+        clearUserInfoAndToken();
+        toast.success(t("sys.login.logoutSuccess"));
+        replace("/login");
+      } else {
+        toast.error(response.data?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -146,7 +158,7 @@ const HeaderTop = () => {
                           onClick={() => router.push("/wish-list")}
                           className="relative flex justify-between items-center w-full px-4 py-2 text-sm text-pink-600 hover:bg-pink-50 transition"
                         >
-                          <span>Yêu thích</span>
+                          <span>Yêu thích 1</span>
 
                           {/* Icon + badge */}
                           <div className="relative">
@@ -275,7 +287,7 @@ const HeaderTop = () => {
                         onClick={() => router.push("/wish-list")}
                         className="relative flex justify-between items-center w-full px-4 py-2 text-sm text-pink-600 hover:bg-pink-50 transition"
                       >
-                        <span>Yêu thích</span>
+                        <span>Yêu thích 2</span>
 
                         {/* Icon + badge */}
                         <div className="relative">
