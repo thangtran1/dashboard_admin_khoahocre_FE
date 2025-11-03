@@ -68,7 +68,6 @@ export default function MaintenanceScheduledTab() {
         onUpdate={handleUpdateUser}
       />
 
-      {/* Detail Modal */}
       <MaintenanceModal
         isOpen={isModalOpen}
         maintenance={selectedMaintenance}

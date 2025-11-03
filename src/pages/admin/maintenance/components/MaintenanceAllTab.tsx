@@ -77,7 +77,6 @@ export default function MaintenanceAllTab() {
         onUpdate={handleUpdateUser}
       />
 
-      {/* Detail Modal */}
       <MaintenanceModal
         isOpen={isModalOpen}
         maintenance={selectedMaintenance}

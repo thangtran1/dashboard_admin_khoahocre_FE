@@ -19,7 +19,6 @@ import {
 } from "@ant-design/icons";
 import { Separator } from "@/ui/separator";
 import {
-  adminUpdateUserPassword,
   getUserById,
   updateUser,
   UpdateUserReq,
@@ -29,6 +28,7 @@ import {
 import { User } from "@/types/entity";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import UpdatePassword from "./update-password";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -39,8 +39,6 @@ export default function UserInformation({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [userData, setUserData] = useState<User | null>(null);
-  const [passwordValid, setPasswordValid] = useState(false);
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
   useEffect(() => {
     if (!userId) return;
     let isMounted = true;
@@ -103,32 +101,6 @@ export default function UserInformation({ userId }: { userId: string }) {
     active: "border-green-500 text-green-700 bg-green-50",
     inactive: "border-orange-500 text-orange-700 bg-orange-50",
     banned: "border-red-500 text-red-700 bg-red-50",
-  };
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPasswordValid(passwordRegex.test(value));
-  };
-
-  const handleUpdatePassword = async (values: { newPassword: string }) => {
-    if (!values.newPassword) return;
-    setLoading(true);
-    try {
-      const response = await adminUpdateUserPassword(userId, {
-        newPassword: values.newPassword,
-      });
-
-      if (response.data.success) {
-        toast.success("Cập nhật mật khẩu thành công");
-        form.resetFields();
-        setPasswordValid(false);
-      } else {
-        toast.error("Cập nhật mật khẩu thất bại");
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
   };
   return (
     <div className="flex flex-col gap-6">
@@ -365,52 +337,7 @@ export default function UserInformation({ userId }: { userId: string }) {
           )}
         </Form>
       </div>
-      <div>
-        <Text strong className="text-lg mb-4 block">
-          Thông tin bảo mật
-        </Text>
-        <div className="bg-card text-card-foreground p-6 rounded-md border shadow-sm">
-          <Form form={form} layout="vertical" onFinish={handleSubmit}>
-            <Form.Item
-              name="newPassword"
-              label="Mật khẩu cấp 1"
-              rules={[
-                {
-                  required: true,
-                  message: "Vui lòng nhập mật khẩu mới",
-                },
-                {
-                  pattern: passwordRegex,
-                  message:
-                    "Mật khẩu phải ≥ 6 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt",
-                },
-              ]}
-              validateTrigger={["onChange", "onBlur"]}
-            >
-              <Input.Password
-                size="large"
-                placeholder="Nhập mật khẩu mới"
-                onChange={handleInputChange}
-              />
-            </Form.Item>
-            <div className="flex justify-end mt-2">
-              <Button
-                type="primary"
-                size="large"
-                disabled={!passwordValid}
-                loading={loading}
-                onClick={() =>
-                  handleUpdatePassword({
-                    newPassword: form.getFieldValue("newPassword"),
-                  })
-                }
-              >
-                Cập nhật
-              </Button>
-            </div>
-          </Form>
-        </div>
-      </div>
+      <UpdatePassword userId={userId} />
     </div>
   );
 }

@@ -595,7 +595,12 @@
         "status-inactive": "Không hoạt động",
         "status-banned": "Bị cấm",
         "information": "Thông tin người dùng",
-        "activity-log": "Nhật ký hoạt động"
+        "activity-log": "Nhật ký hoạt động",
+        "password-level-1": "Mật khẩu cấp 1",
+        "password-level-1-error": "Mật khẩu phải ≥ 6 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt",
+        "password-level-1-placeholder": "Nhập mật khẩu mới",
+        "update-password-success": "Cập nhật mật khẩu thành công",
+        "update-password-error": "Lỗi khi cập nhật mật khẩu"
       }
     },
     "profile": {
@@ -655,9 +660,7 @@
       "clear-filters": "Xóa bộ lọc",
       "delete": "Xóa",
       "confirm-delete-all-data": "Xác nhận xóa toàn bộ dữ liệu?",
-      "confirm-delete-all-data-description": "Hành động này sẽ",
-      "delete-forever": "xóa vĩnh viễn",
-      "delete-all-data-description": "tất cả dữ liệu.",
+      "confirm-delete-all-data-description": "Hành động này sẽ xóa vĩnh viễn tất cả dữ liệu.",
       "create-backup-success": "Tạo bản sao lưu thành công!",
       "create-backup-error": "Lỗi khi tạo bản sao lưu",
       "restore-backup-success": "Khôi phục dữ liệu thành công!",
@@ -805,6 +808,13 @@
       "update-success": "Cập nhật bảo trì thành công!",
       "update-error": "Lỗi khi cập nhật bảo trì",
       "close": "Đóng"
+    },
+    "modal-confirm": {
+      "confirm-update-password": "Xác nhận cập nhật mật khẩu",
+      "confirm-update-password-message": "Xác nhận cập nhật mật khẩu cấp 1 của người dùng này?",
+      "confirm": "Xác nhận",
+      "cancel": "Hủy",
+      "new-password": "Mật khẩu mới"
     }
   }
 }

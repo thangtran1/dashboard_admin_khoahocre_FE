@@ -585,7 +585,12 @@
         "status-inactive": "Inactive",
         "status-banned": "Banned",
         "information": "User Information",
-        "activity-log": "Activity Log"
+        "activity-log": "Activity Log",
+        "password-level-1": "Password Level 1",
+        "password-level-1-error": "Password must be at least 6 characters, including uppercase, lowercase, numbers, and special characters",
+        "password-level-1-placeholder": "Enter new password",
+        "update-password-success": "Update password successfully",
+        "update-password-error": "Error updating password"
       }
     },
     "profile": {
@@ -645,9 +650,7 @@
       "clear-filters": "Clear filters",
       "delete": "Delete",
       "confirm-delete-all-data": "Confirm delete all data?",
-      "confirm-delete-all-data-description": "This action will",
-      "delete-forever": "delete forever",
-      "delete-all-data-description": "all data.",
+      "confirm-delete-all-data-description": "This action will delete all data forever.",
       "create-backup-success": "Create backup successfully!",
       "create-backup-error": "Error creating backup",
       "restore-backup-success": "Restore data successfully!",
@@ -792,6 +795,13 @@
       "update-success": "Update maintenance successfully!",
       "update-error": "Error updating maintenance",
       "close": "Close"
+    },
+    "modal-confirm": {
+      "confirm-update-password": "Confirm Update Password",
+      "confirm-update-password-message": "Confirm update password level 1 of this user?",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "new-password": "New Password"
     }
   }
 }

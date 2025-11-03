@@ -1,18 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Spin,
-  Typography,
-  Modal,
-  DatePicker,
-  Input,
-  message,
-} from "antd";
+import { Button, Spin, DatePicker, Input, message } from "antd";
 import {
   ClearOutlined,
   DatabaseOutlined,
   DeleteOutlined,
-  ExclamationCircleOutlined,
   FileAddOutlined,
   ReloadOutlined,
   SearchOutlined,
@@ -26,8 +17,8 @@ import RestoreModal from "./components/restore-modal";
 import { toast } from "sonner";
 import { Separator } from "@/ui/separator";
 import { useTranslation } from "react-i18next";
+import CustomConfirmModal from "@/components/common/modals/custom-modal-confirm";
 
-const { Text } = Typography;
 const { RangePicker } = DatePicker;
 const { Search } = Input;
 
@@ -309,31 +300,13 @@ export default function DatabaseManagement() {
       )}
 
       {/* Delete Modal */}
-      <Modal
-        open={deleteModalVisible}
-        onOk={handleDelete}
+      <CustomConfirmModal
+        visible={deleteModalVisible}
         onCancel={() => setDeleteModalVisible(false)}
-        okText={t("sys.database.delete")}
-        okType="danger"
-        cancelText={t("sys.database.cancel")}
-        centered
-        confirmLoading={loading}
-        className="rounded-xl"
-      >
-        <div className="flex flex-col items-center justify-center text-center space-y-4">
-          <ExclamationCircleOutlined className="text-red-500 text-5xl mb-2" />
-          <Text className="text-lg font-semibold text-gray-800">
-            {t("sys.database.confirm-delete-all-data")}
-          </Text>
-          <Text type="secondary">
-            {t("sys.database.confirm-delete-all-data-description")}
-            <span className="text-red-500 font-medium mx-1">
-              {t("sys.database.delete-forever")}
-            </span>
-            {t("sys.database.delete-all-data-description")}
-          </Text>
-        </div>
-      </Modal>
+        onConfirm={handleDelete}
+        title={t("sys.database.confirm-delete-all-data")}
+        description={t("sys.database.confirm-delete-all-data-description")}
+      />
 
       {/* Restore Modal */}
       <RestoreModal
