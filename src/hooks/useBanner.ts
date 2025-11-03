@@ -3,13 +3,11 @@ import { toast } from "sonner";
 import {
   BannerConfig,
   BannerSettings,
-  BannerStats,
   CreateBannerRequest,
   UpdateBannerRequest,
   UpdateBannerSettingsRequest,
   getAllBanners,
   getActiveBanners,
-  getBannerStats,
   getBannerSettings,
   createBanner as createBannerApi,
   updateBanner as updateBannerApi,
@@ -32,9 +30,6 @@ interface UseBannerReturn {
   settings: BannerSettings | null;
   settingsLoading: boolean;
 
-  // Stats
-  stats: BannerStats;
-
   // Pagination
   pagination: {
     page: number;
@@ -46,7 +41,6 @@ interface UseBannerReturn {
   // Banner methods
   fetchBanners: (page?: number, limit?: number) => Promise<void>;
   fetchActiveBanners: () => Promise<void>;
-  fetchStats: () => Promise<void>;
   createBanner: (banner: CreateBannerRequest) => Promise<boolean>;
   updateBanner: (banner: UpdateBannerRequest) => Promise<boolean>;
   deleteBanner: (id: string) => Promise<boolean>;
@@ -73,13 +67,6 @@ export const useBanner = (): UseBannerReturn => {
   // Settings state
   const [settings, setSettings] = useState<BannerSettings | null>(null);
   const [settingsLoading, setSettingsLoading] = useState(false);
-
-  // Stats state
-  const [stats, setStats] = useState<BannerStats>({
-    total: 0,
-    active: 0,
-    inactive: 0,
-  });
 
   // Pagination state
   const [pagination, setPagination] = useState({
@@ -125,23 +112,6 @@ export const useBanner = (): UseBannerReturn => {
     }
   }, []);
 
-  const fetchStats = useCallback(async () => {
-    // Debounce stats để tránh gọi quá nhiều
-    if (statsTimeoutRef.current) {
-      clearTimeout(statsTimeoutRef.current);
-    }
-
-    statsTimeoutRef.current = setTimeout(async () => {
-      try {
-        const statsData = await getBannerStats();
-        setStats(statsData);
-      } catch (error) {
-        console.error("❌ fetchStats ~ error:", error);
-        toast.error("Lỗi khi tải thống kê banner");
-      }
-    }, 200);
-  }, []);
-
   const fetchSettings = useCallback(async () => {
     try {
       setSettingsLoading(true);
@@ -166,7 +136,6 @@ export const useBanner = (): UseBannerReturn => {
         // Batch refresh - chỉ refresh cần thiết
         await Promise.all([
           fetchBanners(pagination.page, pagination.limit),
-          fetchStats(),
           fetchActiveBanners(),
         ]);
 
@@ -178,13 +147,7 @@ export const useBanner = (): UseBannerReturn => {
         setLoading(false);
       }
     },
-    [
-      pagination.page,
-      pagination.limit,
-      fetchBanners,
-      fetchStats,
-      fetchActiveBanners,
-    ]
+    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
   );
 
   const updateBanner = useCallback(
@@ -199,7 +162,7 @@ export const useBanner = (): UseBannerReturn => {
         );
 
         // Batch refresh
-        await Promise.all([fetchStats(), fetchActiveBanners()]);
+        await Promise.all([fetchActiveBanners()]);
 
         return true;
       } catch (error) {
@@ -210,13 +173,7 @@ export const useBanner = (): UseBannerReturn => {
         setLoading(false);
       }
     },
-    [
-      pagination.page,
-      pagination.limit,
-      fetchBanners,
-      fetchStats,
-      fetchActiveBanners,
-    ]
+    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
   );
 
   const deleteBanner = useCallback(
@@ -230,7 +187,7 @@ export const useBanner = (): UseBannerReturn => {
         await deleteBannerApi(id);
 
         // Batch refresh
-        await Promise.all([fetchStats(), fetchActiveBanners()]);
+        await Promise.all([fetchActiveBanners()]);
 
         return true;
       } catch (error) {
@@ -241,13 +198,7 @@ export const useBanner = (): UseBannerReturn => {
         setLoading(false);
       }
     },
-    [
-      pagination.page,
-      pagination.limit,
-      fetchBanners,
-      fetchStats,
-      fetchActiveBanners,
-    ]
+    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
   );
 
   const toggleBanner = useCallback(
@@ -261,7 +212,7 @@ export const useBanner = (): UseBannerReturn => {
         await toggleBannerApi(id, isActive);
 
         // Batch refresh
-        await Promise.all([fetchStats(), fetchActiveBanners()]);
+        await Promise.all([fetchActiveBanners()]);
 
         return true;
       } catch (error) {
@@ -271,13 +222,7 @@ export const useBanner = (): UseBannerReturn => {
         return false;
       }
     },
-    [
-      pagination.page,
-      pagination.limit,
-      fetchBanners,
-      fetchStats,
-      fetchActiveBanners,
-    ]
+    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
   );
 
   const updateBannerOrder = useCallback(
@@ -362,7 +307,6 @@ export const useBanner = (): UseBannerReturn => {
         // Refresh all data
         await Promise.all([
           fetchBanners(pagination.page, pagination.limit),
-          fetchStats(),
           fetchActiveBanners(),
         ]);
 
@@ -375,13 +319,7 @@ export const useBanner = (): UseBannerReturn => {
         setLoading(false);
       }
     },
-    [
-      pagination.page,
-      pagination.limit,
-      fetchBanners,
-      fetchStats,
-      fetchActiveBanners,
-    ]
+    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
   );
 
   // ========== INITIAL LOAD WITH PREFETCH ==========
@@ -395,7 +333,6 @@ export const useBanner = (): UseBannerReturn => {
         // Load all data in parallel
         await Promise.all([
           fetchBanners(),
-          fetchStats(),
           fetchActiveBanners(),
           fetchSettings(),
         ]);
@@ -405,7 +342,7 @@ export const useBanner = (): UseBannerReturn => {
     };
 
     initializeData();
-  }, [fetchBanners, fetchStats, fetchActiveBanners, fetchSettings]);
+  }, [fetchBanners, fetchActiveBanners, fetchSettings]);
 
   // Cleanup timeouts
   useEffect(() => {
@@ -429,16 +366,12 @@ export const useBanner = (): UseBannerReturn => {
     settings,
     settingsLoading,
 
-    // Stats
-    stats,
-
     // Pagination
     pagination,
 
     // Banner methods
     fetchBanners,
     fetchActiveBanners,
-    fetchStats,
     createBanner,
     updateBanner,
     deleteBanner,

@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { Separator } from "@/ui/separator";
 import TableAntd from "@/components/common/tables/custom-table-antd";
 import { Backup } from "@/types/entity";
+import CustomConfirmModal from "@/components/common/modals/custom-modal-confirm";
 
 export default function BackupList({
   backups,
@@ -36,18 +37,33 @@ export default function BackupList({
   const { t } = useTranslation();
   const [viewModal, setViewModal] = useState(false);
   const [viewContent, setViewContent] = useState<string>("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedBackup, setSelectedBackup] = useState<string | null>(null);
 
-  const handleDeleteBackup = async (filename: string) => {
+  const openConfirmModal = (filename: string) => {
+    setSelectedBackup(filename);
+    setIsModalVisible(true);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedBackup(null);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!selectedBackup) return;
+
     try {
-      const res = await databaseAdmin.deleteBackup(filename);
+      const res = await databaseAdmin.deleteBackup(selectedBackup);
       if (res.success) {
         toast.success(res.message);
         await reload();
       } else {
         toast.error(res.message || t("sys.database.delete-backup-error"));
       }
-    } catch {
-      toast.error(t("sys.database.delete-backup-error"));
+    } catch (e) {
+      throw e;
+    } finally {
+      handleCancel();
     }
   };
 
@@ -139,7 +155,7 @@ export default function BackupList({
           <Button
             danger
             icon={<DeleteOutlined />}
-            onClick={() => handleDeleteBackup(record.filename)}
+            onClick={() => openConfirmModal(record.filename)}
           >
             {t("sys.database.delete")}
           </Button>
@@ -163,7 +179,14 @@ export default function BackupList({
         onPageChange={onPageChange}
         scroll={{ x: 800, y: 500 }}
       />
-
+      <CustomConfirmModal
+        visible={isModalVisible}
+        title={t("sys.database.delete-backup-confirm-title")}
+        description={t("sys.database.delete-backup-confirm-description")}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancel}
+        filename={selectedBackup}
+      />
       <Modal
         title={
           <span className="text-blue-600 font-semibold flex items-center gap-2">

@@ -43,12 +43,6 @@ export interface UpdateBannerSettingsRequest {
   isActive?: boolean;
 }
 
-export interface BannerStats {
-  total: number;
-  active: number;
-  inactive: number;
-}
-
 const transformBanner = (banner: any): BannerConfig => ({
   id: banner._id || banner.id,
   content: banner.content,
@@ -117,11 +111,6 @@ export const getAllBanners = async (
 
 export const getActiveBanners = async (): Promise<BannerConfig[]> => {
   const response = await apiClient.get({ url: "/banners/active" });
-  return response.data.data;
-};
-
-export const getBannerStats = async (): Promise<BannerStats> => {
-  const response = await apiClient.get({ url: "/banners/stats" });
   return response.data.data;
 };
 

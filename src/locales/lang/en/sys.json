@@ -679,7 +679,9 @@
       "delete-backup-error": "Error deleting backup",
       "view-backup-error": "Error viewing backup content",
       "download-backup-error": "Error downloading backup file",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "delete-backup-confirm-title": "Confirm delete backup",
+      "delete-backup-confirm-description": "Are you sure you want to delete this backup?"
     },
     "sidebar": {
       "press-ctrl-b": "Press Ctrl + B to toggle",

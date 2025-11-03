@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 interface CustomConfirmModalProps {
   visible: boolean;
   password?: string;
+  filename?: string | null;
   onConfirm: () => void;
   onCancel: () => void;
   title: string;
@@ -13,6 +14,7 @@ interface CustomConfirmModalProps {
 export default function CustomConfirmModal({
   visible,
   password,
+  filename,
   onConfirm,
   onCancel,
   title,
@@ -50,6 +52,12 @@ export default function CustomConfirmModal({
               {t("sys.modal-confirm.new-password")}:
             </span>{" "}
             {password}
+          </p>
+        )}
+        {filename && (
+          <p>
+            <span className="font-bold">{t("sys.database.filename")}:</span>{" "}
+            {filename}
           </p>
         )}
       </div>
