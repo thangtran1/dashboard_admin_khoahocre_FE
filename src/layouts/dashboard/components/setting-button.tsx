@@ -375,10 +375,6 @@ export default function SettingButton() {
                     }
                   />
                 </div>
-                {/* <div className="flex items-center justify-between text-sm text-text-disabled">
-									<div>{t("sys.settings.multiTab")}</div>
-									<Switch checked={multiTab} onCheckedChange={(checked) => updateSettings({ multiTab: checked })} />
-								</div> */}
                 <div className="flex items-center justify-between text-sm text-text-disabled">
                   <div>{t("sys.settings.darkSidebar")}</div>
                   <Switch

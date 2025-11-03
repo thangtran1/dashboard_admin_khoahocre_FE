@@ -12,7 +12,7 @@ const Main = () => {
     <main
       data-slot="TVT-layout"
       className={cn("flex w-full flex-1 bg-background overflow-hidden", {
-        "md:pt-[var(--layout-multi-tabs-height)]": multiTab,
+        "": multiTab,
       })}
     >
       <ScrollArea

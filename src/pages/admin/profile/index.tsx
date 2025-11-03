@@ -115,7 +115,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="bg-card text-card-foreground px-6 flex flex-col gap-6 rounded-xl border shadow-sm">
+    <div className="bg-card text-card-foreground px-6 pb-6 flex flex-col gap-6 rounded-xl border shadow-sm">
       <div>
         <div className="flex pt-4 items-center justify-between">
           <div>
@@ -129,7 +129,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <Separator className="my-6" />
+        <Separator className="my-3" />
 
         <Tabs
           defaultActiveKey={activeTab}
