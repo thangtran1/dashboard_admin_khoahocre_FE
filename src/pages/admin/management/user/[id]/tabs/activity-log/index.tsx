@@ -3,29 +3,31 @@ import { Typography, Timeline, Spin, Empty } from "antd";
 import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { toast } from "sonner";
-import {
-  type ActivityLog,
-  getActivityLogs,
-} from "@/api/services/userManagementApi";
+import { ActivityLog } from "@/api/services/userManagementApi";
 
 const { Text } = Typography;
 
-export default function ActivityLog({ userId }: { userId: string }) {
+interface ActivityLogsProps {
+  fetchLogsApi: () => Promise<{
+    data: { success: boolean; message: string; data: ActivityLog[] };
+  }>;
+}
+
+export default function ActivityLogs({ fetchLogsApi }: ActivityLogsProps) {
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchLogActivity = async () => {
+  const fetchLogs = async () => {
     setIsLoading(true);
     try {
-      const response = await getActivityLogs(userId);
-      console.log("🚀 ~ fetchLogActivity ~ response:", response.data.data);
+      const response = await fetchLogsApi();
       if (response.data?.success) {
         setLogs(response.data.data);
       } else {
         toast.error("Không thể lấy lịch sử hoạt động");
       }
     } catch (error) {
-      console.error("Error fetching log activity:", error);
+      console.error("Error fetching activity logs:", error);
       toast.error("Lỗi khi lấy lịch sử hoạt động");
     } finally {
       setIsLoading(false);
@@ -33,15 +35,13 @@ export default function ActivityLog({ userId }: { userId: string }) {
   };
 
   useEffect(() => {
-    if (userId) {
-      fetchLogActivity();
-    }
-  }, [userId]);
+    fetchLogs();
+  }, []);
 
   // Nhóm logs theo ngày
   const logsGroupedByDate = logs.reduce(
     (acc: Record<string, ActivityLog[]>, log) => {
-      const date = dayjs(log.timestamp).format("YYYY-MM-DD"); // dùng timestamp tạo date
+      const date = dayjs(log.timestamp).format("YYYY-MM-DD");
       if (!acc[date]) acc[date] = [];
       acc[date].push(log);
       return acc;
@@ -54,7 +54,7 @@ export default function ActivityLog({ userId }: { userId: string }) {
   );
 
   return (
-    <div className="bg-card text-card-foreground p-5 flex flex-col gap-6 rounded-md border shadow-sm">
+    <div className="bg-card text-card-foreground px-5 pt-5 flex flex-col gap-6 rounded-md border shadow-sm">
       {isLoading ? (
         <div className="flex justify-center items-center h-40">
           <Spin size="large" />

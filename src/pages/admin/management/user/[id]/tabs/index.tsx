@@ -2,8 +2,11 @@ import { Tabs } from "antd";
 import { useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import Information from "./information";
-import ActivityLog from "./activity-log";
 import { useTranslation } from "react-i18next";
+import { getActivityLogs } from "@/api/services/userManagementApi";
+import { ActivityLog } from "@/api/services/userManagementApi";
+import ActivityLogs from "./activity-log";
+import { Icon } from "@/components/icon";
 
 export default function UserDetailTabs({ userId }: { userId: string }) {
   const { t } = useTranslation();
@@ -20,13 +23,32 @@ export default function UserDetailTabs({ userId }: { userId: string }) {
   const tabItems = [
     {
       key: "information",
-      label: t("sys.user-management.user-detail.information"),
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="lucide:user" className="h-4 w-4" />
+          {t("sys.user-management.user-detail.information")}
+        </span>
+      ),
       children: <Information userId={userId} />,
     },
     {
       key: "activity-log",
-      label: t("sys.user-management.user-detail.activity-log"),
-      children: <ActivityLog userId={userId} />,
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="lucide:history" className="h-4 w-4" />
+          {t("sys.user-management.user-detail.activity-log")}
+        </span>
+      ),
+
+      children: (
+        <ActivityLogs
+          fetchLogsApi={() =>
+            getActivityLogs(userId) as Promise<{
+              data: { success: boolean; message: string; data: ActivityLog[] };
+            }>
+          }
+        />
+      ),
     },
   ];
 

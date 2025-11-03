@@ -134,7 +134,7 @@ export default function PersonalInfoTab({
 
   return (
     <div className="pb-6">
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center mb-6">
         <div className="relative">
           <Avatar size={80} icon={<UserOutlined />} src={avatarUrl} />
           <Upload
@@ -144,9 +144,9 @@ export default function PersonalInfoTab({
           >
             <Button
               shape="circle"
-              size="small"
+              size="middle"
               icon={<CameraOutlined />}
-              className="absolute bottom-0 right-0"
+              className="absolute top-5 right-5"
               loading={uploading}
             />
           </Upload>
@@ -208,7 +208,7 @@ export default function PersonalInfoTab({
           <TextArea rows={4} placeholder={t("sys.profile.bio-placeholder")} />
         </Form.Item>
 
-        <div className="flex gap-3 pt-4">
+        <div className="flex gap-3 justify-end pt-4">
           <Button
             type="primary"
             htmlType="submit"
@@ -217,7 +217,7 @@ export default function PersonalInfoTab({
             loading={loading}
             disabled={!isChanged}
           >
-            💾 {t("sys.profile.update-profile")}
+            {t("sys.profile.update-profile")}
           </Button>
         </div>
       </Form>
