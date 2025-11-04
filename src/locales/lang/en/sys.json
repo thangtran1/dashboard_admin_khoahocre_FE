@@ -817,7 +817,15 @@
       "total-banner": "Total Banner",
       "active-banner": "Active",
       "inactive-banner": "Paused",
-      "banner-stats": "Banner Stats"
+      "banner-stats": "Banner Stats",
+      "total-maintenance": "Total Maintenance",
+      "no-data": "No data",
+      "active-maintenance": "Active Maintenance",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "in_progress": "In Progress",
+      "total": "Total",
+      "scheduled": "Scheduled"
     }
   }
 }

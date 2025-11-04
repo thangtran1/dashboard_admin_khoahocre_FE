@@ -830,7 +830,15 @@
       "total-banner": "Tổng banner",
       "active-banner": "Hoạt động",
       "inactive-banner": "Tạm dừng",
-      "banner-stats": "Thống kê banner"
+      "banner-stats": "Thống kê banner",
+      "total-maintenance": "Tổng số bảo trì",
+      "no-data": "Không có dữ liệu",
+      "active-maintenance": "Đang hoạt động",
+      "completed": "Hoàn thành",
+      "cancelled": "Đã hủy",
+      "in_progress": "Đang thực hiện",
+      "total": "Tổng",
+      "scheduled": "Đã lên lịch"
     }
   }
 }
