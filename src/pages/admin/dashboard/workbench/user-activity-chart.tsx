@@ -20,7 +20,7 @@ export default function UserActivityChart() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [period, setPeriod] = useState<ActivityLogPeriod>(
-    ActivityLogPeriod.DAY
+    ActivityLogPeriod.WEEK
   );
   const [stats, setStats] = useState<ActivityLogStats>({
     labels: [],
@@ -100,11 +100,19 @@ export default function UserActivityChart() {
 function ChartArea({ stats }: { stats: ActivityLogStats }) {
   const { t } = useTranslation();
   const chartOptions = useChart({
+    colors: ["#1890ff", "#ff4d4f"],
     xaxis: {
       type: "category",
       categories: stats.labels,
     },
-    tooltip: {},
+    legend: {
+      show: true,
+      position: "top", // hoặc "bottom"
+      markers: {
+        strokeWidth: 2, // màu cho icon
+        offsetX: -5, // 👈 khoảng cách giữa icon và chữ
+      },
+    },
   });
 
   return (

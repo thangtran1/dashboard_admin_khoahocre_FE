@@ -813,7 +813,11 @@
       "month": "Month",
       "year": "Year",
       "login": "Login",
-      "logout": "Logout"
+      "logout": "Logout",
+      "total-banner": "Total Banner",
+      "active-banner": "Active",
+      "inactive-banner": "Paused",
+      "banner-stats": "Banner Stats"
     }
   }
 }

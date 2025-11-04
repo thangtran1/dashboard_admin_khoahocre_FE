@@ -1,8 +1,9 @@
-import AreaDownload from "./area-download";
 import BannerCard from "./banner-card";
+import BannerChart from "./banner-chart";
 import { Applications, Conversion } from "./conversion_applications";
 import CurrentDownload from "./current-download";
 import TotalCard from "./total-card";
+import UserActivityChart from "./user-activity-chart";
 
 function Workbench() {
   return (
@@ -56,7 +57,12 @@ function Workbench() {
           <CurrentDownload />
         </div>
         <div className="flex-1">
-          <AreaDownload />
+          <UserActivityChart />
+        </div>
+      </div>
+      <div>
+        <div className="flex-1">
+          <BannerChart />
         </div>
       </div>
     </div>

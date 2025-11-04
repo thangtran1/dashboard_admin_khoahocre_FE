@@ -826,7 +826,11 @@
       "month": "Tháng",
       "year": "Năm",
       "login": "Đăng nhập",
-      "logout": "Đăng xuất"
+      "logout": "Đăng xuất",
+      "total-banner": "Tổng banner",
+      "active-banner": "Hoạt động",
+      "inactive-banner": "Tạm dừng",
+      "banner-stats": "Thống kê banner"
     }
   }
 }
