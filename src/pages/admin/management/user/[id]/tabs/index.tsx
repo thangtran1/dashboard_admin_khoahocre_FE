@@ -3,10 +3,12 @@ import { useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import Information from "./information";
 import { useTranslation } from "react-i18next";
-import { getActivityLogs } from "@/api/services/userManagementApi";
-import { ActivityLog } from "@/api/services/userManagementApi";
 import ActivityLogs from "./activity-log";
 import { Icon } from "@/components/icon";
+import {
+  ActivityLog,
+  detailActivityLogForUser,
+} from "@/api/services/activity-logApi";
 
 export default function UserDetailTabs({ userId }: { userId: string }) {
   const { t } = useTranslation();
@@ -43,7 +45,7 @@ export default function UserDetailTabs({ userId }: { userId: string }) {
       children: (
         <ActivityLogs
           fetchLogsApi={() =>
-            getActivityLogs(userId) as Promise<{
+            detailActivityLogForUser(userId) as Promise<{
               data: { success: boolean; message: string; data: ActivityLog[] };
             }>
           }

@@ -817,6 +817,16 @@
       "confirm": "Xác nhận",
       "cancel": "Hủy",
       "new-password": "Mật khẩu mới"
+    },
+    "chart": {
+      "loading": "Đang tải...",
+      "user-activity": "Hoạt động người dùng",
+      "day": "Ngày",
+      "week": "Tuần",
+      "month": "Tháng",
+      "year": "Năm",
+      "login": "Đăng nhập",
+      "logout": "Đăng xuất"
     }
   }
 }

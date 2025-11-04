@@ -44,14 +44,6 @@ export interface User {
   updatedAt: string;
 }
 
-export interface ActivityLog {
-  id: string;
-  ip?: string;
-  timestamp: string;
-  type: string;
-  userAgent?: string;
-}
-
 export enum UserRole {
   USER = "user",
   ADMIN = "admin",
@@ -145,7 +137,6 @@ export enum UserManagementApi {
   SoftDelete = "/user/soft-delete",
   Restore = "/user/restore",
   BulkUpdateStatus = "/user/bulk/status",
-  GetActivityLogs = "/user/:id/activity-logs",
   AdminUpdateUserPassword = "/user/admin/:id/password",
 }
 
@@ -270,19 +261,6 @@ export const restoreUser = async (ids: string | string[]) => {
   });
 };
 
-// Get activity logs
-export const getActivityLogs = async (userId: string) => {
-  return await apiClient.get<{
-    data: {
-      success: boolean;
-      message: string;
-      data: ActivityLog[];
-    };
-  }>({
-    url: UserManagementApi.GetActivityLogs.replace(":id", userId),
-  });
-};
-
 // Admin update user password
 export const adminUpdateUserPassword = async (
   id: string,
@@ -295,7 +273,6 @@ export const adminUpdateUserPassword = async (
 };
 
 export default {
-  getActivityLogs,
   getUsers,
   getUserById,
   createUser,

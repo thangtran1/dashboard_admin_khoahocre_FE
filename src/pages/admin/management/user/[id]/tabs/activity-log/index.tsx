@@ -3,7 +3,7 @@ import { Typography, Timeline, Spin, Empty } from "antd";
 import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { toast } from "sonner";
-import { ActivityLog } from "@/api/services/userManagementApi";
+import { ActivityLog } from "@/api/services/activity-logApi";
 
 const { Text } = Typography;
 

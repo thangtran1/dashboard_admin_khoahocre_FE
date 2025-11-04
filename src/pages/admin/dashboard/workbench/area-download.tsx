@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Chart, useChart } from "@/components/admin/chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 import {
@@ -7,67 +8,114 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
-import { useState } from "react";
+import {
+  statsActivityLog,
+  ActivityLogPeriod,
+  ActivityLogStats,
+} from "@/api/services/activity-logApi";
+import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-export default function AreaDownload() {
-  const [year, setYear] = useState("2023");
-  const series: Record<string, ApexAxisChartSeries> = {
-    "2022": [
-      { name: "China", data: [10, 41, 35, 51, 49, 61, 69, 91, 148, 35, 51] },
-      { name: "America", data: [10, 34, 13, 56, 77, 88, 99, 45, 13, 56, 77] },
-    ],
+export default function UserActivityChart() {
+  const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
+  const [period, setPeriod] = useState<ActivityLogPeriod>(
+    ActivityLogPeriod.DAY
+  );
+  const [stats, setStats] = useState<ActivityLogStats>({
+    labels: [],
+    series: [],
+  });
 
-    "2023": [
-      { name: "China", data: [51, 35, 41, 10, 91, 69, 62, 148, 91, 35, 51] },
-      { name: "America", data: [56, 13, 34, 10, 77, 99, 88, 45, 13, 56, 77] },
-    ],
-  };
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+        const response = await statsActivityLog.getActivityStats(period);
+        let data = response;
+
+        if (period === ActivityLogPeriod.DAY) {
+          data.labels = data.labels.map((h) => `${h}h`);
+        } else if (
+          period === ActivityLogPeriod.WEEK ||
+          period === ActivityLogPeriod.MONTH
+        ) {
+          data.labels = data.labels.map((d) => d);
+        } else if (period === ActivityLogPeriod.YEAR) {
+          data.labels = data.labels.map((y) => y);
+        }
+
+        setStats(data);
+      } catch (error) {
+        console.error("Error fetching activity stats:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, [period]);
+
   return (
     <Card className="flex-col">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>Area Installed</span>
-          <Select onValueChange={(value) => setYear(value)} defaultValue={year}>
+          <span>{t("sys.chart.user-activity")}</span>
+          <Select
+            onValueChange={(value) => setPeriod(value as ActivityLogPeriod)}
+            defaultValue={period.toString()}
+          >
             <SelectTrigger>
-              <SelectValue defaultValue={year} />
+              <SelectValue defaultValue={period.toString()} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="2023">2023</SelectItem>
-              <SelectItem value="2022">2022</SelectItem>
+              <SelectItem value={ActivityLogPeriod.DAY}>
+                {t("sys.chart.day")}
+              </SelectItem>
+              <SelectItem value={ActivityLogPeriod.WEEK}>
+                {t("sys.chart.week")}
+              </SelectItem>
+              <SelectItem value={ActivityLogPeriod.MONTH}>
+                {t("sys.chart.month")}
+              </SelectItem>
+              <SelectItem value={ActivityLogPeriod.YEAR}>
+                {t("sys.chart.year")}
+              </SelectItem>
             </SelectContent>
           </Select>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartArea series={series[year]} />
+        {loading ? (
+          <div className="flex items-center justify-center">
+            <Loader2 className="w-4 h-4 animate-spin" />
+          </div>
+        ) : (
+          <ChartArea stats={stats} />
+        )}
       </CardContent>
     </Card>
   );
 }
 
-function ChartArea({ series }: { series: ApexAxisChartSeries }) {
+function ChartArea({ stats }: { stats: ActivityLogStats }) {
+  const { t } = useTranslation();
   const chartOptions = useChart({
     xaxis: {
       type: "category",
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jut",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: stats.labels,
     },
     tooltip: {},
   });
 
   return (
-    <Chart type="area" series={series} options={chartOptions} height={300} />
+    <Chart
+      type="area"
+      series={stats.series.map((series, index) => ({
+        name: index === 0 ? t("sys.chart.login") : t("sys.chart.logout"),
+        data: series.data as number[],
+      }))}
+      options={chartOptions}
+      height={300}
+    />
   );
 }

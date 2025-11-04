@@ -804,6 +804,16 @@
       "confirm": "Confirm",
       "cancel": "Cancel",
       "new-password": "New Password"
+    },
+    "chart": {
+      "loading": "Loading...",
+      "user-activity": "User Activity",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year",
+      "login": "Login",
+      "logout": "Logout"
     }
   }
 }

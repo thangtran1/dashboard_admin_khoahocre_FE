@@ -4,18 +4,17 @@ import { Tabs } from "antd";
 import { Icon } from "@/components/icon";
 import { useSearchParams } from "react-router";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import {
-  getMyActivityLogs,
-  getSystemSettings,
-  SystemSettings,
-} from "@/api/services/profileApi";
+import { getSystemSettings, SystemSettings } from "@/api/services/profileApi";
 import { Separator } from "@/ui/separator";
 import PersonalInfoTab from "./components/PersonalInfoTab";
 import SecurityTab from "./components/SecurityTab";
 import PreferencesTab from "./components/PreferencesTab";
 import { useTranslation } from "react-i18next";
-import { ActivityLog } from "@/api/services/userManagementApi";
 import ActivityLogs from "../management/user/[id]/tabs/activity-log";
+import {
+  ActivityLog,
+  getActivityLogsAdmin,
+} from "@/api/services/activity-logApi";
 
 export default function ProfilePage() {
   const { t } = useTranslation();
@@ -78,7 +77,7 @@ export default function ProfilePage() {
       children: (
         <ActivityLogs
           fetchLogsApi={() =>
-            getMyActivityLogs() as Promise<{
+            getActivityLogsAdmin() as Promise<{
               data: { success: boolean; message: string; data: ActivityLog[] };
             }>
           }

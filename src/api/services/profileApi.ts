@@ -1,6 +1,5 @@
 import { BasicStatus } from "@/types/enum";
 import apiClient from "../apiClient";
-import { type ActivityLog } from "./userManagementApi";
 
 // ========== INTERFACES ==========
 export interface UserProfile {
@@ -58,7 +57,6 @@ export enum ProfileApi {
   GetSystemSettings = "/system/settings",
   UpdateSystemSettings = "/system/settings",
   GetDefaultLanguage = "/system/default-language",
-  GetMyActivityLogs = "/user/me/activity-logs",
 }
 
 // ========== API CALLS ==========
@@ -137,19 +135,6 @@ export const uploadAvatar = async (file: File): Promise<string> => {
   return response.data.data.avatarUrl;
 };
 
-// Get my activity logs
-export const getMyActivityLogs = async () => {
-  return await apiClient.get<{
-    data: {
-      success: boolean;
-      message: string;
-      data: ActivityLog[];
-    };
-  }>({
-    url: ProfileApi.GetMyActivityLogs,
-  });
-};
-
 export default {
   getUserProfile,
   updateUserProfile,
@@ -158,5 +143,4 @@ export default {
   updateSystemSettings,
   getDefaultLanguage,
   uploadAvatar,
-  getMyActivityLogs,
 };
