@@ -1,80 +1,119 @@
-<div align="center"> 
-<br> 
-<br>
-<img src="./src/assets/images/logo.png" height="140" />
-<h3> TVT Admin </h3>
-  <p>
-    <p style="font-size: 14px">
-      TVT Admin is a modern admin dashboard template built with React 18, Vite, Ant Design, and TypeScript. It is designed to help developers quickly create powerful admin management systems.
-    </p>
-    <br />
-    <br />
-    <a href="#">Preview</a>
-    ·
-    <a href="#">Discord</a>
-    ·
-    <a href="#">Document</a>
-    <br />
-</div>
+# 🚀 System Admin Frontend
 
-**English** | [Vietnames](./README.vi.md)
-
-## Features
-
-- Built using React 18 hooks.
-- Powered by Vite for rapid development and hot module replacement.
-- Integrates Ant Design, providing a rich set of UI components and design patterns.
-- Written in TypeScript, offering type safety and an improved development experience.
-- Responsive design, adapting to various screen sizes and devices.
-- Flexible routing configuration, supporting nested routes.
-- Integrated access control based on user roles.
-- Supports internationalization for easy language switching.
-- Includes common admin features like user management, role management, and permission management.
-- Customizable themes and styles to meet your branding needs.
-- Mocking solution based on MSW and Faker.js.
-- State management using Zustand.
-- Data fetching using React-Query.
-
-## Quick Start
-
-### Get the Project Code
+## Installation
 
 ```bash
-git clone https://github.com/thangtran1/dashboard_admin
-```
+# Clone the repository
+git clone https://github.com/thangtran1/dashboard_admin_khoahocre_FE
+cd dashboard_admin
 
-### Install Dependencies
-
-In the project's root directory, run the following command to install project dependencies:
-
-```bash
+# Install dependencies
 pnpm install
+
+# Setup env
+pnpm setup-env
+
+# Check connection with BE
+pnpm check-backend
 ```
 
-### Start the Development Server
-
-Run the following command to start the development server:
+### Development
 
 ```bash
+# Start all applications
 pnpm dev
+
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to view your application.
+## 📁 Project Structure
 
-### Build for Production
+```text
+dashboard_admin/
+├── src/
+│   ├── api/          # Hàm gọi API, service backend
+│   ├── assets/       # Hình ảnh, icon, font
+│   ├── components/   # Component tái sử dụng
+│   ├── contexts/     # React Contexts (Auth, Theme, ...)
+│   ├── hooks/        # Custom hooks
+│   ├── layouts/      # Layout tổng thể (Admin, Auth, ...)
+│   ├── locales/      # Đa ngôn ngữ (i18n)
+│   ├── pages/        # Các trang chính của ứng dụng
+│   ├── router/       # Định nghĩa router, route config
+│   ├── store/        # Global state (Redux, Zustand, ...)
+│   ├── styles/       # CSS/Tailwind/SCSS toàn cục
+│   ├── theme/        # Cấu hình màu sắc, typography
+│   ├── types/        # Khai báo interface/type chung
+│   ├── ui/           # Bộ UI cơ bản (Button, Input, Card, ...)
+│   └── utils/        # Hàm tiện ích (formatDate, debounce, ...)
+│
+├── App.tsx           # Thành phần gốc của ứng dụng
+├── main.tsx          # Điểm vào chính, khởi tạo React DOM
+└── global.css        # CSS toàn cục áp dụng cho dự án
 
-Run the following command to build the production version:
+```
+
+## 🛠️ Available Scripts
+
+### Development Commands
 
 ```bash
-pnpm build
+pnpm dev              # Start all apps in development mode
 ```
 
-## Git Contribution submission specification
+## 🏗️ Technology Stack
 
-reference[.commitlint.config.js](./commitlint.config.js)
+### Core Technologies
 
-- `feat` new features
-- `fix` fix the
-- `refactor` refactor
-- `revert` revert commit
-- `test` test related
+- **Framework**: React.js 19
+- **Language**: TypeScript
+- **Package Manager**: pnpm
+- **Styling**: Tailwind CSS, Antd
+
+### UI & Components
+
+- **UI Library**: Antd (React)
+- **State Management**: Zustand, React Query (TanStack Query)
+- **Form Handling**: React Hook Form
+- **Data Tables**: Antd Table
+
+## 🔧 Configuration
+
+### Port Configuration
+
+- **User Web**: <http://localhost:3000>
+- **Admin Web**: <http://localhost:3000/dashboard/workbench>
+
+### Code Style
+
+- Follow the existing code style
+- Use TypeScript for all new code
+
+### Commit Convention
+
+This project uses conventional commits:
+
+```bash
+feat: add new feature
+fix: fix bug
+docs: update documentation
+style: format code
+refactor: refactor code
+test: add tests
+chore: update build process
+```
+
+## Sự cố thường gặp – system-admin failed
+
+Khi clone code mới về cập nhật env và kiểm tra kết nối với Backend
+
+Cách xử lý nhanh (khuyến nghị):
+
+Test connection trực tiếp terminal với lệnh:
+
+```bash
+pnpm check-backend
+```
+
+Mẹo: Hãy liên hệ qua email: thangtrandz04@gmail để biết thêm thông tin or liên hệ trực tiếp qua hotline: 0389215396 hoặc thông qua fanpage: vanthang.io.vn để được hỗ trợ
+
+# 👨‍💻 We are 👨‍💻 The System Admins! 🖥️

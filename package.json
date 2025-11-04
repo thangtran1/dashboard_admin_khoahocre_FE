@@ -5,6 +5,8 @@
   "type": "module",
   "homepage": "https://vanthang.io.vn/",
   "scripts": {
+    "setup-env": "bash scripts/setup-env.sh",
+    "check-backend": "bash scripts/check-backend.sh",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
