@@ -831,6 +831,30 @@
       "system": "System",
       "news": "News",
       "maintenance": "Maintenance"
+    },
+    "auth-session": {
+      "title": "Auth Session Management",
+      "description": "Manage auth sessions, view and delete auth sessions",
+      "search": "Search by information",
+      "search-placeholder": "User name, email",
+      "status": "Status Auth Session",
+      "all-status": "Select status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "exclude-admin": "Exclude Admin",
+      "all-exclude-admin": "Select exclude admin",
+      "exclude-admin-true": "Yes",
+      "exclude-admin-false": "No",
+      "date-range": "Date Range",
+      "from-date": "From Date",
+      "to-date": "To Date",
+      "search-action": "Search",
+      "clear-filters": "Clear Filters",
+      "user-name": "User Name",
+      "email": "Email",
+      "browser": "Browser",
+      "last-activity-time": "Last Activity Time",
+      "last-activity-type": "Last Activity Type"
     }
   }
 }

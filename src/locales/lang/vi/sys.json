@@ -844,6 +844,30 @@
       "system": "Hệ thống",
       "news": "Tin tức",
       "maintenance": "Bảo trì"
+    },
+    "auth-session": {
+      "title": "Quản lý phiên đăng nhập",
+      "description": "Quản lý phiên đăng nhập, xem và xóa phiên đăng nhập",
+      "search": "Tìm kiếm theo thông tin",
+      "search-placeholder": "Tên người dùng, email",
+      "status": "Trạng thái phiên đăng nhập",
+      "all-status": "Chọn trạng thái",
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "exclude-admin": "Loại trừ quản trị viên",
+      "all-exclude-admin": "Chọn loại trừ quản trị viên",
+      "exclude-admin-true": "Có",
+      "exclude-admin-false": "Không",
+      "date-range": "Khoảng thời gian",
+      "from-date": "Từ ngày",
+      "to-date": "Đến ngày",
+      "search-action": "Tìm kiếm",
+      "clear-filters": "Xóa bộ lọc",
+      "user-name": "Tên người dùng",
+      "email": "Email",
+      "browser": "Trình duyệt",
+      "last-activity-time": "Thời gian hoạt động gần nhất",
+      "last-activity-type": "Loại hoạt động gần nhất"
     }
   }
 }

@@ -15,7 +15,9 @@ const CreatedNewUserPage = lazy(
   () => import("@/pages/admin/management/user/created-new-user")
 );
 const UserDetailPage = lazy(() => import("@/pages/admin/management/user/[id]"));
-
+const AuthSessionManagement = lazy(
+  () => import("@/pages/admin/management/auth-session")
+);
 const management: AppRouteObject = {
   order: 2,
   path: "management",
@@ -48,6 +50,19 @@ const management: AppRouteObject = {
         key: "/management/user",
       },
     },
+    {
+      path: "auth-session",
+      element: (
+        <Suspense fallback={<LineLoading />}>
+          <AuthSessionManagement />
+        </Suspense>
+      ),
+      meta: {
+        label: "sys.menu.management-auth-session",
+        key: "/management/auth-session",
+      },
+    },
+
     {
       path: "user/created-new-user",
       element: (
