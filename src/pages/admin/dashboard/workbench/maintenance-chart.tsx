@@ -6,7 +6,7 @@ import maintenanceApi, {
 } from "@/api/services/maintenanceApi";
 import { useTranslation } from "react-i18next";
 
-export default function CurrentDownload() {
+export default function MaintenanceChart() {
   const { t } = useTranslation();
   const [stats, setStats] = useState<MaintenanceStats | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

@@ -1,7 +1,7 @@
 import BannerCard from "./banner-card";
 import BannerChart from "./banner-chart";
 import { Applications, Conversion } from "./conversion_applications";
-import CurrentDownload from "./current-download";
+import MaintenanceChart from "./maintenance-chart";
 import TotalCard from "./total-card";
 import UserActivityChart from "./user-activity-chart";
 
@@ -54,7 +54,7 @@ function Workbench() {
 
       <div className="flex flex-col md:flex-row gap-2">
         <div className="flex-1">
-          <CurrentDownload />
+          <MaintenanceChart />
         </div>
         <div className="flex-1">
           <UserActivityChart />

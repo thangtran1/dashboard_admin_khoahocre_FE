@@ -7,10 +7,16 @@ import ChartColumnSingle from "./view/chart-column-single";
 import ChartDonut from "./view/chart-donut";
 import ChartLine from "./view/chart-line";
 import ChartRadial from "./view/chart-radial";
+import MaintenanceChart from "../../dashboard/workbench/maintenance-chart";
+import UserActivityChart from "../../dashboard/workbench/user-activity-chart";
+import BannerChart from "../../dashboard/workbench/banner-chart";
 
 export default function ChartPage() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <MaintenanceChart />
+      <UserActivityChart /> 
+      <BannerChart />
       <Card title="Area">
         <CardHeader>
           <CardTitle>Area</CardTitle>
