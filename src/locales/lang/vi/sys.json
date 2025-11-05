@@ -411,7 +411,6 @@
       "role-admin": "Quản trị viên",
       "status-active": "Hoạt động",
       "status-inactive": "Không hoạt động",
-      "status-banned": "Bị cấm",
       "create-success": "Tạo người dùng thành công!",
       "update-success": "Cập nhật người dùng thành công!",
       "delete-success": "Xóa người dùng thành công!",
@@ -470,7 +469,6 @@
       "confirm-delete-single-description": "Bạn có chắc chắn muốn xóa người dùng này?",
       "active": "Hoạt động",
       "inactive": "Không hoạt động",
-      "banned": "Bị cấm",
       "user": "Người dùng",
       "created-at": "Ngày tạo",
       "admin": "Quản trị viên",
@@ -516,7 +514,7 @@
       "if-one-row-error-all-will-not-be-created": "Nếu có 1 dòng lỗi, tất cả sẽ không được tạo",
       "password-must-be-at-least-6-characters": "Mật khẩu tối thiểu 6 ký tự",
       "role-must-be-user-moderator-admin": "Vai trò: user, moderator, admin",
-      "status-must-be-active-inactive-banned": "Trạng thái: active, inactive, banned",
+      "status-must-be-active-inactive": "Trạng thái: active, inactive",
       "cannot-read-file": "Không thể đọc file",
       "invalid-excel-file": "File Excel không hợp lệ hoặc bị hỏng",
       "no-sheet-found": "File Excel không có sheet nào",
@@ -593,7 +591,6 @@
         "role-admin": "Quản trị viên",
         "status-active": "Hoạt động",
         "status-inactive": "Không hoạt động",
-        "status-banned": "Bị cấm",
         "information": "Thông tin người dùng",
         "activity-log": "Nhật ký hoạt động",
         "password-level-1": "Mật khẩu cấp 1",
@@ -838,7 +835,11 @@
       "cancelled": "Đã hủy",
       "in_progress": "Đang thực hiện",
       "total": "Tổng",
-      "scheduled": "Đã lên lịch"
+      "scheduled": "Đã lên lịch",
+      "total-users": "Tổng số người dùng",
+      "total-active-users": "Hoạt động",
+      "total-inactive-users": "Không hoạt động",
+      "status-user-stats": "Thống kê trạng thái người dùng"
     }
   }
 }

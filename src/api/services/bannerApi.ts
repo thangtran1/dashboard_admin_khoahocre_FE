@@ -21,18 +21,6 @@ export interface BannerConfig {
   createdAt?: string;
   updatedAt?: string;
 }
-// 🧱 Kiểu dữ liệu cho thống kê banner
-export enum BannerStatsPeriod {
-  DAY = "day",
-  WEEK = "week",
-  MONTH = "month",
-  YEAR = "year",
-}
-
-export interface BannerStats {
-  labels: string[];
-  series: { name: string; data: number[] }[];
-}
 
 export interface CreateBannerRequest {
   content: string;
@@ -188,14 +176,4 @@ export const batchUpdateBanners = async (
 
 export const prefetchBannerData = async (): Promise<void> => {
   await Promise.all([getBannerSettings(), getActiveBanners()]);
-};
-
-export const statsBanner = {
-  getBannerStats: async (period: BannerStatsPeriod): Promise<BannerStats> => {
-    const response = await apiClient.get({
-      url: "/banners/stats",
-      params: { period: period.toString() },
-    });
-    return response.data.data as BannerStats;
-  },
 };

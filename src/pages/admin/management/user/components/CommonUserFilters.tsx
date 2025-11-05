@@ -74,7 +74,6 @@ export default function CommonUserFilters({
             <Option value="inactive">
               {t("sys.user-management.inactive")}
             </Option>
-            <Option value="banned">{t("sys.user-management.banned")}</Option>
           </Select>
         </div>
 

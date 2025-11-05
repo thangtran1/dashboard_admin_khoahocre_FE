@@ -80,7 +80,7 @@ export default function BulkCreateForm() {
     }
 
     // Validate status
-    const validStatuses = ["active", "inactive", "banned"];
+    const validStatuses = ["active", "inactive"];
     if (!validStatuses.includes(user.status)) {
       user.isValid = false;
       user.error = `Trạng thái không hợp lệ. Chỉ chấp nhận: ${validStatuses.join(

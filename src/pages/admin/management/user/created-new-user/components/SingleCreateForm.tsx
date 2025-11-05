@@ -133,9 +133,6 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
             <Option value="inactive">
               {t("sys.user-management.status-inactive")}
             </Option>
-            <Option value="banned">
-              {t("sys.user-management.status-banned")}
-            </Option>
           </Select>
         </Form.Item>
       </div>

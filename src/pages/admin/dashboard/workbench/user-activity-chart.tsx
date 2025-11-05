@@ -8,21 +8,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
-import {
-  statsActivityLog,
-  ActivityLogPeriod,
-  ActivityLogStats,
-} from "@/api/services/activity-logApi";
+
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import {
+  ResponseStats,
+  statsActivityLog,
+  StatsPeriod,
+} from "@/api/services/chartApt";
 
 export default function UserActivityChart() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const [period, setPeriod] = useState<ActivityLogPeriod>(
-    ActivityLogPeriod.WEEK
-  );
-  const [stats, setStats] = useState<ActivityLogStats>({
+  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.WEEK);
+  const [stats, setStats] = useState<ResponseStats>({
     labels: [],
     series: [],
   });
@@ -34,14 +33,14 @@ export default function UserActivityChart() {
         const response = await statsActivityLog.getActivityStats(period);
         let data = response;
 
-        if (period === ActivityLogPeriod.DAY) {
+        if (period === StatsPeriod.DAY) {
           data.labels = data.labels.map((h) => `${h}h`);
         } else if (
-          period === ActivityLogPeriod.WEEK ||
-          period === ActivityLogPeriod.MONTH
+          period === StatsPeriod.WEEK ||
+          period === StatsPeriod.MONTH
         ) {
           data.labels = data.labels.map((d) => d);
-        } else if (period === ActivityLogPeriod.YEAR) {
+        } else if (period === StatsPeriod.YEAR) {
           data.labels = data.labels.map((y) => y);
         }
 
@@ -61,23 +60,23 @@ export default function UserActivityChart() {
         <CardTitle className="flex items-center justify-between">
           <span>{t("sys.chart.user-activity")}</span>
           <Select
-            onValueChange={(value) => setPeriod(value as ActivityLogPeriod)}
+            onValueChange={(value) => setPeriod(value as StatsPeriod)}
             defaultValue={period.toString()}
           >
             <SelectTrigger>
               <SelectValue defaultValue={period.toString()} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={ActivityLogPeriod.DAY}>
+              <SelectItem value={StatsPeriod.DAY}>
                 {t("sys.chart.day")}
               </SelectItem>
-              <SelectItem value={ActivityLogPeriod.WEEK}>
+              <SelectItem value={StatsPeriod.WEEK}>
                 {t("sys.chart.week")}
               </SelectItem>
-              <SelectItem value={ActivityLogPeriod.MONTH}>
+              <SelectItem value={StatsPeriod.MONTH}>
                 {t("sys.chart.month")}
               </SelectItem>
-              <SelectItem value={ActivityLogPeriod.YEAR}>
+              <SelectItem value={StatsPeriod.YEAR}>
                 {t("sys.chart.year")}
               </SelectItem>
             </SelectContent>
@@ -97,7 +96,7 @@ export default function UserActivityChart() {
   );
 }
 
-function ChartArea({ stats }: { stats: ActivityLogStats }) {
+function ChartArea({ stats }: { stats: ResponseStats }) {
   const { t } = useTranslation();
   const chartOptions = useChart({
     colors: ["#1890ff", "#ff4d4f"],

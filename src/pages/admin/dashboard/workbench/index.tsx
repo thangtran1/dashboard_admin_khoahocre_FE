@@ -2,9 +2,9 @@ import BannerCard from "./banner-card";
 import BannerChart from "./banner-chart";
 import { Applications, Conversion } from "./conversion_applications";
 import MaintenanceChart from "./maintenance-chart";
-import TotalCard from "./total-card";
 import UserActivityChart from "./user-activity-chart";
-
+import StatusUserChart from "./status-user-chart";
+import ChartColumnMultiple from "../../components/chart/view/chart-column-multiple";
 function Workbench() {
   return (
     <div className="flex flex-col gap-2">
@@ -19,39 +19,7 @@ function Workbench() {
           </div>
         </div>
       </div>
-
-      <div className="flex flex-col md:flex-row gap-2">
-        <div className="flex-1">
-          <TotalCard
-            title="Total Active Users"
-            increase
-            count="18,765"
-            percent="2.6%"
-            chartData={[22, 8, 35, 50, 82, 84, 77, 12, 87, 43]}
-          />
-        </div>
-
-        <div className="flex-1">
-          <TotalCard
-            title="Total Installed"
-            increase
-            count="4,876"
-            percent="0.2%"
-            chartData={[45, 52, 38, 24, 33, 26, 21, 20, 6]}
-          />
-        </div>
-
-        <div className="flex-1">
-          <TotalCard
-            title="Total Downloads"
-            increase={false}
-            count="678"
-            percent="0.1%"
-            chartData={[35, 41, 62, 42, 13, 18, 29, 37, 36]}
-          />
-        </div>
-      </div>
-
+      <StatusUserChart />
       <div className="flex flex-col md:flex-row gap-2">
         <div className="flex-1">
           <MaintenanceChart />
@@ -65,6 +33,7 @@ function Workbench() {
           <BannerChart />
         </div>
       </div>
+      <ChartColumnMultiple />
     </div>
   );
 }

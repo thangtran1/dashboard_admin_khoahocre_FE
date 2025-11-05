@@ -100,7 +100,6 @@ export default function UserInformation({ userId }: { userId: string }) {
   const statusColor: Record<UserStatus, string> = {
     active: "border-green-500 text-green-700 bg-green-50",
     inactive: "border-orange-500 text-orange-700 bg-orange-50",
-    banned: "border-red-500 text-red-700 bg-red-50",
   };
   return (
     <div className="flex flex-col gap-6">
@@ -291,9 +290,6 @@ export default function UserInformation({ userId }: { userId: string }) {
                 </Option>
                 <Option value={UserStatus.INACTIVE}>
                   {t("sys.user-management.user-detail.status-inactive")}
-                </Option>
-                <Option value={UserStatus.BANNED}>
-                  {t("sys.user-management.user-detail.status-banned")}
                 </Option>
               </Select>
             </Form.Item>

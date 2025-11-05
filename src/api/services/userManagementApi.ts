@@ -7,8 +7,6 @@ export const getStatusColor = (status: string) => {
       return "green";
     case "inactive":
       return "orange";
-    case "banned":
-      return "red";
     default:
       return "default";
   }
@@ -53,7 +51,6 @@ export enum UserRole {
 export enum UserStatus {
   ACTIVE = "active",
   INACTIVE = "inactive",
-  BANNED = "banned",
 }
 
 export interface CreateUserReq {

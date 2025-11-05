@@ -1,16 +1,4 @@
 import apiClient from "../apiClient";
-
-export interface ActivityLogStats {
-  labels: string[];
-  series: { name: string; data: number[] }[];
-}
-export enum ActivityLogPeriod {
-  DAY = "day",
-  WEEK = "week",
-  MONTH = "month",
-  YEAR = "year",
-}
-
 export interface ActivityLog {
   id: string;
   ip?: string;
@@ -23,18 +11,6 @@ export enum ActivityLogApi {
   GetById = "/activity-log/:id",
   GetAdmin = "/activity-log/admin",
 }
-
-export const statsActivityLog = {
-  getActivityStats: async (
-    period: ActivityLogPeriod
-  ): Promise<ActivityLogStats> => {
-    const response = await apiClient.get({
-      url: "/activity-log/stats",
-      params: { period: period.toString() },
-    });
-    return response.data.data as ActivityLogStats;
-  },
-};
 
 // Lấy lịch sử hoạt động của user
 export const detailActivityLogForUser = async (userId: string) => {

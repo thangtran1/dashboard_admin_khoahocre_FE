@@ -8,21 +8,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
-import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
-  BannerStats,
-  BannerStatsPeriod,
+  ResponseStats,
   statsBanner,
-} from "@/api/services/bannerApi";
+  StatsPeriod,
+} from "@/api/services/chartApt";
 
 export default function BannerChart() {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
-  const [period, setPeriod] = useState<BannerStatsPeriod>(
-    BannerStatsPeriod.WEEK
-  );
-  const [stats, setStats] = useState<BannerStats>({
+  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.WEEK);
+  const [stats, setStats] = useState<ResponseStats>({
     labels: [],
     series: [],
   });
@@ -30,27 +26,24 @@ export default function BannerChart() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        setLoading(true);
         const response = await statsBanner.getBannerStats(period);
         let data = response;
 
         // 🎯 Hiển thị label trực quan
-        if (period === BannerStatsPeriod.DAY) {
+        if (period === StatsPeriod.DAY) {
           data.labels = data.labels.map((h) => `${h}h`);
         } else if (
-          period === BannerStatsPeriod.WEEK ||
-          period === BannerStatsPeriod.MONTH
+          period === StatsPeriod.WEEK ||
+          period === StatsPeriod.MONTH
         ) {
           data.labels = data.labels.map((d) => d);
-        } else if (period === BannerStatsPeriod.YEAR) {
+        } else if (period === StatsPeriod.YEAR) {
           data.labels = data.labels.map((y) => y);
         }
 
         setStats(data);
       } catch (error) {
         console.error("Error fetching banner stats:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -63,23 +56,23 @@ export default function BannerChart() {
         <CardTitle className="flex items-center justify-between">
           <span>{t("sys.chart.banner-stats")}</span>
           <Select
-            onValueChange={(value) => setPeriod(value as BannerStatsPeriod)}
+            onValueChange={(value) => setPeriod(value as StatsPeriod)}
             defaultValue={period.toString()}
           >
             <SelectTrigger>
               <SelectValue defaultValue={period.toString()} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={BannerStatsPeriod.DAY}>
+              <SelectItem value={StatsPeriod.DAY}>
                 {t("sys.chart.day")}
               </SelectItem>
-              <SelectItem value={BannerStatsPeriod.WEEK}>
+              <SelectItem value={StatsPeriod.WEEK}>
                 {t("sys.chart.week")}
               </SelectItem>
-              <SelectItem value={BannerStatsPeriod.MONTH}>
+              <SelectItem value={StatsPeriod.MONTH}>
                 {t("sys.chart.month")}
               </SelectItem>
-              <SelectItem value={BannerStatsPeriod.YEAR}>
+              <SelectItem value={StatsPeriod.YEAR}>
                 {t("sys.chart.year")}
               </SelectItem>
             </SelectContent>
@@ -88,20 +81,14 @@ export default function BannerChart() {
       </CardHeader>
 
       <CardContent>
-        {loading ? (
-          <div className="flex items-center justify-center">
-            <Loader2 className="w-4 h-4 animate-spin" />
-          </div>
-        ) : (
-          <ChartArea stats={stats} />
-        )}
+        <ChartArea stats={stats} />
       </CardContent>
     </Card>
   );
 }
 
 // 🧭 Khu vực hiển thị biểu đồ
-function ChartArea({ stats }: { stats: BannerStats }) {
+function ChartArea({ stats }: { stats: ResponseStats }) {
   const { t } = useTranslation();
   const chartOptions = useChart({
     colors: ["#1890ff", "#52c41a", "#ff4d4f"],

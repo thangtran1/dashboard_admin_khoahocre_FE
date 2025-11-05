@@ -161,10 +161,7 @@ export default function UploadCard({
                   • {t("sys.user-management.role-must-be-user-moderator-admin")}
                 </li>
                 <li>
-                  •{" "}
-                  {t(
-                    "sys.user-management.status-must-be-active-inactive-banned"
-                  )}
+                  • {t("sys.user-management.status-must-be-active-inactive")}
                 </li>
               </ul>
             </div>

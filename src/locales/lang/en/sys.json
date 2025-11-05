@@ -401,7 +401,6 @@
       "role-admin": "Admin",
       "status-active": "Active",
       "status-inactive": "Inactive",
-      "status-banned": "Banned",
       "create-success": "User created successfully!",
       "update-success": "User updated successfully!",
       "delete-success": "User deleted successfully!",
@@ -460,7 +459,6 @@
       "confirm-delete-single-description": "Are you sure you want to delete this user?",
       "active": "Active",
       "inactive": "Inactive",
-      "banned": "Banned",
       "user": "User",
       "created-at": "Created At",
       "admin": "Admin",
@@ -506,7 +504,7 @@
       "if-one-row-error-all-will-not-be-created": "If one row has an error, all will not be created",
       "password-must-be-at-least-6-characters": "Password must be at least 6 characters",
       "role-must-be-user-moderator-admin": "Role: user, moderator, admin",
-      "status-must-be-active-inactive-banned": "Status: active, inactive, banned",
+      "status-must-be-active-inactive": "Status: active, inactive",
       "cannot-read-file": "Cannot read file",
       "invalid-excel-file": "File Excel is invalid or corrupted",
       "no-sheet-found": "File Excel has no sheet",
@@ -583,7 +581,6 @@
         "role-admin": "Admin",
         "status-active": "Active",
         "status-inactive": "Inactive",
-        "status-banned": "Banned",
         "information": "User Information",
         "activity-log": "Activity Log",
         "password-level-1": "Password Level 1",
@@ -825,7 +822,11 @@
       "cancelled": "Cancelled",
       "in_progress": "In Progress",
       "total": "Total",
-      "scheduled": "Scheduled"
+      "scheduled": "Scheduled",
+      "total-users": "Total Users",
+      "total-active-users": "Active",
+      "total-inactive-users": "Inactive",
+      "status-user-stats": "Status User Stats"
     }
   }
 }

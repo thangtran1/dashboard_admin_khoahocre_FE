@@ -122,11 +122,6 @@ export interface MaintenanceListResponse {
     data: Maintenance[];
   };
 }
-export interface MaintenanceStats {
-  labels: string[];
-  series: { name: string; data: number[] }[];
-}
-
 export interface MaintenanceStatusResponse {
   success: boolean;
   message: string;
@@ -188,13 +183,6 @@ const maintenanceApi = {
     apiClient.get<MaintenanceStatusResponse>({
       url: "/maintenance/current-status",
     }),
-
-  getMaintenanceStats: async (): Promise<MaintenanceStats> => {
-    const response = await apiClient.get({
-      url: "/maintenance/stats",
-    });
-    return response.data.data as MaintenanceStats;
-  },
 };
 
 export default maintenanceApi;

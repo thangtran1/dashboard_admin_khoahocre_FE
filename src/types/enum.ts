@@ -1,7 +1,6 @@
 export enum BasicStatus {
   INACTIVE = "inactive",
   ACTIVE = "active",
-  BANNED = "banned",
 }
 
 export enum ResultEnum {

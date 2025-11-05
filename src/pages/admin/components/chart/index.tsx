@@ -10,61 +10,63 @@ import ChartRadial from "./view/chart-radial";
 import MaintenanceChart from "../../dashboard/workbench/maintenance-chart";
 import UserActivityChart from "../../dashboard/workbench/user-activity-chart";
 import BannerChart from "../../dashboard/workbench/banner-chart";
+import StatusUserChart from "../../dashboard/workbench/status-user-chart";
 
 export default function ChartPage() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <MaintenanceChart />
-      <UserActivityChart /> 
-      <BannerChart />
-      <Card title="Area">
-        <CardHeader>
-          <CardTitle>Area</CardTitle>
-        </CardHeader>
-        <ChartArea />
-      </Card>
-      <Card title="Line">
-        <CardHeader>
-          <CardTitle>Line</CardTitle>
-        </CardHeader>
-        <ChartLine />
-      </Card>
-      <Card title="Column Single">
-        <CardHeader>
-          <CardTitle>Column Single</CardTitle>
-        </CardHeader>
-        <ChartColumnSingle />
-      </Card>
-      <Card title="Column Multiple">
-        <CardHeader>
-          <CardTitle>Column Multiple</CardTitle>
-        </CardHeader>
+    <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <MaintenanceChart />
+        <UserActivityChart />
+        <BannerChart />
         <ChartColumnMultiple />
-      </Card>
-      <Card title="Column Stacked">
-        <CardHeader>
-          <CardTitle>Column Stacked</CardTitle>
-        </CardHeader>
-        <ChartColumnStacked />
-      </Card>
-      <Card title="Column Negative">
-        <CardHeader>
-          <CardTitle>Column Negative</CardTitle>
-        </CardHeader>
-        <ChartColumnNegative />
-      </Card>
-      <Card title="Donut">
-        <CardHeader>
-          <CardTitle>Donut</CardTitle>
-        </CardHeader>
-        <ChartDonut />
-      </Card>
-      <Card title="Radial Bar">
-        <CardHeader>
-          <CardTitle>Radial Bar</CardTitle>
-        </CardHeader>
-        <ChartRadial />
-      </Card>
+        <div className="col-span-1 md:col-span-2">
+          <StatusUserChart />
+        </div>
+        <Card title="Area">
+          <CardHeader>
+            <CardTitle>Area</CardTitle>
+          </CardHeader>
+          <ChartArea />
+        </Card>
+        <Card title="Line">
+          <CardHeader>
+            <CardTitle>Line</CardTitle>
+          </CardHeader>
+          <ChartLine />
+        </Card>
+        <Card title="Column Single">
+          <CardHeader>
+            <CardTitle>Column Single</CardTitle>
+          </CardHeader>
+          <ChartColumnSingle />
+        </Card>
+
+        <Card title="Column Stacked">
+          <CardHeader>
+            <CardTitle>Column Stacked</CardTitle>
+          </CardHeader>
+          <ChartColumnStacked />
+        </Card>
+        <Card title="Column Negative">
+          <CardHeader>
+            <CardTitle>Column Negative</CardTitle>
+          </CardHeader>
+          <ChartColumnNegative />
+        </Card>
+        <Card title="Donut">
+          <CardHeader>
+            <CardTitle>Donut</CardTitle>
+          </CardHeader>
+          <ChartDonut />
+        </Card>
+        <Card title="Radial Bar">
+          <CardHeader>
+            <CardTitle>Radial Bar</CardTitle>
+          </CardHeader>
+          <ChartRadial />
+        </Card>
+      </div>
     </div>
   );
 }

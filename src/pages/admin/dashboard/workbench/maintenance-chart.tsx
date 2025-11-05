@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
 import { Chart, useChart } from "@/components/admin/chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
-import maintenanceApi, {
-  MaintenanceStats,
-} from "@/api/services/maintenanceApi";
 import { useTranslation } from "react-i18next";
+import { ResponseStats, statsMaintenance } from "@/api/services/chartApt";
 
 export default function MaintenanceChart() {
   const { t } = useTranslation();
-  const [stats, setStats] = useState<MaintenanceStats | null>(null);
+  const [stats, setStats] = useState<ResponseStats | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const response = await maintenanceApi.getMaintenanceStats();
+        const response = await statsMaintenance.getMaintenanceStats();
         setStats(response);
       } catch (error) {
         console.error("Error fetching maintenance stats:", error);
@@ -45,7 +43,7 @@ export default function MaintenanceChart() {
   );
 }
 
-function ChartDonut({ stats }: { stats: MaintenanceStats }) {
+function ChartDonut({ stats }: { stats: ResponseStats }) {
   const { t, i18n } = useTranslation();
 
   const seriesValues = stats.series.slice(1).map((s) => s.data?.[0] ?? 0);
