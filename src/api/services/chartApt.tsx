@@ -32,6 +32,16 @@ export const statsBanner = {
   },
 };
 
+export const statsNotification = {
+  getNotificationStats: async (period: StatsPeriod): Promise<ResponseStats> => {
+    const response = await apiClient.get({
+      url: "/notifications/stats",
+      params: { period: period.toString() },
+    });
+    return response.data.data as ResponseStats;
+  },
+};
+
 export const statsActivityLog = {
   getActivityStats: async (period: StatsPeriod): Promise<ResponseStats> => {
     const response = await apiClient.get({

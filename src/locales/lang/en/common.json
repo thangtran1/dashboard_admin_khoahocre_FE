@@ -109,9 +109,8 @@
     "read": "Read",
     "type": "Notification",
     "system": "System",
-    "promotion": "Promotion",
-    "maintenance": "Maintenance",
-    "update": "Update"
+    "news": "News",
+    "maintenance": "Maintenance"
   },
   "userProfile": {
     "personal-info": "Personal Information",

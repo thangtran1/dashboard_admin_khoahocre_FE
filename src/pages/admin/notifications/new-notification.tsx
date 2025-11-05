@@ -116,14 +116,11 @@ const NewNotification: React.FC = () => {
               ]}
             >
               <Select placeholder={t("sys.notification.select-type")}>
-                <Option value="system">{t("sys.notification.system")}</Option>
-                <Option value="promotion">
-                  {t("sys.notification.promotion")}
-                </Option>
+                <Option value="system">{t("notification.system")}</Option>
+                <Option value="news">{t("notification.news")}</Option>
                 <Option value="maintenance">
-                  {t("sys.notification.maintenance")}
+                  {t("notification.maintenance")}
                 </Option>
-                <Option value="update">{t("sys.notification.update")}</Option>
               </Select>
             </Form.Item>
           </Col>

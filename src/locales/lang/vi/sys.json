@@ -839,7 +839,11 @@
       "total-users": "Tổng số người dùng",
       "total-active-users": "Hoạt động",
       "total-inactive-users": "Không hoạt động",
-      "status-user-stats": "Thống kê trạng thái người dùng"
+      "status-user-stats": "Thống kê trạng thái người dùng",
+      "notification-stats": "Thống kê thông báo",
+      "system": "Hệ thống",
+      "news": "Tin tức",
+      "maintenance": "Bảo trì"
     }
   }
 }

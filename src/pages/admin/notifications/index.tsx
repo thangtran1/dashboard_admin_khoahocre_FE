@@ -207,7 +207,11 @@ const NotificationManagement: React.FC = () => {
       width: 120,
       render: (type: string) => (
         <Tag color={type === "system" ? "blue" : "green"}>
-          {type === "system" ? t("sys.notification.system") : type}
+          {type === "system"
+            ? t("notification.system")
+            : type === "news"
+            ? t("notification.news")
+            : t("notification.maintenance")}
         </Tag>
       ),
     },

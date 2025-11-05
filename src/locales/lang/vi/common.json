@@ -109,9 +109,8 @@
     "read": "Đã đọc",
     "type": "Thông báo",
     "system": "Hệ thống",
-    "promotion": "Khuyến mãi",
-    "maintenance": "Bảo trì",
-    "update": "Cập nhật"
+    "news": "Tin tức",
+    "maintenance": "Bảo trì"
   },
   "userProfile": {
     "personal-info": "Thông tin cá nhân",

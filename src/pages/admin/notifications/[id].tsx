@@ -87,9 +87,8 @@ const Notification: React.FC = () => {
 
   const typeMap: Record<string, NotificationType> = {
     system: NotificationType.SYSTEM,
-    promotion: NotificationType.PROMOTION,
+    news: NotificationType.NEWS,
     maintenance: NotificationType.MAINTENANCE,
-    update: NotificationType.UPDATE,
   };
 
   return (

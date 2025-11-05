@@ -1,16 +1,11 @@
 import { Card, CardHeader, CardTitle } from "@/ui/card";
-import ChartArea from "./view/chart-area";
 import ChartColumnStacked from "./view/chart-column-Stacked";
 import ChartColumnMultiple from "./view/chart-column-multiple";
-import ChartColumnNegative from "./view/chart-column-negative";
-import ChartColumnSingle from "./view/chart-column-single";
-import ChartDonut from "./view/chart-donut";
-import ChartLine from "./view/chart-line";
-import ChartRadial from "./view/chart-radial";
 import MaintenanceChart from "../../dashboard/workbench/maintenance-chart";
 import UserActivityChart from "../../dashboard/workbench/user-activity-chart";
 import BannerChart from "../../dashboard/workbench/banner-chart";
 import StatusUserChart from "../../dashboard/workbench/status-user-chart";
+import ChartNotification from "./view/chart-notification";
 
 export default function ChartPage() {
   return (
@@ -23,48 +18,13 @@ export default function ChartPage() {
         <div className="col-span-1 md:col-span-2">
           <StatusUserChart />
         </div>
-        <Card title="Area">
-          <CardHeader>
-            <CardTitle>Area</CardTitle>
-          </CardHeader>
-          <ChartArea />
-        </Card>
-        <Card title="Line">
-          <CardHeader>
-            <CardTitle>Line</CardTitle>
-          </CardHeader>
-          <ChartLine />
-        </Card>
-        <Card title="Column Single">
-          <CardHeader>
-            <CardTitle>Column Single</CardTitle>
-          </CardHeader>
-          <ChartColumnSingle />
-        </Card>
+        <ChartNotification />
 
         <Card title="Column Stacked">
           <CardHeader>
             <CardTitle>Column Stacked</CardTitle>
           </CardHeader>
           <ChartColumnStacked />
-        </Card>
-        <Card title="Column Negative">
-          <CardHeader>
-            <CardTitle>Column Negative</CardTitle>
-          </CardHeader>
-          <ChartColumnNegative />
-        </Card>
-        <Card title="Donut">
-          <CardHeader>
-            <CardTitle>Donut</CardTitle>
-          </CardHeader>
-          <ChartDonut />
-        </Card>
-        <Card title="Radial Bar">
-          <CardHeader>
-            <CardTitle>Radial Bar</CardTitle>
-          </CardHeader>
-          <ChartRadial />
         </Card>
       </div>
     </div>

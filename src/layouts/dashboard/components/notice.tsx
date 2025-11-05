@@ -226,19 +226,16 @@ function NoticeTab({
       switch (type) {
         case NotificationType.SYSTEM:
           return "green";
-        case NotificationType.PROMOTION:
-          return "orange";
+        case NotificationType.NEWS:
+          return "blue";
         case NotificationType.MAINTENANCE:
           return "red";
-        case NotificationType.UPDATE:
-          return "blue";
       }
     };
     const typeMap: Record<NotificationType, string> = {
       [NotificationType.SYSTEM]: t("notification.system"),
-      [NotificationType.PROMOTION]: t("notification.promotion"),
+      [NotificationType.NEWS]: t("notification.news"),
       [NotificationType.MAINTENANCE]: t("notification.maintenance"),
-      [NotificationType.UPDATE]: t("notification.update"),
     };
     return (
       <div

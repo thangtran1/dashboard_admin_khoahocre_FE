@@ -826,7 +826,11 @@
       "total-users": "Total Users",
       "total-active-users": "Active",
       "total-inactive-users": "Inactive",
-      "status-user-stats": "Status User Stats"
+      "status-user-stats": "Status User Stats",
+      "notification-stats": "Notification Stats",
+      "system": "System",
+      "news": "News",
+      "maintenance": "Maintenance"
     }
   }
 }

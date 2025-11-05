@@ -64,7 +64,6 @@ export enum HtmlDataAttribute {
 
 export enum NotificationType {
   SYSTEM = "system",
-  PROMOTION = "promotion",
+  NEWS = "news",
   MAINTENANCE = "maintenance",
-  UPDATE = "update",
 }

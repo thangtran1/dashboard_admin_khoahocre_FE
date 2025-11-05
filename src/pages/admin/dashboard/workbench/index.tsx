@@ -5,6 +5,7 @@ import MaintenanceChart from "./maintenance-chart";
 import UserActivityChart from "./user-activity-chart";
 import StatusUserChart from "./status-user-chart";
 import ChartColumnMultiple from "../../components/chart/view/chart-column-multiple";
+import ChartNotification from "../../components/chart/view/chart-notification";
 function Workbench() {
   return (
     <div className="flex flex-col gap-2">
@@ -28,12 +29,16 @@ function Workbench() {
           <UserActivityChart />
         </div>
       </div>
-      <div>
+
+      <div className="flex flex-col md:flex-row gap-2">
         <div className="flex-1">
           <BannerChart />
         </div>
+        <div className="flex-1">
+          <ChartColumnMultiple />
+        </div>
       </div>
-      <ChartColumnMultiple />
+      <ChartNotification />
     </div>
   );
 }
