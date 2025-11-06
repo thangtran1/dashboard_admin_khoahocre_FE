@@ -840,7 +840,7 @@
       "status": "Status Auth Session",
       "all-status": "Select status",
       "active": "Active",
-      "inactive": "Inactive",
+      "revoked": "Revoked",
       "exclude-admin": "Exclude Admin",
       "all-exclude-admin": "Select exclude admin",
       "exclude-admin-true": "Yes",
@@ -854,7 +854,11 @@
       "email": "Email",
       "browser": "Browser",
       "last-activity-time": "Last Activity Time",
-      "last-activity-type": "Last Activity Type"
+      "last-activity-type": "Last Activity Type",
+      "clear-filter": "Clear Filter",
+      "user-id": "User ID",
+      "ip": "IP"
+
     }
   }
 }

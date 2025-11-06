@@ -853,7 +853,7 @@
       "status": "Trạng thái phiên đăng nhập",
       "all-status": "Chọn trạng thái",
       "active": "Hoạt động",
-      "inactive": "Không hoạt động",
+      "revoked": "Đã thu hồi",
       "exclude-admin": "Loại trừ quản trị viên",
       "all-exclude-admin": "Chọn loại trừ quản trị viên",
       "exclude-admin-true": "Có",
@@ -867,7 +867,10 @@
       "email": "Email",
       "browser": "Trình duyệt",
       "last-activity-time": "Thời gian hoạt động gần nhất",
-      "last-activity-type": "Loại hoạt động gần nhất"
+      "last-activity-type": "Loại hoạt động gần nhất",
+      "clear-filter": "Xóa bộ lọc",
+      "user-id": "ID người dùng",
+      "ip": "IP"
     }
   }
 }

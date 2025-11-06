@@ -67,3 +67,8 @@ export enum NotificationType {
   NEWS = "news",
   MAINTENANCE = "maintenance",
 }
+
+export enum AuthSessionStatus {
+  ACTIVE = "active",
+  REVOKED = "revoked",
+}
