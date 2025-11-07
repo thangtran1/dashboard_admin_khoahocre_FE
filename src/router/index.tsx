@@ -7,7 +7,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Navigate, type RouteObject, createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
-import ResetPassword from "@/pages/admin/sys/login/resetPassword";
+import ResetPassword from "@/pages/admin/sys/login/components/resetPassword";
 import GoogleSuccess from "@/pages/admin/sys/login/google-success";
 import GoogleError from "@/pages/admin/sys/login/google-error";
 import GitHubSuccess from "@/pages/admin/sys/login/github-success";

@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Button } from "antd";
-import { InputOtp } from "@heroui/react";
+import { Button, Modal, Input } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import userService from "@/api/services/userApi";
-import ModalBase from "./modalBase";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { Icon } from "@/components/icon";
@@ -27,6 +25,7 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
   const verifyOTPMutation = useMutation({
     mutationFn: userService.verifyOtp,
   });
+
   const {
     control,
     handleSubmit,
@@ -53,15 +52,24 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
       } else {
         toast.error(t("sys.login.invalidOTP"));
       }
-    } catch (err: any) {
-      toast.error(err?.response?.data?.message || t("sys.login.errorOTP"));
+    } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <ModalBase isOpen={isOpen} onClose={onClose}>
+    <Modal
+      open={isOpen}
+      centered
+      destroyOnClose
+      footer={null}
+      closable={true}
+      maskClosable={false}
+      width={400}
+      onCancel={onClose}
+    >
       <div className="text-center">
         <Icon
           icon="local:ic-new-transaction"
@@ -69,12 +77,17 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
           className="text-primary!"
         />
       </div>
-      <div className="flex flex-col items-center text-center px-6 py-8 max-w-sm">
-        <h1 className="text-2xl font-bold">{t("sys.login.confirmOTP")}</h1>
-        <p className="text-sm text-gray-600 mb-4">
-          {t("sys.login.sentMessageBefore")} <b>{email}</b>
-          {t("sys.login.sentMessageAfter")}
-        </p>
+
+      <div className="flex flex-col items-center gap-1 text-center px-4 py-3 max-w-sm mx-auto">
+        <h1 className="text-2xl font-bold mb-2">{t("sys.login.confirmOTP")}</h1>
+        <p
+          className="text-sm text-gray-600 mb-4"
+          dangerouslySetInnerHTML={{
+            __html: t("sys.login.sentMessageBefore", {
+              email: `<b>${email}</b>`,
+            }),
+          }}
+        />
 
         <form
           className="w-full flex flex-col items-center"
@@ -83,41 +96,48 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
           <Controller
             control={control}
             name="otp"
-            render={({ field }) => (
-              <InputOtp
-                {...field}
-                classNames={{
-                  base: "flex gap-2 justify-center",
-                  input:
-                    "w-12 h-12 text-lg rounded-md text-center text-gray-900 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm",
-                  errorMessage: "text-red-500 text-sm text-center mt-1",
-                }}
-                errorMessage={errors.otp?.message}
-                isInvalid={!!errors.otp}
-                length={6}
-                onChange={(e) =>
-                  field.onChange((e.target as HTMLInputElement).value)
-                }
-              />
-            )}
             rules={{
               required: t("sys.login.plsOTP"),
               minLength: { value: 6, message: t("sys.login.maxOTP") },
               maxLength: { value: 6, message: t("sys.login.maxOTP") },
             }}
+            render={({ field }) => (
+              <div className="w-full flex flex-col items-center">
+                <Input.OTP
+                  {...field}
+                  length={6}
+                  size="large"
+                  status={errors.otp ? "error" : ""}
+                  onChange={(value) => field.onChange(value)}
+                />
+                {errors.otp && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {String(errors.otp.message)}
+                  </p>
+                )}
+              </div>
+            )}
           />
 
-          <Button
-            className="mt-6 w-full h-10 rounded-lg"
-            htmlType="submit"
-            loading={isLoading}
-            type="primary"
-          >
-            {t("sys.login.confirm")}
-          </Button>
+          <div className="flex w-full mt-6 gap-2">
+            <Button onClick={onClose} danger size="large" className="w-full">
+              {t("sys.login.cancel")}
+            </Button>
+
+            <Button
+              htmlType="submit"
+              color="primary"
+              variant="outlined"
+              loading={isLoading}
+              size="large"
+              className="w-full"
+            >
+              {t("sys.login.confirm")}
+            </Button>
+          </div>
         </form>
       </div>
-    </ModalBase>
+    </Modal>
   );
 };
 

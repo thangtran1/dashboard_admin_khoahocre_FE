@@ -5,7 +5,6 @@ import SettingButton from "@/layouts/dashboard/components/setting-button";
 import { useUserInfo, useUserToken } from "@/store/userStore";
 import { Navigate } from "react-router";
 import LoginForm from "./login-form";
-import MobileForm from "./mobile-form";
 import { LoginProvider } from "./providers/login-provider";
 import RegisterForm from "./register-form";
 import ForgotPasswordForm from "./forgot-password-form";
@@ -35,7 +34,6 @@ function LoginPage() {
           <div className="w-full max-w-xs">
             <LoginProvider>
               <LoginForm />
-              <MobileForm />
               <RegisterForm />
               <ForgotPasswordForm />
             </LoginProvider>

@@ -25,6 +25,7 @@
       "errMsg505": "Phiên bản HTTP không hỗ trợ yêu cầu này!"
     },
     "login": {
+      "cancel": "Hủy",
       "backSignIn": "Quay lại",
       "signInFormTitle": "Đăng nhập vào tài khoản của bạn",
       "mobileSignInFormTitle": "Đăng nhập bằng điện thoại",
@@ -40,8 +41,7 @@
       "noteConfirm": "Nếu bạn không có email, vui lòng liên hệ hotline 0389215396 để được hỗ trợ lấy lại mật khẩu",
       "sending": "Đang gửi...",
       "confirmOTP": "Nhập mã xác thực",
-      "sentMessageBefore": "Chúng tôi đã gửi mã OTP đến email",
-      "sentMessageAfter": ". Vui lòng kiểm tra hộp thư và nhập mã bên dưới.",
+      "sentMessageBefore": "Chúng tôi đã gửi mã OTP đến email <b>{{email}}</b> vui lòng kiểm tra hộp thư và nhập mã bên dưới.",
       "plsOTP": "Vui lòng nhập mã OTP",
       "maxOTP": "OTP gồm 6 số",
       "confirm": "Xác nhận",

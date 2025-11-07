@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
+import { LockOutlined } from "@ant-design/icons";
 
 const ResetPassword = () => {
   const { t } = useTranslation();
@@ -92,44 +93,78 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="reset-password-container flex justify-center items-center min-h-screen bg-gray-100">
-      <Card className="w-full max-w-xl p-6 shadow-lg rounded-lg">
-        <h1 className="text-xl font-semibold mb-6 text-center">
-          {t("sys.login.forgetFormTitle")}
-        </h1>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+      <div className="bg-card text-card-foreground px-6 pt-4 flex flex-col gap-6 rounded-xl border shadow-sm w-full max-w-lg backdrop-blur-sm">
+        <div className="text-center mb-4">
+          <div className="flex justify-center items-center mb-3">
+            <div className="bg-primary p-3 rounded-full">
+              <LockOutlined className="text-3xl text-background" />
+            </div>
+          </div>
+          <h1 className="text-2xl font-bold">
+            {t("sys.login.forgetFormTitle")}
+          </h1>
+        </div>
 
         <Form layout="vertical" onFinish={handleResetPassword}>
           <Form.Item
+            label={
+              <span className="font-medium text-foreground">
+                {t("sys.login.newPas")}
+              </span>
+            }
             help={newPasswordError}
-            label={t("sys.login.newPas")}
             validateStatus={newPasswordError ? "error" : ""}
           >
             <Input.Password
               placeholder={t("sys.login.newPas")}
               value={newPassword}
               onChange={handleNewPasswordChange}
+              size="large"
             />
           </Form.Item>
 
           <Form.Item
+            label={
+              <span className="font-medium text-foreground">
+                {t("sys.login.confirmPassword")}
+              </span>
+            }
             help={confirmPasswordError}
-            label={t("sys.login.confirmPassword")}
             validateStatus={confirmPasswordError ? "error" : ""}
           >
             <Input.Password
               placeholder={t("sys.login.confirmPassword")}
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
+              size="large"
             />
           </Form.Item>
 
           <Form.Item>
-            <Button block htmlType="submit" loading={isLoading} type="primary">
-              {t("sys.login.forgetFormTitle")}
-            </Button>
+            <div className="flex w-full mt-4 gap-2 justify-between">
+              <Button
+                htmlType="submit"
+                loading={isLoading}
+                color="primary"
+                variant="outlined"
+                size="large"
+                className="w-full"
+              >
+                {t("sys.login.confirm")}
+              </Button>
+              <Button
+                danger
+                onClick={() => navigate("/login")}
+                size="large"
+                className="w-full"
+              >
+                {t("sys.login.backToLogin")}
+              </Button>
+            </div>
           </Form.Item>
         </Form>
-      </Card>
+      </div>
     </div>
   );
 };

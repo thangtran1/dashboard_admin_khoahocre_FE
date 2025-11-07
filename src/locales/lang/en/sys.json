@@ -24,6 +24,7 @@
       "timeoutMessage": "Login timed out, please log in again!"
     },
     "login": {
+      "cancel": "Cancel",
       "accountPlaceholder": "Please input username",
       "backSignIn": "Back sign in",
       "confirmPassword": "Confirm Password",
@@ -42,8 +43,7 @@
       "noteConfirm": "If you do not have an email, please contact hotline 0389215396 for assistance in retrieving your password.",
       "sending": "Sending...",
       "confirmOTP": "Enter authentication code",
-      "sentMessageBefore": "We have sent the OTP code to email",
-      "sentMessageAfter": ". Please check your mailbox and enter the code below.",
+      "sentMessageBefore": "We have sent the OTP code to email <b>{{email}}</b> please check your mailbox and enter the code below.",
       "plsOTP": "Please enter OTP code",
       "maxOTP": "OTP includes 6 numbers",
       "confirm": "Confirm",

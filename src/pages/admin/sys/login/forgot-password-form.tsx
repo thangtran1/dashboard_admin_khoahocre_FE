@@ -22,7 +22,7 @@ import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import userService from "@/api/services/userApi";
 import { toast } from "sonner";
-import VerifyOTP from "./verifyOTP";
+import VerifyOTP from "./components/verifyOTP";
 
 function ForgotPasswordForm() {
   const { t } = useTranslation();
