@@ -52,13 +52,15 @@ axiosInstance.interceptors.response.use(
     throw new Error(message || t("sys.api.apiRequestFailed"));
   },
   (error: AxiosError<Result>) => {
-    const { response, message } = error || {};
+    const { response, message, config } = error || {};
 
-    const errMsg =
-      response?.data?.message || message || t("sys.api.errorMessage");
-    toast.error(errMsg, {
-      position: "top-center",
-    });
+    if (!config?.headers?.suppressToast) {
+      const errMsg = Array.isArray(response?.data?.message)
+        ? response.data.message.join("\n")
+        : response?.data?.message || message || t("sys.api.errorMessage");
+
+      toast.error(errMsg, { position: "top-center" });
+    }
 
     const status = response?.status;
     if (status === ResultEnum.TIMEOUT) {

@@ -74,7 +74,7 @@ export default function BackupList({
         setViewContent(JSON.stringify(res.data, null, 2));
         setViewModal(true);
       } else {
-        message.error(t("sys.database.view-backup-error"));
+        toast.error(t("sys.database.view-backup-error"));
       }
     } catch {
       toast.error(t("sys.database.view-backup-error"));

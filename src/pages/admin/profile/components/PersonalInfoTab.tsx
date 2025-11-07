@@ -1,25 +1,32 @@
 import { useState, useEffect } from "react";
-import { Button, Avatar, Form, Input, DatePicker, Upload, message } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  DatePicker,
+  Upload,
+  Avatar,
+  Row,
+  Col,
+} from "antd";
 import {
   UserOutlined,
   MailOutlined,
   PhoneOutlined,
   HomeOutlined,
-  EditOutlined,
   CameraOutlined,
 } from "@ant-design/icons";
+import dayjs from "dayjs";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import {
   UserProfile,
   UpdateProfileReq,
   updateUserProfile,
   uploadAvatar,
 } from "@/api/services/profileApi";
-import dayjs from "dayjs";
-import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
-
 interface PersonalInfoTabProps {
   profile: UserProfile | null;
   loading: boolean;
@@ -31,189 +38,145 @@ export default function PersonalInfoTab({
   loading,
   onProfileUpdate,
 }: PersonalInfoTabProps) {
+  const avatarUrl = profile?.avatar
+    ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
+    : undefined;
   const { t } = useTranslation();
-  const [profileForm] = Form.useForm();
+  const [form] = Form.useForm<UpdateProfileReq>();
   const [uploading, setUploading] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
 
-  // Gán dữ liệu ban đầu khi có profile
   useEffect(() => {
-    if (profile) {
-      profileForm.setFieldsValue({
-        name: profile.name,
-        email: profile.email,
-        phone: profile.phone,
-        address: profile.address,
-        bio: profile.bio,
-        dateOfBirth: profile.dateOfBirth ? dayjs(profile.dateOfBirth) : null,
-      });
-      setIsChanged(false); // reset trạng thái thay đổi
-    }
-  }, [profile, profileForm]);
+    form.resetFields();
+    setIsChanged(false);
+  }, [profile]);
 
-  // So sánh giá trị form với profile để biết có thay đổi không
   const handleValuesChange = () => {
     if (!profile) return;
-
-    const currentValues = profileForm.getFieldsValue();
-    const hasChanges =
-      currentValues.name !== profile.name ||
-      currentValues.phone !== profile.phone ||
-      currentValues.address !== profile.address ||
-      currentValues.bio !== profile.bio ||
-      (currentValues.dateOfBirth &&
-        dayjs(currentValues.dateOfBirth).format("YYYY-MM-DD") !==
-          dayjs(profile.dateOfBirth).format("YYYY-MM-DD"));
-
-    setIsChanged(hasChanges);
+    const values = form.getFieldsValue();
+    const changed =
+      values.name !== profile.name ||
+      values.phone !== profile.phone ||
+      values.address !== profile.address ||
+      values.bio !== profile.bio ||
+      (values.dateOfBirth &&
+        !dayjs(values.dateOfBirth).isSame(dayjs(profile.dateOfBirth), "day"));
+    setIsChanged(Boolean(changed));
   };
-
   const handleSave = async (values: UpdateProfileReq) => {
     try {
-      const updatedProfile = await updateUserProfile({
+      const updated = await updateUserProfile({
         ...values,
         dateOfBirth: values.dateOfBirth
           ? dayjs(values.dateOfBirth).toISOString()
           : undefined,
       });
-      onProfileUpdate(updatedProfile);
-
-      // Force refresh profile cache
-      window.dispatchEvent(
-        new CustomEvent("profileUpdated", { detail: updatedProfile })
-      );
-
+      onProfileUpdate(updated);
       toast.success(t("sys.profile.update-profile-success"));
       setIsChanged(false);
-    } catch (error) {
-      throw error;
-    }
+    } catch (err) {}
   };
 
   const handleAvatarUpload = async (file: File) => {
+    if (!profile) return;
     try {
       setUploading(true);
-      const avatarUrl = await uploadAvatar(file);
-
-      const updatedProfile = await updateUserProfile({ avatar: avatarUrl });
-      onProfileUpdate(updatedProfile);
-
-      window.dispatchEvent(
-        new CustomEvent("profileUpdated", { detail: updatedProfile })
-      );
-
+      const url = await uploadAvatar(file);
+      const updated = await updateUserProfile({ avatar: url });
+      onProfileUpdate(updated);
       toast.success(t("sys.profile.update-avatar-success"));
-      return false;
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      throw err;
     } finally {
       setUploading(false);
     }
   };
 
-  const beforeUpload = (file: File) => {
-    const isValidType = file.type === "image/jpeg" || file.type === "image/png";
-    const isValidSize = file.size / 1024 / 1024 < 2;
-
-    if (!isValidType) {
-      message.error(t("sys.profile.upload-file-error"));
-      return false;
-    }
-    if (!isValidSize) {
-      message.error(t("sys.profile.upload-file-size-error"));
-      return false;
-    }
-
-    handleAvatarUpload(file);
-    return false;
-  };
-
-  const avatarUrl = profile?.avatar
-    ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
-    : undefined;
-
   return (
-    <div className="pb-6">
-      <div className="flex items-center mb-6">
+    <div>
+      <div className="flex items-center">
         <div className="relative">
-          <Avatar size={80} icon={<UserOutlined />} src={avatarUrl} />
+          <Avatar size={100} icon={<UserOutlined />} src={avatarUrl} />
           <Upload
             showUploadList={false}
-            beforeUpload={beforeUpload}
+            customRequest={(options) =>
+              handleAvatarUpload(options.file as File)
+            }
             accept="image/*"
           >
             <Button
+              className="absolute -bottom-6 right-6 "
               shape="circle"
-              size="middle"
               icon={<CameraOutlined />}
-              className="absolute top-5 right-5"
               loading={uploading}
             />
           </Upload>
         </div>
         <div>
-          <h3 className="text-lg font-semibold">
-            {profile?.name || t("sys.profile.loading")}
-          </h3>
-          <p className="text-muted-foreground">
-            {profile?.email || t("sys.profile.loading")}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {profile?.role === "admin"
-              ? t("sys.profile.role-admin")
-              : profile?.role === "moderator"
-              ? t("sys.profile.role-moderator")
-              : t("sys.profile.role-user")}
-          </p>
+          <h3>{profile?.name || t("sys.profile.loading")}</h3>
+          <p>{profile?.email || t("sys.profile.loading")}</p>
         </div>
       </div>
 
       <Form
-        form={profileForm}
+        form={form}
         layout="vertical"
+        initialValues={{
+          ...profile,
+          dateOfBirth: profile?.dateOfBirth ? dayjs(profile.dateOfBirth) : null,
+        }}
         onValuesChange={handleValuesChange}
         onFinish={handleSave}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Form.Item
-            name="name"
-            label={t("sys.profile.name")}
-            rules={[
-              { required: true, message: t("sys.profile.name-required") },
-            ]}
-          >
-            <Input size="large" prefix={<UserOutlined />} />
-          </Form.Item>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              name="name"
+              label={t("sys.profile.name")}
+              rules={[
+                { required: true, message: t("sys.profile.name-required") },
+              ]}
+            >
+              <Input size="large" prefix={<UserOutlined />} />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="email" label={t("sys.profile.email")}>
+              <Input size="large" prefix={<MailOutlined />} disabled />
+            </Form.Item>
+          </Col>
+        </Row>
 
-          <Form.Item name="email" label={t("sys.profile.email")}>
-            <Input size="large" prefix={<MailOutlined />} disabled />
-          </Form.Item>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Form.Item name="phone" label={t("sys.profile.phone")}>
-            <Input size="large" prefix={<PhoneOutlined />} />
-          </Form.Item>
-
-          <Form.Item name="dateOfBirth" label={t("sys.profile.date-of-birth")}>
-            <DatePicker size="large" className="w-full" format="YYYY-MM-DD" />
-          </Form.Item>
-        </div>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item name="phone" label={t("sys.profile.phone")}>
+              <Input size="large" prefix={<PhoneOutlined />} />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="dateOfBirth"
+              label={t("sys.profile.date-of-birth")}
+            >
+              <DatePicker size="large" className="w-full" format="YYYY-MM-DD" />
+            </Form.Item>
+          </Col>
+        </Row>
 
         <Form.Item name="address" label={t("sys.profile.address")}>
           <Input size="large" prefix={<HomeOutlined />} />
         </Form.Item>
 
         <Form.Item name="bio" label={t("sys.profile.bio")}>
-          <TextArea rows={4} placeholder={t("sys.profile.bio-placeholder")} />
+          <TextArea size="large" rows={4} />
         </Form.Item>
 
-        <div className="flex gap-3 justify-end pt-4">
+        <div className="flex justify-end">
           <Button
-            type="primary"
-            htmlType="submit"
             size="large"
-            icon={<EditOutlined />}
+            color="primary"
+            variant="outlined"
+            htmlType="submit"
             loading={loading}
             disabled={!isChanged}
           >

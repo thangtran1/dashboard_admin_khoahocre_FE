@@ -79,7 +79,6 @@ export function useMaintence(isScheduled: boolean = false) {
       }
     } catch (error) {
       console.error("❌ fetchMaintenances ~ error:", error);
-      toast.error(t("sys.maintenance.fetch-error"));
     } finally {
       setLoading(false);
     }
@@ -118,7 +117,6 @@ export function useMaintence(isScheduled: boolean = false) {
       }
     } catch (error) {
       console.error("❌ updateMaintenance ~ error:", error);
-      toast.error(t("sys.maintenance.update-error"));
       return false;
     } finally {
       setLoading(false);
@@ -156,7 +154,6 @@ export function useMaintence(isScheduled: boolean = false) {
       await fetchMaintenances();
     } catch (error) {
       console.error("❌ startMaintenance ~ error:", error);
-      toast.error(t("sys.maintenance.start-error"));
     } finally {
       setLoading(false);
     }
@@ -171,7 +168,6 @@ export function useMaintence(isScheduled: boolean = false) {
       await fetchMaintenances();
     } catch (error) {
       console.error("❌ stopMaintenance ~ error:", error);
-      toast.error(t("sys.maintenance.stop-error"));
     } finally {
       setLoading(false);
     }
@@ -186,7 +182,6 @@ export function useMaintence(isScheduled: boolean = false) {
       await fetchMaintenances();
     } catch (error) {
       console.error("❌ cancelMaintenance ~ error:", error);
-      toast.error(t("sys.maintenance.cancel-error"));
     } finally {
       setLoading(false);
     }

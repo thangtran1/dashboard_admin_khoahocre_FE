@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Spin, DatePicker, Input, message } from "antd";
 import {
+  ClearOutlined,
   DatabaseOutlined,
   DeleteOutlined,
   FileAddOutlined,
@@ -117,7 +118,9 @@ export default function DatabaseManagement() {
       if (res.success) {
         toast.success(t("sys.database.create-backup-success"));
         fetchBackups();
-      } else toast.error(res.message || t("sys.database.create-backup-error"));
+      } else {
+        toast.error(res.message || t("sys.database.create-backup-error"));
+      }
     } finally {
       setLoading(false);
     }
@@ -152,9 +155,11 @@ export default function DatabaseManagement() {
         toast.success(res.message);
         setDeleteModalVisible(false);
         fetchBackups();
-      } else message.error(t("sys.database.delete-error"));
-    } catch {
-      message.error(t("sys.database.delete-error"));
+      } else {
+        toast.error(res.message || t("sys.database.delete-error"));
+      }
+    } catch (error) {
+      console.error("❌ handleDelete ~ error:", error);
     } finally {
       setLoading(false);
     }
@@ -259,6 +264,7 @@ export default function DatabaseManagement() {
             <div className="flex gap-2">
               <Button
                 danger
+                icon={<ClearOutlined />}
                 onClick={handleClearFilters}
                 size="large"
                 className="h-[40px]"
@@ -268,6 +274,7 @@ export default function DatabaseManagement() {
               <Button
                 color="primary"
                 variant="outlined"
+                icon={<SearchOutlined />}
                 onClick={handleSearch}
                 size="large"
                 className="h-[40px]"

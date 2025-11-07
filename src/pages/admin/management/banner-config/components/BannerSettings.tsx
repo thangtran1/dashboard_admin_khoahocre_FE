@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button } from "antd";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
-import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useBanner } from "@/hooks/useBanner";
 import type { UpdateBannerSettingsRequest } from "@/api/services/bannerApi";

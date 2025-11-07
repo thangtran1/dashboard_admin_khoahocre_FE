@@ -592,6 +592,7 @@
       }
     },
     "profile": {
+      "update-system-settings-success": "Update system settings successfully!",
       "title": "Personal Information",
       "description": "Manage personal information, security and system customization",
       "security": "Security",

@@ -95,7 +95,6 @@ export default function NoticeButton() {
       toast.success(t("notification.mark-as-read-success"));
     } catch (error) {
       console.error("Error marking as read:", error);
-      toast.error(t("notification.mark-as-read-error"));
     }
   };
 
@@ -115,7 +114,6 @@ export default function NoticeButton() {
       toast.success(t("notification.mark-all-as-read-success"));
     } catch (error) {
       console.error("Error marking all as read:", error);
-      toast.error(t("notification.mark-all-as-read-error"));
     }
   };
 

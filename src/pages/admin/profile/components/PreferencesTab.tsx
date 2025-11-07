@@ -74,10 +74,8 @@ export default function PreferencesTab({
   };
 
   return (
-    <div className="pb-6">
-      <h3 className="text-lg font-semibold mb-4">
-        {t("sys.profile.preferences")}
-      </h3>
+    <div>
+      <h3 className="text-lg font-semibold">{t("sys.profile.preferences")}</h3>
 
       <Form
         form={settingsForm}
@@ -112,15 +110,18 @@ export default function PreferencesTab({
           />
         </Form.Item>
 
-        <Button
-          type="primary"
-          htmlType="submit"
-          size="large"
-          loading={loading}
-          disabled={!isChanged}
-        >
-          ⚙️ {t("sys.profile.save-settings")}
-        </Button>
+        <div className="flex justify-end">
+          <Button
+            color="primary"
+            variant="outlined"
+            htmlType="submit"
+            size="large"
+            loading={loading}
+            disabled={!isChanged}
+          >
+            {t("sys.profile.save-settings")}
+          </Button>
+        </div>
       </Form>
     </div>
   );

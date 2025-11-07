@@ -119,7 +119,6 @@ export const useBanner = (): UseBannerReturn => {
       setSettings(settingsData);
     } catch (error) {
       console.error("❌ fetchSettings ~ error:", error);
-      toast.error("Lỗi khi tải cài đặt banner");
     } finally {
       setSettingsLoading(false);
     }

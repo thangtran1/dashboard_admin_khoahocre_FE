@@ -602,6 +602,7 @@
       }
     },
     "profile": {
+      "update-system-settings-success": "Cập nhật cài đặt hệ thống thành công!",
       "title": "Thông tin cá nhân",
       "description": "Quản lý thông tin cá nhân, bảo mật và tùy chỉnh hệ thống",
       "security": "Bảo mật",

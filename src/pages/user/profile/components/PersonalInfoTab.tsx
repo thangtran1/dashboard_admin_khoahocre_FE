@@ -1,14 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Button,
-  Avatar,
-  Form,
-  Input,
-  DatePicker,
-  Upload,
-  message,
-  Card,
-} from "antd";
+import { Button, Avatar, Form, Input, DatePicker, Upload, Card } from "antd";
 import {
   UserOutlined,
   MailOutlined,
@@ -162,11 +153,11 @@ export default function PersonalInfoTab({
     const isValidSize = file.size / 1024 / 1024 < 2;
 
     if (!isValidType) {
-      message.error(t("userProfile.only-upload-jpg-png"));
+      toast.error(t("userProfile.only-upload-jpg-png"));
       return false;
     }
     if (!isValidSize) {
-      message.error(t("userProfile.avatar-must-be-less-than-2mb"));
+      toast.error(t("userProfile.avatar-must-be-less-than-2mb"));
       return false;
     }
 
