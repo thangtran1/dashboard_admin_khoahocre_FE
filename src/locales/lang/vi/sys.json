@@ -25,6 +25,7 @@
       "errMsg505": "Phiên bản HTTP không hỗ trợ yêu cầu này!"
     },
     "login": {
+      "noteOTP": "Lưu ý: OTP hết hạn sau 15 phút",
       "cancel": "Hủy",
       "backSignIn": "Quay lại",
       "signInFormTitle": "Đăng nhập vào tài khoản của bạn",

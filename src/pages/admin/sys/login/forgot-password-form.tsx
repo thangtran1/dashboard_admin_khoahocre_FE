@@ -131,10 +131,10 @@ function ForgotPasswordForm() {
               </FormItem>
             )}
           />
-          <div className="text-xs p-2 rounded-lg text-black bg-gray-200">
+          <div className="text-xs p-2 rounded-lg text-foreground font-medium bg-muted">
             {t("sys.login.noteConfirm")}
           </div>
-          <Button type="submit" disabled={isLoading} className="w-full">
+          <Button type="submit" disabled={isLoading} className="w-full text-foreground font-medium">
             {isLoading
               ? t("sys.login.sending")
               : t("sys.login.sendEmailButton")}

@@ -24,7 +24,8 @@
       "timeoutMessage": "Login timed out, please log in again!"
     },
     "login": {
-      "cancel": "Cancel",
+      "noteOTP": "Note: OTP expires after 15 minutes",
+        "cancel": "Cancel",
       "accountPlaceholder": "Please input username",
       "backSignIn": "Back sign in",
       "confirmPassword": "Confirm Password",

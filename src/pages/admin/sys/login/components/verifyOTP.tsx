@@ -79,7 +79,7 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
       </div>
 
       <div className="flex flex-col items-center gap-1 text-center px-4 py-3 max-w-sm mx-auto">
-        <h1 className="text-2xl font-bold mb-2">{t("sys.login.confirmOTP")}</h1>
+        <h1 className="text-2xl text-foreground font-bold mb-2">{t("sys.login.confirmOTP")}</h1>
         <p
           className="text-sm text-gray-600 mb-4"
           dangerouslySetInnerHTML={{
@@ -118,8 +118,9 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
               </div>
             )}
           />
-
-          <div className="flex w-full mt-6 gap-2">
+          
+          <p className="text-sm text-muted-foreground font-medium  mt-2">{t("sys.login.noteOTP")}</p>
+          <div className="flex w-full mt-2 gap-2">
             <Button onClick={onClose} danger size="large" className="w-full">
               {t("sys.login.cancel")}
             </Button>
