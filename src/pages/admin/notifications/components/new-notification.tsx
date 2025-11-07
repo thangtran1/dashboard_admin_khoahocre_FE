@@ -257,7 +257,7 @@ const NewNotification: React.FC = () => {
           </Col>
         </Row>
 
-        <div className="flex justify-end gap-2 mt-2 pt-2 border-t border-border pt-4">
+        <div className="flex justify-end gap-2 mt-2 border-t border-border pt-4">
           <Button
             size="large"
             danger
@@ -269,9 +269,9 @@ const NewNotification: React.FC = () => {
             {t("sys.notification.cancel")}
           </Button>
           <Button
-            type="primary"
             size="large"
-            icon={<PlusOutlined />}
+            color="primary"
+            variant="outlined"
             loading={loading}
             onClick={handleSendForApproval}
           >

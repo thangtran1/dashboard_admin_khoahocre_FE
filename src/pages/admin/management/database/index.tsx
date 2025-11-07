@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Spin, DatePicker, Input, message } from "antd";
 import {
-  ClearOutlined,
   DatabaseOutlined,
   DeleteOutlined,
   FileAddOutlined,
@@ -260,7 +259,6 @@ export default function DatabaseManagement() {
             <div className="flex gap-2">
               <Button
                 danger
-                icon={<ClearOutlined />}
                 onClick={handleClearFilters}
                 size="large"
                 className="h-[40px]"
@@ -270,7 +268,6 @@ export default function DatabaseManagement() {
               <Button
                 color="primary"
                 variant="outlined"
-                icon={<SearchOutlined />}
                 onClick={handleSearch}
                 size="large"
                 className="h-[40px]"

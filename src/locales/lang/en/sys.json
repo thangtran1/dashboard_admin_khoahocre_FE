@@ -105,6 +105,7 @@
       "registerSuccess": "Register successful!"
     },
     "menu": {
+      "management-auth-session": "Management Auth Session",
       "maintenance": "Maintenance",
       "maintenance-maintenance": "System Maintenance",
       "management-user": "Management User",

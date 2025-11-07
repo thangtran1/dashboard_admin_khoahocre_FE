@@ -8,10 +8,10 @@ const NotificationManagement = lazy(
   () => import("@/pages/admin/notifications/index")
 );
 const NewNotification = lazy(
-  () => import("@/pages/admin/notifications/new-notification")
+  () => import("@/pages/admin/notifications/components/new-notification")
 );
 const NotificationDetail = lazy(
-  () => import("@/pages/admin/notifications/[id]")
+  () => import("@/pages/admin/notifications/components/[id]")
 );
 
 const notifications: AppRouteObject = {

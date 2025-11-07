@@ -1,5 +1,5 @@
 import { Button, Input, Select } from "antd";
-import { SearchOutlined, ClearOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import {
   MaintenanceFilter,
@@ -114,12 +114,7 @@ export default function CommonMaintenanceFilters({
         {/* Actions */}
         <div>
           {/* Clear Filters */}
-          <Button
-            size="large"
-            danger
-            icon={<ClearOutlined />}
-            onClick={onClearFilters}
-          >
+          <Button size="large" danger onClick={onClearFilters}>
             {t("sys.maintenance.clear-filters")}
           </Button>
         </div>
