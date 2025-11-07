@@ -169,12 +169,6 @@
       },
       "disabled": "Mục bị vô hiệu hóa",
       "label": "Nhãn mục",
-      "frame": "Liên kết ngoài",
-      "external_link": "Liên kết ngoài",
-      "iframe": "Nhúng iframe",
-      "blank": "Trống",
-      "calendar": "Lịch",
-      "kanban": "Bảng Kanban",
       "error": {
         "index": "Trang lỗi",
         "403": "403",
