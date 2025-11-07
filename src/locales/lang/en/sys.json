@@ -837,7 +837,7 @@
       "description": "Manage auth sessions, view and delete auth sessions",
       "search": "Search by information",
       "search-placeholder": "User name, email",
-      "status": "Status Auth Session",
+      "status": "Status",
       "all-status": "Select status",
       "active": "Active",
       "revoked": "Revoked",
@@ -846,19 +846,15 @@
       "exclude-admin-true": "Yes",
       "exclude-admin-false": "No",
       "date-range": "Date Range",
-      "from-date": "From Date",
-      "to-date": "To Date",
       "search-action": "Search",
       "clear-filters": "Clear Filters",
       "user-name": "User Name",
       "email": "Email",
       "browser": "Browser",
-      "last-activity-time": "Last Activity Time",
-      "last-activity-type": "Last Activity Type",
+      "last-activity-time": "Created At",
       "clear-filter": "Clear Filter",
       "user-id": "User ID",
-      "ip": "IP"
-
+      "ip": "IP Address"
     }
   }
 }

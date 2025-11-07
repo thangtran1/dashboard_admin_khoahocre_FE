@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tooltip } from "antd";
+import { Tag, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { Separator } from "@/ui/separator";
@@ -29,10 +29,7 @@ const AuthSessionManagement: React.FC = () => {
     setSearchText(searchOptions.keyword || "");
     setSelectedType(searchOptions.sessionStatus || "");
     if (searchOptions.from && searchOptions.to) {
-      setDateRange([
-        dayjs(searchOptions.from),
-        dayjs(searchOptions.to),
-      ]);
+      setDateRange([dayjs(searchOptions.from), dayjs(searchOptions.to)]);
     } else {
       setDateRange(null);
     }
@@ -75,10 +72,9 @@ const AuthSessionManagement: React.FC = () => {
 
   const columns = [
     {
-      title: t("sys.auth-session.user-id"),
-      dataIndex: "userId",
-      key: "userId",
-      width: 150,
+      title: t("sys.auth-session.user-name"),
+      dataIndex: "userName",
+      key: "userName",
       ellipsis: true,
       render: (text: string) => renderWithTooltip(text),
     },
@@ -86,23 +82,14 @@ const AuthSessionManagement: React.FC = () => {
       title: t("sys.auth-session.email"),
       dataIndex: "email",
       key: "email",
-      width: 150,
       ellipsis: true,
       render: (text: string) => renderWithTooltip(text),
     },
-    {
-      title: t("sys.auth-session.user-name"),
-      dataIndex: "userName",
-      key: "userName",
-      width: 150,
-      ellipsis: true,
-      render: (text: string) => renderWithTooltip(text),
-    },
+
     {
       title: t("sys.auth-session.browser"),
       dataIndex: "userAgent",
       key: "userAgent",
-      width: 150,
       ellipsis: true,
       render: (text: string) => renderWithTooltip(text),
     },
@@ -115,12 +102,16 @@ const AuthSessionManagement: React.FC = () => {
       render: (text: string) => renderWithTooltip(text),
     },
     {
-      title: t("sys.auth-session.last-activity-type"),
-      dataIndex: "lastActivityType",
-      key: "lastActivityType",
-      width: 150,
+      title: t("sys.auth-session.last-activity-time"),
+      dataIndex: "lastActivityTime",
+      key: "lastActivityTime",
       ellipsis: true,
-      render: (text: string) => renderWithTooltip(text),
+      render: (text: string) => (
+        <div className="flex flex-col">
+          {renderWithTooltip(dayjs(text).format("DD/MM/YYYY "))}
+          {renderWithTooltip(dayjs(text).format("HH:mm:ss"))}
+        </div>
+      ),
     },
     {
       title: t("sys.auth-session.status"),
@@ -128,7 +119,16 @@ const AuthSessionManagement: React.FC = () => {
       key: "sessionStatus",
       width: 150,
       ellipsis: true,
-      render: (text: string) => renderWithTooltip(text),
+      render: (text: string) => (
+        <Tag
+          color={
+            text === "active" ? "green" : text === "revoked" ? "red" : "orange"
+          }
+          style={{ borderRadius: 6, textTransform: "capitalize" }}
+        >
+          {t(`sys.auth-session.${text}`)}
+        </Tag>
+      ),
     },
   ];
 

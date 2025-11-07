@@ -850,7 +850,7 @@
       "description": "Quản lý phiên đăng nhập, xem và xóa phiên đăng nhập",
       "search": "Tìm kiếm theo thông tin",
       "search-placeholder": "Tên người dùng, email",
-      "status": "Trạng thái phiên đăng nhập",
+      "status": "Trạng thái",
       "all-status": "Chọn trạng thái",
       "active": "Hoạt động",
       "revoked": "Đã thu hồi",
@@ -859,18 +859,15 @@
       "exclude-admin-true": "Có",
       "exclude-admin-false": "Không",
       "date-range": "Khoảng thời gian",
-      "from-date": "Từ ngày",
-      "to-date": "Đến ngày",
       "search-action": "Tìm kiếm",
       "clear-filters": "Xóa bộ lọc",
       "user-name": "Tên người dùng",
       "email": "Email",
       "browser": "Trình duyệt",
-      "last-activity-time": "Thời gian hoạt động gần nhất",
-      "last-activity-type": "Loại hoạt động gần nhất",
+      "last-activity-time": "Ngày tạo",
       "clear-filter": "Xóa bộ lọc",
       "user-id": "ID người dùng",
-      "ip": "IP"
+      "ip": "Địa chỉ IP"
     }
   }
 }
