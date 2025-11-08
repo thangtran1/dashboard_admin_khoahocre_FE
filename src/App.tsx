@@ -13,7 +13,7 @@ function App() {
     <SystemSettingsProvider>
       <ThemeProvider adapters={[AntdAdapter]}>
         <Helmet>
-          <title>TVT Admin</title>
+          <title>TVT Admin | Học lập trình</title>
           <link rel="icon" href={Logo} />
         </Helmet>
         <ConsoleWarning />
