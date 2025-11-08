@@ -4,13 +4,13 @@ import Logo from "@/components/common/logo";
 import SettingButton from "@/layouts/dashboard/components/setting-button";
 import { useUserInfo, useUserToken } from "@/store/userStore";
 import { Navigate } from "react-router";
-import LoginForm from "./login-form";
-import { LoginProvider } from "./providers/login-provider";
-import RegisterForm from "./register-form";
-import ForgotPasswordForm from "./forgot-password-form";
+import LoginForm from "./login/login-form";
+import { LoginProvider } from "./login/providers/login-provider";
+import RegisterForm from "./login/register-form";
+import ForgotPasswordForm from "./forgot-password/forgot-password-form";
 
 const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
-function LoginPage() {
+export default function LoginPage() {
   const token = useUserToken();
   const { role } = useUserInfo();
   if (token.accessToken) {
@@ -56,4 +56,3 @@ function LoginPage() {
     </div>
   );
 }
-export default LoginPage;

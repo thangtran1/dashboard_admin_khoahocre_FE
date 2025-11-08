@@ -6,22 +6,26 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import PlaceholderImg from "@/assets/images/background/placeholder.svg";
-import { ReturnButton } from "./ReturnButton";
-import { useLoginStateContext } from "../providers/login-provider";
 import { Icon } from "@/components/icon";
+import Logo from "@/components/common/logo";
+import LocalePicker from "@/components/common/locale-picker";
+import SettingButton from "@/layouts/dashboard/components/setting-button";
+import { ReturnButton } from "../login/providers/ReturnButton";
 
 const ResetPassword = () => {
   const { t } = useTranslation();
-  const { backToLogin } = useLoginStateContext();
-
+  const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [newPasswordError, setNewPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
+
+  const handleBackToLogin = () => {
+    navigate("/login");
+  };
   const resetPasswordMutation = useMutation({
     mutationFn: userService.resetPassword,
   });
@@ -100,73 +104,82 @@ const ResetPassword = () => {
   return (
     <div className="relative grid min-h-svh lg:grid-cols-2 bg-background">
       <div className="flex flex-col  gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <div className="flex items-center gap-2 font-medium cursor-pointer">
+            <Logo size={28} />
+            <span>TVT Admin</span>
+          </div>
+        </div>
         <div className="flex flex-1  items-center justify-center">
-          <div className="w-full p-4 rounded-lg max-w-md">
-          <div className="text-center mb-4 space-y-1">
-            <div className="flex justify-center items-center mb-3">
-            <Icon
-          icon="local:ic-reset-password"
-          size="100"
-          className="text-primary!"
-        />
+          <div className="w-full p-4 rounded-lg max-w-sm">
+            <div className="text-center mb-4 space-y-1">
+              <div className="flex justify-center items-center mb-3">
+                <Icon
+                  icon="local:ic-reset-password"
+                  size="100"
+                  className="text-primary!"
+                />
+              </div>
+              <h1 className="text-2xl font-bold">
+                {t("sys.login.passwordNewTitle")}
+              </h1>
             </div>
-            <h1 className="text-2xl font-bold">
-              {t("sys.login.passwordNewTitle")}
-            </h1>
-          </div>
 
-          <Form layout="vertical" onFinish={handleResetPassword} className="space-y-4">
-            <Form.Item
-            label={
-              <span
-                className="font-medium text-foreground"
-                style={{ position: "relative", bottom: "-4px" }}
-              >
-                {t("sys.login.newPas")}
-              </span>
-            }
-              help={newPasswordError}
-              style={{
-                marginBottom: newPasswordError ? 24 : 10,
-              }}
-              validateStatus={newPasswordError ? "error" : ""}
+            <Form
+              layout="vertical"
+              onFinish={handleResetPassword}
+              className="space-y-4"
             >
-              <Input.Password
-                placeholder={t("sys.login.newPas")}
-                value={newPassword}
-                onChange={handleNewPasswordChange}
-                size="large"
-              />
-            </Form.Item>
+              <Form.Item
+                label={
+                  <span
+                    className="font-medium text-foreground"
+                    style={{ position: "relative", bottom: "-4px" }}
+                  >
+                    {t("sys.login.newPas")}
+                  </span>
+                }
+                help={newPasswordError}
+                style={{
+                  marginBottom: newPasswordError ? 16 : 10,
+                }}
+                validateStatus={newPasswordError ? "error" : ""}
+              >
+                <Input.Password
+                  placeholder={t("sys.login.newPas")}
+                  value={newPassword}
+                  onChange={handleNewPasswordChange}
+                  size="large"
+                />
+              </Form.Item>
 
-            <Form.Item
-              label={
-                <span
-                className="font-medium text-foreground"
-                style={{ position: "relative", bottom: "-4px" }}
+              <Form.Item
+                label={
+                  <span
+                    className="font-medium text-foreground"
+                    style={{ position: "relative", bottom: "-4px" }}
+                  >
+                    {t("sys.login.confirmPassword")}
+                  </span>
+                }
+                help={confirmPasswordError}
+                style={{
+                  marginBottom: confirmPasswordError ? 24 : 20,
+                }}
+                validateStatus={confirmPasswordError ? "error" : ""}
               >
-                  {t("sys.login.confirmPassword")}
-                </span>
-              }
-              help={confirmPasswordError}
-              style={{
-                marginBottom: confirmPasswordError ? 24 : 10,
-              }}
-              validateStatus={confirmPasswordError ? "error" : ""}
-            >
-              <Input.Password
-                placeholder={t("sys.login.confirmPassword")}
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                size="large"
-              />
-            </Form.Item>
-          
-            <Form.Item>
-            <div className="text-xs p-2 mb-2 rounded-lg text-foreground font-medium bg-muted">
-            {t("sys.login.resetPasswordDescription")}
-          </div>
-              <div>
+                <Input.Password
+                  placeholder={t("sys.login.confirmPassword")}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  size="large"
+                />
+              </Form.Item>
+
+              <Form.Item>
+                <div className="text-xs p-2 mb-2 rounded-lg text-foreground font-medium bg-muted">
+                  {t("sys.login.resetPasswordDescription")}
+                </div>
                 <Button
                   htmlType="submit"
                   loading={isLoading}
@@ -176,12 +189,11 @@ const ResetPassword = () => {
                 >
                   {t("sys.login.confirm")}
                 </Button>
-        <ReturnButton onClick={backToLogin} />
-              </div>
-            </Form.Item>
-          </Form>
-        </div>
+                <ReturnButton onClick={handleBackToLogin} />
+              </Form.Item>
+            </Form>
           </div>
+        </div>
       </div>
 
       <div className="relative hidden bg-background-paper lg:block">
@@ -191,7 +203,11 @@ const ResetPassword = () => {
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.5] dark:grayscale"
         />
       </div>
-  </div>
+      <div className="absolute right-2 top-0 flex flex-row">
+        <LocalePicker />
+        <SettingButton />
+      </div>
+    </div>
   );
 };
 

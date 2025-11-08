@@ -11,18 +11,18 @@ import {
 import { Input } from "@/ui/input";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { ReturnButton } from "./components/ReturnButton";
+import { ReturnButton } from "../login/providers/ReturnButton";
 import {
   LoginStateEnum,
   useLoginStateContext,
-} from "./providers/login-provider";
+} from "../login/providers/login-provider";
 import { Radio } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import userService from "@/api/services/userApi";
 import { toast } from "sonner";
-import VerifyOTP from "./components/verifyOTP";
+import VerifyOTP from "./verifyOTP";
 
 function ForgotPasswordForm() {
   const { t } = useTranslation();
@@ -138,7 +138,11 @@ function ForgotPasswordForm() {
           <div className="text-xs p-2 rounded-lg text-foreground font-medium bg-muted">
             {t("sys.login.noteConfirm")}
           </div>
-          <Button type="submit" disabled={isLoading} className="w-full text-foreground font-medium">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="w-full text-foreground font-medium"
+          >
             {isLoading
               ? t("sys.login.sending")
               : t("sys.login.sendEmailButton")}

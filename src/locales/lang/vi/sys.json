@@ -72,6 +72,7 @@
       "registerButton": "Đăng ký",
       "rememberMe": "Ghi nhớ đăng nhập",
       "forgetPassword": "Quên mật khẩu?",
+      "otherSignUp": "Cách đăng ký khác",
       "otherSignIn": "Cách đăng nhập khác",
       "sendSmsButton": "Gửi mã",
       "sendSmsText": "{{second}} giây sau thử lại",

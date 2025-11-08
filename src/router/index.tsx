@@ -1,17 +1,17 @@
 import DashboardLayout from "@/layouts/dashboard";
 import PageError from "@/pages/admin/sys/error/PageError";
-import LoginPage from "@/pages/admin/sys/login";
+import LoginPage from "@/pages/admin/auth";
 import { usePermissionRoutes } from "@/router/hooks";
 import { ERROR_ROUTE } from "@/router/routes/error-routes";
 import { ErrorBoundary } from "react-error-boundary";
 import { Navigate, type RouteObject, createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
-import ResetPassword from "@/pages/admin/sys/login/components/resetPassword";
-import GoogleSuccess from "@/pages/admin/sys/login/google-success";
-import GoogleError from "@/pages/admin/sys/login/google-error";
-import GitHubSuccess from "@/pages/admin/sys/login/github-success";
-import GitHubError from "@/pages/admin/sys/login/github-error";
+import ResetPassword from "@/pages/admin/auth/reset-passworđ/resetPassword";
+import GoogleSuccess from "@/pages/admin/auth/login/pages/google-success";
+import GoogleError from "@/pages/admin/auth/login/pages/google-error";
+import GitHubSuccess from "@/pages/admin/auth/login/pages/github-success";
+import GitHubError from "@/pages/admin/auth/login/pages/github-error";
 import ProfilePage from "@/pages/admin/profile";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
@@ -41,6 +41,7 @@ import GroupBuyPage from "@/pages/user/group-buy/group-buy";
 import GroupBuyDetail from "@/pages/user/group-buy/group-buy-detail";
 import ProtectedRoute from "./components/protected-route";
 import MaintenanceGuard from "./components/maintenance-guard";
+import { LoginProvider } from "@/pages/admin/auth/login/providers/login-provider";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -87,7 +88,9 @@ export default function Router() {
     path: "/reset-password",
     element: (
       <ErrorBoundary FallbackComponent={PageError}>
-        <ResetPassword />
+        <LoginProvider>
+          <ResetPassword />
+        </LoginProvider>
       </ErrorBoundary>
     ),
   };

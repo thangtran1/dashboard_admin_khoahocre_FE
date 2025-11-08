@@ -1,11 +1,11 @@
-import userService from "@/api/services/userApi";
+import userService, { SignUpReq } from "@/api/services/userApi";
 import { Button } from "@/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/ui/form";
 import { Input } from "@/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { ReturnButton } from "./components/ReturnButton";
+import { ReturnButton } from "./providers/ReturnButton";
 import {
   LoginStateEnum,
   useLoginStateContext,
@@ -14,11 +14,14 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router";
 import { GoogleOAuthButton } from "@/components/common/google-oauth-button";
 import { GitHubOAuthButton } from "@/components/common/github-oauth-button";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 
 function RegisterForm() {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
   const { loginState, backToLogin } = useLoginStateContext();
   const navigate = useNavigate();
   const signUpMutation = useMutation({
@@ -34,13 +37,20 @@ function RegisterForm() {
     },
   });
 
-  const onFinish = async (values: any) => {
-    const res = await signUpMutation.mutateAsync(values);
-    console.log("🚀 ~ onFinish ~ res:", res);
-
-    navigate(HOMEPAGE, { replace: true });
-    toast.success(t("sys.login.registerSuccess"));
-    // backToLogin();
+  const onFinish = async (values: SignUpReq) => {
+    setLoading(true);
+    try {
+      const res = await signUpMutation.mutateAsync(values);
+      if (res.data?.success) {
+        toast.success(t("sys.login.registerSuccess"));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        navigate(HOMEPAGE, { replace: true });
+      } else {
+        toast.error(res.data?.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loginState !== LoginStateEnum.REGISTER) return null;
@@ -117,12 +127,13 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={loading}>
           {t("sys.login.registerButton")}
+          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">
-            {t("sys.login.otherSignIn")}
+            {t("sys.login.otherSignUp")}
           </span>
         </div>
         <div className="flex cursor-pointer justify-around text-2xl">
