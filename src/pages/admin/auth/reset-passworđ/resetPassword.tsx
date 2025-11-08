@@ -19,7 +19,6 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [newPasswordError, setNewPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const [token, setToken] = useState<string | null>(null);
 
@@ -28,7 +27,27 @@ const ResetPassword = () => {
   };
   const resetPasswordMutation = useMutation({
     mutationFn: userService.resetPassword,
+    onSuccess: (res) => {
+      if (res.data?.success) {
+        toast.success(t("sys.login.pasChangeSuccess"));
+        navigate("/login");
+      } else {
+        toast.error(res.data?.message || t("sys.login.failChangePas"));
+      }
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || t("sys.login.failChangePas"));
+    },
   });
+  const handleResetPassword = () => {
+    if (!validate()) return;
+    if (!token) {
+      toast.error(t("sys.login.invalidToken"));
+      return;
+    }
+
+    resetPasswordMutation.mutate({ token, newPassword });
+  };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -62,33 +81,6 @@ const ResetPassword = () => {
     return isValid;
   };
 
-  const handleResetPassword = async () => {
-    if (!validate()) return;
-    if (!token) {
-      toast.error(t("sys.login.invalidToken"));
-      return;
-    }
-    setIsLoading(true);
-
-    try {
-      const res = await resetPasswordMutation.mutateAsync({
-        token,
-        newPassword,
-      });
-
-      if (res.data?.success) {
-        toast.success(t("sys.login.pasChangeSuccess"));
-        navigate("/login");
-      } else {
-        toast.error(res.data?.message || t("sys.login.failChangePas"));
-      }
-    } catch (error) {
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.target.value);
     if (newPasswordError) setNewPasswordError("");
@@ -111,7 +103,7 @@ const ResetPassword = () => {
           </div>
         </div>
         <div className="flex flex-1  items-center justify-center">
-          <div className="w-full p-4 rounded-lg max-w-sm">
+          <div className="w-full p-4 rounded-lg max-w-xs">
             <div className="text-center mb-4 space-y-1">
               <div className="flex justify-center items-center mb-3">
                 <Icon
@@ -125,23 +117,19 @@ const ResetPassword = () => {
               </h1>
             </div>
 
-            <Form
-              layout="vertical"
-              onFinish={handleResetPassword}
-              className="space-y-4"
-            >
+            <Form layout="vertical" onFinish={handleResetPassword}>
               <Form.Item
                 label={
                   <span
-                    className="font-medium text-foreground"
-                    style={{ position: "relative", bottom: "-4px" }}
+                    className="font-medium text-muted-foreground text-sm"
+                    style={{ position: "relative", bottom: "-8px" }}
                   >
                     {t("sys.login.newPas")}
                   </span>
                 }
                 help={newPasswordError}
                 style={{
-                  marginBottom: newPasswordError ? 16 : 10,
+                  marginBottom: newPasswordError ? 12 : 6,
                 }}
                 validateStatus={newPasswordError ? "error" : ""}
               >
@@ -149,22 +137,21 @@ const ResetPassword = () => {
                   placeholder={t("sys.login.newPas")}
                   value={newPassword}
                   onChange={handleNewPasswordChange}
-                  size="large"
                 />
               </Form.Item>
 
               <Form.Item
                 label={
                   <span
-                    className="font-medium text-foreground"
-                    style={{ position: "relative", bottom: "-4px" }}
+                    className="font-medium text-muted-foreground text-sm"
+                    style={{ position: "relative", bottom: "-8px" }}
                   >
                     {t("sys.login.confirmPassword")}
                   </span>
                 }
                 help={confirmPasswordError}
                 style={{
-                  marginBottom: confirmPasswordError ? 24 : 20,
+                  marginBottom: confirmPasswordError ? 28 : 20,
                 }}
                 validateStatus={confirmPasswordError ? "error" : ""}
               >
@@ -172,7 +159,6 @@ const ResetPassword = () => {
                   placeholder={t("sys.login.confirmPassword")}
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
-                  size="large"
                 />
               </Form.Item>
 
@@ -182,8 +168,7 @@ const ResetPassword = () => {
                 </div>
                 <Button
                   htmlType="submit"
-                  loading={isLoading}
-                  size="large"
+                  loading={resetPasswordMutation.isPending}
                   type="primary"
                   className="w-full mb-2"
                 >

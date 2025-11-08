@@ -125,6 +125,9 @@ function RegisterForm() {
             </FormItem>
           )}
         />
+        <div className="text-xs p-2 rounded-lg text-foreground font-medium bg-muted">
+          {t("sys.login.noteConfirmRegister")}
+        </div>
         <Button
           type="submit"
           className="w-full"

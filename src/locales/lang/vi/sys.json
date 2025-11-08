@@ -42,6 +42,7 @@
       "selectMethod": "Chọn phương thức nhận",
       "resetLink": "Nhận link đặt lại mật khẩu",
       "receiveOTP": "Nhận mã OTP",
+      "noteConfirmRegister": "Sau khi đăng ký, bạn sẽ nhận email với thông tin tài khoản và mật khẩu tạm thời. Hãy đổi mật khẩu ngay khi đăng nhập lần đầu.",
       "noteConfirm": "Nếu bạn không có email, vui lòng liên hệ hotline 0389215396 để được hỗ trợ lấy lại mật khẩu",
       "sending": "Đang gửi...",
       "confirmOTP": "Nhập mã xác thực",
