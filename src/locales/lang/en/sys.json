@@ -24,6 +24,9 @@
       "timeoutMessage": "Login timed out, please log in again!"
     },
     "login": {
+      "passwordNewTitle": "Set new password",
+      "resetPasswordDescription": "Please remember the new password after changing to avoid losing access.",
+      "emailRequired": "Email is required",
       "noteOTP": "Note: OTP expires after 15 minutes",
         "cancel": "Cancel",
       "accountPlaceholder": "Please input username",

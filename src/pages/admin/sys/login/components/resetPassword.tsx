@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
-import { LockOutlined } from "@ant-design/icons";
 import PlaceholderImg from "@/assets/images/background/placeholder.svg";
+import { ReturnButton } from "./ReturnButton";
+import { useLoginStateContext } from "../providers/login-provider";
+import { Icon } from "@/components/icon";
 
 const ResetPassword = () => {
   const { t } = useTranslation();
+  const { backToLogin } = useLoginStateContext();
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [newPasswordError, setNewPasswordError] = useState("");
@@ -94,89 +98,99 @@ const ResetPassword = () => {
   };
 
   return (
-   
     <div className="relative grid min-h-svh lg:grid-cols-2 bg-background">
-    <div className="flex flex-col gap-4 p-6 md:p-10">
-      <div className="flex flex-1 items-center justify-center">
-        <div className="w-full max-w-sm">
-         <div className="text-center mb-4">
-           <div className="flex justify-center items-center mb-3">
-             <div className="bg-primary p-3 rounded-full">
-               <LockOutlined className="text-3xl text-background" />
-             </div>
-           </div>
-           <h1 className="text-2xl font-bold">
-             {t("sys.login.forgetFormTitle")}
-           </h1>
-         </div>
+      <div className="flex flex-col  gap-4 p-6 md:p-10">
+        <div className="flex flex-1  items-center justify-center">
+          <div className="w-full p-4 rounded-lg max-w-md">
+          <div className="text-center mb-4 space-y-1">
+            <div className="flex justify-center items-center mb-3">
+            <Icon
+          icon="local:ic-reset-password"
+          size="100"
+          className="text-primary!"
+        />
+            </div>
+            <h1 className="text-2xl font-bold">
+              {t("sys.login.passwordNewTitle")}
+            </h1>
+          </div>
 
-         <Form layout="vertical" onFinish={handleResetPassword}>
-           <Form.Item
-             label={
-               <span className="font-medium text-foreground">
-                 {t("sys.login.newPas")}
-               </span>
-             }
-             help={newPasswordError}
-             validateStatus={newPasswordError ? "error" : ""}
-           >
-             <Input.Password
-               placeholder={t("sys.login.newPas")}
-               value={newPassword}
-               onChange={handleNewPasswordChange}
-               size="large"
-             />
-           </Form.Item>
+          <Form layout="vertical" onFinish={handleResetPassword} className="space-y-4">
+            <Form.Item
+            label={
+              <span
+                className="font-medium text-foreground"
+                style={{ position: "relative", bottom: "-4px" }}
+              >
+                {t("sys.login.newPas")}
+              </span>
+            }
+              help={newPasswordError}
+              style={{
+                marginBottom: newPasswordError ? 24 : 10,
+              }}
+              validateStatus={newPasswordError ? "error" : ""}
+            >
+              <Input.Password
+                placeholder={t("sys.login.newPas")}
+                value={newPassword}
+                onChange={handleNewPasswordChange}
+                size="large"
+              />
+            </Form.Item>
 
-           <Form.Item
-             label={
-               <span className="font-medium text-foreground">
-                 {t("sys.login.confirmPassword")}
-               </span>
-             }
-             help={confirmPasswordError}
-             validateStatus={confirmPasswordError ? "error" : ""}
-           >
-             <Input.Password
-               placeholder={t("sys.login.confirmPassword")}
-               value={confirmPassword}
-               onChange={handleConfirmPasswordChange}
-               size="large"
-             />
-           </Form.Item>
-
-           <Form.Item>
-             <div className="mt-2">
-               <Button
-                 htmlType="submit"
-                 loading={isLoading}
-                 size="large"
-                 type="primary"
-                 className="w-full"
-               >
-                 {t("sys.login.confirm")}
-               </Button>
-               <Button
-                 onClick={() => navigate("/login")}
-                 size="large"
-                 className="w-full mt-4"
-               >
-                 {t("sys.login.backToLogin")}
-               </Button>
-             </div>
-           </Form.Item>
-         </Form>
-       </div>
+            <Form.Item
+              label={
+                <span
+                className="font-medium text-foreground"
+                style={{ position: "relative", bottom: "-4px" }}
+              >
+                  {t("sys.login.confirmPassword")}
+                </span>
+              }
+              help={confirmPasswordError}
+              style={{
+                marginBottom: confirmPasswordError ? 24 : 10,
+              }}
+              validateStatus={confirmPasswordError ? "error" : ""}
+            >
+              <Input.Password
+                placeholder={t("sys.login.confirmPassword")}
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                size="large"
+              />
+            </Form.Item>
+          
+            <Form.Item>
+            <div className="text-xs p-2 mb-2 rounded-lg text-foreground font-medium bg-muted">
+            {t("sys.login.resetPasswordDescription")}
+          </div>
+              <div>
+                <Button
+                  htmlType="submit"
+                  loading={isLoading}
+                  size="large"
+                  type="primary"
+                  className="w-full mb-2"
+                >
+                  {t("sys.login.confirm")}
+                </Button>
+        <ReturnButton onClick={backToLogin} />
+              </div>
+            </Form.Item>
+          </Form>
         </div>
-    </div>
+          </div>
+      </div>
 
-    <div className="relative hidden bg-background-paper lg:block">
-      <img
-        src={PlaceholderImg}
-        alt="placeholder img"
-        className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.5] dark:grayscale"
-      />
-    </div>
+      <div className="relative hidden bg-background-paper lg:block">
+        <img
+          src={PlaceholderImg}
+          alt="placeholder img"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.5] dark:grayscale"
+        />
+      </div>
   </div>
   );
 };

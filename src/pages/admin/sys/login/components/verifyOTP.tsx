@@ -62,6 +62,9 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
   return (
     <Modal
       open={isOpen}
+      styles={{
+        mask: { backgroundColor: "rgba(0, 0, 0, 0.75)" },
+      }}
       centered
       destroyOnClose
       footer={null}

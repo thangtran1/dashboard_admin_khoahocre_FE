@@ -86,13 +86,17 @@ function ForgotPasswordForm() {
           <FormField
             control={form.control}
             name="email"
-            render={() => (
+            rules={{ required: t("sys.login.emailRequired") }}
+            render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
                     placeholder={t("sys.login.email")}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setEmail(e.target.value);
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
