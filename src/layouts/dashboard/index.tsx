@@ -11,6 +11,7 @@ import NavBar from "./nav-bar";
 import { useUserInfo } from "@/store/userStore";
 import { useGlobalKeyboard } from "@/hooks/use-global-keyboard";
 import { SidebarToast } from "@/layouts/dashboard/nav-bar/sidebar-toast";
+import AutoPageTitle from "@/components/common/auto-page-title";
 
 export default function DashboardLayout() {
   const isMobile = useMediaQuery(down("md"));
@@ -25,6 +26,7 @@ export default function DashboardLayout() {
         "flex-col": isMobile || themeLayout === ThemeLayout.Horizontal,
       })}
     >
+      <AutoPageTitle />
       {isMobile ? <MobileLayout /> : <PcLayout />}
       <SidebarToast />
     </div>

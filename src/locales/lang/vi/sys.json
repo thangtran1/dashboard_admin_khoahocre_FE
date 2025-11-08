@@ -133,6 +133,9 @@
       "closeRight": "Đóng tab bên phải"
     },
     "menu": {
+      "user-detail": "Chi tiết người dùng",
+      "created-new-user": "Tạo người dùng mới",
+      "created-new-maintenance": "Tạo bảo trì mới",
       "management-auth-session": "Quản lý phiên đăng nhập",
       "maintenance": "Bảo trì",
       "maintenance-maintenance": "Bảo trì hệ thống",

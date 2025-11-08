@@ -23,7 +23,7 @@ const notifications: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "sys.menu.notifications",
+    label: "sys.notification.management",
     icon: (
       <Icon
         icon="solar:bell-bold-duotone"

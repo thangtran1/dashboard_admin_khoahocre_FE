@@ -110,6 +110,9 @@
       "registerSuccess": "Register successful!"
     },
     "menu": {
+      "user-detail": "User Detail",
+      "created-new-user": "Create New User",
+      "created-new-maintenance": "Create New Maintenance",
       "management-auth-session": "Management Auth Session",
       "maintenance": "Maintenance",
       "maintenance-maintenance": "System Maintenance",

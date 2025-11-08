@@ -13,10 +13,12 @@ import SettingButton from "../dashboard/components/setting-button";
 import WhyChooseCourse from "@/pages/user/public/why-choose-course";
 import NoticeButton from "../dashboard/components/notice";
 import UserBannerMarquee from "@/components/user/banner-marquee/user-banner";
+import AutoPageTitle from "@/components/common/auto-page-title";
 
 export default function UserLayout() {
   return (
     <ThemeProvider adapters={[AntdAdapter]}>
+      <AutoPageTitle />
       <ScrollToTop />
       <div className="sticky top-0 left-0 w-full z-50 px-2 py-1 flex flex-row items-center justify-between bg-muted shadow">
         <div />

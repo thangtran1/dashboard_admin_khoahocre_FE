@@ -22,7 +22,7 @@ const maintenance: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "sys.menu.maintenance",
+    label: "sys.menu.maintenance-maintenance",
     icon: (
       <Icon
         icon="local:ic-management"
@@ -34,7 +34,7 @@ const maintenance: AppRouteObject = {
   },
   children: [
     {
-      path: "",
+      index: true,
       element: (
         <Suspense fallback={<LineLoading />}>
           <MaintenceSystemPage />
