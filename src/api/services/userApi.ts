@@ -7,18 +7,8 @@ export interface SignInReq {
   password: string;
 }
 
-export interface SignUpReq {
-  email: string;
-  name: string;
-  password: string;
-  confirmPassword: string;
-  role?: string;
-  provider?: string;
-  providerId?: string;
-}
 export type SignInRes = UserToken & { user: UserInfo };
 
-//  forgot Password
 export interface ForgotPasswordReq {
   email: string;
 }
@@ -58,7 +48,6 @@ export interface ResetPasswordRes {
 
 export enum UserApi {
   Login = "/auth/login",
-  Register = "/auth/register",
   ForgotPassword = "/auth/forgot-password",
   VerifyOtp = "/auth/verify-otp",
   ResetPassword = "/auth/reset-password",
@@ -67,12 +56,6 @@ export enum UserApi {
 
 const login = (data: SignInReq) =>
   apiClient.post<SignInRes>({ url: UserApi.Login, data });
-
-const register = (data: SignInReq) =>
-  apiClient.post<{ data: { success: boolean; message: string } }>({
-    url: UserApi.Register,
-    data,
-  });
 
 const forgotPassword = (data: ForgotPasswordReq) =>
   apiClient.post<ForgotPasswordRes>({ url: UserApi.ForgotPassword, data });
@@ -90,7 +73,6 @@ const logout = () =>
 
 export default {
   login,
-  register,
   forgotPassword,
   verifyOtp,
   resetPassword,
