@@ -14,21 +14,17 @@ export default function Page404() {
   return (
     <>
       <Helmet>
-        <title>{t("sys.error.error404.notFound")}</title>
+        <title>{t("error.error404.notFound")}</title>
       </Helmet>
 
       <div className="m-auto max-w-[400px]">
         <MotionContainer className="flex flex-col items-center justify-center px-2">
           <m.div variants={varBounce().in}>
-            <H3 className="text-center">
-              {t("sys.error.error404.pageNotFound")}
-            </H3>
+            <H3 className="text-center">{t("error.error404.pageNotFound")}</H3>
           </m.div>
 
           <m.div variants={varBounce().in}>
-            <Muted className="text-center">
-              {t("sys.error.error404.content")}
-            </Muted>
+            <Muted className="text-center">{t("error.error404.content")}</Muted>
           </m.div>
 
           <m.div variants={varBounce().in}>
@@ -116,7 +112,7 @@ export default function Page404() {
           </m.div>
 
           <NavLink to={"/"}>
-            <Button size="lg">{t("sys.error.goHome")}</Button>
+            <Button size="lg">{t("error.goHome")}</Button>
           </NavLink>
         </MotionContainer>
       </div>

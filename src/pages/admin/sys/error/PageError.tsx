@@ -8,13 +8,14 @@ import { H3, Muted } from "@/ui/typography";
 import { m } from "motion/react";
 import type { FallbackProps } from "react-error-boundary";
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
 
 export default function PageError({
   error,
   resetErrorBoundary,
 }: FallbackProps) {
   const { replace } = useRouter();
-
+  const { t } = useTranslation();
   const goHome = () => {
     resetErrorBoundary();
     replace("/");
@@ -22,13 +23,13 @@ export default function PageError({
   return (
     <div>
       <Helmet>
-        <title>Sorry, Page error occurred!</title>
+        <title>{t("error.title")}</title>
       </Helmet>
 
       <div className="m-auto flex h-screen max-w-[400px] items-center justify-center">
         <MotionContainer className="flex flex-col items-center justify-center px-2">
           <m.div variants={varBounce().in}>
-            <H3 className="text-center">Sorry, Page error occurred!</H3>
+            <H3 className="text-center">{t("error.title")}</H3>
           </m.div>
 
           <m.div variants={varBounce().in}>
@@ -43,7 +44,7 @@ export default function PageError({
               height={400}
               className="w-full"
             >
-              <title>Error</title>
+              <title>{t("error.title")}</title>
               <defs>
                 <linearGradient
                   id="BG"
@@ -241,7 +242,7 @@ export default function PageError({
           </m.div>
 
           <Button size="lg" onClick={goHome}>
-            Go to Home
+            {t("error.goHome")}
           </Button>
         </MotionContainer>
       </div>

@@ -108,24 +108,7 @@
       "fullscreen": "FullScreen",
       "refresh": "Refresh"
     },
-    "error": {
-      "error404": {
-        "notFound": "404 Page Not Found!",
-        "pageNotFound": "Sorry, Page Not Found!",
-        "content": "Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check your spelling."
-      },
-      "error403": {
-        "notFound": "403 No Permission!",
-        "pageNotFound": "No permission",
-        "content": "The page you are trying to access has restricted access. Please contact your system administrator."
-      },
-      "error500": {
-        "notFound": "500 Internal Server Error!",
-        "pageNotFound": "500 Internal Server Error",
-        "content": "There was an error, please try again later."
-      },
-      "goHome": "Go to Home"
-    },
+
     "multiLanguage": {
       "title": "Choose Language",
       "description": "Change the display language of the system",
@@ -853,5 +836,24 @@
       "githubLoginSuccess": "Login GitHub successfully!",
       "githubLoginProcessing": "Processing login GitHub..."
     }
+  },
+  "error": {
+    "error404": {
+      "notFound": "404 Page Not Found!",
+      "pageNotFound": "Sorry, Page Not Found!",
+      "content": "Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check your spelling."
+    },
+    "error403": {
+      "notFound": "403 No Permission!",
+      "pageNotFound": "No permission",
+      "content": "The page you are trying to access has restricted access. Please contact your system administrator."
+    },
+    "error500": {
+      "notFound": "500 Internal Server Error!",
+      "pageNotFound": "500 Internal Server Error",
+      "content": "There was an error, please try again later."
+    },
+    "goHome": "Go to Home",
+    "title": "Page Error"
   }
 }
