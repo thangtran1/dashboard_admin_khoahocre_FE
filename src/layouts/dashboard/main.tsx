@@ -2,17 +2,14 @@ import { useSettings } from "@/store/settingStore";
 import { ScrollArea } from "@/ui/scroll-area";
 import { cn } from "@/utils";
 import { Outlet } from "react-router";
-import MultiTabs from "./multi-tabs";
-import { MultiTabsProvider } from "./multi-tabs/providers/multi-tabs-provider";
 
 const Main = () => {
-  const { themeStretch, multiTab } = useSettings();
+  const { themeStretch } = useSettings();
 
   return (
     <main
       data-slot="TVT-layout"
       className={cn("flex w-full flex-1 bg-background overflow-hidden", {
-        "": multiTab,
       })}
     >
       <ScrollArea
@@ -21,13 +18,7 @@ const Main = () => {
           themeStretch ? "" : "xl:max-w-screen-2xl"
         )}
       >
-        {multiTab ? (
-          <MultiTabsProvider>
-            <MultiTabs />
-          </MultiTabsProvider>
-        ) : (
-          <Outlet />
-        )}
+        <Outlet />
       </ScrollArea>
     </main>
   );

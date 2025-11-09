@@ -11,7 +11,6 @@ export type SettingsType = {
   themeStretch: boolean;
   breadCrumb: boolean;
   accordion: boolean;
-  multiTab: boolean;
   darkSidebar: boolean;
   fontFamily: string;
   fontSize: number;
@@ -35,7 +34,6 @@ const useSettingStore = create<SettingStore>()(
         themeStretch: false,
         breadCrumb: true,
         accordion: false,
-        multiTab: false,
         darkSidebar: false,
         fontFamily: FontFamilyPreset.openSans,
         fontSize: Number(typographyTokens.fontSize.sm),

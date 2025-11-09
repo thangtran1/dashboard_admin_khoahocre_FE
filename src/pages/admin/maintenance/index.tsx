@@ -1,11 +1,10 @@
 import { Tabs, Button } from "antd";
-import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
 import { MaintenanceTabKey, useMaintenceTabs } from "./hooks/useMaintenceTabs";
-import { useMaintence } from "./hooks/useMaintence";
 import MaintenanceAllTab from "./components/MaintenanceAllTab";
 import { Link } from "react-router";
 import MaintenanceScheduledTab from "./components/MaintenanceScheduledTab";
@@ -13,8 +12,6 @@ import MaintenanceScheduledTab from "./components/MaintenanceScheduledTab";
 export default function MaintenceSystemPage() {
   const { t } = useTranslation();
   const { activeTab, handleTabChange } = useMaintenceTabs();
-
-  const { refreshData, loading } = useMaintence(false);
 
   const tabItems = [
     {
@@ -53,17 +50,7 @@ export default function MaintenceSystemPage() {
             </p>
           </div>
 
-          <div className="flex gap-3">
-            <Button
-              color="cyan"
-              variant="outlined"
-              icon={<ReloadOutlined />}
-              onClick={refreshData}
-              size="large"
-              loading={loading}
-            >
-              {t("maintenance.refresh")}
-            </Button>
+          <div>
             <Link to="/maintenance/created-new-maintenance">
               <Button
                 type="primary"
