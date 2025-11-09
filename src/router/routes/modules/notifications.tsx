@@ -23,7 +23,7 @@ const notifications: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "sys.notification.management",
+    label: "siderbar-labels.notification",
     icon: (
       <Icon
         icon="solar:bell-bold-duotone"
@@ -42,7 +42,7 @@ const notifications: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.notification.management",
+        label: "siderbar-labels.notification-title",
         key: "/notifications",
       },
     },
@@ -54,7 +54,7 @@ const notifications: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.notification.new-notification",
+        label: "siderbar-labels.new-notification",
         key: "/notifications/new-notification",
         hideMenu: true,
       },
@@ -67,7 +67,7 @@ const notifications: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.notification.detail",
+        label: "siderbar-labels.notification-detail",
         key: "/notifications/:id",
         hideMenu: true,
       },

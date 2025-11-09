@@ -34,7 +34,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (res: AxiosResponse<Result>) => {
     if (!res.data) {
-      throw new Error(t("sys.api.apiRequestFailed"));
+      throw new Error(t("api.apiRequestFailed"));
     }
 
     const { success, message } = res.data;
@@ -46,10 +46,10 @@ axiosInstance.interceptors.response.use(
       if (data) {
         return { ...res, data };
       }
-      throw new Error(t("sys.api.noDataReturned"));
+      throw new Error(t("api.noDataReturned"));
     }
 
-    throw new Error(message || t("sys.api.apiRequestFailed"));
+    throw new Error(message || t("api.apiRequestFailed"));
   },
   (error: AxiosError<Result>) => {
     const { response, message, config } = error || {};
@@ -57,7 +57,7 @@ axiosInstance.interceptors.response.use(
     if (!config?.headers?.suppressToast) {
       const errMsg = Array.isArray(response?.data?.message)
         ? response.data.message.join("\n")
-        : response?.data?.message || message || t("sys.api.errorMessage");
+        : response?.data?.message || message || t("api.errorMessage");
 
       toast.error(errMsg, { position: "top-center" });
     }

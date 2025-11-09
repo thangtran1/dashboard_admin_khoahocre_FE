@@ -1,129 +1,4 @@
 {
-  "sys1": {
-    "api": {
-      "operationSuccess": "Thao tác thành công",
-      "operationFailed": "Thao tác thất bại",
-      "errorTip": "Gợi ý lỗi",
-      "successTip": "Gợi ý thành công",
-      "errorMessage": "Thao tác thất bại, hệ thống gặp lỗi!",
-      "timeoutMessage": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!",
-      "apiTimeoutMessage": "Yêu cầu API quá thời gian, vui lòng làm mới trang và thử lại!",
-      "apiRequestFailed": "Yêu cầu thất bại, vui lòng thử lại sau",
-      "networkException": "Lỗi mạng",
-      "networkExceptionMsg": "Lỗi mạng, vui lòng kiểm tra kết nối của bạn!",
-
-      "errMsg401": "Người dùng không có quyền (token, tài khoản hoặc mật khẩu không đúng)!",
-      "errMsg403": "Người dùng được cấp quyền nhưng bị từ chối truy cập!",
-      "errMsg404": "Lỗi yêu cầu mạng, tài nguyên không được tìm thấy!",
-      "errMsg405": "Lỗi yêu cầu mạng, phương thức không được phép!",
-      "errMsg408": "Yêu cầu mạng quá thời gian!",
-      "errMsg500": "Lỗi máy chủ, vui lòng liên hệ quản trị viên!",
-      "errMsg501": "Chưa được hỗ trợ!",
-      "errMsg502": "Lỗi mạng!",
-      "errMsg503": "Dịch vụ không khả dụng, máy chủ quá tải hoặc đang bảo trì!",
-      "errMsg504": "Mạng quá thời gian!",
-      "errMsg505": "Phiên bản HTTP không hỗ trợ yêu cầu này!"
-    },
-
-    "tab": {
-      "fullscreen": "Toàn màn hình nội dung",
-      "refresh": "Làm mới",
-      "close": "Đóng tab",
-      "closeOthers": "Đóng các tab khác",
-      "closeAll": "Đóng tất cả tab",
-      "closeLeft": "Đóng tab bên trái",
-      "closeRight": "Đóng tab bên phải"
-    },
-    "menu": {
-      "user-detail": "Chi tiết người dùng",
-      "created-new-user": "Tạo người dùng mới",
-      "created-new-maintenance": "Tạo bảo trì mới",
-      "management-auth-session": "Quản lý phiên đăng nhập",
-      "maintenance": "Bảo trì",
-      "maintenance-maintenance": "Bảo trì hệ thống",
-      "management-user": "Quản lý người dùng",
-      "banner-config": "Cấu hình banner",
-      "notifications": "Thông báo",
-      "dashboard": "Bảng điều khiển",
-      "workbench": "Bàn làm việc",
-      "analysis": "Phân tích",
-      "management": "Quản lý",
-      "manager-chat-user": "Quản lý đoạn chat người dùng",
-      "blog": "Blog",
-      "components": "Thành phần",
-      "chat": "Đoạn chat",
-      "icon": "Biểu tượng",
-      "animate": "Hoạt ảnh",
-      "scroll": "Cuộn",
-      "markdown": "Markdown",
-      "editor": "Trình soạn thảo",
-      "i18n": "Đa ngôn ngữ",
-      "upload": "Tải lên",
-      "chart": "Biểu đồ",
-      "toast": "Thông báo nhanh",
-      "functions": "Chức năng",
-      "clipboard": "Bảng tạm",
-      "token_expired": "Token hết hạn",
-      "menulevel": {
-        "index": "Menu nhiều cấp",
-        "1a": "Menu cấp 1a",
-        "1b": {
-          "index": "Menu cấp 1b",
-          "2a": "Menu cấp 2a",
-          "2b": {
-            "index": "Menu cấp 2b",
-            "3a": "Menu cấp 3a",
-            "3b": "Menu cấp 3b"
-          }
-        }
-      },
-      "disabled": "Mục bị vô hiệu hóa",
-      "label": "Nhãn mục",
-      "error": {
-        "index": "Trang lỗi",
-        "403": "403",
-        "404": "404",
-        "500": "500"
-      }
-    },
-    "settings": {
-      "title": "Cài đặt",
-      "mode": "Chế độ",
-      "layout": "Bố cục",
-      "stretch": "Kéo giãn",
-      "stretchTip": "Chỉ dùng cho độ phân giải lớn > 1600px (xl)",
-      "presetThemes": "Chủ đề có sẵn",
-      "font": "Phông chữ",
-      "family": "Họ phông chữ",
-      "size": "Cỡ chữ",
-      "page": "Trang",
-      "breadcrumb": "Đường dẫn",
-      "multiTab": "Tab đa nhiệm",
-      "darkSidebar": "Thanh bên tối",
-      "accordion": "Menu dạng accordion",
-      "fullscreen": "Toàn màn hình",
-      "exitFullscreen": "Thoát toàn màn hình"
-    },
-
-    "sidebar": {
-      "press-ctrl-b": "Nhấn Ctrl + B để toggle",
-      "sidebar-minimized": "Sidebar đã thu nhỏ",
-      "sidebar-maximized": "Sidebar đã mở rộng",
-      "collapse-sidebar": "Thu nhỏ sidebar (Ctrl + B)",
-      "expand-sidebar": "Mở rộng sidebar (Ctrl + B)",
-      "sidebar-minimized-description": "🔓 Sidebar đang thu nhỏ",
-      "sidebar-maximized-description": "🔒 Sidebar đang mở rộng"
-    },
-
-    "modal-confirm": {
-      "confirm-update-password": "Xác nhận cập nhật mật khẩu",
-      "confirm-update-password-message": "Xác nhận cập nhật mật khẩu cấp 1 của người dùng này?",
-      "confirm": "Xác nhận",
-      "cancel": "Hủy",
-      "new-password": "Mật khẩu mới"
-    }
-  },
-
   "auth": {
     "reset-password": {
       "pasChangeSuccess": "Mật khẩu đã được thay đổi thành công!",
@@ -165,6 +40,13 @@
       "confirm": "Xác nhận"
     },
     "login": {
+      "googleLoginLogin": "Đăng nhập bằng Google",
+      "googleLoginRegister": "Đăng ký bằng Google",
+      "profile": "Thông tin cá nhân",
+      "logout": "Đăng xuất",
+      "googleLoginProcessing": "Đang xử lý đăng nhập Google...",
+      "googleLoginSuccess": "Đăng nhập Google thành công!",
+      "logoutSuccess": "Đăng xuất thành công!",
       "signInSuccess": "Đăng nhập thành công!",
       "loggingIn": "Đang đăng nhập...",
       "signInFormTitle": "Đăng nhập vào tài khoản của bạn",
@@ -903,5 +785,102 @@
     },
     "goHome": "Về trang chủ",
     "title": "Lỗi trang"
+  },
+  "siderbar-labels": {
+    "dashboard": "Bảng điều khiển",
+    "workbench": "Bàn làm việc",
+    "analysis": "Phân tích",
+
+    "maintenance": "Bảo trì hệ thống",
+
+    "management": "Quản lý",
+    "management-user": "Quản lý người dùng",
+    "auth-session": "Quản lý phiên đăng nhập",
+    "manager-banner": "Quản lý banner",
+    "manager-chat-user": "Quản lý đoạn chat người dùng",
+    "database": "Quản lý cơ sở dữ liệu",
+
+    "components": "Thành phần",
+    "i18n": "Đa ngôn ngữ",
+    "chart": "Biểu đồ",
+
+    "notification": "Thông báo",
+    "notification-title": "Quản lý thông báo",
+    "new-notification": "Thêm mới thông báo",
+    "notification-detail": "Chi tiết thông báo",
+
+    "menulevel": {
+      "index": "Menu nhiều cấp",
+      "1a": "Menu cấp 1a",
+      "1b": {
+        "index": "Menu cấp 1b",
+        "2a": "Menu cấp 2a",
+        "2b": {
+          "index": "Menu cấp 2b",
+          "3a": "Menu cấp 3a",
+          "3b": "Menu cấp 3b"
+        }
+      }
+    },
+
+    "error": {
+      "index": "Trang lỗi",
+      "403": "403",
+      "404": "404",
+      "500": "500"
+    },
+
+    "user-detail": "Chi tiết người dùng",
+    "created-new-user": "Tạo người dùng mới",
+    "created-new-maintenance": "Tạo bảo trì mới",
+
+    "press-ctrl-b": "Nhấn Ctrl + B để toggle",
+    "sidebar-minimized": "Sidebar đã thu nhỏ",
+    "sidebar-maximized": "Sidebar đã mở rộng",
+
+    "collapse-sidebar": "Thu nhỏ sidebar (Ctrl + B)",
+    "expand-sidebar": "Mở rộng sidebar (Ctrl + B)",
+    "sidebar-minimized-description": "🔓 Sidebar đang thu nhỏ",
+    "sidebar-maximized-description": "🔒 Sidebar đang mở rộng"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "mode": "Chế độ",
+    "layout": "Bố cục",
+    "stretch": "Kéo giãn",
+    "stretchTip": "Chỉ dùng cho độ phân giải lớn > 1600px (xl)",
+    "presetThemes": "Chủ đề có sẵn",
+    "font": "Phông chữ",
+    "family": "Họ phông chữ",
+    "size": "Cỡ chữ",
+    "page": "Trang",
+    "breadcrumb": "Đường dẫn",
+    "multiTab": "Tab đa nhiệm",
+    "darkSidebar": "Thanh bên tối",
+    "accordion": "Menu dạng accordion",
+    "fullscreen": "Toàn màn hình",
+    "exitFullscreen": "Thoát toàn màn hình"
+  },
+  "tab": {
+    "fullscreen": "Toàn màn hình nội dung",
+    "refresh": "Làm mới",
+    "close": "Đóng tab",
+    "closeOthers": "Đóng các tab khác",
+    "closeAll": "Đóng tất cả tab",
+    "closeLeft": "Đóng tab bên trái",
+    "closeRight": "Đóng tab bên phải"
+  },
+  "api": {
+    "apiRequestFailed": "Yêu cầu thất bại, vui lòng thử lại sau",
+    "noDataReturned": "Không có dữ liệu trả về",
+    "errorMessage": "Thao tác thất bại, hệ thống gặp lỗi!"
+  },
+  "modal": {
+    "confirm-update-password": "Xác nhận cập nhật mật khẩu",
+    "confirm-update-password-message": "Xác nhận cập nhật mật khẩu cấp 1 của người dùng này?",
+
+    "confirm": "Xác nhận",
+    "cancel": "Hủy",
+    "new-password": "Mật khẩu mới"
   }
 }

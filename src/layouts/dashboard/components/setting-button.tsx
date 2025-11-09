@@ -88,7 +88,7 @@ export default function SettingButton() {
       </SheetTrigger>
       <SheetContent style={sheetContentBgStyle} className="gap-0">
         <SheetHeader className="flex flex-row items-center justify-between px-6 py-4 border border-b shrink-0">
-          <SheetTitle>{t("sys.settings.title")}</SheetTitle>
+          <SheetTitle>{t("settings.title")}</SheetTitle>
           <SheetDescription />
         </SheetHeader>
         <ScrollArea>
@@ -96,7 +96,7 @@ export default function SettingButton() {
             {/* theme mode */}
             <div>
               <div className="mb-3 text-base font-semibold text-text-secondary">
-                {t("sys.settings.mode")}
+                {t("settings.mode")}
               </div>
               <div className="flex flex-row gap-4">
                 <Card
@@ -133,7 +133,7 @@ export default function SettingButton() {
             {/* theme layout */}
             <div>
               <div className="mb-3 text-base font-semibold text-text-secondary">
-                {t("sys.settings.layout")}
+                {t("settings.layout")}
               </div>
               <div className="grid grid-cols-3 gap-4">
                 <Card
@@ -239,14 +239,12 @@ export default function SettingButton() {
             {/* theme stretch */}
             <div>
               <div className="mb-3 text-base font-semibold text-text-secondary">
-                <span className="mr-2">{t("sys.settings.stretch")}</span>
+                <span className="mr-2">{t("settings.stretch")}</span>
                 <Tooltip>
                   <TooltipTrigger>
                     <Icon icon="solar:question-circle-linear" />
                   </TooltipTrigger>
-                  <TooltipContent>
-                    {t("sys.settings.stretchTip")}
-                  </TooltipContent>
+                  <TooltipContent>{t("settings.stretchTip")}</TooltipContent>
                 </Tooltip>
               </div>
 
@@ -287,7 +285,7 @@ export default function SettingButton() {
             {/* theme presets */}
             <div>
               <div className="mb-3 text-base font-semibold text-text-secondary">
-                {t("sys.settings.presetThemes")}
+                {t("settings.presetThemes")}
               </div>
               <div className="grid grid-cols-3 gap-x-4 gap-y-3">
                 {Object.entries(presetsColors).map(([preset, color]) => (
@@ -317,11 +315,11 @@ export default function SettingButton() {
             {/* font */}
             <div>
               <div className="mb-3 text-base font-semibold text-text-secondary">
-                {t("sys.settings.font")}
+                {t("settings.font")}
               </div>
 
               <div className="my-3 text-sm font-semibold text-text-disabled">
-                {t("sys.settings.family")}
+                {t("settings.family")}
               </div>
               <div className="flex flex-row gap-3">
                 {Object.entries(FontFamilyPreset).map(([font, family]) => (
@@ -347,7 +345,7 @@ export default function SettingButton() {
               </div>
 
               <div className="my-4 text-sm font-semibold text-text-disabled">
-                {t("sys.settings.size")}
+                {t("settings.size")}
               </div>
               <Slider
                 min={12}
@@ -363,11 +361,11 @@ export default function SettingButton() {
             {/* Page config */}
             <div>
               <div className="mb-3 text-base font-semibold text-text-secondary">
-                {t("sys.settings.page")}
+                {t("settings.page")}
               </div>
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between text-sm text-text-disabled">
-                  <div>{t("sys.settings.breadcrumb")}</div>
+                  <div>{t("settings.breadcrumb")}</div>
                   <Switch
                     checked={breadCrumb}
                     onCheckedChange={(checked) =>
@@ -376,7 +374,7 @@ export default function SettingButton() {
                   />
                 </div>
                 <div className="flex items-center justify-between text-sm text-text-disabled">
-                  <div>{t("sys.settings.darkSidebar")}</div>
+                  <div>{t("settings.darkSidebar")}</div>
                   <Switch
                     checked={darkSidebar}
                     onCheckedChange={(checked) =>
@@ -385,7 +383,7 @@ export default function SettingButton() {
                   />
                 </div>
                 <div className="flex items-center justify-between text-sm text-text-disabled">
-                  <div>{t("sys.settings.accordion")}</div>
+                  <div>{t("settings.accordion")}</div>
                   <Switch
                     checked={accordion}
                     onCheckedChange={(checked) =>
@@ -407,21 +405,19 @@ export default function SettingButton() {
               className="flex items-center justify-center"
               aria-label={
                 isFullscreen
-                  ? t("sys.settings.exitFullscreen")
-                  : t("sys.settings.fullscreen")
+                  ? t("settings.exitFullscreen")
+                  : t("settings.fullscreen")
               }
             >
               {isFullscreen ? (
                 <>
                   <Icon icon="local:ic-settings-exit-fullscreen" />
-                  <span className="ml-2">
-                    {t("sys.settings.exitFullscreen")}
-                  </span>
+                  <span className="ml-2">{t("settings.exitFullscreen")}</span>
                 </>
               ) : (
                 <>
                   <Icon icon="local:ic-settings-fullscreen" />
-                  <span className="ml-2">{t("sys.settings.fullscreen")}</span>
+                  <span className="ml-2">{t("settings.fullscreen")}</span>
                 </>
               )}
             </div>

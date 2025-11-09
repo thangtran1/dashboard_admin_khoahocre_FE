@@ -31,7 +31,7 @@ export default function CustomConfirmModal({
       footer={
         <div className="flex justify-center gap-4">
           <Button danger size="large" onClick={onCancel}>
-            {t("sys.modal-confirm.cancel")}
+            {t("modal-confirm.cancel")}
           </Button>
           <Button
             color="primary"
@@ -39,7 +39,7 @@ export default function CustomConfirmModal({
             size="large"
             onClick={onConfirm}
           >
-            {t("sys.modal-confirm.confirm")}
+            {t("modal-confirm.confirm")}
           </Button>
         </div>
       }
@@ -49,14 +49,14 @@ export default function CustomConfirmModal({
         {password && (
           <p>
             <span className="font-bold">
-              {t("sys.modal-confirm.new-password")}:
+              {t("modal-confirm.new-password")}:
             </span>{" "}
             {password}
           </p>
         )}
         {filename && (
           <p>
-            <span className="font-bold">{t("sys.database.filename")}:</span>{" "}
+            <span className="font-bold">{t("database.filename")}:</span>{" "}
             {filename}
           </p>
         )}

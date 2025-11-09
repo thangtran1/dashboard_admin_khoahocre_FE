@@ -18,7 +18,7 @@ const dashboard: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "sys.menu.dashboard",
+    label: "siderbar-labels.dashboard",
     icon: (
       <Icon icon="local:ic-analysis" className="ant-menu-item-icon" size="24" />
     ),
@@ -32,12 +32,18 @@ const dashboard: AppRouteObject = {
     {
       path: "workbench",
       element: <HomePage />,
-      meta: { label: "sys.menu.workbench", key: "/dashboard/workbench" },
+      meta: {
+        label: "siderbar-labels.workbench",
+        key: "/dashboard/workbench",
+      },
     },
     {
       path: "analysis",
       element: <Analysis />,
-      meta: { label: "sys.menu.analysis", key: "/dashboard/analysis" },
+      meta: {
+        label: "siderbar-labels.analysis",
+        key: "/dashboard/analysis",
+      },
     },
   ],
 };

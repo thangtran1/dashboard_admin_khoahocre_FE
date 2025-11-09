@@ -22,7 +22,7 @@ const maintenance: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "sys.menu.maintenance-maintenance",
+    label: "siderbar-labels.maintenance",
     icon: (
       <Icon
         icon="local:ic-management"
@@ -41,7 +41,7 @@ const maintenance: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.maintenance-maintenance",
+        label: "siderbar-labels.maintenance",
         key: "/maintenance",
       },
     },
@@ -53,7 +53,7 @@ const maintenance: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.created-new-maintenance",
+        label: "siderbar-labels.created-new-maintenance",
         key: "/maintenance/created-new-maintenance",
         hideMenu: true,
       },

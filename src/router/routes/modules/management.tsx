@@ -27,7 +27,7 @@ const management: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "sys.menu.management",
+    label: "siderbar-labels.management",
     icon: (
       <Icon
         icon="local:ic-management"
@@ -46,7 +46,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.management-user",
+        label: "siderbar-labels.management-user",
         key: "/management/user",
       },
     },
@@ -58,7 +58,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.management-auth-session",
+        label: "siderbar-labels.auth-session",
         key: "/management/auth-session",
       },
     },
@@ -71,7 +71,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.created-new-user",
+        label: "siderbar-labels.created-new-user",
         key: "/management/user/created-new-user",
         hideMenu: true,
       },
@@ -84,7 +84,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.user-detail",
+        label: "siderbar-labels.user-detail",
         key: "/management/user/:userId",
         hideMenu: true,
       },
@@ -97,7 +97,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.banner-config.manager-banner",
+        label: "siderbar-labels.manager-banner",
         key: "/management/banner-config",
       },
     },
@@ -109,7 +109,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.menu.manager-chat-user",
+        label: "siderbar-labels.manager-chat-user",
         key: "/management/chat-user",
       },
     },
@@ -121,7 +121,7 @@ const management: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "sys.database.title",
+        label: "siderbar-labels.database",
         key: "/management/database",
       },
     },

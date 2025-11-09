@@ -67,7 +67,7 @@ const HeaderTop = () => {
       const response = await userApi.logout();
       if (response.data?.success) {
         clearUserInfoAndToken();
-        toast.success(t("sys.login.logoutSuccess"));
+        toast.success(t("auth.login.logoutSuccess"));
         replace("/login");
       } else {
         toast.error(response.data?.message);

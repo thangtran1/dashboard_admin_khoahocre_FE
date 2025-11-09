@@ -89,8 +89,8 @@ export default function UpdatePassword({ userId }: { userId: string }) {
       </Form>
 
       <CustomConfirmModal
-        title={t("sys.modal-confirm.confirm-update-password")}
-        description={t("sys.modal-confirm.confirm-update-password-message")}
+        title={t("modal-confirm.confirm-update-password")}
+        description={t("modal-confirm.confirm-update-password-message")}
         visible={modalVisible}
         password={currentPassword}
         onConfirm={handleConfirmUpdate}

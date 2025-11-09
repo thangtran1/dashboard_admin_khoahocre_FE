@@ -19,8 +19,8 @@ export function GoogleOAuthButton({
 
   const tooltipTitle =
     mode === "register"
-      ? t("sys.login.googleLoginRegister")
-      : t("sys.login.googleLoginLogin");
+      ? t("auth.login.googleLoginRegister")
+      : t("auth.login.googleLoginLogin");
 
   return (
     <Tooltip

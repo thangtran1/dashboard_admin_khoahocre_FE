@@ -21,12 +21,12 @@ export function TabItem({ tab, style, onClose }: TabItemProps) {
   const renderTabLabel = useTabLabelRender();
   const menuItems: MenuProps["items"] = [
     {
-      label: t(`sys.tab.${MultiTabOperation.REFRESH}`),
+      label: t(`tab.${MultiTabOperation.REFRESH}`),
       key: MultiTabOperation.REFRESH,
       icon: <Icon icon="mdi:reload" size={18} />,
     },
     {
-      label: t(`sys.tab.${MultiTabOperation.CLOSE}`),
+      label: t(`tab.${MultiTabOperation.CLOSE}`),
       key: MultiTabOperation.CLOSE,
       icon: <Icon icon="material-symbols:close" size={18} />,
       disabled: tabs.length === 1,
@@ -35,7 +35,7 @@ export function TabItem({ tab, style, onClose }: TabItemProps) {
       type: "divider",
     },
     {
-      label: t(`sys.tab.${MultiTabOperation.CLOSELEFT}`),
+      label: t(`tab.${MultiTabOperation.CLOSELEFT}`),
       key: MultiTabOperation.CLOSELEFT,
       icon: (
         <Icon
@@ -47,7 +47,7 @@ export function TabItem({ tab, style, onClose }: TabItemProps) {
       disabled: tabs.findIndex((t) => t.key === tab.key) === 0,
     },
     {
-      label: t(`sys.tab.${MultiTabOperation.CLOSERIGHT}`),
+      label: t(`tab.${MultiTabOperation.CLOSERIGHT}`),
       key: MultiTabOperation.CLOSERIGHT,
       icon: <Icon icon="material-symbols:tab-close-right-outline" size={18} />,
       disabled: tabs.findIndex((t) => t.key === tab.key) === tabs.length - 1,
@@ -56,13 +56,13 @@ export function TabItem({ tab, style, onClose }: TabItemProps) {
       type: "divider",
     },
     {
-      label: t(`sys.tab.${MultiTabOperation.CLOSEOTHERS}`),
+      label: t(`tab.${MultiTabOperation.CLOSEOTHERS}`),
       key: MultiTabOperation.CLOSEOTHERS,
       icon: <Icon icon="material-symbols:tab-close-outline" size={18} />,
       disabled: tabs.length === 1,
     },
     {
-      label: t(`sys.tab.${MultiTabOperation.CLOSEALL}`),
+      label: t(`tab.${MultiTabOperation.CLOSEALL}`),
       key: MultiTabOperation.CLOSEALL,
       icon: <Icon icon="mdi:collapse-all-outline" size={18} />,
     },

@@ -99,11 +99,11 @@ export function SidebarToast({ duration = 2000 }: SidebarToastProps) {
       <div className="flex-1">
         <p className="text-sm font-medium text-text-primary">
           {isMinimized
-            ? t("sys.sidebar.sidebar-minimized")
-            : t("sys.sidebar.sidebar-maximized")}
+            ? t("siderbar-labels.sidebar-minimized")
+            : t("siderbar-labels.sidebar-maximized")}
         </p>
         <p className="text-xs text-text-secondary">
-          {t("sys.sidebar.press-ctrl-b")}
+          {t("siderbar-labels.press-ctrl-b")}
         </p>
       </div>
 

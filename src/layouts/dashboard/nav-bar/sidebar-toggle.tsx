@@ -35,8 +35,8 @@ export default function SidebarToggle() {
     : "line-md:menu-fold-left";
 
   const tooltipText = isMinimized
-    ? t("sys.sidebar.expand-sidebar")
-    : t("sys.sidebar.collapse-sidebar");
+    ? t("siderbar-labels.expand-sidebar")
+    : t("siderbar-labels.collapse-sidebar");
 
   return (
     <Tooltip>
@@ -91,8 +91,8 @@ export default function SidebarToggle() {
           <p>{tooltipText}</p>
           <p className="text-muted-foreground text-[10px]">
             {isMinimized
-              ? t("sys.sidebar.sidebar-minimized-description")
-              : t("sys.sidebar.sidebar-maximized-description")}
+              ? t("siderbar-labels.sidebar-minimized-description")
+              : t("siderbar-labels.sidebar-maximized-description")}
           </p>
         </div>
       </TooltipContent>

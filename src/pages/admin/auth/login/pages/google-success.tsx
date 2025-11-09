@@ -32,7 +32,7 @@ export default function GoogleSuccess() {
             role: payload.role,
           });
 
-          toast.success(t("sys.login.googleLoginSuccess"));
+          toast.success(t("auth.login.googleLoginSuccess"));
 
           if (payload.role === "user") navigate("/", { replace: true });
           else navigate(HOMEPAGE, { replace: true });
@@ -47,5 +47,5 @@ export default function GoogleSuccess() {
     }
   }, []);
 
-  return <FullPageLoading message={t("sys.login.googleLoginProcessing")} />;
+  return <FullPageLoading message={t("auth.login.googleLoginProcessing")} />;
 }

@@ -19,8 +19,8 @@ export function GitHubOAuthButton({
 
   const tooltipTitle =
     mode === "register"
-      ? t("sys.login.githubLoginRegister")
-      : t("sys.login.githubLoginLogin");
+      ? t("auth.login.githubLoginRegister")
+      : t("auth.login.githubLoginLogin");
 
   return (
     <Tooltip

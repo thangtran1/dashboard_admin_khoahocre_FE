@@ -9,7 +9,8 @@ export function useTabLabelRender() {
     Record<string, (tab: KeepAliveTab) => React.ReactNode>
   >(
     () => ({
-      "sys.menu.system.user_detail": (tab: KeepAliveTab) => {
+      "system.user_detail": (tab: KeepAliveTab) => {
+        // TODO: fix before
         const userId = tab.params?.id;
         const defaultLabel = t(tab.label);
         if (userId) {

@@ -16,7 +16,7 @@ const menulevel: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "sys.menu.menulevel.index",
+    label: "siderbar-labels.menulevel.index",
     icon: (
       <Icon
         icon="local:ic-menulevel"
@@ -31,14 +31,14 @@ const menulevel: AppRouteObject = {
       path: "menu_level_1a",
       element: <MenuLevel />,
       meta: {
-        label: "sys.menu.menulevel.1a",
+        label: "siderbar-labels.menulevel.1a",
         key: "/menu_level/menu_level_1a",
       },
     },
     {
       path: "menu_level_1b",
       meta: {
-        label: "sys.menu.menulevel.1b.index",
+        label: "siderbar-labels.menulevel.1b.index",
         key: "/menu_level/menu_level_1b",
       },
       children: [
@@ -50,14 +50,14 @@ const menulevel: AppRouteObject = {
           path: "menu_level_2a",
           element: <MenuLevel2a />,
           meta: {
-            label: "sys.menu.menulevel.1b.2a",
+            label: "siderbar-labels.menulevel.1b.2a",
             key: "/menu_level/menu_level_1b/menu_level_2a",
           },
         },
         {
           path: "menu_level_2b",
           meta: {
-            label: "sys.menu.menulevel.1b.2b.index",
+            label: "siderbar-labels.menulevel.1b.2b.index",
             key: "/menu_level/menu_level_1b/menu_level_2b",
           },
           children: [
@@ -69,7 +69,7 @@ const menulevel: AppRouteObject = {
               path: "menu_level_3a",
               element: <MenuLevel3a />,
               meta: {
-                label: "sys.menu.menulevel.1b.2b.3a",
+                label: "siderbar-labels.menulevel.1b.2b.3a",
                 key: "/menu_level/menu_level_1b/menu_level_2b/menu_level_3a",
               },
             },

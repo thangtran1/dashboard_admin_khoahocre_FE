@@ -18,7 +18,7 @@ const errors: AppRouteObject[] = [
       </Suspense>
     ),
     meta: {
-      label: "sys.menu.error.index",
+      label: "siderbar-labels.error.index",
       icon: (
         <Icon icon="bxs:error-alt" className="ant-menu-item-icon" size="24" />
       ),
@@ -29,7 +29,7 @@ const errors: AppRouteObject[] = [
         path: "403",
         element: <Page403 />,
         meta: {
-          label: "sys.menu.error.403",
+          label: "siderbar-labels.error.403",
           key: "/error/403",
         },
       },
@@ -37,7 +37,7 @@ const errors: AppRouteObject[] = [
         path: "404",
         element: <Page404 />,
         meta: {
-          label: "sys.menu.error.404",
+          label: "siderbar-labels.error.404",
           key: "/error/404",
         },
       },
@@ -45,7 +45,7 @@ const errors: AppRouteObject[] = [
         path: "500",
         element: <Page500 />,
         meta: {
-          label: "sys.menu.error.500",
+          label: "siderbar-labels.error.500",
           key: "/error/500",
         },
       },

@@ -22,7 +22,7 @@ export default function AccountDropdown() {
       const response = await userApi.logout();
       if (response.data?.success) {
         clearUserInfoAndToken();
-        toast.success(t("sys.login.logoutSuccess"));
+        toast.success(t("auth.login.logoutSuccess"));
         replace("/login");
       } else {
         toast.error(response.data?.message);
@@ -69,13 +69,11 @@ export default function AccountDropdown() {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <NavLink to="/profile?tab=profile">
-            {t("sys.menu.user.profile")}
-          </NavLink>
+          <NavLink to="/profile?tab=profile">{t("auth.login.profile")}</NavLink>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="font-bold text-warning" onClick={logout}>
-          {t("sys.login.logout")}
+          {t("auth.login.logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
