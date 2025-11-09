@@ -31,7 +31,7 @@ export default function GitHubSuccess() {
             role: payload.role,
           });
 
-          toast.success(t("sys.login.githubLoginSuccess"));
+          toast.success(t("auth.login.githubLoginSuccess"));
 
           if (payload.role === "user") navigate("/", { replace: true });
           else navigate(HOMEPAGE, { replace: true });
@@ -46,5 +46,5 @@ export default function GitHubSuccess() {
     }
   }, []);
 
-  return <FullPageLoading message={t("sys.login.githubLoginProcessing")} />;
+  return <FullPageLoading message={t("auth.login.githubLoginProcessing")} />;
 }

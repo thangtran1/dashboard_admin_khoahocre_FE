@@ -49,7 +49,7 @@ export function LoginForm() {
       const { user, accessToken, refreshToken } = res.data;
       setUserToken({ accessToken, refreshToken });
       setUserInfo(user);
-      toast.success(t("sys.login.signInSuccess"));
+      toast.success(t("auth.login.signInSuccess"));
     },
   });
 
@@ -67,16 +67,16 @@ export function LoginForm() {
   return (
     <>
       {signInMutation.isPending && (
-        <FullPageLoading message={t("sys.login.loggingIn")} />
+        <FullPageLoading message={t("auth.login.loggingIn")} />
       )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleFinish)} className="space-y-3">
           <div className="flex flex-col items-center gap-2 text-center">
             <h1 className="text-2xl font-bold">
-              {t("sys.login.signInFormTitle")}
+              {t("auth.login.signInFormTitle")}
             </h1>
             <p className="text-balance text-sm text-muted-foreground">
-              {t("sys.login.signInFormDescription")}
+              {t("auth.login.signInFormDescription")}
             </p>
           </div>
 
@@ -84,15 +84,15 @@ export function LoginForm() {
             control={form.control}
             name="email"
             rules={{
-              required: t("sys.login.accountPlaceholder"),
+              required: t("auth.login.accountPlaceholder"),
               pattern: {
                 value: REGEX_EMAIL,
-                message: t("sys.login.emailInvalid"),
+                message: t("auth.login.emailInvalid"),
               },
             }}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("sys.login.userName")}</FormLabel>
+                <FormLabel>{t("auth.login.userName")}</FormLabel>
                 <FormControl>
                   <Input placeholder="admin/test" {...field} />
                 </FormControl>
@@ -105,19 +105,19 @@ export function LoginForm() {
             control={form.control}
             name="password"
             rules={{
-              required: t("sys.login.passwordPlaceholder"),
+              required: t("auth.login.passwordPlaceholder"),
               minLength: {
                 value: 6,
-                message: t("sys.login.passwordMinLength"),
+                message: t("auth.login.passwordMinLength"),
               },
             }}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("sys.login.password")}</FormLabel>
+                <FormLabel>{t("auth.login.password")}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={t("sys.login.password")}
+                    placeholder={t("auth.login.password")}
                     {...field}
                   />
                 </FormControl>
@@ -140,7 +140,7 @@ export function LoginForm() {
                 htmlFor="remember"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                {t("sys.login.rememberMe")}
+                {t("auth.login.rememberMe")}
               </label>
             </div>
             <Button
@@ -149,17 +149,17 @@ export function LoginForm() {
               onClick={() => setLoginState(LoginStateEnum.RESET_PASSWORD)}
               size="sm"
             >
-              {t("sys.login.forgetPassword")}
+              {t("auth.login.forgetPassword")}
             </Button>
           </div>
 
           <Button type="submit" className="w-full cursor-pointer">
-            {t("sys.login.loginButton")}
+            {t("auth.login.loginButton")}
           </Button>
 
           <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
             <span className="relative z-10 bg-background px-2 text-muted-foreground">
-              {t("sys.login.otherSignIn")}
+              {t("auth.login.otherSignIn")}
             </span>
           </div>
           <div className="flex justify-around text-2xl">
@@ -168,13 +168,13 @@ export function LoginForm() {
           </div>
 
           <div className="text-center text-sm">
-            {t("sys.login.noAccount")}
+            {t("auth.login.noAccount")}
             <Button
               variant="link"
               className="px-1 cursor-pointer underline"
               onClick={() => setLoginState(LoginStateEnum.REGISTER)}
             >
-              {t("sys.login.signUpFormTitle")}
+              {t("auth.login.signUpFormTitle")}
             </Button>
           </div>
         </form>

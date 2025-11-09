@@ -13,9 +13,9 @@ export default function GitHubError() {
   useEffect(() => {
     const message = searchParams.get("message");
     if (message) {
-      toast.error(t("sys.login.githubLoginErrorDescription"));
+      toast.error(t("auth.login.githubLoginError"));
     } else {
-      toast.error(t("sys.login.githubLoginErrorDescription"));
+      toast.error(t("auth.login.githubLoginError"));
     }
   }, [searchParams]);
 
@@ -28,13 +28,13 @@ export default function GitHubError() {
       <div className="text-center max-w-md mx-auto p-6">
         <AlertCircle className="mx-auto h-12 w-12 text-destructive mb-4" />
         <h1 className="text-2xl font-bold mb-2">
-          {t("sys.login.githubLoginError")}
+          {t("auth.login.githubLoginError")}
         </h1>
         <p className="text-muted-foreground mb-6">
-          {t("sys.login.githubLoginErrorDescription")}
+          {t("auth.login.githubLoginError")}
         </p>
         <Button onClick={handleBackToLogin} className="w-full">
-          {t("sys.login.backToLogin")}
+          {t("auth.login.backToLogin")}
         </Button>
       </div>
     </div>

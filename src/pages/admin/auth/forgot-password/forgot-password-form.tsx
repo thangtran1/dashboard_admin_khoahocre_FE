@@ -42,17 +42,17 @@ function ForgotPasswordForm() {
 
       if (!success) {
         return toast.error(
-          res.data?.message || t("sys.login.errorForgetPassword")
+          res.data?.message || t("auth.forgot-password.errorForgetPassword")
         );
       }
 
       if (method === "link") {
-        toast.success(t("sys.login.linkContent"));
+        toast.success(t("auth.forgot-password.linkContent"));
         form.reset();
         setEmail("");
         backToLogin();
       } else {
-        toast.success(t("sys.login.methodOTP"));
+        toast.success(t("auth.forgot-password.methodOTP"));
         setIsOtpModalOpen(true);
       }
     } catch (error) {
@@ -64,7 +64,7 @@ function ForgotPasswordForm() {
   return (
     <>
       {forgotPasswordMutation.isPending && (
-        <FullPageLoading message={t("sys.login.sending")} />
+        <FullPageLoading message={t("auth.forgot-password.sending")} />
       )}
       <div className="mb-8 text-center">
         <Icon
@@ -77,10 +77,10 @@ function ForgotPasswordForm() {
         <form onSubmit={form.handleSubmit(onFinish)} className="space-y-4">
           <div className="flex flex-col items-center gap-2 text-center">
             <h1 className="text-2xl font-bold">
-              {t("sys.login.forgetFormTitle")}
+              {t("auth.forgot-password.forgetFormTitle")}
             </h1>
             <p className="text-balance text-sm text-muted-foreground">
-              {t("sys.login.forgetFormSecondTitle")}
+              {t("auth.forgot-password.forgetFormSecondTitle")}
             </p>
           </div>
 
@@ -88,17 +88,17 @@ function ForgotPasswordForm() {
             control={form.control}
             name="email"
             rules={{
-              required: t("sys.login.emailRequired"),
+              required: t("auth.forgot-password.emailRequired"),
               pattern: {
                 value: REGEX_EMAIL,
-                message: t("sys.login.emailInvalid"),
+                message: t("auth.forgot-password.emailInvalid"),
               },
             }}
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
-                    placeholder={t("sys.login.email")}
+                    placeholder={t("auth.forgot-password.email")}
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
@@ -117,7 +117,7 @@ function ForgotPasswordForm() {
             render={() => (
               <FormItem>
                 <FormLabel className="flex justify-center text-md">
-                  {t("sys.login.selectMethod")}
+                  {t("auth.forgot-password.selectMethod")}
                 </FormLabel>
                 <FormControl>
                   <div className="flex flex-col gap-2">
@@ -127,12 +127,12 @@ function ForgotPasswordForm() {
                     >
                       <Radio value="link">
                         <div className="text-[11px]">
-                          {t("sys.login.resetLink")}
+                          {t("auth.forgot-password.resetLink")}
                         </div>
                       </Radio>
                       <Radio value="otp">
                         <div className="text-[11px]">
-                          {t("sys.login.receiveOTP")}
+                          {t("auth.forgot-password.receiveOTP")}
                         </div>
                       </Radio>
                     </Radio.Group>
@@ -143,13 +143,13 @@ function ForgotPasswordForm() {
             )}
           />
           <div className="text-xs p-2 rounded-lg text-foreground font-medium bg-muted">
-            {t("sys.login.noteConfirm")}
+            {t("auth.forgot-password.noteConfirm")}
           </div>
           <Button
             type="submit"
             className="w-full cursor-pointer text-foreground font-medium"
           >
-            {t("sys.login.sendEmailButton")}
+            {t("auth.forgot-password.sendEmailButton")}
           </Button>
           <ReturnButton onClick={backToLogin} />
         </form>

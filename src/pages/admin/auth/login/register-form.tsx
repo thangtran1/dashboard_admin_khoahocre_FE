@@ -26,7 +26,7 @@ function RegisterForm() {
     mutationFn: (data: CreateUserReq) => createUser(data),
     onSuccess: (res) => {
       if (res.data.success) {
-        toast.success(t("sys.login.registerSuccess"));
+        toast.success(t("auth.login.registerSuccess"));
         navigate(HOMEPAGE, { replace: true });
       } else {
         toast.error(res.data.message);
@@ -56,24 +56,24 @@ function RegisterForm() {
   return (
     <>
       {signUpMutation.isPending && (
-        <FullPageLoading message={t("sys.login.registering")} />
+        <FullPageLoading message={t("auth.login.registering")} />
       )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onFinish)} className="space-y-3">
           <div className="flex flex-col items-center gap-2 text-center">
             <h1 className="text-2xl font-bold">
-              {t("sys.login.signUpFormTitle")}
+              {t("auth.login.signUpFormTitle")}
             </h1>
           </div>
           <FormField
             control={form.control}
             name="name"
-            rules={{ required: t("sys.login.accountPlaceholder") }}
+            rules={{ required: t("auth.login.accountPlaceholder") }}
             render={({ field }) => (
               <FormItem>
                 <FormMessage />
                 <FormControl>
-                  <Input placeholder={t("sys.login.userName")} {...field} />
+                  <Input placeholder={t("auth.login.userName")} {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -82,17 +82,17 @@ function RegisterForm() {
             control={form.control}
             name="email"
             rules={{
-              required: t("sys.login.emaildPlaceholder"),
+              required: t("auth.login.emaildPlaceholder"),
               pattern: {
                 value: REGEX_EMAIL,
-                message: t("sys.login.emailInvalid"),
+                message: t("auth.login.emailInvalid"),
               },
             }}
             render={({ field }) => (
               <FormItem>
                 <FormMessage />
                 <FormControl>
-                  <Input placeholder={t("sys.login.email")} {...field} />
+                  <Input placeholder={t("auth.login.email")} {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -101,10 +101,10 @@ function RegisterForm() {
             control={form.control}
             name="password"
             rules={{
-              required: t("sys.login.passwordPlaceholder"),
+              required: t("auth.login.passwordPlaceholder"),
               minLength: {
                 value: 6,
-                message: t("sys.login.passwordMinLength"),
+                message: t("auth.login.passwordMinLength"),
               },
             }}
             render={({ field }) => (
@@ -113,7 +113,7 @@ function RegisterForm() {
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={t("sys.login.password")}
+                    placeholder={t("auth.login.password")}
                     {...field}
                   />
                 </FormControl>
@@ -124,9 +124,9 @@ function RegisterForm() {
             control={form.control}
             name="confirmPassword"
             rules={{
-              required: t("sys.login.confirmPasswordPlaceholder"),
+              required: t("auth.login.confirmPasswordPlaceholder"),
               validate: (value) =>
-                value === form.getValues("password") || t("sys.login.diffPwd"),
+                value === form.getValues("password") || t("auth.login.diffPwd"),
             }}
             render={({ field }) => (
               <FormItem>
@@ -134,7 +134,7 @@ function RegisterForm() {
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={t("sys.login.confirmPassword")}
+                    placeholder={t("auth.login.confirmPassword")}
                     {...field}
                   />
                 </FormControl>
@@ -142,14 +142,14 @@ function RegisterForm() {
             )}
           />
           <div className="text-xs p-2 rounded-lg text-foreground font-medium bg-muted">
-            {t("sys.login.noteConfirmRegister")}
+            {t("auth.login.noteConfirmRegister")}
           </div>
           <Button type="submit" className="w-full cursor-pointer">
-            {t("sys.login.registerButton")}
+            {t("auth.login.registerButton")}
           </Button>
           <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
             <span className="relative z-10 bg-background px-2 text-muted-foreground">
-              {t("sys.login.otherSignUp")}
+              {t("auth.login.otherSignUp")}
             </span>
           </div>
           <div className="flex justify-around text-2xl">
@@ -157,7 +157,7 @@ function RegisterForm() {
             <GoogleOAuthButton mode="register" />
           </div>
           <div className="mb-2 text-xs text-gray">
-            <span>{t("sys.login.registerAndAgree")}</span>
+            <span>{t("auth.login.registerAndAgree")}</span>
           </div>
           <ReturnButton onClick={backToLogin} />
         </form>

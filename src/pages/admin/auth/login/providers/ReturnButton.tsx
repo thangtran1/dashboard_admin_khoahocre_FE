@@ -14,7 +14,7 @@ export function ReturnButton({ onClick }: ReturnButtonProps) {
       className="w-full cursor-pointer text-accent-foreground"
     >
       <Icon icon="solar:alt-arrow-left-linear" size={20} />
-      <span className="text-sm">{t("sys.login.backSignIn")}</span>
+      <span className="text-sm">{t("auth.login.backSignIn")}</span>
     </Button>
   );
 }

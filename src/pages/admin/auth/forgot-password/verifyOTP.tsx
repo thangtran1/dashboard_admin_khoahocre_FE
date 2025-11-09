@@ -39,7 +39,7 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
       const res = await verifyOTPMutation.mutateAsync({ email, otp });
 
       if (res.data?.success) {
-        toast.success(t("sys.login.authSuccessful"));
+        toast.success(t("auth.forgot-password.authSuccessful"));
         onClose();
         setTimeout(() => {
           navigate(
@@ -47,7 +47,7 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
           );
         }, 300);
       } else {
-        toast.error(t("sys.login.invalidOTP"));
+        toast.error(t("auth.forgot-password.invalidOTP"));
       }
     } catch (error) {
       console.error(error);
@@ -69,7 +69,7 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
       onCancel={onClose}
     >
       {verifyOTPMutation.isPending && (
-        <FullPageLoading message={t("sys.login.sending")} />
+        <FullPageLoading message={t("auth.forgot-password.sending")} />
       )}
       <div className="text-center">
         <Icon
@@ -81,12 +81,12 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
 
       <div className="flex flex-col items-center gap-1 text-center px-4 py-3 max-w-sm mx-auto">
         <h1 className="text-2xl text-foreground font-bold mb-2">
-          {t("sys.login.confirmOTP")}
+          {t("auth.forgot-password.confirmOTP")}
         </h1>
         <p
           className="text-sm text-gray-600 mb-4"
           dangerouslySetInnerHTML={{
-            __html: t("sys.login.sentMessageBefore", {
+            __html: t("auth.forgot-password.sentMessageBefore", {
               email: `<b>${email}</b>`,
             }),
           }}
@@ -100,9 +100,15 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
             control={control}
             name="otp"
             rules={{
-              required: t("sys.login.plsOTP"),
-              minLength: { value: 6, message: t("sys.login.maxOTP") },
-              maxLength: { value: 6, message: t("sys.login.maxOTP") },
+              required: t("auth.forgot-password.plsOTP"),
+              minLength: {
+                value: 6,
+                message: t("auth.forgot-password.maxOTP"),
+              },
+              maxLength: {
+                value: 6,
+                message: t("auth.forgot-password.maxOTP"),
+              },
             }}
             render={({ field }) => (
               <div className="w-full flex flex-col items-center">
@@ -123,11 +129,11 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
           />
 
           <p className="text-sm text-muted-foreground font-medium  mt-2">
-            {t("sys.login.noteOTP")}
+            {t("auth.forgot-password.noteOTP")}
           </p>
           <div className="flex w-full mt-2 gap-2">
             <Button onClick={onClose} danger size="large" className="w-full">
-              {t("sys.login.cancel")}
+              {t("auth.forgot-password.cancel")}
             </Button>
 
             <Button
@@ -137,7 +143,7 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
               size="large"
               className="w-full"
             >
-              {t("sys.login.confirm")}
+              {t("auth.forgot-password.confirm")}
             </Button>
           </div>
         </form>

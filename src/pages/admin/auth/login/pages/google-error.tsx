@@ -13,9 +13,9 @@ export default function GoogleError() {
   useEffect(() => {
     const message = searchParams.get("message");
     if (message) {
-      toast.error(t("sys.login.googleLoginErrorDescription"));
+      toast.error(t("auth.login.googleLoginError"));
     } else {
-      toast.error(t("sys.login.googleLoginErrorDescription"));
+      toast.error(t("auth.login.googleLoginError"));
     }
   }, [searchParams]);
 
@@ -28,13 +28,13 @@ export default function GoogleError() {
       <div className="text-center max-w-md mx-auto p-6">
         <AlertCircle className="mx-auto h-12 w-12 text-destructive mb-4" />
         <h1 className="text-2xl font-bold mb-2">
-          {t("sys.login.googleLoginError")}
+          {t("auth.login.googleLoginError")}
         </h1>
         <p className="text-muted-foreground mb-6">
-          {t("sys.login.googleLoginErrorDescription")}
+          {t("auth.login.googleLoginError")}
         </p>
         <Button onClick={handleBackToLogin} className="w-full">
-          {t("sys.login.backToLogin")}
+          {t("auth.login.backToLogin")}
         </Button>
       </div>
     </div>

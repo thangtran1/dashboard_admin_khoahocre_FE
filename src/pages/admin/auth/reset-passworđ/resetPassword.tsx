@@ -10,9 +10,7 @@ import { Icon } from "@/components/icon";
 import Logo from "@/components/common/logo";
 import LocalePicker from "@/components/common/locale-picker";
 import SettingButton from "@/layouts/dashboard/components/setting-button";
-import { ReturnButton } from "../login/providers/ReturnButton";
 import { FullPageLoading } from "@/components/common/loading";
-import { useLoginStateContext } from "../login/providers/login-provider";
 const ResetPassword = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -22,26 +20,27 @@ const ResetPassword = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const location = useLocation();
   const [token, setToken] = useState<string | null>(null);
-  const { backToLogin } = useLoginStateContext();
 
   const resetPasswordMutation = useMutation({
     mutationFn: userService.resetPassword,
     onSuccess: (res) => {
       if (res.data?.success) {
-        toast.success(t("sys.login.pasChangeSuccess"));
-        backToLogin();
+        toast.success(t("auth.reset-password.pasChangeSuccess"));
+        navigate("/login", { replace: true });
       } else {
-        toast.error(res.data?.message || t("sys.login.failChangePas"));
+        toast.error(
+          res.data?.message || t("auth.reset-password.failChangePas")
+        );
       }
     },
     onError: (error: any) => {
-      toast.error(error?.message || t("sys.login.failChangePas"));
+      toast.error(error?.message || t("auth.reset-password.failChangePas"));
     },
   });
   const handleResetPassword = () => {
     if (!validate()) return;
     if (!token) {
-      toast.error(t("sys.login.invalidToken"));
+      toast.error(t("auth.reset-password.invalidToken"));
       return;
     }
 
@@ -55,7 +54,7 @@ const ResetPassword = () => {
     if (tokenFromUrl) {
       setToken(tokenFromUrl);
     } else {
-      toast.error(t("sys.login.notToken"));
+      toast.error(t("auth.reset-password.notToken"));
       navigate("/dash");
     }
   }, [location, navigate]);
@@ -64,14 +63,14 @@ const ResetPassword = () => {
     let isValid = true;
 
     if (!newPassword || newPassword.length < 6) {
-      setNewPasswordError(t("sys.login.invalidPassword"));
+      setNewPasswordError(t("auth.reset-password.invalidPassword"));
       isValid = false;
     } else {
       setNewPasswordError("");
     }
 
     if (!confirmPassword || confirmPassword !== newPassword) {
-      setConfirmPasswordError(t("sys.login.notConfirmPassword"));
+      setConfirmPasswordError(t("auth.reset-password.notConfirmPassword"));
       isValid = false;
     } else {
       setConfirmPasswordError("");
@@ -95,7 +94,7 @@ const ResetPassword = () => {
   return (
     <>
       {resetPasswordMutation.isPending && (
-        <FullPageLoading message={t("sys.login.sending")} />
+        <FullPageLoading message={t("auth.reset-password.sending")} />
       )}
       <div className="relative grid min-h-svh lg:grid-cols-2 bg-background">
         <div className="flex flex-col  gap-4 p-6 md:p-10">
@@ -116,7 +115,7 @@ const ResetPassword = () => {
                   />
                 </div>
                 <h1 className="text-2xl font-bold">
-                  {t("sys.login.passwordNewTitle")}
+                  {t("auth.reset-password.passwordNewTitle")}
                 </h1>
               </div>
 
@@ -127,7 +126,7 @@ const ResetPassword = () => {
                       className="font-medium text-muted-foreground text-sm"
                       style={{ position: "relative", bottom: "-8px" }}
                     >
-                      {t("sys.login.newPas")}
+                      {t("auth.reset-password.newPas")}
                     </span>
                   }
                   help={newPasswordError}
@@ -137,7 +136,7 @@ const ResetPassword = () => {
                   validateStatus={newPasswordError ? "error" : ""}
                 >
                   <Input.Password
-                    placeholder={t("sys.login.newPas")}
+                    placeholder={t("auth.reset-password.newPas")}
                     value={newPassword}
                     onChange={handleNewPasswordChange}
                   />
@@ -149,7 +148,7 @@ const ResetPassword = () => {
                       className="font-medium text-muted-foreground text-sm"
                       style={{ position: "relative", bottom: "-8px" }}
                     >
-                      {t("sys.login.confirmPassword")}
+                      {t("auth.reset-password.confirmPassword")}
                     </span>
                   }
                   help={confirmPasswordError}
@@ -159,7 +158,7 @@ const ResetPassword = () => {
                   validateStatus={confirmPasswordError ? "error" : ""}
                 >
                   <Input.Password
-                    placeholder={t("sys.login.confirmPassword")}
+                    placeholder={t("auth.reset-password.confirmPassword")}
                     value={confirmPassword}
                     onChange={handleConfirmPasswordChange}
                   />
@@ -167,16 +166,15 @@ const ResetPassword = () => {
 
                 <Form.Item>
                   <div className="text-xs p-2 mb-2 rounded-lg text-foreground font-medium bg-muted">
-                    {t("sys.login.resetPasswordDescription")}
+                    {t("auth.reset-password.resetPasswordDescription")}
                   </div>
                   <Button
                     htmlType="submit"
                     type="primary"
                     className="w-full mb-2"
                   >
-                    {t("sys.login.confirm")}
+                    {t("auth.reset-password.confirm")}
                   </Button>
-                  <ReturnButton onClick={backToLogin} />
                 </Form.Item>
               </Form>
             </div>
