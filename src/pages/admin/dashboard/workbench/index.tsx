@@ -1,9 +1,9 @@
 import BannerCard from "./banner-card";
-import BannerChart from "./banner-chart";
+import BannerChart from "../../components/chart/view/banner-chart";
 import { Applications, Conversion } from "./conversion_applications";
-import MaintenanceChart from "./maintenance-chart";
-import UserActivityChart from "./user-activity-chart";
-import StatusUserChart from "./status-user-chart";
+import MaintenanceChart from "../../components/chart/view/maintenance-chart";
+import UserActivityChart from "../../components/chart/view/user-activity-chart";
+import StatusUserChart from "../../components/chart/view/status-user-chart";
 import ChartColumnMultiple from "../../components/chart/view/chart-column-multiple";
 import ChartNotification from "../../components/chart/view/chart-notification";
 function Workbench() {

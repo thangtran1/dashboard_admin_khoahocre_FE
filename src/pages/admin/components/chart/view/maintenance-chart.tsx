@@ -28,15 +28,19 @@ export default function MaintenanceChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t("sys.chart.total-maintenance")}</CardTitle>
+        <CardTitle>{t("components.chart.total-maintenance")}</CardTitle>
       </CardHeader>
       <CardContent>
         {loading ? (
-          <p className="text-center text-muted">{t("sys.chart.loading")}</p>
+          <p className="text-center text-muted">
+            {t("components.chart.loading")}
+          </p>
         ) : stats && stats.series.length > 0 ? (
           <ChartDonut stats={stats} key={JSON.stringify(stats.series)} />
         ) : (
-          <p className="text-center text-muted">{t("sys.chart.no-data")}</p>
+          <p className="text-center text-muted">
+            {t("components.chart.no-data")}
+          </p>
         )}
       </CardContent>
     </Card>
@@ -50,11 +54,11 @@ function ChartDonut({ stats }: { stats: ResponseStats }) {
 
   const chartOptions = useChart({
     labels: [
-      t("sys.chart.active-maintenance"),
-      t("sys.chart.in_progress"),
-      t("sys.chart.completed"),
-      t("sys.chart.cancelled"),
-      t("sys.chart.scheduled"),
+      t("components.chart.active-maintenance"),
+      t("components.chart.in_progress"),
+      t("components.chart.completed"),
+      t("components.chart.cancelled"),
+      t("components.chart.scheduled"),
     ],
     colors: ["#28C76F", "#FF7F50", "#FFC107", "#FF4D4F", "#FF7F50"],
     stroke: { show: false },
@@ -71,7 +75,7 @@ function ChartDonut({ stats }: { stats: ResponseStats }) {
           size: "90%",
           labels: {
             total: {
-              label: t("sys.chart.total"), // đổi ngôn ngữ
+              label: t("components.chart.total"), // đổi ngôn ngữ
               formatter: () => {
                 // sum
                 return (stats.series[0]?.data?.[0] ?? 0).toString();

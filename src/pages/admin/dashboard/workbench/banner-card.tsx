@@ -19,15 +19,14 @@ export default function BannerCard() {
           className="mt-4 text-lg font-semibold md:text-xl"
           style={{ color: themeVars.colors.palette.primary.dark }}
         >
-          <h4>Welcome back 👋 </h4>
+          <h4>{t("dashboard.workbench.welcome-back")} 👋 </h4>
           <h4>{username}</h4>
         </div>
         <div
           style={{ color: themeVars.colors.palette.primary.dark }}
           className="mx-auto mb-6 mt-4 max-w-sm text-sm opacity-80 md:mx-0"
         >
-          Welcome to join the Discord channel to discuss everything about TVT
-          Admin, or you can visite my blog:
+          {t("dashboard.workbench.join-discord-channel")}
           <div>
             <a
               href="https://blog.slashspaces.com"
@@ -50,7 +49,9 @@ export default function BannerCard() {
           onClick={() => window.open("#")}
         >
           <Icon icon="carbon:logo-discord" size={24} />
-          <span className="ml-2 font-black">Join Discord</span>
+          <span className="ml-2 font-black">
+            {t("dashboard.workbench.join-discord")}
+          </span>
         </button>
       </div>
 

@@ -879,5 +879,14 @@
       "select-language": "Select Language",
       "select-language-description": "Choose the language you want to use in the system"
     }
+  },
+  "dashboard": {
+    "workbench": {
+      "welcome-back": "Welcome back",
+      "join-channel": "Welcome to join the Discord channel to discuss everything about TVT Admin, or you can visite my blog:",
+      "join-discord": "Join Discord",
+      "conversion": "Conversion",
+      "applications": "Applications"
+    }
   }
 }

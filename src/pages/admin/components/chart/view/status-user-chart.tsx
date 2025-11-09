@@ -3,7 +3,7 @@ import {
   statsStatusUser,
   StatsPeriod,
 } from "@/api/services/chartApt";
-import TotalCard from "./total-card";
+import TotalCard from "../../../dashboard/workbench/total-card";
 import {
   Select,
   SelectContent,
@@ -34,7 +34,7 @@ export default function StatusUserChart() {
   }, [period]);
 
   if (!statusUserStats || !statusUserStats.series.length) {
-    return <div>{t("sys.chart.loading")}</div>;
+    return <div>{t("components.chart.loading")}</div>;
   }
 
   const totalUsers = statusUserStats.series[0].data.reduce(
@@ -67,16 +67,16 @@ export default function StatusUserChart() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value={StatsPeriod.DAY}>
-              {t("sys.chart.day")}
+              {t("components.chart.day")}
             </SelectItem>
             <SelectItem value={StatsPeriod.WEEK}>
-              {t("sys.chart.week")}
+              {t("components.chart.week")}
             </SelectItem>
             <SelectItem value={StatsPeriod.MONTH}>
-              {t("sys.chart.month")}
+              {t("components.chart.month")}
             </SelectItem>
             <SelectItem value={StatsPeriod.YEAR}>
-              {t("sys.chart.year")}
+              {t("components.chart.year")}
             </SelectItem>
           </SelectContent>
         </Select>
@@ -84,7 +84,7 @@ export default function StatusUserChart() {
       <div className="flex flex-col md:flex-row gap-2">
         <div className="flex-1">
           <TotalCard
-            title={t("sys.chart.total-users")}
+            title={t("components.chart.total-users")}
             increase
             count={totalUsers.toString()}
             percent={"100%"}
@@ -94,7 +94,7 @@ export default function StatusUserChart() {
 
         <div className="flex-1">
           <TotalCard
-            title={t("sys.chart.total-active-users")}
+            title={t("components.chart.total-active-users")}
             increase
             count={activeUsers.toString()}
             percent={activePercentage}
@@ -104,7 +104,7 @@ export default function StatusUserChart() {
 
         <div className="flex-1">
           <TotalCard
-            title={t("sys.chart.total-inactive-users")}
+            title={t("components.chart.total-inactive-users")}
             increase
             count={inactiveUsers.toString()}
             percent={inactivePercentage}

@@ -879,5 +879,14 @@
       "select-language": "Lựa Chọn Ngôn Ngữ",
       "select-language-description": "Chọn ngôn ngữ bạn muốn sử dụng trong hệ thống"
     }
+  },
+  "dashboard": {
+    "workbench": {
+      "welcome-back": "Chào mừng trở lại",
+      "join-channel": "Chào mừng đến với kênh Discord để thảo luận về mọi thứ về TVT Admin, hoặc bạn có thể ghé thăm blog của tôi:",
+      "join-discord": "Tham gia Discord",
+      "conversion": "Chuyển đổi",
+      "applications": "Ứng dụng"
+    }
   }
 }

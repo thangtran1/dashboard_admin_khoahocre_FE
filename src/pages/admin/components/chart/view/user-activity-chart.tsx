@@ -8,15 +8,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
+
+import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   ResponseStats,
-  statsBanner,
+  statsActivityLog,
   StatsPeriod,
 } from "@/api/services/chartApt";
 
-export default function BannerChart() {
+export default function UserActivityChart() {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
   const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.WEEK);
   const [stats, setStats] = useState<ResponseStats>({
     labels: [],
@@ -26,10 +29,10 @@ export default function BannerChart() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await statsBanner.getBannerStats(period);
+        setLoading(true);
+        const response = await statsActivityLog.getActivityStats(period);
         let data = response;
 
-        // 🎯 Hiển thị label trực quan
         if (period === StatsPeriod.DAY) {
           data.labels = data.labels.map((h) => `${h}h`);
         } else if (
@@ -43,10 +46,11 @@ export default function BannerChart() {
 
         setStats(data);
       } catch (error) {
-        console.error("Error fetching banner stats:", error);
+        console.error("Error fetching activity stats:", error);
+      } finally {
+        setLoading(false);
       }
     };
-
     fetchStats();
   }, [period]);
 
@@ -54,7 +58,7 @@ export default function BannerChart() {
     <Card className="flex-col">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>{t("sys.chart.banner-stats")}</span>
+          <span>{t("components.chart.user-activity")}</span>
           <Select
             onValueChange={(value) => setPeriod(value as StatsPeriod)}
             defaultValue={period.toString()}
@@ -64,34 +68,38 @@ export default function BannerChart() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={StatsPeriod.DAY}>
-                {t("sys.chart.day")}
+                {t("components.chart.day")}
               </SelectItem>
               <SelectItem value={StatsPeriod.WEEK}>
-                {t("sys.chart.week")}
+                {t("components.chart.week")}
               </SelectItem>
               <SelectItem value={StatsPeriod.MONTH}>
-                {t("sys.chart.month")}
+                {t("components.chart.month")}
               </SelectItem>
               <SelectItem value={StatsPeriod.YEAR}>
-                {t("sys.chart.year")}
+                {t("components.chart.year")}
               </SelectItem>
             </SelectContent>
           </Select>
         </CardTitle>
       </CardHeader>
-
       <CardContent>
-        <ChartArea stats={stats} />
+        {loading ? (
+          <div className="flex items-center justify-center">
+            <Loader2 className="w-4 h-4 animate-spin" />
+          </div>
+        ) : (
+          <ChartArea stats={stats} />
+        )}
       </CardContent>
     </Card>
   );
 }
 
-// 🧭 Khu vực hiển thị biểu đồ
 function ChartArea({ stats }: { stats: ResponseStats }) {
   const { t } = useTranslation();
   const chartOptions = useChart({
-    colors: ["#1890ff", "#52c41a", "#ff4d4f"],
+    colors: ["#1890ff", "#ff4d4f"],
     xaxis: {
       type: "category",
       categories: stats.labels,
@@ -109,20 +117,13 @@ function ChartArea({ stats }: { stats: ResponseStats }) {
   return (
     <Chart
       type="area"
-      series={[
-        {
-          name: t("sys.chart.total-banner"),
-          data: stats.series[0]?.data || [],
-        },
-        {
-          name: t("sys.chart.active-banner"),
-          data: stats.series[1]?.data || [],
-        },
-        {
-          name: t("sys.chart.inactive-banner"),
-          data: stats.series[2]?.data || [],
-        },
-      ]}
+      series={stats.series.map((series, index) => ({
+        name:
+          index === 0
+            ? t("components.chart.login")
+            : t("components.chart.logout"),
+        data: series.data as number[],
+      }))}
       options={chartOptions}
       height={300}
     />

@@ -1,10 +1,10 @@
 import { Card, CardHeader, CardTitle } from "@/ui/card";
 import ChartColumnStacked from "./view/chart-column-Stacked";
 import ChartColumnMultiple from "./view/chart-column-multiple";
-import MaintenanceChart from "../../dashboard/workbench/maintenance-chart";
-import UserActivityChart from "../../dashboard/workbench/user-activity-chart";
-import BannerChart from "../../dashboard/workbench/banner-chart";
-import StatusUserChart from "../../dashboard/workbench/status-user-chart";
+import MaintenanceChart from "./view/maintenance-chart";
+import UserActivityChart from "./view/user-activity-chart";
+import BannerChart from "./view/banner-chart";
+import StatusUserChart from "./view/status-user-chart";
 import ChartNotification from "./view/chart-notification";
 
 export default function ChartPage() {

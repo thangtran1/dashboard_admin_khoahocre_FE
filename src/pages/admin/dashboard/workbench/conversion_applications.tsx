@@ -1,13 +1,15 @@
 import { Icon } from "@/components/icon";
 import { themeVars } from "@/theme/theme.css";
 import { Progress } from "antd";
+import { useTranslation } from "react-i18next";
 
 export function Conversion() {
+  const { t } = useTranslation();
   return (
     <Basic
       percent={48}
       title="38,566"
-      subtitle="Conversion"
+      subtitle={t("dashboard.workbench.conversion")}
       iconify="tabler:user-filled"
       bg={themeVars.colors.palette.primary.default}
       strokeColor={themeVars.colors.palette.primary.light}
@@ -15,11 +17,12 @@ export function Conversion() {
   );
 }
 export function Applications() {
+  const { t } = useTranslation();
   return (
     <Basic
       percent={75}
       title="45,566"
-      subtitle="Applications"
+      subtitle={t("dashboard.workbench.applications")}
       iconify="ic:round-email"
       bg={themeVars.colors.palette.info.default}
       strokeColor={themeVars.colors.palette.info.light}
