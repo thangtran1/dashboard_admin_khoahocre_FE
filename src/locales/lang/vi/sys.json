@@ -871,5 +871,10 @@
     "content-description": "Mô tả nội dung",
     "title-description": "Tiêu đề",
     "news": "Tin tức"
+  },
+  "menu-level": {
+    "level-1a": "Cấp 1a",
+    "level-2a": "Cấp 2a",
+    "level-3a": "Cấp 3a"
   }
 }

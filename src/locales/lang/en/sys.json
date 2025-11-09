@@ -871,5 +871,10 @@
     "content-description": "Content Description",
     "title-description": "Title",
     "news": "News"
+  },
+  "menu-level": {
+    "level-1a": "Level 1a",
+    "level-2a": "Level 2a",
+    "level-3a": "Level 3a"
   }
 }
