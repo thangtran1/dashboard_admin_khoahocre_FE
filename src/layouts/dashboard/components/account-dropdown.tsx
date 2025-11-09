@@ -69,7 +69,7 @@ export default function AccountDropdown() {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <NavLink to="/profile?tab=profile">{t("auth.login.profile")}</NavLink>
+          <NavLink to="/dashboard/profile">{t("auth.login.profile")}</NavLink>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="font-bold text-warning" onClick={logout}>

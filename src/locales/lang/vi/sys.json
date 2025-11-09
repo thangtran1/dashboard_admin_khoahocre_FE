@@ -729,6 +729,7 @@
     "title": "Thông tin cá nhân",
     "description": "Quản lý thông tin cá nhân, bảo mật và tùy chỉnh hệ thống",
     "security": "Bảo mật",
+    "activity-log": "Lịch sử hoạt động",
     "preferences": "Tùy chỉnh",
     "change-password": "Đổi mật khẩu",
     "current-password": "Mật khẩu hiện tại",
@@ -841,7 +842,9 @@
     "collapse-sidebar": "Thu nhỏ sidebar (Ctrl + B)",
     "expand-sidebar": "Mở rộng sidebar (Ctrl + B)",
     "sidebar-minimized-description": "🔓 Sidebar đang thu nhỏ",
-    "sidebar-maximized-description": "🔒 Sidebar đang mở rộng"
+    "sidebar-maximized-description": "🔒 Sidebar đang mở rộng",
+
+    "profile": "Thông tin cá nhân"
   },
   "settings": {
     "title": "Cài đặt",

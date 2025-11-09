@@ -729,6 +729,7 @@
     "title": "Personal information",
     "description": "Manage personal information, security and system settings",
     "security": "Security",
+    "activity-log": "Activity log",
     "preferences": "Preferences",
     "change-password": "Change password",
     "current-password": "Current password",
@@ -841,7 +842,9 @@
     "collapse-sidebar": "Thu nhỏ sidebar (Ctrl + B)",
     "expand-sidebar": "Expand sidebar (Ctrl + B)",
     "sidebar-minimized-description": "🔓 Sidebar is minimized",
-    "sidebar-maximized-description": "🔒 Sidebar is maximized"
+    "sidebar-maximized-description": "🔒 Sidebar is maximized",
+
+    "profile": "Profile"
   },
   "settings": {
     "title": "Settings",

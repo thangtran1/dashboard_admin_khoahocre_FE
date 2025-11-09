@@ -10,11 +10,11 @@ import PersonalInfoTab from "./components/PersonalInfoTab";
 import SecurityTab from "./components/SecurityTab";
 import PreferencesTab from "./components/PreferencesTab";
 import { useTranslation } from "react-i18next";
-import ActivityLogs from "../management/user/[id]/tabs/activity-log";
 import {
   ActivityLog,
   getActivityLogsAdmin,
 } from "@/api/services/activity-logApi";
+import ActivityLogs from "../../management/user/[id]/tabs/activity-log";
 
 export default function ProfilePage() {
   const { t } = useTranslation();
@@ -71,7 +71,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:history" className="h-4 w-4" />
-          {t("user-management.user-detail.activity-log")}
+          {t("profile.activity-log")}
         </span>
       ),
       children: (

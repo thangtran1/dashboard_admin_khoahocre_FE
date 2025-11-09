@@ -12,7 +12,6 @@ import GoogleSuccess from "@/pages/admin/auth/login/pages/google-success";
 import GoogleError from "@/pages/admin/auth/login/pages/google-error";
 import GitHubSuccess from "@/pages/admin/auth/login/pages/github-success";
 import GitHubError from "@/pages/admin/auth/login/pages/github-error";
-import ProfilePage from "@/pages/admin/profile";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
 import BlogGridPage from "@/pages/user/blog/blog";
@@ -73,15 +72,6 @@ export default function Router() {
     children: [
       { index: true, element: <Navigate to={HOMEPAGE} replace /> },
       ...permissionRoutes,
-      // Profile route - không hiển thị trong sidebar
-      {
-        path: "profile",
-        element: (
-          <ErrorBoundary FallbackComponent={PageError}>
-            <ProfilePage />
-          </ErrorBoundary>
-        ),
-      },
     ],
   };
   const RESET_PASSWORD_ROUTE: AppRouteObject = {

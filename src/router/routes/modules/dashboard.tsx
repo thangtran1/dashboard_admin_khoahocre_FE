@@ -5,6 +5,7 @@ import { Icon } from "@/components/icon";
 import { LineLoading } from "@/components/common/loading";
 
 import type { AppRouteObject } from "#/router";
+import ProfilePage from "@/pages/admin/dashboard/profile";
 
 const HomePage = lazy(() => import("@/pages/admin/dashboard/workbench"));
 const Analysis = lazy(() => import("@/pages/admin/dashboard/analysis"));
@@ -43,6 +44,15 @@ const dashboard: AppRouteObject = {
       meta: {
         label: "siderbar-labels.analysis",
         key: "/dashboard/analysis",
+      },
+    },
+    {
+      path: "profile",
+      element: <ProfilePage />,
+      meta: {
+        label: "siderbar-labels.profile",
+        key: "/dashboard/profile",
+        hideMenu: true,
       },
     },
   ],
