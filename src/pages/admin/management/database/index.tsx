@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Spin, DatePicker, Input, message } from "antd";
+import { Button, Spin, DatePicker, Input } from "antd";
 import {
   ClearOutlined,
   DatabaseOutlined,
@@ -116,10 +116,12 @@ export default function DatabaseManagement() {
     try {
       const res = await databaseAdmin.backupDatabase();
       if (res.success) {
-        toast.success(t("sys.database.create-backup-success"));
+        toast.success(t("management.database.create-backup-success"));
         fetchBackups();
       } else {
-        toast.error(res.message || t("sys.database.create-backup-error"));
+        toast.error(
+          res.message || t("management.database.create-backup-error")
+        );
       }
     } finally {
       setLoading(false);
@@ -136,10 +138,10 @@ export default function DatabaseManagement() {
         fetchBackups();
         return { success: true, message: res.message };
       } else {
-        toast.error(res.message || t("sys.database.restore-error"));
+        toast.error(res.message || t("management.database.restore-error"));
         return {
           success: false,
-          message: res.message || t("sys.database.restore-error"),
+          message: res.message || t("management.database.restore-error"),
         };
       }
     } finally {
@@ -156,7 +158,7 @@ export default function DatabaseManagement() {
         setDeleteModalVisible(false);
         fetchBackups();
       } else {
-        toast.error(res.message || t("sys.database.delete-error"));
+        toast.error(res.message || t("management.database.delete-error"));
       }
     } catch (error) {
       console.error("❌ handleDelete ~ error:", error);
@@ -172,9 +174,11 @@ export default function DatabaseManagement() {
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-blue-700 flex items-center gap-2">
             <DatabaseOutlined className="text-blue-600" />
-            {t("sys.database.title")}
+            {t("management.database.title")}
           </h1>
-          <p className="text-gray-500 mt-1">{t("sys.database.description")}</p>
+          <p className="text-gray-500 mt-1">
+            {t("management.database.description")}
+          </p>
         </div>
         <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
           <Button
@@ -182,21 +186,21 @@ export default function DatabaseManagement() {
             onClick={() => fetchBackups()}
             size="large"
           >
-            {t("sys.database.refresh")}
+            {t("management.database.refresh")}
           </Button>
           <Button
             icon={<FileAddOutlined />}
             onClick={handleBackup}
             size="large"
           >
-            {t("sys.database.create-backup")}
+            {t("management.database.create-backup")}
           </Button>
           <Button
             icon={<FileAddOutlined />}
             onClick={() => setRestoreModalVisible(true)}
             size="large"
           >
-            {t("sys.database.restore-backup")}
+            {t("management.database.restore-backup")}
           </Button>
           <Button
             icon={<DeleteOutlined />}
@@ -204,7 +208,7 @@ export default function DatabaseManagement() {
             size="large"
             danger
           >
-            {t("sys.database.delete-all-data")}
+            {t("management.database.delete-all-data")}
           </Button>
         </div>
       </div>
@@ -223,10 +227,10 @@ export default function DatabaseManagement() {
           <div className="flex flex-col lg:flex-row gap-3 items-end">
             <div className="flex-1">
               <label className="block text-sm font-medium mb-2">
-                {t("sys.database.search-by-name")}
+                {t("management.database.search-by-name")}
               </label>
               <Search
-                placeholder={t("sys.database.by-name")}
+                placeholder={t("management.database.by-name")}
                 value={filters.search}
                 onChange={(e) => handleFilterChange("search", e.target.value)}
                 size="large"
@@ -238,7 +242,7 @@ export default function DatabaseManagement() {
 
             <div>
               <label className="block text-sm font-medium mb-2">
-                {t("sys.database.date-range")}
+                {t("management.database.date-range")}
               </label>
               <RangePicker
                 size="large"
@@ -269,7 +273,7 @@ export default function DatabaseManagement() {
                 size="large"
                 className="h-[40px]"
               >
-                {t("sys.database.clear-filters")}
+                {t("management.database.clear-filters")}
               </Button>
               <Button
                 color="primary"
@@ -279,7 +283,7 @@ export default function DatabaseManagement() {
                 size="large"
                 className="h-[40px]"
               >
-                {t("sys.database.search")}
+                {t("management.database.search")}
               </Button>
             </div>
           </div>
@@ -308,8 +312,10 @@ export default function DatabaseManagement() {
         visible={deleteModalVisible}
         onCancel={() => setDeleteModalVisible(false)}
         onConfirm={handleDelete}
-        title={t("sys.database.confirm-delete-all-data")}
-        description={t("sys.database.confirm-delete-all-data-description")}
+        title={t("management.database.confirm-delete-all-data")}
+        description={t(
+          "management.database.confirm-delete-all-data-description"
+        )}
       />
 
       {/* Restore Modal */}

@@ -21,7 +21,7 @@ export default function CreateMethodSelector({
       label: (
         <div className="flex items-center gap-2">
           <Icon icon="lucide:user-plus" className="h-5 w-5 text-blue-600" />
-          {t("sys.user-management.single-create")}
+          {t("management.user.single-create")}
         </div>
       ),
       value: "single",
@@ -30,7 +30,7 @@ export default function CreateMethodSelector({
       label: (
         <div className="flex items-center gap-2">
           <Icon icon="lucide:upload" className="h-5 w-5 text-green-600" />
-          {t("sys.user-management.bulk-create")}
+          {t("management.user.bulk-create")}
         </div>
       ),
       value: "bulk",
@@ -41,7 +41,7 @@ export default function CreateMethodSelector({
     <div className="space-y-4">
       <h3 className="text-lg font-semibold flex items-center gap-2">
         <Icon icon="lucide:settings" className="h-5 w-5 text-primary" />
-        {t("sys.user-management.create-method")}
+        {t("management.user.create-method")}
       </h3>
 
       <div className="flex gap-4">

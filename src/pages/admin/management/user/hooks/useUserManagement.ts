@@ -85,7 +85,7 @@ export function useUserManagement(
       setLoading(true);
       await createUser(values);
 
-      toast.success(t("sys.user-management.create-success"));
+      toast.success(t("management.user.create-success"));
       await fetchUsers();
       return true;
     } catch (error) {
@@ -100,7 +100,7 @@ export function useUserManagement(
     try {
       setLoading(true);
       await updateUser(id, values);
-      toast.success(t("sys.user-management.update-success"));
+      toast.success(t("management.user.update-success"));
       await fetchUsers();
       return true;
     } catch (error) {
@@ -118,7 +118,7 @@ export function useUserManagement(
       setLoading(true);
       await softDeleteUser(ids);
 
-      toast.success(t("sys.user-management.delete-success"));
+      toast.success(t("management.user.delete-success"));
       await fetchUsers();
     } catch (error) {
       console.error("❌ softDeleteUser ~ error:", error);
@@ -134,16 +134,16 @@ export function useUserManagement(
       if (isDeleted) {
         await deleteUser(ids);
         toast.success(
-          t("sys.user-management.bulk-permanent-delete-success", {
+          t("management.user.bulk-permanent-delete-success", {
             count: selectedUsers.length,
-          }),
+          })
         );
       } else {
         await softDeleteUser(ids);
         toast.success(
-          t("sys.user-management.bulk-delete-success", {
+          t("management.user.bulk-delete-success", {
             count: selectedUsers.length,
-          }),
+          })
         );
       }
       setSelectedUsers([]);
@@ -162,9 +162,9 @@ export function useUserManagement(
 
       const count = Array.isArray(ids) ? ids.length : 1;
       toast.success(
-        t("sys.user-management.restore-success", {
+        t("management.user.restore-success", {
           count,
-        }), 
+        })
       );
       setSelectedUsers([]);
       await fetchUsers();

@@ -13,25 +13,25 @@ export default function DatabaseInfoCard({
 
   const stats: StatItem[] = [
     {
-      title: t("sys.database.collections-count"),
+      title: t("management.database.collections-count"),
       value: dbInfo.collectionsCount,
       color: "blue",
       icon: "lucide:database",
     },
     {
-      title: t("sys.database.data-size"),
+      title: t("management.database.data-size"),
       value: dbInfo.dataSize,
       color: "green",
       icon: "lucide:server",
     },
     {
-      title: t("sys.database.storage-size"),
+      title: t("management.database.storage-size"),
       value: dbInfo.storageSize,
       color: "red",
       icon: "lucide:hard-drive",
     },
     {
-      title: t("sys.database.indexes"),
+      title: t("management.database.indexes"),
       value: dbInfo.indexes,
       color: "purple",
       icon: "lucide:hash",
@@ -75,13 +75,13 @@ export default function DatabaseInfoCard({
       </div>
 
       <Card
-        key={t("sys.database.collections")}
+        key={t("management.database.collections")}
         className={`bg-gradient-to-br ${colorMap["teal"]} border rounded-2xl`}
       >
         <CardContent className="px-4 flex items-center justify-between">
           <div>
             <p className="text-base font-bold opacity-80">
-              {t("sys.database.collections")}
+              {t("management.database.collections")}
             </p>
             <p className="text-base mt-1">{dbInfo.collections.join(", ")}</p>
           </div>

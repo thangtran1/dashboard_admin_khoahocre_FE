@@ -31,10 +31,10 @@ export default function FilterSearch({
     <div className="grid grid-cols-1 items-end gap-4 pb-5 md:grid-cols-2 xl:grid-cols-4">
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t("sys.auth-session.search")}
+          {t("management.auth-session.search")}
         </label>
         <Search
-          placeholder={t("sys.auth-session.search-placeholder")}
+          placeholder={t("management.auth-session.search-placeholder")}
           size="large"
           prefix={<SearchOutlined />}
           allowClear
@@ -45,7 +45,7 @@ export default function FilterSearch({
       </div>
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t("sys.auth-session.date-range")}
+          {t("management.auth-session.date-range")}
         </label>
         <RangePicker
           size="large"
@@ -59,7 +59,7 @@ export default function FilterSearch({
       </div>
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t("sys.auth-session.status")}
+          {t("management.auth-session.status")}
         </label>
         <Select
           size="large"
@@ -67,15 +67,17 @@ export default function FilterSearch({
           style={{ width: "100%" }}
           value={selectedType || undefined}
           onChange={setSelectedType}
-          placeholder={t("sys.auth-session.all-status")}
+          placeholder={t("management.auth-session.all-status")}
         >
-          <Option value="active">{t("sys.auth-session.active")}</Option>
-          <Option value="revoked">{t("sys.auth-session.revoked")}</Option>
+          <Option value="active">{t("management.auth-session.active")}</Option>
+          <Option value="revoked">
+            {t("management.auth-session.revoked")}
+          </Option>
         </Select>
       </div>
       <div className="flex gap-2">
         <Button danger size="large" onClick={handleClearFilter}>
-          {t("sys.auth-session.clear-filter")}
+          {t("management.auth-session.clear-filter")}
         </Button>
         <Button
           size="large"
@@ -83,7 +85,7 @@ export default function FilterSearch({
           variant="outlined"
           onClick={handleSearchClick}
         >
-          {t("sys.auth-session.search-action")}
+          {t("management.auth-session.search-action")}
         </Button>
       </div>
     </div>

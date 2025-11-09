@@ -22,7 +22,7 @@ export default function ResultCard({
 
   const errorColumns = [
     {
-      title: t("sys.user-management.row"),
+      title: t("management.user.row"),
       dataIndex: "row",
       key: "row",
       width: 80,
@@ -41,7 +41,7 @@ export default function ResultCard({
       ),
     },
     {
-      title: t("sys.user-management.error"),
+      title: t("management.user.error"),
       dataIndex: "error",
       key: "error",
       render: (error: string) => (
@@ -57,14 +57,14 @@ export default function ResultCard({
           <div className="text-center">
             <h2 className="text-2xl font-bold text-success mb-2">
               <Icon icon="lucide:check-circle" className="h-5 w-5 mr-2" />
-              {t("sys.user-management.create-success-title")}
+              {t("management.user.create-success-title")}
             </h2>
             <p className="text-gray-600 text-lg mb-6">
-              {t("sys.user-management.success-created")}{" "}
+              {t("management.user.success-created")}{" "}
               <span className="font-bold text-success">
                 {result.successCount}
               </span>{" "}
-              {t("sys.user-management.users")}
+              {t("management.user.users")}
             </p>
 
             <div className="bg-green-50 rounded-lg p-6 mb-8">
@@ -74,19 +74,19 @@ export default function ResultCard({
                     {result.successCount}
                   </div>
                   <div className="text-sm text-green-700">
-                    {t("sys.user-management.users-created")}
+                    {t("management.user.users-created")}
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-blue-600">100%</div>
                   <div className="text-sm text-blue-700">
-                    {t("sys.user-management.success-rate")}
+                    {t("management.user.success-rate")}
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-gray-600">0</div>
                   <div className="text-sm text-gray-700">
-                    {t("sys.user-management.error-count")}
+                    {t("management.user.error-count")}
                   </div>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function ResultCard({
                 className="min-w-[140px]"
               >
                 <Icon icon="lucide:refresh-cw" className="h-5 w-5" />
-                {t("sys.user-management.create-new-bulk")}
+                {t("management.user.create-new-bulk")}
               </Button>
               {onBackToManagement && (
                 <Button
@@ -110,7 +110,7 @@ export default function ResultCard({
                   className="min-w-[140px]"
                 >
                   <Icon icon="lucide:arrow-left" className="h-5 w-5" />
-                  {t("sys.user-management.back-to-management")}
+                  {t("management.user.back-to-management")}
                 </Button>
               )}
             </div>
@@ -123,14 +123,14 @@ export default function ResultCard({
           <div className="text-center">
             <h2 className="text-2xl font-bold text-foreground mb-2">
               <Icon icon="lucide:x-circle" className="h-5 w-5 mr-2" />
-              {t("sys.user-management.cannot-create-users")}
+              {t("management.user.cannot-create-users")}
             </h2>
             <p className="text-gray-600 text-lg mb-6">
-              {t("sys.user-management.has")}{" "}
+              {t("management.user.has")}{" "}
               <span className="font-bold text-red-600">
                 {result.errorCount}
               </span>{" "}
-              {t("sys.user-management.errors-to-fix")}
+              {t("management.user.errors-to-fix")}
             </p>
 
             <div className="bg-red-50 rounded-lg p-6 mb-8">
@@ -140,13 +140,13 @@ export default function ResultCard({
                     {result.errorCount}
                   </div>
                   <div className="text-sm text-red-700">
-                    {t("sys.user-management.errors-to-fix")}
+                    {t("management.user.errors-to-fix")}
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-gray-600">0</div>
                   <div className="text-sm text-gray-700">
-                    {t("sys.user-management.users-created")}
+                    {t("management.user.users-created")}
                   </div>
                 </div>
                 <div className="text-center">
@@ -159,7 +159,7 @@ export default function ResultCard({
                     %
                   </div>
                   <div className="text-sm text-orange-700">
-                    {t("sys.user-management.error-rate")}
+                    {t("management.user.error-rate")}
                   </div>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function ResultCard({
                   icon="lucide:alert-triangle"
                   className="h-5 w-5 text-orange-600"
                 />
-                {t("sys.user-management.error-details")}
+                {t("management.user.error-details")}
               </h3>
               <Table
                 columns={errorColumns}
@@ -194,7 +194,7 @@ export default function ResultCard({
                 className="min-w-[140px]"
               >
                 <Icon icon="lucide:edit" className="h-5 w-5" />
-                {t("sys.user-management.edit-file-and-try-again")}
+                {t("management.user.edit-file-and-try-again")}
               </Button>
               {onBackToManagement && (
                 <Button
@@ -203,7 +203,7 @@ export default function ResultCard({
                   className="min-w-[140px]"
                 >
                   <Icon icon="lucide:arrow-left" className="h-5 w-5" />
-                  {t("sys.user-management.back-to-management")}
+                  {t("management.user.back-to-management")}
                 </Button>
               )}
             </div>

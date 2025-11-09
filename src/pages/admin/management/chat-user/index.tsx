@@ -181,10 +181,10 @@ export default function ManagerChatUserPage() {
               </div>
               <div>
                 <CardTitle className="text-xl font-semibold text-foreground">
-                  {t("sys.chat.manager-chat-user")}
+                  {t("management.chat.manager-chat-user")}
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  {t("sys.chat.manager-chat-user-description")}
+                  {t("management.chat.manager-chat-user-description")}
                 </p>
               </div>
             </div>
@@ -198,7 +198,7 @@ export default function ManagerChatUserPage() {
                 <div className="p-3 border-b border-border bg-background">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-medium text-foreground">
-                      {t("sys.chat.conversation")}
+                      {t("management.chat.conversation")}
                     </h3>
                     <Badge variant="secondary" className="text-xs">
                       {filteredUsers.length}
@@ -208,7 +208,7 @@ export default function ManagerChatUserPage() {
                   {/* Search và Filter */}
                   <div className="space-y-2">
                     <Input
-                      placeholder={t("sys.chat.search")}
+                      placeholder={t("management.chat.search")}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="h-8 text-sm"
@@ -219,19 +219,21 @@ export default function ManagerChatUserPage() {
                     >
                       <SelectTrigger className="h-8 text-sm">
                         <SelectValue
-                          placeholder={t("sys.chat.filter-status")}
+                          placeholder={t("management.chat.filter-status")}
                         />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">{t("sys.chat.all")}</SelectItem>
+                        <SelectItem value="all">
+                          {t("management.chat.all")}
+                        </SelectItem>
                         <SelectItem value="online">
-                          {t("sys.chat.online")}
+                          {t("management.chat.online")}
                         </SelectItem>
                         <SelectItem value="busy">
-                          {t("sys.chat.busy")}
+                          {t("management.chat.busy")}
                         </SelectItem>
                         <SelectItem value="offline">
-                          {t("sys.chat.offline")}
+                          {t("management.chat.offline")}
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -424,7 +426,7 @@ export default function ManagerChatUserPage() {
                       <div className="flex space-x-2">
                         <div className="flex-1">
                           <Textarea
-                            placeholder={t("sys.chat.enter-message")}
+                            placeholder={t("management.chat.enter-message")}
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyPress={(e) =>
@@ -454,10 +456,10 @@ export default function ManagerChatUserPage() {
                         className="w-12 h-12 text-muted-foreground mx-auto mb-3"
                       />
                       <h3 className="font-medium text-foreground mb-1">
-                        {t("sys.chat.select-conversation")}
+                        {t("management.chat.select-conversation")}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {t("sys.chat.select-user-to-start-chat")}
+                        {t("management.chat.select-user-to-start-chat")}
                       </p>
                     </div>
                   </div>

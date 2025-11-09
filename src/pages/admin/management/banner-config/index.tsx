@@ -21,7 +21,7 @@ export default function BannerConfigPage() {
       label: (
         <div className="flex items-center gap-2 px-2">
           <Icon icon="lucide:list" className="h-4 w-4" />
-          <span>{t("sys.banner-config.banner-list")}</span>
+          <span>{t("management.banner.banner-list")}</span>
         </div>
       ),
       children: <BannerList />,
@@ -31,7 +31,7 @@ export default function BannerConfigPage() {
       label: (
         <div className="flex items-center gap-2 px-2">
           <Icon icon="lucide:settings" className="h-4 w-4" />
-          <span>{t("sys.banner-config.global-settings")}</span>
+          <span>{t("management.banner.global-settings")}</span>
         </div>
       ),
       children: <BannerSettings />,
@@ -45,10 +45,10 @@ export default function BannerConfigPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground">
-              🎯 {t("sys.banner-config.manager-banner")}
+              🎯 {t("management.banner.manager-banner")}
             </h1>
             <p className="text-muted-foreground mt-2">
-              {t("sys.banner-config.manager-banner-config-description")}
+              {t("management.banner.manager-banner-config-description")}
             </p>
           </div>
           <Button
@@ -63,7 +63,7 @@ export default function BannerConfigPage() {
             }}
             className="bg-blue-600 hover:bg-blue-700"
           >
-            {t("sys.banner-config.manager-banner-config-create")}
+            {t("management.banner.manager-banner-config-create")}
           </Button>
         </div>
       </div>

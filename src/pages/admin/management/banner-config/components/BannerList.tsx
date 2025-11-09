@@ -73,14 +73,14 @@ export default function BannerList() {
   // Handle create banner
   const handleCreate = async () => {
     if (!formData.content.trim()) {
-      toast.error(t("sys.banner-config.banner-content-required"));
+      toast.error(t("management.banner.banner-content-required"));
       return;
     }
 
     const success = await createBanner(formData);
     if (success) {
       resetForm();
-      toast.success(t("sys.banner-config.create-banner-success"));
+      toast.success(t("management.banner.create-banner-success"));
     }
   };
 
@@ -88,7 +88,7 @@ export default function BannerList() {
   const handleUpdateBanner = async () => {
     if (!editingBanner) return;
     if (!formData.content.trim()) {
-      toast.error(t("sys.banner-config.banner-content-required"));
+      toast.error(t("management.banner.banner-content-required"));
       return;
     }
 
@@ -100,7 +100,7 @@ export default function BannerList() {
     const success = await updateBanner(bannerData);
     if (success) {
       resetForm();
-      toast.success(t("sys.banner-config.update-banner-success"));
+      toast.success(t("management.banner.update-banner-success"));
     }
   };
 
@@ -119,7 +119,7 @@ export default function BannerList() {
   const handleDelete = async (id: string) => {
     const success = await deleteBanner(id);
     if (success) {
-      toast.success(t("sys.banner-config.delete-banner-success"));
+      toast.success(t("management.banner.delete-banner-success"));
     }
   };
 
@@ -128,7 +128,7 @@ export default function BannerList() {
     const success = await toggleBanner(id, isActive);
     if (success) {
       fetchBanners(pagination.page, pagination.limit);
-      toast.success(t("sys.banner-config.toggle-banner-success"));
+      toast.success(t("management.banner.toggle-banner-success"));
     }
   };
 
@@ -137,7 +137,7 @@ export default function BannerList() {
     const success = await updateBannerOrder(id, newOrder);
     if (success) {
       fetchBanners(pagination.page, pagination.limit);
-      toast.success(t("sys.banner-config.update-banner-order-success"));
+      toast.success(t("management.banner.update-banner-order-success"));
     }
   };
 
@@ -156,8 +156,8 @@ export default function BannerList() {
               className="h-5 w-5 text-blue-600"
             />
             {editingBanner
-              ? t("sys.banner-config.edit-banner")
-              : t("sys.banner-config.create-banner")}
+              ? t("management.banner.edit-banner")
+              : t("management.banner.create-banner")}
           </div>
         }
         open={isModalOpen}
@@ -165,7 +165,7 @@ export default function BannerList() {
         width={800}
         footer={[
           <Button danger key="cancel" onClick={resetForm}>
-            ❌ {t("sys.banner-config.cancel")}
+            ❌ {t("management.banner.cancel")}
           </Button>,
           <Button
             key="submit"
@@ -176,8 +176,8 @@ export default function BannerList() {
             className="bg-blue-600 hover:bg-blue-700"
           >
             {editingBanner
-              ? t("sys.banner-config.update-banner")
-              : t("sys.banner-config.create-banner")}
+              ? t("management.banner.update-banner")
+              : t("management.banner.create-banner")}
           </Button>,
         ]}
       >
@@ -186,11 +186,11 @@ export default function BannerList() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-sm font-semibold text-foreground">
-                  {t("sys.banner-config.banner-content")} *
+                  {t("management.banner.banner-content")} *
                 </Label>
                 <Textarea
                   placeholder={t(
-                    "sys.banner-config.banner-content-placeholder"
+                    "management.banner.banner-content-placeholder"
                   )}
                   value={formData.content}
                   onChange={(e) =>
@@ -203,7 +203,7 @@ export default function BannerList() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold text-foreground">
-                    {t("sys.banner-config.banner-order")}
+                    {t("management.banner.banner-order")}
                   </Label>
                   <Input
                     type="number"
@@ -220,7 +220,7 @@ export default function BannerList() {
 
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold text-foreground">
-                    {t("sys.banner-config.banner-status")}
+                    {t("management.banner.banner-status")}
                   </Label>
                   <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                     <Switch
@@ -231,8 +231,8 @@ export default function BannerList() {
                     />
                     <Label className="text-sm font-medium text-foreground">
                       {formData.isActive
-                        ? t("sys.banner-config.active-banner")
-                        : t("sys.banner-config.paused-banner")}
+                        ? t("management.banner.active-banner")
+                        : t("management.banner.paused-banner")}
                     </Label>
                   </div>
                 </div>
@@ -242,7 +242,7 @@ export default function BannerList() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-sm font-semibold text-foreground">
-                  {t("sys.banner-config.preview-banner")}
+                  {t("management.banner.preview-banner")}
                 </Label>
                 <div
                   className="rounded-lg p-4 border-2 border-dashed border-border min-h-[100px] flex items-center justify-center overflow-hidden"
@@ -253,30 +253,30 @@ export default function BannerList() {
                 >
                   <div className="whitespace-nowrap animate-marquee text-sm font-medium">
                     {formData.content ||
-                      t("sys.banner-config.banner-content-placeholder")}
+                      t("management.banner.banner-content-placeholder")}
                   </div>
                 </div>
               </div>
 
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-blue-900 mb-2">
-                  📋 {t("sys.banner-config.banner-info")}
+                  📋 {t("management.banner.banner-info")}
                 </h4>
                 <ul className="text-sm text-blue-800 space-y-1">
-                  <li>• {t("sys.banner-config.banner-color-description")}</li>
+                  <li>• {t("management.banner.banner-color-description")}</li>
                   <li>
-                    • {t("sys.banner-config.banner-spacing-description")}:{" "}
+                    • {t("management.banner.banner-spacing-description")}:{" "}
                     {settings?.bannerSpacing || 30}px
                   </li>
                   <li>
-                    • {t("sys.banner-config.banner-scroll-speed-description")}:{" "}
+                    • {t("management.banner.banner-scroll-speed-description")}:{" "}
                     {settings?.scrollSpeed || 60}px/s
                   </li>
                   <li>
-                    • {t("sys.banner-config.banner-status-description")}:{" "}
+                    • {t("management.banner.banner-status-description")}:{" "}
                     {formData.isActive
-                      ? t("sys.banner-config.active-banner")
-                      : t("sys.banner-config.paused-banner")}
+                      ? t("management.banner.active-banner")
+                      : t("management.banner.paused-banner")}
                   </li>
                 </ul>
               </div>
@@ -294,7 +294,7 @@ export default function BannerList() {
                 className="h-12 w-12 animate-spin mx-auto text-blue-600"
               />
               <p className="text-muted-foreground">
-                {t("sys.banner-config.loading-banner")}
+                {t("management.banner.loading-banner")}
               </p>
             </div>
           </div>
@@ -306,10 +306,10 @@ export default function BannerList() {
             />
             <div>
               <p className="text-xl font-semibold text-foreground">
-                {t("sys.banner-config.no-banner")}
+                {t("management.banner.no-banner")}
               </p>
               <p className="text-muted-foreground mt-2">
-                {t("sys.banner-config.create-banner-description")}
+                {t("management.banner.create-banner-description")}
               </p>
             </div>
           </div>
@@ -337,14 +337,14 @@ export default function BannerList() {
                             className="w-3 h-3"
                           />
                           {banner.isActive
-                            ? t("sys.banner-config.active-banner")
-                            : t("sys.banner-config.paused-banner")}
+                            ? t("management.banner.active-banner")
+                            : t("management.banner.paused-banner")}
                         </Badge>
                         <span className="text-sm text-muted-foreground font-mono">
                           #{banner.order || index + 1}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          {t("sys.banner-config.banner-id")}: {banner.id}
+                          {t("management.banner.banner-id")}: {banner.id}
                         </span>
                       </div>
 
@@ -366,7 +366,7 @@ export default function BannerList() {
                       <div className="flex items-center gap-6 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <Icon icon="lucide:calendar" className="w-4 h-4" />
-                          {t("sys.banner-config.create-banner")}:{" "}
+                          {t("management.banner.create-banner")}:{" "}
                           {new Date(banner.createdAt || "").toLocaleDateString(
                             "vi-VN"
                           )}
@@ -374,7 +374,7 @@ export default function BannerList() {
                         {banner.updatedAt && (
                           <span className="flex items-center gap-1">
                             <Icon icon="lucide:edit" className="w-4 h-4" />
-                            {t("sys.banner-config.update-banner")}:{" "}
+                            {t("management.banner.update-banner")}:{" "}
                             {new Date(banner.updatedAt).toLocaleDateString(
                               "vi-VN"
                             )}
@@ -386,7 +386,7 @@ export default function BannerList() {
                     <div className="flex flex-col items-end gap-3 ml-6">
                       <div className="flex items-center gap-2">
                         <Label className="text-xs text-muted-foreground">
-                          {t("sys.banner-config.banner-order")}
+                          {t("management.banner.banner-order")}
                         </Label>
                         <Input
                           type="number"
@@ -411,8 +411,8 @@ export default function BannerList() {
                         />
                         <span className="text-xs text-muted-foreground">
                           {banner.isActive
-                            ? t("sys.banner-config.active-banner")
-                            : t("sys.banner-config.paused-banner")}
+                            ? t("management.banner.active-banner")
+                            : t("management.banner.paused-banner")}
                         </span>
                       </div>
 
@@ -424,16 +424,16 @@ export default function BannerList() {
                           onClick={() => handleEdit(banner)}
                           className=" !rounded-[0.25rem] text-primary hover:bg-primary/60"
                         >
-                          {t("sys.banner-config.update-banner")}
+                          {t("management.banner.update-banner")}
                         </Button>
                         <Popconfirm
-                          title={t("sys.banner-config.delete-banner")}
+                          title={t("management.banner.delete-banner")}
                           description={t(
-                            "sys.banner-config.delete-banner-description"
+                            "management.banner.delete-banner-description"
                           )}
                           onConfirm={() => handleDelete(banner.id)}
-                          okText={t("sys.banner-config.delete-banner")}
-                          cancelText={t("sys.banner-config.cancel")}
+                          okText={t("management.banner.delete-banner")}
+                          cancelText={t("management.banner.cancel")}
                           okButtonProps={{ danger: true }}
                         >
                           <Button
@@ -442,7 +442,7 @@ export default function BannerList() {
                             icon={<DeleteOutlined />}
                             className=" !rounded-[0.25rem] text-primary hover:bg-red/60"
                           >
-                            {t("sys.banner-config.delete-banner")}
+                            {t("management.banner.delete-banner")}
                           </Button>
                         </Popconfirm>
                       </div>
@@ -458,10 +458,10 @@ export default function BannerList() {
         {pagination.totalPages > 1 && (
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
             <div className="text-sm text-muted-foreground">
-              {t("sys.banner-config.display")}{" "}
+              {t("management.banner.display")}{" "}
               {(pagination.page - 1) * pagination.limit + 1} -{" "}
               {Math.min(pagination.page * pagination.limit, pagination.total)}{" "}
-              {t("sys.banner-config.banner-total")} {pagination.total}
+              {t("management.banner.banner-total")} {pagination.total}
             </div>
             <div className="flex gap-2">
               <Button
@@ -470,7 +470,7 @@ export default function BannerList() {
                 disabled={pagination.page <= 1}
                 icon={<Icon icon="lucide:chevron-left" className="h-4 w-4" />}
               >
-                {t("sys.banner-config.previous")}
+                {t("management.banner.previous")}
               </Button>
               <div className="flex items-center gap-2 px-3 py-1 bg-blue-100 text-muted-foreground rounded">
                 <span className="text-sm font-medium">
@@ -483,7 +483,7 @@ export default function BannerList() {
                 disabled={pagination.page >= pagination.totalPages}
                 icon={<Icon icon="lucide:chevron-right" className="h-4 w-4" />}
               >
-                {t("sys.banner-config.next")}
+                {t("management.banner.next")}
               </Button>
             </div>
           </div>

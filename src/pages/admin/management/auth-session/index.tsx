@@ -72,14 +72,14 @@ const AuthSessionManagement: React.FC = () => {
 
   const columns = [
     {
-      title: t("sys.auth-session.user-name"),
+      title: t("management.auth-session.user-name"),
       dataIndex: "userName",
       key: "userName",
       ellipsis: true,
       render: (text: string) => renderWithTooltip(text),
     },
     {
-      title: t("sys.auth-session.email"),
+      title: t("management.auth-session.email"),
       dataIndex: "email",
       key: "email",
       ellipsis: true,
@@ -87,14 +87,14 @@ const AuthSessionManagement: React.FC = () => {
     },
 
     {
-      title: t("sys.auth-session.browser"),
+      title: t("management.auth-session.browser"),
       dataIndex: "userAgent",
       key: "userAgent",
       ellipsis: true,
       render: (text: string) => renderWithTooltip(text),
     },
     {
-      title: t("sys.auth-session.ip"),
+      title: t("management.auth-session.ip"),
       dataIndex: "ip",
       key: "ip",
       width: 150,
@@ -102,7 +102,7 @@ const AuthSessionManagement: React.FC = () => {
       render: (text: string) => renderWithTooltip(text),
     },
     {
-      title: t("sys.auth-session.last-activity-time"),
+      title: t("management.auth-session.last-activity-time"),
       dataIndex: "lastActivityTime",
       key: "lastActivityTime",
       ellipsis: true,
@@ -114,7 +114,7 @@ const AuthSessionManagement: React.FC = () => {
       ),
     },
     {
-      title: t("sys.auth-session.status"),
+      title: t("management.auth-session.status"),
       dataIndex: "sessionStatus",
       key: "sessionStatus",
       width: 150,
@@ -126,7 +126,7 @@ const AuthSessionManagement: React.FC = () => {
           }
           style={{ borderRadius: 6, textTransform: "capitalize" }}
         >
-          {t(`sys.auth-session.${text}`)}
+          {t(`management.auth-session.${text}`)}
         </Tag>
       ),
     },
@@ -138,10 +138,10 @@ const AuthSessionManagement: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground">
-              {t("sys.auth-session.title")}
+              {t("management.auth-session.title")}
             </h1>
             <p className="text-muted-foreground mt-2">
-              {t("sys.auth-session.description")}
+              {t("management.auth-session.description")}
             </p>
           </div>
         </div>

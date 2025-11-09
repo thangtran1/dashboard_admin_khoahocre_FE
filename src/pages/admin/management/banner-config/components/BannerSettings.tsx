@@ -39,7 +39,7 @@ export default function BannerSettings() {
   const handleUpdateSettings = async () => {
     const success = await updateSettings(settingsForm);
     if (success) {
-      toast.success(t("sys.banner-config.update-settings-success"));
+      toast.success(t("management.banner.update-settings-success"));
     }
   };
 
@@ -47,7 +47,7 @@ export default function BannerSettings() {
   const handleResetSettings = async () => {
     const success = await resetSettings();
     if (success) {
-      toast.success(t("sys.banner-config.reset-settings-success"));
+      toast.success(t("management.banner.reset-settings-success"));
     }
   };
 
@@ -61,7 +61,7 @@ export default function BannerSettings() {
               className="h-8 w-8 animate-spin text-blue-600"
             />
             <span className="ml-2 text-muted-foreground">
-              {t("sys.banner-config.loading-settings")}
+              {t("management.banner.loading-settings")}
             </span>
           </div>
         ) : (
@@ -69,7 +69,7 @@ export default function BannerSettings() {
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
               <div className="space-y-3">
                 <Label className="text-sm font-semibold text-muted-foreground">
-                  🎨 {t("sys.banner-config.background-color")}
+                  🎨 {t("management.banner.background-color")}
                 </Label>
                 <div className="flex gap-3">
                   <div
@@ -106,7 +106,7 @@ export default function BannerSettings() {
 
               <div className="space-y-3">
                 <Label className="text-sm font-semibold text-muted-foreground">
-                  🖋️ {t("sys.banner-config.text-color")}
+                  🖋️ {t("management.banner.text-color")}
                 </Label>
                 <div className="flex gap-3">
                   <div
@@ -141,7 +141,7 @@ export default function BannerSettings() {
 
               <div className="space-y-3">
                 <Label className="text-sm font-semibold text-muted-foreground">
-                  ⚡ {t("sys.banner-config.scroll-speed")}
+                  ⚡ {t("management.banner.scroll-speed")}
                 </Label>
                 <Input
                   type="number"
@@ -161,7 +161,7 @@ export default function BannerSettings() {
 
               <div className="space-y-3">
                 <Label className="text-sm font-semibold text-muted-foreground">
-                  📏 {t("sys.banner-config.banner-spacing")}
+                  📏 {t("management.banner.banner-spacing")}
                 </Label>
                 <Input
                   type="number"
@@ -184,7 +184,7 @@ export default function BannerSettings() {
             <div className="my-8">
               <Label className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <Icon icon="lucide:eye" className="h-5 w-5 text-blue-600" />
-                👀 {t("sys.banner-config.preview-color")}
+                👀 {t("management.banner.preview-color")}
               </Label>
               <div
                 className="rounded-lg p-6 border-2 border-dashed border-border overflow-hidden"
@@ -194,8 +194,8 @@ export default function BannerSettings() {
                 }}
               >
                 <div className="whitespace-nowrap animate-marquee text-lg font-medium text-center">
-                  🎨 {t("sys.banner-config.preview-color-description")} •{" "}
-                  {t("sys.banner-config.scroll-speed")}:{" "}
+                  🎨 {t("management.banner.preview-color-description")} •{" "}
+                  {t("management.banner.scroll-speed")}:{" "}
                   {settingsForm.scrollSpeed}px/s • Khoảng cách:{" "}
                   {settingsForm.bannerSpacing}px
                 </div>
@@ -206,32 +206,40 @@ export default function BannerSettings() {
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
               <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
                 <Icon icon="lucide:info" className="h-5 w-5" />
-                📋 Thông tin cài đặt
+                {t("management.banner.settings-info")}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Icon icon="lucide:palette" className="h-4 w-4" />
-                    <span className="font-medium">Màu nền:</span>
+                    <span className="font-medium">
+                      {t("management.banner.background-color")}:
+                    </span>
                     <span className="font-mono">
                       {settingsForm.backgroundColor}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Icon icon="lucide:type" className="h-4 w-4" />
-                    <span className="font-medium">Màu chữ:</span>
+                    <span className="font-medium">
+                      {t("management.banner.text-color")}:
+                    </span>
                     <span className="font-mono">{settingsForm.textColor}</span>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Icon icon="lucide:zap" className="h-4 w-4" />
-                    <span className="font-medium">Tốc độ cuộn:</span>
+                    <span className="font-medium">
+                      {t("management.banner.scroll-speed")}:
+                    </span>
                     <span>{settingsForm.scrollSpeed} px/s</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Icon icon="lucide:move-horizontal" className="h-4 w-4" />
-                    <span className="font-medium">Khoảng cách:</span>
+                    <span className="font-medium">
+                      {t("management.banner.banner-spacing")}:
+                    </span>
                     <span>{settingsForm.bannerSpacing} px</span>
                   </div>
                 </div>
@@ -246,7 +254,7 @@ export default function BannerSettings() {
                 loading={settingsLoading}
                 icon={<Icon icon="lucide:rotate-ccw" className="h-4 w-4" />}
               >
-                {t("sys.banner-config.reset-settings")}
+                {t("management.banner.reset-settings")}
               </Button>
               <Button
                 type="primary"
@@ -256,7 +264,7 @@ export default function BannerSettings() {
                 className="bg-blue-600 hover:bg-blue-700"
                 icon={<Icon icon="lucide:save" className="h-4 w-4" />}
               >
-                {t("sys.banner-config.save-settings")}
+                {t("management.banner.save-settings")}
               </Button>
             </div>
           </>

@@ -1,5 +1,5 @@
 import { Tabs, Button } from "antd";
-import { PlusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
@@ -20,7 +20,7 @@ export default function UserManagement() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:users" className="h-4 w-4" />
-          {t("sys.user-management.active-users-tab")}
+          {t("management.user.active-users-tab")}
         </span>
       ),
       children: <ActiveUsersTab />,
@@ -30,7 +30,7 @@ export default function UserManagement() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:user-plus" className="h-4 w-4" />
-          {t("sys.user-management.new-users-tab")}
+          {t("management.user.new-users-tab")}
         </span>
       ),
       children: <NewUsersTab />,
@@ -40,7 +40,7 @@ export default function UserManagement() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:trash-2" className="h-4 w-4" />
-          {t("sys.user-management.deleted-users-tab")}
+          {t("management.user.deleted-users-tab")}
         </span>
       ),
       children: <DeletedUsersTab />,
@@ -54,10 +54,10 @@ export default function UserManagement() {
           <div>
             <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
               <Icon icon="lucide:users" className="h-7 w-7 text-primary" />
-              {t("sys.user-management.title")}
+              {t("management.user.title")}
             </CardTitle>
             <p className="text-muted-foreground mt-1">
-              {t("sys.user-management.description")}
+              {t("management.user.description")}
             </p>
           </div>
 
@@ -69,7 +69,7 @@ export default function UserManagement() {
                 icon={<PlusCircleOutlined />}
                 className="bg-blue-600 hover:bg-blue-700"
               >
-                {t("sys.user-management.add-user")}
+                {t("management.user.add-user")}
               </Button>
             </Link>
           </div>

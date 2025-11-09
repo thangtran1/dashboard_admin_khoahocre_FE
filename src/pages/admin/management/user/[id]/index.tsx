@@ -10,10 +10,10 @@ export default function UserDetail() {
     <Card className="!bg-background">
       <Breadcrumb style={{ marginBottom: "8px" }}>
         <Breadcrumb.Item>
-          <Link to="/management/user">{t("sys.user-management.title")}</Link>
+          <Link to="/management/user">{t("management.user.title")}</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          {t("sys.user-management.user-detail.title")}
+          {t("management.user.user-detail.title")}
         </Breadcrumb.Item>
       </Breadcrumb>
 

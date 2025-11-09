@@ -33,7 +33,7 @@ export default function PreviewCard({
 
   const columns = [
     {
-      title: t("sys.user-management.row"),
+      title: t("management.user.row"),
       dataIndex: "row",
       width: 80,
       key: "row",
@@ -44,7 +44,7 @@ export default function PreviewCard({
       ),
     },
     {
-      title: t("sys.user-management.name"),
+      title: t("management.user.name"),
       dataIndex: "name",
       key: "name",
       render: (name: string) => <span className="font-medium">{name}</span>,
@@ -58,7 +58,7 @@ export default function PreviewCard({
       ),
     },
     {
-      title: t("sys.user-management.role"),
+      title: t("management.user.role"),
       dataIndex: "role",
       key: "role",
       render: (role: string) => (
@@ -76,7 +76,7 @@ export default function PreviewCard({
       ),
     },
     {
-      title: t("sys.user-management.status"),
+      title: t("management.user.status"),
       dataIndex: "status",
       key: "status",
       render: (status: string) => (
@@ -94,27 +94,27 @@ export default function PreviewCard({
       ),
     },
     {
-      title: t("sys.user-management.result"),
+      title: t("management.user.result"),
       key: "validation",
       render: (record: PreviewUser) =>
         record.isValid ? (
           <div className="flex items-center gap-1 text-green-600">
             <Icon icon="lucide:check-circle" className="h-4 w-4" />
             <span className="text-xs font-medium">
-              {t("sys.user-management.valid")}
+              {t("management.user.valid")}
             </span>
           </div>
         ) : (
           <div className="flex items-center gap-1 text-error">
             <Icon icon="lucide:x-circle" className="h-4 w-4" />
             <span className="text-xs font-medium">
-              {t("sys.user-management.error")}
+              {t("management.user.error")}
             </span>
           </div>
         ),
     },
     {
-      title: t("sys.user-management.error-details"),
+      title: t("management.user.error-details"),
       dataIndex: "error",
       key: "error",
       render: (error: string) =>
@@ -130,10 +130,10 @@ export default function PreviewCard({
     <Card className="border-0 shadow-lg">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-foreground mb-2">
-          {t("sys.user-management.preview-data")}
+          {t("management.user.preview-data")}
         </h2>
         <p className="text-muted-foreground">
-          {t("sys.user-management.check-data-before-creating-users")}
+          {t("management.user.check-data-before-creating-users")}
         </p>
       </div>
 
@@ -148,7 +148,7 @@ export default function PreviewCard({
                 {users.length}
               </div>
               <div className="text-sm text-blue-600">
-                {t("sys.user-management.total-users-description")}
+                {t("management.user.total-users-description")}
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function PreviewCard({
                   canProceed ? "text-green-600" : "text-gray-500"
                 }`}
               >
-                {t("sys.user-management.valid")}
+                {t("management.user.valid")}
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ export default function PreviewCard({
                   invalidUsers.length > 0 ? "text-red-600" : "text-gray-500"
                 }`}
               >
-                {t("sys.user-management.error")}
+                {t("management.user.error")}
               </div>
             </div>
           </div>
@@ -231,19 +231,17 @@ export default function PreviewCard({
 
       {canProceed ? (
         <Alert
-          message={t("sys.user-management.all-data-valid")}
-          description={t(
-            "sys.user-management.can-continue-to-create-all-users"
-          )}
+          message={t("management.user.all-data-valid")}
+          description={t("management.user.can-continue-to-create-all-users")}
           type="success"
           showIcon
           className="mb-6"
         />
       ) : (
         <Alert
-          message={t("sys.user-management.error-title")}
+          message={t("management.user.error-title")}
           description={`${invalidUsers.length} ${t(
-            "sys.user-management.error-description"
+            "management.user.error-description"
           )}`}
           type="error"
           showIcon
@@ -267,7 +265,7 @@ export default function PreviewCard({
       <div className="flex gap-4 justify-center pt-4">
         <Button size="large" onClick={onBack} className="min-w-[140px]">
           <Icon icon="lucide:refresh-cw" className="h-5 w-5" />
-          {t("sys.user-management.reload-file")}
+          {t("management.user.reload-file")}
         </Button>
         <Button
           type="primary"
@@ -278,11 +276,11 @@ export default function PreviewCard({
           className="min-w-[140px]"
         >
           {!canProceed
-            ? `${t("sys.user-management.cannot-create")} (${
+            ? `${t("management.user.cannot-create")} (${
                 invalidUsers.length
-              } ${t("sys.user-management.error")})`
-            : `${t("sys.user-management.creates")} ${users.length} ${t(
-                "sys.user-management.users"
+              } ${t("management.user.error")})`
+            : `${t("management.user.creates")} ${users.length} ${t(
+                "management.user.users"
               )}`}
         </Button>
       </div>

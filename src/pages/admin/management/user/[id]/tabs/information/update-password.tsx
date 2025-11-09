@@ -32,13 +32,11 @@ export default function UpdatePassword({ userId }: { userId: string }) {
       });
 
       if (response.data.success) {
-        toast.success(
-          t("sys.user-management.user-detail.update-password-success")
-        );
+        toast.success(t("management.user.user-detail.update-password-success"));
         form.resetFields();
         setPasswordValid(false);
       } else {
-        toast.error(t("sys.user-management.user-detail.update-password-error"));
+        toast.error(t("management.user.user-detail.update-password-error"));
       }
     } catch (error) {
       console.error(error);
@@ -50,7 +48,7 @@ export default function UpdatePassword({ userId }: { userId: string }) {
   return (
     <div className="bg-card text-card-foreground p-4 flex flex-col rounded-md border shadow-sm">
       <Text strong className="text-lg mb-2 block">
-        {t("sys.user-management.user-detail.password-level-1")}
+        {t("management.user.user-detail.password-level-1")}
       </Text>
       <Form
         layout="horizontal"
@@ -63,16 +61,14 @@ export default function UpdatePassword({ userId }: { userId: string }) {
           rules={[
             {
               pattern: passwordRegex,
-              message: t(
-                "sys.user-management.user-detail.password-level-1-error"
-              ),
+              message: t("management.user.user-detail.password-level-1-error"),
             },
           ]}
         >
           <Input.Password
             size="large"
             placeholder={t(
-              "sys.user-management.user-detail.password-level-1-placeholder"
+              "management.user.user-detail.password-level-1-placeholder"
             )}
             onChange={handleInputChange}
             className="rounded-lg"
@@ -87,7 +83,7 @@ export default function UpdatePassword({ userId }: { userId: string }) {
             loading={loading}
             onClick={() => setModalVisible(true)}
           >
-            {t("sys.user-management.user-detail.update")}
+            {t("management.user.user-detail.update")}
           </Button>
         </Form.Item>
       </Form>

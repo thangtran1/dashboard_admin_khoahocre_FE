@@ -29,13 +29,13 @@ export default function UploadCard({
         file.type === "text/csv";
 
       if (!isExcel) {
-        toast.error(t("sys.user-management.invalid-file-type"));
+        toast.error(t("management.user.invalid-file-type"));
         return false;
       }
 
       const isLt10M = file.size / 1024 / 1024 < 10;
       if (!isLt10M) {
-        toast.error(t("sys.user-management.file-too-large"));
+        toast.error(t("management.user.file-too-large"));
         return false;
       }
 
@@ -49,34 +49,34 @@ export default function UploadCard({
       <div className="text-center">
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-foreground mb-2">
-            {t("sys.user-management.upload-excel-text")}
+            {t("management.user.upload-excel-text")}
           </h2>
           <p className="text-muted-foreground text-lg">
-            {t("sys.user-management.bulk-create-description")}
+            {t("management.user.bulk-create-description")}
           </p>
         </div>
 
         <div className="bg-blue-50 rounded-lg p-6 mb-8 text-left">
           <h3 className="font-semibold text-blue-800 mb-3 flex items-center gap-2">
             <Icon icon="lucide:info" className="h-5 w-5" />
-            {t("sys.user-management.instruction")}
+            {t("management.user.instruction")}
           </h3>
           <div className="space-y-2 text-blue-700">
             <div className="flex items-start gap-2">
               <span className="font-bold text-blue-600">1.</span>
-              <span>{t("sys.user-management.download-template")}</span>
+              <span>{t("management.user.download-template")}</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="font-bold text-blue-600">2.</span>
-              <span>{t("sys.user-management.fill-data")}</span>
+              <span>{t("management.user.fill-data")}</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="font-bold text-blue-600">3.</span>
-              <span>{t("sys.user-management.delete-guide-sheet")}</span>
+              <span>{t("management.user.delete-guide-sheet")}</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="font-bold text-blue-600">4.</span>
-              <span>{t("sys.user-management.upload-file")}</span>
+              <span>{t("management.user.upload-file")}</span>
             </div>
           </div>
         </div>
@@ -89,10 +89,10 @@ export default function UploadCard({
             className="min-w-[200px] h-12"
           >
             <Icon icon="lucide:download" className="mr-2" />
-            {t("sys.user-management.download-template")}
+            {t("management.user.download-template")}
           </Button>
           <p className="text-gray-500 text-sm mt-2">
-            {t("sys.user-management.download-template-description")}
+            {t("management.user.download-template-description")}
           </p>
         </div>
 
@@ -110,23 +110,23 @@ export default function UploadCard({
                   />
                 </div>
                 <p className="text-lg font-medium text-blue-600 mb-2">
-                  {t("sys.user-management.processing-file")}
+                  {t("management.user.processing-file")}
                 </p>
                 <p className="text-gray-500">
-                  {t("sys.user-management.please-wait")}
+                  {t("management.user.please-wait")}
                 </p>
               </>
             ) : (
               <>
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  {t("sys.user-management.drag-and-drop-file")}
+                  {t("management.user.drag-and-drop-file")}
                 </h2>
                 <p className="text-muted-foreground mb-4">
-                  {t("sys.user-management.support-file-types")}
+                  {t("management.user.support-file-types")}
                 </p>
                 <Button color="primary" variant="outlined" size="large">
                   <Icon icon="lucide:upload" className="mr-2" />
-                  {t("sys.user-management.select-file")}
+                  {t("management.user.select-file")}
                 </Button>
               </>
             )}
@@ -141,28 +141,24 @@ export default function UploadCard({
             />
             <div className="text-left">
               <h4 className="font-semibold text-yellow-800 mb-2">
-                {t("sys.user-management.important-notice")}
+                {t("management.user.important-notice")}
               </h4>
               <ul className="text-yellow-700 text-sm space-y-1">
-                <li>• {t("sys.user-management.all-email-must-be-unique")}</li>
+                <li>• {t("management.user.all-email-must-be-unique")}</li>
                 <li>
                   •{" "}
                   {t(
-                    "sys.user-management.if-one-row-error-all-will-not-be-created"
+                    "management.user.if-one-row-error-all-will-not-be-created"
                   )}
                 </li>
                 <li>
                   •{" "}
-                  {t(
-                    "sys.user-management.password-must-be-at-least-6-characters"
-                  )}
+                  {t("management.user.password-must-be-at-least-6-characters")}
                 </li>
                 <li>
-                  • {t("sys.user-management.role-must-be-user-moderator-admin")}
+                  • {t("management.user.role-must-be-user-moderator-admin")}
                 </li>
-                <li>
-                  • {t("sys.user-management.status-must-be-active-inactive")}
-                </li>
+                <li>• {t("management.user.status-must-be-active-inactive")}</li>
               </ul>
             </div>
           </div>

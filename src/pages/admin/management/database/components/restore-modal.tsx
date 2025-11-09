@@ -40,14 +40,14 @@ export default function RestoreModal({
     <Modal
       title={
         <Typography.Title level={4} className="text-blue-600 m-0">
-          🔄 {t("sys.database.restore-backup")}
+          🔄 {t("management.database.restore-backup")}
         </Typography.Title>
       }
       open={visible}
       onCancel={onCancel}
       onOk={handleRestoreClick}
-      okText={t("sys.database.restore-backup")}
-      cancelText={t("sys.database.cancel")}
+      okText={t("management.database.restore-backup")}
+      cancelText={t("management.database.cancel")}
       okButtonProps={{ disabled: !file, loading }}
       width={500}
       centered
@@ -74,22 +74,22 @@ export default function RestoreModal({
             type="primary"
             className="w-full hover:bg-blue-700 transition-colors"
           >
-            {t("sys.database.select-backup-file")}
+            {t("management.database.select-backup-file")}
           </Button>
         </Upload>
 
         {file ? (
           <Typography.Text type="success" className="block text-center">
-            ✅ {t("sys.database.selected-file")}: {file.name}
+            ✅ {t("management.database.selected-file")}: {file.name}
           </Typography.Text>
         ) : (
           <Typography.Text type="danger" className="block text-center">
-            ⚠️ {t("sys.database.please-select-file")}
+            ⚠️ {t("management.database.please-select-file")}
           </Typography.Text>
         )}
 
         <Typography.Paragraph className="text-gray-500 text-sm text-center">
-          {t("sys.database.only-support-json-or-zip-file")}
+          {t("management.database.only-support-json-or-zip-file")}
         </Typography.Paragraph>
       </Space>
     </Modal>

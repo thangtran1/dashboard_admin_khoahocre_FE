@@ -23,7 +23,7 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
       const response = await createUser(values);
 
       if (response.data.success) {
-        toast.success(t("sys.user-management.create-success"));
+        toast.success(t("management.user.create-success"));
         form.resetFields();
         onSuccess?.();
       } else {
@@ -50,40 +50,40 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Form.Item
           name="name"
-          label={t("sys.user-management.name")}
+          label={t("management.user.name")}
           rules={[
             {
               required: true,
-              message: t("sys.user-management.name-required"),
+              message: t("management.user.name-required"),
             },
-            { min: 2, message: t("sys.user-management.name-min-length") },
+            { min: 2, message: t("management.user.name-min-length") },
           ]}
         >
           <Input
             size="large"
             prefix={<UserOutlined />}
-            placeholder={t("sys.user-management.name")}
+            placeholder={t("management.user.name")}
           />
         </Form.Item>
 
         <Form.Item
           name="email"
-          label={t("sys.user-management.email")}
+          label={t("management.user.email")}
           rules={[
             {
               required: true,
-              message: t("sys.user-management.email-required"),
+              message: t("management.user.email-required"),
             },
             {
               type: "email",
-              message: t("sys.user-management.email-invalid"),
+              message: t("management.user.email-invalid"),
             },
           ]}
         >
           <Input
             size="large"
             prefix={<MailOutlined />}
-            placeholder={t("sys.user-management.email")}
+            placeholder={t("management.user.email")}
           />
         </Form.Item>
       </div>
@@ -91,47 +91,45 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Form.Item
           name="role"
-          label={t("sys.user-management.role")}
+          label={t("management.user.role")}
           rules={[
             {
               required: true,
-              message: t("sys.user-management.role-required"),
+              message: t("management.user.role-required"),
             },
           ]}
         >
-          <Select size="large" placeholder={t("sys.user-management.role")}>
+          <Select size="large" placeholder={t("management.user.role")}>
             <Option value="user">
               <Space>
                 <Icon icon="lucide:user" className="w-4 h-4" />
-                {t("sys.user-management.role-user")}
+                {t("management.user.role-user")}
               </Space>
             </Option>
             <Option value="moderator">
               <Space>
                 <Icon icon="lucide:shield-check" className="w-4 h-4" />
-                {t("sys.user-management.role-moderator")}
+                {t("management.user.role-moderator")}
               </Space>
             </Option>
             <Option value="admin">
               <Space>
                 <Icon icon="lucide:shield" className="w-4 h-4" />
-                {t("sys.user-management.role-admin")}
+                {t("management.user.role-admin")}
               </Space>
             </Option>
           </Select>
         </Form.Item>
 
-        <Form.Item name="status" label={t("sys.user-management.status")}>
+        <Form.Item name="status" label={t("management.user.status")}>
           <Select
             size="large"
-            placeholder={t("sys.user-management.status")}
+            placeholder={t("management.user.status")}
             defaultValue="active"
           >
-            <Option value="active">
-              {t("sys.user-management.status-active")}
-            </Option>
+            <Option value="active">{t("management.user.status-active")}</Option>
             <Option value="inactive">
-              {t("sys.user-management.status-inactive")}
+              {t("management.user.status-inactive")}
             </Option>
           </Select>
         </Form.Item>
@@ -139,42 +137,42 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
 
       <Form.Item
         name="password"
-        label={t("sys.user-management.password")}
+        label={t("management.user.password")}
         rules={[
           {
             required: true,
-            message: t("sys.user-management.password-required"),
+            message: t("management.user.password-required"),
           },
-          { min: 6, message: t("sys.user-management.password-min-length") },
+          { min: 6, message: t("management.user.password-min-length") },
         ]}
       >
         <Input.Password
           size="large"
           prefix={<KeyOutlined />}
-          placeholder={t("sys.user-management.password")}
+          placeholder={t("management.user.password")}
         />
       </Form.Item>
 
-      <Form.Item name="phone" label={t("sys.user-management.phone")}>
-        <Input size="large" placeholder={t("sys.user-management.phone")} />
+      <Form.Item name="phone" label={t("management.user.phone")}>
+        <Input size="large" placeholder={t("management.user.phone")} />
       </Form.Item>
 
-      <Form.Item name="address" label={t("sys.user-management.address")}>
-        <Input size="large" placeholder={t("sys.user-management.address")} />
+      <Form.Item name="address" label={t("management.user.address")}>
+        <Input size="large" placeholder={t("management.user.address")} />
       </Form.Item>
 
-      <Form.Item name="bio" label={t("sys.user-management.bio")}>
-        <Input.TextArea rows={3} placeholder={t("sys.user-management.bio")} />
+      <Form.Item name="bio" label={t("management.user.bio")}>
+        <Input.TextArea rows={3} placeholder={t("management.user.bio")} />
       </Form.Item>
 
       <div className="flex justify-end gap-4 pt-6">
         <Button danger size="large" onClick={() => form.resetFields()}>
           <Icon icon="lucide:x-circle" className="h-5 w-5" />
-          {t("sys.user-management.cancel")}
+          {t("management.user.cancel")}
         </Button>
         <Button type="primary" htmlType="submit" size="large" loading={loading}>
           <Icon icon="lucide:check-circle" className="h-5 w-5" />
-          {t("sys.user-management.create")}
+          {t("management.user.create")}
         </Button>
       </div>
     </Form>

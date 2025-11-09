@@ -32,7 +32,7 @@ export default function UserActionBar({
         <div className="flex items-center gap-2 text-blue-700">
           <InfoCircleOutlined />
           <span className="font-medium">
-            {t("sys.user-management.selected-count", {
+            {t("management.user.selected-count", {
               count: selectedUsers.length,
             })}
           </span>
@@ -44,37 +44,44 @@ export default function UserActionBar({
           {tabType === "deleted" && (
             <>
               <Popconfirm
-                title={t("sys.user-management.confirm-restore")}
-                description={t(
-                  "sys.user-management.confirm-restore-description",
-                  {
-                    count: selectedUsers.length,
-                  }
-                )}
+                title={t("management.user.confirm-restore")}
+                description={t("management.user.confirm-restore-description", {
+                  count: selectedUsers.length,
+                })}
                 onConfirm={() => onRestore?.(selectedUsers)}
-                okText={t("sys.user-management.restore")}
-                cancelText={t("sys.user-management.cancel")}
+                okText={t("management.user.restore")}
+                cancelText={t("management.user.cancel")}
               >
-                <Button color="primary" variant="outlined" icon={<UndoOutlined />} size="large">
-                  {t("sys.user-management.restore")} ({selectedUsers.length})
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  icon={<UndoOutlined />}
+                  size="large"
+                >
+                  {t("management.user.restore")} ({selectedUsers.length})
                 </Button>
               </Popconfirm>
 
               <Popconfirm
-                title={t("sys.user-management.confirm-permanent-delete")}
+                title={t("management.user.confirm-permanent-delete")}
                 description={t(
-                  "sys.user-management.confirm-permanent-delete-description",
+                  "management.user.confirm-permanent-delete-description",
                   {
                     count: selectedUsers.length,
                   }
                 )}
                 onConfirm={onDeleteMany}
-                okText={t("sys.user-management.permanent-delete")}
-                cancelText={t("sys.user-management.cancel")}
+                okText={t("management.user.permanent-delete")}
+                cancelText={t("management.user.cancel")}
                 okButtonProps={{ danger: true }}
               >
-                <Button color="danger" variant="outlined" icon={<DeleteOutlined />} size="large">
-                  {t("sys.user-management.permanent-delete")} (
+                <Button
+                  color="danger"
+                  variant="outlined"
+                  icon={<DeleteOutlined />}
+                  size="large"
+                >
+                  {t("management.user.permanent-delete")} (
                   {selectedUsers.length})
                 </Button>
               </Popconfirm>
@@ -84,17 +91,22 @@ export default function UserActionBar({
           {/* Actions for Active and New Users */}
           {(tabType === "active" || tabType === "new") && (
             <Popconfirm
-              title={t("sys.user-management.confirm-delete")}
-              description={t("sys.user-management.confirm-delete-description", {
+              title={t("management.user.confirm-delete")}
+              description={t("management.user.confirm-delete-description", {
                 count: selectedUsers.length,
               })}
               onConfirm={onDeleteMany}
-              okText={t("sys.user-management.delete")}
-              cancelText={t("sys.user-management.cancel")}
+              okText={t("management.user.delete")}
+              cancelText={t("management.user.cancel")}
               okButtonProps={{ danger: true }}
             >
-              <Button color="danger" variant="outlined" icon={<DeleteOutlined />} size="large">
-                {t("sys.user-management.delete")} ({selectedUsers.length})
+              <Button
+                color="danger"
+                variant="outlined"
+                icon={<DeleteOutlined />}
+                size="large"
+              >
+                {t("management.user.delete")} ({selectedUsers.length})
               </Button>
             </Popconfirm>
           )}

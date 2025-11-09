@@ -10,17 +10,17 @@ export default function StepIndicator({ currentStep }: StepIndicatorProps) {
   const steps = [
     {
       key: "upload",
-      label: t("sys.user-management.upload"),
+      label: t("management.user.upload"),
       icon: "lucide:upload",
     },
     {
       key: "preview",
-      label: t("sys.user-management.preview-data"),
+      label: t("management.user.preview-data"),
       icon: "lucide:eye",
     },
     {
       key: "result",
-      label: t("sys.user-management.result"),
+      label: t("management.user.result"),
       icon: "lucide:check-circle",
     },
   ];

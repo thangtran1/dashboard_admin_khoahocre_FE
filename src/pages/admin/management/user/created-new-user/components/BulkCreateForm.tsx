@@ -111,7 +111,7 @@ export default function BulkCreateForm() {
         try {
           const data = e.target?.result;
           if (!data) {
-            toast.error(t("sys.user-management.cannot-read-file"));
+            toast.error(t("management.user.cannot-read-file"));
             setUploading(false);
             return;
           }
@@ -125,13 +125,13 @@ export default function BulkCreateForm() {
               cellText: false,
             });
           } catch (xlsxError) {
-            toast.error(t("sys.user-management.invalid-excel-file"));
+            toast.error(t("management.user.invalid-excel-file"));
             setUploading(false);
             return;
           }
 
           if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
-            toast.error(t("sys.user-management.no-sheet-found"));
+            toast.error(t("management.user.no-sheet-found"));
             setUploading(false);
             return;
           }
@@ -140,7 +140,7 @@ export default function BulkCreateForm() {
           const worksheet = workbook.Sheets[sheetName];
 
           if (!worksheet) {
-            toast.error(t("sys.user-management.cannot-read-sheet"));
+            toast.error(t("management.user.cannot-read-sheet"));
             setUploading(false);
             return;
           }
@@ -153,14 +153,14 @@ export default function BulkCreateForm() {
               blankrows: false, // Bỏ qua dòng trống
             });
           } catch (jsonError) {
-            toast.error(t("sys.user-management.cannot-convert-data"));
+            toast.error(t("management.user.cannot-convert-data"));
             setUploading(false);
             return;
           }
 
           if (!jsonData || jsonData.length < 2) {
             // Ít nhất phải có header + 1 dòng data
-            toast.error(t("sys.user-management.no-data-or-only-header"));
+            toast.error(t("management.user.no-data-or-only-header"));
             setUploading(false);
             return;
           }
@@ -188,14 +188,14 @@ export default function BulkCreateForm() {
           );
 
           if (previewData.length === 0) {
-            toast.error(t("sys.user-management.no-valid-data-to-process"));
+            toast.error(t("management.user.no-valid-data-to-process"));
             setUploading(false);
             return;
           }
           setPreviewUsers(previewData);
           setStep("preview");
           toast.success(
-            t("sys.user-management.loaded-users-from-file", {
+            t("management.user.loaded-users-from-file", {
               count: previewData.length,
             })
           );
@@ -220,7 +220,7 @@ export default function BulkCreateForm() {
 
     if (invalidUsers.length > 0) {
       toast.error(
-        t("sys.user-management.cannot-create-users-because-of-errors", {
+        t("management.user.cannot-create-users-because-of-errors", {
           count: invalidUsers.length,
         })
       );
@@ -228,7 +228,7 @@ export default function BulkCreateForm() {
     }
 
     if (previewUsers.length === 0) {
-      toast.error(t("sys.user-management.no-users-to-create"));
+      toast.error(t("management.user.no-users-to-create"));
       return;
     }
 
@@ -266,7 +266,7 @@ export default function BulkCreateForm() {
 
         file = new File([blob], "users.xlsx", { type: blob.type });
       } catch (excelError) {
-        toast.error(t("sys.user-management.error-creating-excel-file"));
+        toast.error(t("management.user.error-creating-excel-file"));
         setCreating(false);
         return;
       }
@@ -285,7 +285,7 @@ export default function BulkCreateForm() {
 
         if (bulkResult.successCount > 0) {
           toast.success(
-            t("sys.user-management.bulk-create-success", {
+            t("management.user.bulk-create-success", {
               count: bulkResult.successCount,
             })
           );
@@ -293,7 +293,7 @@ export default function BulkCreateForm() {
 
         if (bulkResult.errorCount > 0) {
           toast.warning(
-            t("sys.user-management.bulk-create-partial-success", {
+            t("management.user.bulk-create-partial-success", {
               success: bulkResult.successCount,
               error: bulkResult.errorCount,
             })
@@ -301,7 +301,7 @@ export default function BulkCreateForm() {
         }
       } else {
         toast.error(
-          response.data.message || t("sys.user-management.bulk-create-failed")
+          response.data.message || t("management.user.bulk-create-failed")
         );
       }
     } catch (error) {

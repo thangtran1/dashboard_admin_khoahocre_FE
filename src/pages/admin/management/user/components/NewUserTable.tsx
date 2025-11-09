@@ -71,7 +71,7 @@ export default function NewUserTable({
       ),
     },
     {
-      title: t("sys.user-management.user-info"),
+      title: t("management.user.user-info"),
       key: "user",
       render: (_: React.ReactNode, user: User) => (
         <div className="flex items-center gap-3">
@@ -93,25 +93,25 @@ export default function NewUserTable({
       ),
     },
     {
-      title: t("sys.user-management.role"),
+      title: t("management.user.role"),
       key: "role",
       render: (_: React.ReactNode, user: User) => (
         <Tag color={getRoleColor(user.role)}>
-          {t(`sys.user-management.${user.role}`)}
+          {t(`management.user.${user.role}`)}
         </Tag>
       ),
     },
     {
-      title: t("sys.user-management.status"),
+      title: t("management.user.status"),
       key: "status",
       render: (_: React.ReactNode, user: User) => (
         <Tag color={getStatusColor(user.status || "active")}>
-          {t(`sys.user-management.${user.status || "active"}`)}
+          {t(`management.user.${user.status || "active"}`)}
         </Tag>
       ),
     },
     {
-      title: t("sys.user-management.created-at"),
+      title: t("management.user.created-at"),
       key: "createdAt",
       render: (_: React.ReactNode, user: User) => (
         <Tooltip title={new Date(user.createdAt).toLocaleString("vi-VN")}>
@@ -126,30 +126,28 @@ export default function NewUserTable({
       ),
     },
     {
-      title: t("sys.user-management.email-verified"),
+      title: t("management.user.email-verified"),
       key: "isEmailVerified",
       render: (_: React.ReactNode, user: User) => (
         <Tag color={user.isEmailVerified ? "green" : "orange"}>
           {user.isEmailVerified
-            ? t("sys.user-management.verified")
-            : t("sys.user-management.not-verified")}
+            ? t("management.user.verified")
+            : t("management.user.not-verified")}
         </Tag>
       ),
     },
     {
-      title: t("sys.user-management.actions"),
+      title: t("management.user.actions"),
       key: "actions",
       align: "center" as const,
       width: 120,
       render: (_: React.ReactNode, user: User) => (
         <Popconfirm
-          title={t("sys.user-management.confirm-delete")}
-          description={t(
-            "sys.user-management.confirm-delete-single-description"
-          )}
+          title={t("management.user.confirm-delete")}
+          description={t("management.user.confirm-delete-single-description")}
           onConfirm={() => onDelete(user.id)}
-          okText={t("sys.user-management.delete")}
-          cancelText={t("sys.user-management.cancel")}
+          okText={t("management.user.delete")}
+          cancelText={t("management.user.cancel")}
           okButtonProps={{ danger: true }}
         >
           <Button
@@ -157,7 +155,7 @@ export default function NewUserTable({
             danger
             size="small"
             icon={<DeleteOutlined />}
-            title={t("sys.user-management.delete")}
+            title={t("management.user.delete")}
           />
         </Popconfirm>
       ),

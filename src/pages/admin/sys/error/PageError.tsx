@@ -6,7 +6,7 @@ import { themeVars } from "@/theme/theme.css";
 import { Button } from "@/ui/button";
 import { H3, Muted } from "@/ui/typography";
 import { m } from "motion/react";
-import type { FallbackProps } from "react-error-boundary";
+import { FallbackProps } from "react-error-boundary";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 
@@ -23,13 +23,13 @@ export default function PageError({
   return (
     <div>
       <Helmet>
-        <title>{t("error.title")}</title>
+        <title>{t("sys.title")}</title>
       </Helmet>
 
       <div className="m-auto flex h-screen max-w-[400px] items-center justify-center">
         <MotionContainer className="flex flex-col items-center justify-center px-2">
           <m.div variants={varBounce().in}>
-            <H3 className="text-center">{t("error.title")}</H3>
+            <H3 className="text-center">{t("sys.title")}</H3>
           </m.div>
 
           <m.div variants={varBounce().in}>
@@ -44,7 +44,7 @@ export default function PageError({
               height={400}
               className="w-full"
             >
-              <title>{t("error.title")}</title>
+              <title>{t("sys.title")}</title>
               <defs>
                 <linearGradient
                   id="BG"
@@ -242,7 +242,7 @@ export default function PageError({
           </m.div>
 
           <Button size="lg" onClick={goHome}>
-            {t("error.goHome")}
+            {t("sys.goHome")}
           </Button>
         </MotionContainer>
       </div>

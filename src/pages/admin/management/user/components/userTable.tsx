@@ -73,7 +73,7 @@ export default function UserTable({
       ),
     },
     {
-      title: t("sys.user-management.user-info"),
+      title: t("management.user.user-info"),
       key: "user",
       width: 250,
       render: (_: React.ReactNode, user: User) => {
@@ -94,25 +94,25 @@ export default function UserTable({
       },
     },
     {
-      title: t("sys.user-management.role"),
+      title: t("management.user.role"),
       key: "role",
       render: (_: React.ReactNode, user: User) => (
         <Tag color={getRoleColor(user.role)}>
-          {t(`sys.user-management.role-${user.role}`)}
+          {t(`management.user.role-${user.role}`)}
         </Tag>
       ),
     },
     {
-      title: t("sys.user-management.status"),
+      title: t("management.user.status"),
       key: "status",
       render: (_: React.ReactNode, user: User) => (
         <Tag color={getStatusColor(user.status || "active")}>
-          {t(`sys.user-management.status-${user.status || "active"}`)}
+          {t(`management.user.status-${user.status || "active"}`)}
         </Tag>
       ),
     },
     {
-      title: t("sys.user-management.created-at"),
+      title: t("management.user.created-at"),
       key: "createdAt",
       render: (_: React.ReactNode, user: User) => (
         <Tooltip title={new Date(user.createdAt).toLocaleString("vi-VN")}>
@@ -127,39 +127,39 @@ export default function UserTable({
       ),
     },
     {
-      title: t("sys.user-management.info"),
+      title: t("management.user.info"),
       key: "info",
       width: 220,
       render: (_: React.ReactNode, user: User) => (
         <div className="text-sm text-foreground">
           {user.phone && (
             <div>
-              {t("sys.user-management.phone")}: {user.phone}
+              {t("management.user.phone")}: {user.phone}
             </div>
           )}
           <div>
-            {t("sys.user-management.login-count")}: {user.loginCount}
+            {t("management.user.login-count")}: {user.loginCount}
           </div>
         </div>
       ),
     },
 
     {
-      title: t("sys.user-management.actions"),
+      title: t("management.user.actions"),
       key: "actions",
       align: "center",
       width: 150,
       render: (_: React.ReactNode, user: User) => (
         <Space>
           <Popconfirm
-            title={t("sys.user-management.confirm-delete")}
-            description={t("sys.user-management.confirm-delete-description")}
+            title={t("management.user.confirm-delete")}
+            description={t("management.user.confirm-delete-description")}
             onConfirm={() => onDelete(user.id)}
-            okText={t("sys.user-management.delete")}
-            cancelText={t("sys.user-management.cancel")}
+            okText={t("management.user.delete")}
+            cancelText={t("management.user.cancel")}
             okButtonProps={{ danger: true }}
           >
-            <Tooltip title={t("sys.user-management.delete")}>
+            <Tooltip title={t("management.user.delete")}>
               <Button
                 type="text"
                 size="middle"

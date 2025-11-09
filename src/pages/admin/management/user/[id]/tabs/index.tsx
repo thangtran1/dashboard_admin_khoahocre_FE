@@ -28,7 +28,7 @@ export default function UserDetailTabs({ userId }: { userId: string }) {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:user" className="h-4 w-4" />
-          {t("sys.user-management.user-detail.information")}
+          {t("management.user.user-detail.information")}
         </span>
       ),
       children: <Information userId={userId} />,
@@ -38,7 +38,7 @@ export default function UserDetailTabs({ userId }: { userId: string }) {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:history" className="h-4 w-4" />
-          {t("sys.user-management.user-detail.activity-log")}
+          {t("management.user.user-detail.activity-log")}
         </span>
       ),
 

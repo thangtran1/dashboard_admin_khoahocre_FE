@@ -27,6 +27,7 @@ import { format, isToday, isYesterday, differenceInMinutes } from "date-fns";
 import { vi } from "date-fns/locale";
 import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
 import { useUserInfo } from "@/store/userStore";
+import { useTranslation } from "react-i18next";
 
 const { Title } = Typography;
 
@@ -70,6 +71,7 @@ const ChatBubble = ({
 
 const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
   const userInfo = useUserInfo();
+  const { t } = useTranslation();
 
   const currentUser: CurrentUser = useMemo(
     () => ({
@@ -135,7 +137,7 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
   if (!userInfo || userInfo.role !== "admin") {
     return (
       <div className="text-center text-muted-foreground text-sm p-4">
-        Vui lòng đăng nhập với tài khoản super admin để sử dụng tính năng chat
+        {t("management.chat.please-login")}
       </div>
     );
   }
@@ -155,13 +157,13 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
         <div className="w-[350px] border-r border-border flex flex-col bg-background">
           <div className="px-5 py-4 border-b border-border bg-background">
             <Title level={4} style={{ margin: 0 }}>
-              Quản lý chat
+              {t("management.chat.manager-chat-user")}
             </Title>
           </div>
           <div className="p-3 border-b border-border">
             <Input
               prefix={<SearchOutlined className="text-muted-foreground" />}
-              placeholder="Tìm kiếm người dùng..."
+              placeholder={t("management.chat.search-user")}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               variant="filled"
@@ -196,8 +198,8 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
                       <div className="text-xs text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis mt-1">
                         {convo.lastMessage?.content ||
                           (convo.hasConversation
-                            ? "Chưa có tin nhắn"
-                            : "Chưa bắt đầu chat")}
+                            ? t("management.chat.no-message")
+                            : t("management.chat.no-start-chat"))}
                       </div>
                     </div>
                   </div>
@@ -238,21 +240,23 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
                           : "text-muted-foreground"
                       }`}
                     >
-                      {isSelectedUserOnline ? "Trực tuyến" : "Ngoại tuyến"}
+                      {isSelectedUserOnline
+                        ? t("management.chat.online")
+                        : t("management.chat.offline")}
                     </div>
                   </div>
                 </div>
                 <Space>
-                  <Tooltip title="Gọi video">
+                  <Tooltip title={t("management.chat.call-video")}>
                     <Button type="text" icon={<VideoCameraOutlined />} />
                   </Tooltip>
-                  <Tooltip title="Gọi thoại">
+                  <Tooltip title={t("management.chat.call-phone")}>
                     <Button type="text" icon={<PhoneOutlined />} />
                   </Tooltip>
-                  <Tooltip title="Thêm vào yêu thích">
+                  <Tooltip title={t("management.chat.add-to-favorites")}>
                     <Button type="text" icon={<HeartOutlined />} />
                   </Tooltip>
-                  <Tooltip title="Thêm">
+                  <Tooltip title={t("management.chat.add")}>
                     <Button type="text" icon={<EllipsisOutlined />} />
                   </Tooltip>
                 </Space>
@@ -294,23 +298,23 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
 
               <div className="flex items-center px-5 py-4 bg-background border-t border-border">
                 <Space size="small">
-                  <Tooltip title="Thêm">
+                  <Tooltip title={t("management.chat.add")}>
                     <Button type="text" icon={<PlusOutlined />} />
                   </Tooltip>
-                  <Tooltip title="Camera">
+                  <Tooltip title={t("management.chat.camera")}>
                     <Button type="text" icon={<CameraOutlined />} />
                   </Tooltip>
-                  <Tooltip title="Hình ảnh">
+                  <Tooltip title={t("management.chat.image")}>
                     <Button type="text" icon={<PictureOutlined />} />
                   </Tooltip>
-                  <Tooltip title="Mic">
+                  <Tooltip title={t("management.chat.mic")}>
                     <Button type="text" icon={<AudioOutlined />} />
                   </Tooltip>
                 </Space>
                 <div className="relative flex-1 mx-3">
                   <Input
                     className="w-full rounded-[25px] px-4 py-3 pr-12 bg-input border-none shadow-none outline-none"
-                    placeholder="Nhập tin nhắn..."
+                    placeholder={t("management.chat.enter-message")}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={(e) => {
@@ -331,7 +335,7 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
                         height={400}
                       />
                     }
-                    title="Chọn emoji"
+                    title={t("management.chat.select-emoji")}
                     trigger="click"
                     placement="topRight"
                   >
@@ -349,7 +353,7 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
             </>
           ) : (
             <div className="flex-1 flex justify-center items-center text-muted-foreground text-base flex-col gap-4">
-              Chọn một khách hàng để bắt đầu trò chuyện
+              {t("management.chat.select-user-to-start-chat")}
             </div>
           )}
         </div>

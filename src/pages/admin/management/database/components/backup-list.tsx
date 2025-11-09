@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal, message, Space } from "antd";
+import { Button, Modal, Space } from "antd";
 import {
   EyeOutlined,
   DeleteOutlined,
@@ -58,7 +58,9 @@ export default function BackupList({
         toast.success(res.message);
         await reload();
       } else {
-        toast.error(res.message || t("sys.database.delete-backup-error"));
+        toast.error(
+          res.message || t("management.database.delete-backup-error")
+        );
       }
     } catch (e) {
       throw e;
@@ -74,10 +76,10 @@ export default function BackupList({
         setViewContent(JSON.stringify(res.data, null, 2));
         setViewModal(true);
       } else {
-        toast.error(t("sys.database.view-backup-error"));
+        toast.error(t("management.database.view-backup-error"));
       }
     } catch {
-      toast.error(t("sys.database.view-backup-error"));
+      toast.error(t("management.database.view-backup-error"));
     }
   };
 
@@ -85,7 +87,9 @@ export default function BackupList({
     try {
       const res = await databaseAdmin.downloadBackupJson(filename);
       if (!res.success)
-        throw new Error(res.message || t("sys.database.download-backup-error"));
+        throw new Error(
+          res.message || t("management.database.download-backup-error")
+        );
 
       const { filename: name, content } = res.data;
 
@@ -110,32 +114,34 @@ export default function BackupList({
 
       toast.success(res.message);
     } catch (error: any) {
-      toast.error(error.message || t("sys.database.download-backup-error"));
+      toast.error(
+        error.message || t("management.database.download-backup-error")
+      );
     }
   };
 
   const columns = [
     {
-      title: t("sys.database.no"),
+      title: t("management.database.no"),
       key: "no",
       render: (_: any, __: any, index: number) => index + 1,
       width: 100,
       align: "center" as "center",
     },
     {
-      title: t("sys.database.filename"),
+      title: t("management.database.filename"),
       dataIndex: "filename",
       key: "filename",
     },
     {
-      title: t("sys.database.created-at"),
+      title: t("management.database.created-at"),
       dataIndex: "createdAt",
       key: "createdAt",
       render: (text: string) =>
         text ? dayjs(text).format("HH:mm:ss DD/MM/YYYY") : "—",
     },
     {
-      title: t("sys.database.actions"),
+      title: t("management.database.actions"),
       key: "actions",
       align: "center" as "center",
       render: (_: any, record: Backup) => (
@@ -144,20 +150,20 @@ export default function BackupList({
             icon={<EyeOutlined />}
             onClick={() => handleViewBackup(record.filename)}
           >
-            {t("sys.database.view")}
+            {t("management.database.view")}
           </Button>
           <Button
             icon={<CloudDownloadOutlined />}
             onClick={() => handleDownloadBackup(record.filename)}
           >
-            {t("sys.database.download")}
+            {t("management.database.download")}
           </Button>
           <Button
             danger
             icon={<DeleteOutlined />}
             onClick={() => openConfirmModal(record.filename)}
           >
-            {t("sys.database.delete")}
+            {t("management.database.delete")}
           </Button>
         </Space>
       ),
@@ -168,7 +174,7 @@ export default function BackupList({
     <div>
       <h2 className="text-2xl font-semibold text-foreground flex items-center gap-2">
         <Icon icon="lucide:database" className="h-5 w-5 text-blue-600" />
-        {t("sys.database.backup-list")}
+        {t("management.database.backup-list")}
       </h2>
       <Separator className="my-4" />
       <TableAntd
@@ -181,8 +187,8 @@ export default function BackupList({
       />
       <CustomConfirmModal
         visible={isModalVisible}
-        title={t("sys.database.delete-backup-confirm-title")}
-        description={t("sys.database.delete-backup-confirm-description")}
+        title={t("management.database.delete-backup-confirm-title")}
+        description={t("management.database.delete-backup-confirm-description")}
         onConfirm={handleConfirmDelete}
         onCancel={handleCancel}
         filename={selectedBackup}
@@ -190,7 +196,7 @@ export default function BackupList({
       <Modal
         title={
           <span className="text-blue-600 font-semibold flex items-center gap-2">
-            <DatabaseOutlined /> {t("sys.database.backup-content")}
+            <DatabaseOutlined /> {t("management.database.backup-content")}
           </span>
         }
         open={viewModal}
@@ -202,7 +208,7 @@ export default function BackupList({
             type="primary"
             className="bg-blue-600 hover:bg-blue-700"
           >
-            {t("sys.database.close")}
+            {t("management.database.close")}
           </Button>,
         ]}
         width={800}

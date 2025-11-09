@@ -21,16 +21,16 @@ export default function CreatedNewUser() {
     <Card className="!bg-background">
       <Breadcrumb style={{ marginBottom: "8px" }}>
         <Breadcrumb.Item>
-          <Link to="/management/user">{t("sys.user-management.title")}</Link>
+          <Link to="/management/user">{t("management.user.title")}</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          {t("sys.user-management.create-new-user")}
+          {t("management.user.create-new-user")}
         </Breadcrumb.Item>
       </Breadcrumb>
 
       <Title level={3}>
         <Icon icon="lucide:user-plus" className="h-6 w-6 text-primary mr-2" />
-        {t("sys.user-management.create-new-user")}
+        {t("management.user.create-new-user")}
       </Title>
 
       <Separator className="my-4" />

@@ -67,7 +67,7 @@ export default function DeletedUserTable({
       ),
     },
     {
-      title: t("sys.user-management.user-info"),
+      title: t("management.user.user-info"),
       key: "user",
       render: (_: React.ReactNode, user: User) => (
         <div className="flex items-center gap-3">
@@ -76,7 +76,7 @@ export default function DeletedUserTable({
             <div className="font-semibold text-foreground flex items-center gap-2">
               {user.name}
               <Tag color="default" className="text-xs">
-                {t("sys.user-management.deleted")}
+                {t("management.user.deleted")}
               </Tag>
             </div>
             <div className="text-sm text-muted-foreground">{user.email}</div>
@@ -85,25 +85,25 @@ export default function DeletedUserTable({
       ),
     },
     {
-      title: t("sys.user-management.role"),
+      title: t("management.user.role"),
       key: "role",
       render: (_: React.ReactNode, user: User) => (
         <Tag color={getRoleColor(user.role)}>
-          {t(`sys.user-management.role-${user.role}`)}
+          {t(`management.user.role-${user.role}`)}
         </Tag>
       ),
     },
     {
-      title: t("sys.user-management.status"),
+      title: t("management.user.status"),
       key: "status",
       render: (_: React.ReactNode, user: User) => (
         <Tag color={getStatusColor(user.status || "active")}>
-          {t(`sys.user-management.status-${user.status || "active"}`)}
+          {t(`management.user.status-${user.status || "active"}`)}
         </Tag>
       ),
     },
     {
-      title: t("sys.user-management.info"),
+      title: t("management.user.info"),
       key: "info",
       render: (_: React.ReactNode, user: User) => (
         <div className="text-sm text-muted-foreground">
@@ -113,19 +113,19 @@ export default function DeletedUserTable({
       ),
     },
     {
-      title: t("sys.user-management.actions"),
+      title: t("management.user.actions"),
       key: "actions",
       width: 120,
       render: (_: React.ReactNode, user: User) => (
         <Space>
           <Popconfirm
-            title={t("sys.user-management.confirm-restore")}
-            description={t("sys.user-management.confirm-restore-description")}
+            title={t("management.user.confirm-restore")}
+            description={t("management.user.confirm-restore-description")}
             onConfirm={() => onRestore(user.id)}
-            okText={t("sys.user-management.restore")}
-            cancelText={t("sys.user-management.cancel")}
+            okText={t("management.user.restore")}
+            cancelText={t("management.user.cancel")}
           >
-            <Tooltip title={t("sys.user-management.restore")}>
+            <Tooltip title={t("management.user.restore")}>
               <Button
                 type="text"
                 size="middle"
@@ -136,16 +136,16 @@ export default function DeletedUserTable({
           </Popconfirm>
 
           <Popconfirm
-            title={t("sys.user-management.confirm-permanent-delete")}
+            title={t("management.user.confirm-permanent-delete")}
             description={t(
-              "sys.user-management.confirm-permanent-delete-description"
+              "management.user.confirm-permanent-delete-description"
             )}
             onConfirm={() => onDelete(user.id)}
-            okText={t("sys.user-management.delete")}
-            cancelText={t("sys.user-management.cancel")}
+            okText={t("management.user.delete")}
+            cancelText={t("management.user.cancel")}
             okButtonProps={{ danger: true }}
           >
-            <Tooltip title={t("sys.user-management.permanent-delete")}>
+            <Tooltip title={t("management.user.permanent-delete")}>
               <Button
                 type="text"
                 size="middle"

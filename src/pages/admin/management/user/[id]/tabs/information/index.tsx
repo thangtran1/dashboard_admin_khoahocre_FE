@@ -53,7 +53,7 @@ export default function UserInformation({ userId }: { userId: string }) {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        toast.error(t("sys.user-management.user-detail.load-failed"));
+        toast.error(t("management.user.user-detail.load-failed"));
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -69,7 +69,7 @@ export default function UserInformation({ userId }: { userId: string }) {
   if (loading && !userData) {
     return (
       <div className="flex justify-center py-10">
-        <Spin tip={t("sys.user-management.user-detail.loading")} />
+        <Spin tip={t("management.user.user-detail.loading")} />
       </div>
     );
   }
@@ -79,11 +79,11 @@ export default function UserInformation({ userId }: { userId: string }) {
     try {
       const response = await updateUser(userId, values);
       if (response.data.success) {
-        toast.success(t("sys.user-management.user-detail.update-success"));
+        toast.success(t("management.user.user-detail.update-success"));
         setIsEditing(false);
         setUserData(response.data.data);
       } else {
-        toast.error(t("sys.user-management.user-detail.update-error"));
+        toast.error(t("management.user.user-detail.update-error"));
       }
     } catch (error) {
       console.error(error);
@@ -139,8 +139,8 @@ export default function UserInformation({ userId }: { userId: string }) {
             className="rounded-full px-6 font-medium"
           >
             {isEditing
-              ? t("sys.user-management.user-detail.cancel-edit")
-              : t("sys.user-management.user-detail.edit-information")}
+              ? t("management.user.user-detail.cancel-edit")
+              : t("management.user.user-detail.edit-information")}
           </Button>
         </div>
 
@@ -155,20 +155,18 @@ export default function UserInformation({ userId }: { userId: string }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
             <Form.Item
               name="name"
-              label={t("sys.user-management.user-detail.name")}
+              label={t("management.user.user-detail.name")}
               rules={[
                 {
                   required: true,
-                  message: t("sys.user-management.user-detail.name-required"),
+                  message: t("management.user.user-detail.name-required"),
                 },
               ]}
             >
               <Input
                 size="large"
                 prefix={<UserOutlined />}
-                placeholder={t(
-                  "sys.user-management.user-detail.name-placeholder"
-                )}
+                placeholder={t("management.user.user-detail.name-placeholder")}
                 className="rounded-lg"
               />
             </Form.Item>
@@ -179,53 +177,47 @@ export default function UserInformation({ userId }: { userId: string }) {
               rules={[
                 {
                   required: true,
-                  message: t("sys.user-management.user-detail.email-required"),
+                  message: t("management.user.user-detail.email-required"),
                 },
                 {
                   type: "email",
-                  message: t("sys.user-management.user-detail.email-invalid"),
+                  message: t("management.user.user-detail.email-invalid"),
                 },
               ]}
             >
               <Input
                 size="large"
                 prefix={<MailOutlined />}
-                placeholder={t(
-                  "sys.user-management.user-detail.email-placeholder"
-                )}
+                placeholder={t("management.user.user-detail.email-placeholder")}
                 className="rounded-lg"
               />
             </Form.Item>
 
             <Form.Item
               name="phone"
-              label={t("sys.user-management.user-detail.phone")}
+              label={t("management.user.user-detail.phone")}
               rules={[
                 {
                   required: true,
-                  message: t("sys.user-management.user-detail.phone-required"),
+                  message: t("management.user.user-detail.phone-required"),
                 },
               ]}
             >
               <Input
                 size="large"
                 prefix={<PhoneOutlined />}
-                placeholder={t(
-                  "sys.user-management.user-detail.phone-placeholder"
-                )}
+                placeholder={t("management.user.user-detail.phone-placeholder")}
                 className="rounded-lg"
               />
             </Form.Item>
 
             <Form.Item
               name="address"
-              label={t("sys.user-management.user-detail.address")}
+              label={t("management.user.user-detail.address")}
               rules={[
                 {
                   required: true,
-                  message: t(
-                    "sys.user-management.user-detail.address-required"
-                  ),
+                  message: t("management.user.user-detail.address-required"),
                 },
               ]}
             >
@@ -233,7 +225,7 @@ export default function UserInformation({ userId }: { userId: string }) {
                 size="large"
                 prefix={<EnvironmentOutlined />}
                 placeholder={t(
-                  "sys.user-management.user-detail.address-placeholder"
+                  "management.user.user-detail.address-placeholder"
                 )}
                 className="rounded-lg"
               />
@@ -241,40 +233,38 @@ export default function UserInformation({ userId }: { userId: string }) {
 
             <Form.Item
               name="role"
-              label={t("sys.user-management.user-detail.role")}
+              label={t("management.user.user-detail.role")}
               rules={[
                 {
                   required: true,
-                  message: t("sys.user-management.user-detail.role-required"),
+                  message: t("management.user.user-detail.role-required"),
                 },
               ]}
             >
               <Select
                 size="large"
                 className="rounded-lg"
-                placeholder={t(
-                  "sys.user-management.user-detail.role-placeholder"
-                )}
+                placeholder={t("management.user.user-detail.role-placeholder")}
               >
                 <Option value={UserRole.USER}>
-                  {t("sys.user-management.user-detail.role-user")}
+                  {t("management.user.user-detail.role-user")}
                 </Option>
                 <Option value={UserRole.MODERATOR}>
-                  {t("sys.user-management.user-detail.role-moderator")}
+                  {t("management.user.user-detail.role-moderator")}
                 </Option>
                 <Option value={UserRole.ADMIN}>
-                  {t("sys.user-management.user-detail.role-admin")}
+                  {t("management.user.user-detail.role-admin")}
                 </Option>
               </Select>
             </Form.Item>
 
             <Form.Item
               name="status"
-              label={t("sys.user-management.user-detail.status")}
+              label={t("management.user.user-detail.status")}
               rules={[
                 {
                   required: true,
-                  message: t("sys.user-management.user-detail.status-required"),
+                  message: t("management.user.user-detail.status-required"),
                 },
               ]}
             >
@@ -282,28 +272,23 @@ export default function UserInformation({ userId }: { userId: string }) {
                 size="large"
                 className="rounded-lg"
                 placeholder={t(
-                  "sys.user-management.user-detail.status-placeholder"
+                  "management.user.user-detail.status-placeholder"
                 )}
               >
                 <Option value={UserStatus.ACTIVE}>
-                  {t("sys.user-management.user-detail.status-active")}
+                  {t("management.user.user-detail.status-active")}
                 </Option>
                 <Option value={UserStatus.INACTIVE}>
-                  {t("sys.user-management.user-detail.status-inactive")}
+                  {t("management.user.user-detail.status-inactive")}
                 </Option>
               </Select>
             </Form.Item>
 
-            <Form.Item
-              name="bio"
-              label={t("sys.user-management.user-detail.bio")}
-            >
+            <Form.Item name="bio" label={t("management.user.user-detail.bio")}>
               <Input.TextArea
                 rows={4}
                 maxLength={200}
-                placeholder={t(
-                  "sys.user-management.user-detail.bio-placeholder"
-                )}
+                placeholder={t("management.user.user-detail.bio-placeholder")}
                 className="rounded-lg"
               />
             </Form.Item>
@@ -318,7 +303,7 @@ export default function UserInformation({ userId }: { userId: string }) {
                   danger
                   disabled={loading}
                 >
-                  {t("sys.user-management.user-detail.cancel")}
+                  {t("management.user.user-detail.cancel")}
                 </Button>
                 <Button
                   type="primary"
@@ -326,7 +311,7 @@ export default function UserInformation({ userId }: { userId: string }) {
                   loading={loading}
                   size="large"
                 >
-                  {t("sys.user-management.user-detail.update")}
+                  {t("management.user.user-detail.update")}
                 </Button>
               </Space>
             </div>
