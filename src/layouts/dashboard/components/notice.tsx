@@ -22,6 +22,7 @@ import { notificationUserService } from "@/api/services/notificationApi";
 import { NotificationType } from "@/types/enum";
 import { useTranslation } from "react-i18next";
 import { Notification } from "@/types/entity";
+import { useUserToken } from "@/store/userStore";
 
 dayjs.extend(relativeTime);
 dayjs.locale("vi");
@@ -35,19 +36,26 @@ export default function NoticeButton() {
   const [loading, setLoading] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [activeTab, setActiveTab] = useState("all");
+  const { accessToken, refreshToken } = useUserToken();
+  const isLoggedIn = Boolean(accessToken && refreshToken);
 
   useEffect(() => {
-    loadUnreadCount();
-  }, []);
-
-  useEffect(() => {
-    if (!drawerOpen) {
+    if (isLoggedIn) {
       loadUnreadCount();
     }
-  }, [drawerOpen]);
+  }, [isLoggedIn]);
+
+ useEffect(() => {
+    if (!drawerOpen && isLoggedIn) {
+      loadUnreadCount();
+    }
+  }, [drawerOpen, isLoggedIn]);
 
   const loadUnreadCount = async () => {
     try {
+      if (!accessToken || !refreshToken) {
+        return;
+      }
       const response = await notificationUserService.getUnreadCount();
       setUnreadCount(response.unreadCount);
     } catch (error) {
@@ -66,10 +74,10 @@ export default function NoticeButton() {
 
   // Chỉ load notifications khi drawer mở và chưa có data
   useEffect(() => {
-    if (drawerOpen && notifications.length === 0) {
+    if (drawerOpen && isLoggedIn && notifications.length === 0) {
       loadNotifications();
     }
-  }, [drawerOpen, notifications.length]);
+  }, [drawerOpen, isLoggedIn, notifications.length]);
 
   const loadNotifications = async () => {
     setLoading(true);

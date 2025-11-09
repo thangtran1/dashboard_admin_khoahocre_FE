@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { getUserProfile, UserProfile } from "@/api/services/profileApi";
-import { useUserActions } from "@/store/userStore";
+import { useUserActions, useUserToken } from "@/store/userStore";
 
 export const useUserProfile = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { setUserInfo } = useUserActions();
-
+  const { accessToken, refreshToken } = useUserToken();
   const transformUserData = (profileData: UserProfile) => ({
     id: profileData._id,
     email: profileData.email,
@@ -27,6 +27,11 @@ export const useUserProfile = () => {
   });
 
   const fetchProfile = async () => {
+    if (!accessToken || !refreshToken) {
+      setLoading(false);
+      return; 
+    }
+  
     try {
       setLoading(true);
       setError(null);
