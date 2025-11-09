@@ -72,7 +72,7 @@ export default function PersonalInfoTab({
           : undefined,
       });
       onProfileUpdate(updated);
-      toast.success(t("sys.profile.update-profile-success"));
+      toast.success(t("profile.update-profile-success"));
       setIsChanged(false);
     } catch (err) {}
   };
@@ -84,7 +84,7 @@ export default function PersonalInfoTab({
       const url = await uploadAvatar(file);
       const updated = await updateUserProfile({ avatar: url });
       onProfileUpdate(updated);
-      toast.success(t("sys.profile.update-avatar-success"));
+      toast.success(t("profile.update-avatar-success"));
     } catch (err) {
       throw err;
     } finally {
@@ -113,8 +113,8 @@ export default function PersonalInfoTab({
           </Upload>
         </div>
         <div>
-          <h3>{profile?.name || t("sys.profile.loading")}</h3>
-          <p>{profile?.email || t("sys.profile.loading")}</p>
+          <h3>{profile?.name || t("profile.loading")}</h3>
+          <p>{profile?.email || t("profile.loading")}</p>
         </div>
       </div>
 
@@ -132,16 +132,14 @@ export default function PersonalInfoTab({
           <Col span={12}>
             <Form.Item
               name="name"
-              label={t("sys.profile.name")}
-              rules={[
-                { required: true, message: t("sys.profile.name-required") },
-              ]}
+              label={t("profile.name")}
+              rules={[{ required: true, message: t("profile.name-required") }]}
             >
               <Input size="large" prefix={<UserOutlined />} />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="email" label={t("sys.profile.email")}>
+            <Form.Item name="email" label={t("profile.email")}>
               <Input size="large" prefix={<MailOutlined />} disabled />
             </Form.Item>
           </Col>
@@ -149,25 +147,22 @@ export default function PersonalInfoTab({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="phone" label={t("sys.profile.phone")}>
+            <Form.Item name="phone" label={t("profile.phone")}>
               <Input size="large" prefix={<PhoneOutlined />} />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="dateOfBirth"
-              label={t("sys.profile.date-of-birth")}
-            >
+            <Form.Item name="dateOfBirth" label={t("profile.date-of-birth")}>
               <DatePicker size="large" className="w-full" format="YYYY-MM-DD" />
             </Form.Item>
           </Col>
         </Row>
 
-        <Form.Item name="address" label={t("sys.profile.address")}>
+        <Form.Item name="address" label={t("profile.address")}>
           <Input size="large" prefix={<HomeOutlined />} />
         </Form.Item>
 
-        <Form.Item name="bio" label={t("sys.profile.bio")}>
+        <Form.Item name="bio" label={t("profile.bio")}>
           <TextArea size="large" rows={4} />
         </Form.Item>
 
@@ -180,7 +175,7 @@ export default function PersonalInfoTab({
             loading={loading}
             disabled={!isChanged}
           >
-            {t("sys.profile.update-profile")}
+            {t("profile.update-profile")}
           </Button>
         </div>
       </Form>

@@ -64,7 +64,7 @@ export default function PreferencesTab({
       setSystemSettings(updatedSettings);
       await refreshSettings();
 
-      toast.success(t("sys.profile.update-system-settings-success"));
+      toast.success(t("profile.update-system-settings-success"));
       setIsChanged(false);
     } catch (error) {
       throw error;
@@ -75,7 +75,7 @@ export default function PreferencesTab({
 
   return (
     <div>
-      <h3 className="text-lg font-semibold">{t("sys.profile.preferences")}</h3>
+      <h3 className="text-lg font-semibold">{t("profile.preferences")}</h3>
 
       <Form
         form={settingsForm}
@@ -83,30 +83,27 @@ export default function PreferencesTab({
         onValuesChange={handleValuesChange}
         onFinish={handleSystemSettingsChange}
       >
-        <Form.Item
-          name="defaultLanguage"
-          label={t("sys.profile.default-language")}
-        >
+        <Form.Item name="defaultLanguage" label={t("profile.default-language")}>
           <Select size="large">
-            <Option value="vi">{t("sys.profile.vi")}</Option>
-            <Option value="en">{t("sys.profile.en")}</Option>
+            <Option value="vi">{t("profile.vi")}</Option>
+            <Option value="en">{t("profile.en")}</Option>
           </Select>
         </Form.Item>
 
-        <Form.Item name="systemName" label={t("sys.profile.system-name")}>
+        <Form.Item name="systemName" label={t("profile.system-name")}>
           <Input
             size="large"
-            placeholder={t("sys.profile.system-name-placeholder")}
+            placeholder={t("profile.system-name-placeholder")}
           />
         </Form.Item>
 
         <Form.Item
           name="systemDescription"
-          label={t("sys.profile.system-description")}
+          label={t("profile.system-description")}
         >
           <TextArea
             rows={3}
-            placeholder={t("sys.profile.system-description-placeholder")}
+            placeholder={t("profile.system-description-placeholder")}
           />
         </Form.Item>
 
@@ -119,7 +116,7 @@ export default function PreferencesTab({
             loading={loading}
             disabled={!isChanged}
           >
-            {t("sys.profile.save-settings")}
+            {t("profile.save-settings")}
           </Button>
         </div>
       </Form>

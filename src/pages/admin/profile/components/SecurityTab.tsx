@@ -35,7 +35,7 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
       await adminChangePassword(passwordData);
       passwordForm.resetFields();
       setIsChanged(false);
-      toast.success(t("sys.profile.change-password-success"));
+      toast.success(t("profile.change-password-success"));
     } catch (error) {
       const errorMessage = error?.message;
       toast.error(errorMessage);
@@ -55,7 +55,7 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
   return (
     <div>
       <h3 className="text-lg font-semibold mb-4">
-        {t("sys.profile.change-password")}
+        {t("profile.change-password")}
       </h3>
       <Form
         form={passwordForm}
@@ -65,11 +65,11 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
       >
         <Form.Item
           name="currentPassword"
-          label={t("sys.profile.current-password")}
+          label={t("profile.current-password")}
           rules={[
             {
               required: true,
-              message: t("sys.profile.current-password-error"),
+              message: t("profile.current-password-error"),
             },
           ]}
         >
@@ -78,10 +78,10 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
 
         <Form.Item
           name="newPassword"
-          label={t("sys.profile.new-password")}
+          label={t("profile.new-password")}
           rules={[
-            { required: true, message: t("sys.profile.new-password-error") },
-            { min: 6, message: t("sys.profile.new-password-error") },
+            { required: true, message: t("profile.new-password-error") },
+            { min: 6, message: t("profile.new-password-error") },
           ]}
         >
           <Input.Password size="large" />
@@ -89,12 +89,12 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
 
         <Form.Item
           name="confirmPassword"
-          label={t("sys.profile.confirm-password")}
+          label={t("profile.confirm-password")}
           dependencies={["newPassword"]}
           rules={[
             {
               required: true,
-              message: t("sys.profile.confirm-password-error"),
+              message: t("profile.confirm-password-error"),
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -102,7 +102,7 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
-                  new Error(t("sys.profile.confirm-password-error"))
+                  new Error(t("profile.confirm-password-error"))
                 );
               },
             }),
@@ -120,7 +120,7 @@ export default function SecurityTab({ loading, setLoading }: SecurityTabProps) {
             loading={loading}
             disabled={!isChanged}
           >
-            {t("sys.profile.change-password")}
+            {t("profile.change-password")}
           </Button>
         </div>
       </Form>

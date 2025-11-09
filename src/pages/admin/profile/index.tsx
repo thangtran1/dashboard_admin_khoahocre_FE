@@ -55,7 +55,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:user" className="h-4 w-4" />
-          {t("sys.profile.title")}
+          {t("profile.title")}
         </span>
       ),
       children: (
@@ -71,7 +71,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:history" className="h-4 w-4" />
-          {t("sys.user-management.user-detail.activity-log")}
+          {t("user-management.user-detail.activity-log")}
         </span>
       ),
       children: (
@@ -89,7 +89,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:shield" className="h-4 w-4" />
-          {t("sys.profile.security")}
+          {t("profile.security")}
         </span>
       ),
       children: <SecurityTab loading={loading} setLoading={setLoading} />,
@@ -99,7 +99,7 @@ export default function ProfilePage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:settings" className="h-4 w-4" />
-          {t("sys.profile.preferences")}
+          {t("profile.preferences")}
         </span>
       ),
       children: (
@@ -120,10 +120,10 @@ export default function ProfilePage() {
           <div>
             <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
               <Icon icon="lucide:user" className="h-7 w-7 text-primary" />
-              {t("sys.profile.title")}
+              {t("profile.title")}
             </CardTitle>
             <p className="text-muted-foreground mt-1">
-              {t("sys.profile.description")}
+              {t("profile.description")}
             </p>
           </div>
         </div>
