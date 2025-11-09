@@ -29,7 +29,7 @@ export default function EditModal({
       title={
         <div className="flex items-center gap-2">
           <Icon icon="lucide:edit" className="h-5 w-5 text-blue-600" />
-          {t("sys.notification.edit-notification")}
+          {t("notification.edit-notification")}
         </div>
       }
       open={isOpen}
@@ -40,31 +40,31 @@ export default function EditModal({
       <Form form={editForm} layout="vertical" onFinish={onUpdate}>
         <Form.Item
           name="title"
-          label={t("sys.notification.title")}
+          label={t("notification.title")}
           rules={[
             {
               required: true,
-              message: t("sys.notification.title-required"),
+              message: t("notification.title-required"),
             },
-            { max: 100, message: t("sys.notification.title-max") },
+            { max: 100, message: t("notification.title-max") },
           ]}
         >
-          <Input placeholder={t("sys.notification.title-placeholder")} />
+          <Input placeholder={t("notification.title-placeholder")} />
         </Form.Item>
 
         <Form.Item
           name="content"
-          label={t("sys.notification.content")}
+          label={t("notification.content")}
           rules={[
             {
               required: true,
-              message: t("sys.notification.content-required"),
+              message: t("notification.content-required"),
             },
-            { max: 2000, message: t("sys.notification.content-max") },
+            { max: 2000, message: t("notification.content-max") },
           ]}
         >
           <Input.TextArea
-            placeholder={t("sys.notification.content-placeholder")}
+            placeholder={t("notification.content-placeholder")}
             rows={3}
             maxLength={2000}
             showCount
@@ -73,27 +73,27 @@ export default function EditModal({
 
         <Form.Item
           name="type"
-          label={t("sys.notification.type")}
+          label={t("notification.type")}
           rules={[
             {
               required: true,
-              message: t("sys.notification.type-required"),
+              message: t("notification.type-required"),
             },
           ]}
         >
           <Select
-            placeholder={t("sys.notification.type-placeholder")}
+            placeholder={t("notification.type-placeholder")}
             options={[
-              { value: "system", label: t("sys.notification.system") },
+              { value: "system", label: t("notification.system") },
               {
                 value: "promotion",
-                label: t("sys.notification.promotion"),
+                label: t("notification.promotion"),
               },
               {
                 value: "maintenance",
-                label: t("sys.notification.maintenance"),
+                label: t("notification.maintenance"),
               },
-              { value: "update", label: t("sys.notification.update") },
+              { value: "update", label: t("notification.update") },
             ]}
           />
         </Form.Item>
@@ -101,7 +101,7 @@ export default function EditModal({
         <Form.Item style={{ marginBottom: 0, textAlign: "right" }}>
           <Space>
             <Button size="large" danger onClick={onClose}>
-              {t("sys.notification.cancel")}
+              {t("notification.cancel")}
             </Button>
             <Button
               size="large"
@@ -109,7 +109,7 @@ export default function EditModal({
               variant="outlined"
               htmlType="submit"
             >
-              {t("sys.notification.update")}
+              {t("notification.update")}
             </Button>
           </Space>
         </Form.Item>

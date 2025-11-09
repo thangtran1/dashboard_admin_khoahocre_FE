@@ -16,10 +16,12 @@ import dayjs from "dayjs";
 import { notificationAdminService } from "@/api/services/notificationApi";
 import { Notifications } from "@/types/entity";
 import { NotificationType } from "@/types/enum";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 
 const Notification: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const [notification, setNotification] = useState<Notifications | null>(null);
   const [loading, setLoading] = useState(false);
@@ -39,7 +41,7 @@ const Notification: React.FC = () => {
       setNotification(response as unknown as Notifications);
     } catch (error: any) {
       console.error("Error fetching notification detail:", error);
-      setError(error.message || "Không thể tải chi tiết thông báo");
+      setError(error.message || t("notification.load-detail-error"));
     } finally {
       setLoading(false);
     }
@@ -49,7 +51,9 @@ const Notification: React.FC = () => {
     return (
       <div style={{ textAlign: "center", padding: "50px" }}>
         <Spin size="large" />
-        <div style={{ marginTop: "16px" }}>Đang tải chi tiết thông báo...</div>
+        <div style={{ marginTop: "16px" }}>
+          {t("notification.loading-detail")}
+        </div>
       </div>
     );
   }
@@ -58,13 +62,13 @@ const Notification: React.FC = () => {
     return (
       <Card>
         <Alert
-          message="Lỗi"
+          message={t("notification.error")}
           description={error}
           type="error"
           showIcon
           action={
             <Button size="small" onClick={() => fetchNotificationDetail(id!)}>
-              Thử lại
+              {t("notification.try-again")}
             </Button>
           }
         />
@@ -76,8 +80,8 @@ const Notification: React.FC = () => {
     return (
       <Card>
         <Alert
-          message="Không tìm thấy thông báo"
-          description="Thông báo không tồn tại hoặc đã bị xóa"
+          message={t("notification.not-found")}
+          description={t("notification.not-found-description")}
           type="warning"
           showIcon
         />
@@ -95,25 +99,25 @@ const Notification: React.FC = () => {
     <Card>
       <Breadcrumb style={{ marginBottom: "8px" }}>
         <Breadcrumb.Item>
-          <Link to="/notifications">Quản lý thông báo</Link>
+          <Link to="/notifications">{t("notification.management")}</Link>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>Chi tiết thông báo</Breadcrumb.Item>
+        <Breadcrumb.Item>{t("notification.detail")}</Breadcrumb.Item>
       </Breadcrumb>
       <div>
-        <Title level={3}>Chi tiết thông báo</Title>
+        <Title level={3}>{t("notification.detail")}</Title>
       </div>
 
       <Descriptions bordered column={2} size="small">
         <Descriptions.Item label="ID" span={2}>
           {notification.data._id}
         </Descriptions.Item>
-        <Descriptions.Item label="Loại thông báo" span={2}>
+        <Descriptions.Item label={t("notification.type")} span={2}>
           {typeMap[notification.data.type] || notification.data.type}
         </Descriptions.Item>
-        <Descriptions.Item label="Thời gian tạo" span={2}>
+        <Descriptions.Item label={t("notification.created-at")} span={2}>
           {dayjs(notification.data.createdAt).format("DD/MM/YYYY HH:mm:ss")}
         </Descriptions.Item>
-        <Descriptions.Item label="Cập nhật lần cuối" span={2}>
+        <Descriptions.Item label={t("notification.updated-at")} span={2}>
           {dayjs(notification.data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
         </Descriptions.Item>
       </Descriptions>
@@ -123,7 +127,7 @@ const Notification: React.FC = () => {
       <Row gutter={24}>
         <Col span={8}>
           <Title level={5} style={{ marginBottom: "16px" }}>
-            Hình ảnh mô tả
+            {t("notification.image-video")}
           </Title>
           <div
             style={{
@@ -134,7 +138,7 @@ const Notification: React.FC = () => {
             }}
           >
             <Title level={5} style={{ marginBottom: "12px" }}>
-              Hình ảnh/video
+              {t("notification.image-video-description")}
             </Title>
             {notification.data.actionUrl ? (
               <div style={{ textAlign: "center" }}>
@@ -161,7 +165,7 @@ const Notification: React.FC = () => {
                 }}
               >
                 <div style={{ fontSize: "24px", marginBottom: "8px" }}>📷</div>
-                <div>Không có hình ảnh</div>
+                <div>{t("notification.no-image")}</div>
               </div>
             )}
           </div>
@@ -169,11 +173,11 @@ const Notification: React.FC = () => {
         <Col span={16}>
           <div>
             <Title level={5} style={{ marginBottom: "16px" }}>
-              Nội dung thông báo
+              {t("notification.content-description")}
             </Title>
 
             <div style={{ marginBottom: "16px" }}>
-              <Text strong>Tiêu đề:</Text>
+              <Text strong>{t("notification.title-description")}:</Text>
               <div
                 style={{
                   marginTop: "4px",
@@ -187,16 +191,8 @@ const Notification: React.FC = () => {
             </div>
 
             <div>
-              <Text strong>Nội dung:</Text>
-              <div
-                style={{
-                  marginTop: "4px",
-                  padding: "12px",
-                  backgroundColor: "#f5f5f5",
-                  borderRadius: "4px",
-                  whiteSpace: "pre-wrap",
-                }}
-              >
+              <Text strong>{t("notification.content-description")}:</Text>
+              <div className="mt-1 p-3 bg-gray-100 rounded whitespace-pre-wrap">
                 {notification.data.content}
               </div>
             </div>

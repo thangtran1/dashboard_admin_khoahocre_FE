@@ -84,7 +84,7 @@ const NotificationManagement: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteNotification(id);
-      toast.success(t("sys.notification.delete-notification-success"));
+      toast.success(t("notification.delete-notification-success"));
     } catch (error) {
       throw error;
     }
@@ -105,7 +105,7 @@ const NotificationManagement: React.FC = () => {
       setEditModalVisible(false);
       setEditingNotification(null);
 
-      toast.success(t("sys.notification.update-notification-success"));
+      toast.success(t("notification.update-notification-success"));
     } catch (error) {
       throw error;
     }
@@ -127,7 +127,7 @@ const NotificationManagement: React.FC = () => {
 
   const columns = [
     {
-      title: t("sys.notification.title"),
+      title: t("notification.title"),
       dataIndex: "title",
       key: "title",
       width: 150,
@@ -135,7 +135,7 @@ const NotificationManagement: React.FC = () => {
       render: (text: string) => renderWithTooltip(text),
     },
     {
-      title: t("sys.notification.content"),
+      title: t("notification.content"),
       dataIndex: "content",
       key: "content",
       width: 150,
@@ -143,7 +143,7 @@ const NotificationManagement: React.FC = () => {
       render: (text: string) => renderWithTooltip(text),
     },
     {
-      title: t("sys.notification.image-video"),
+      title: t("notification.image-video"),
       dataIndex: "actionUrl",
       key: "actionUrl",
       width: 150,
@@ -167,7 +167,7 @@ const NotificationManagement: React.FC = () => {
     },
 
     {
-      title: t("sys.notification.type"),
+      title: t("notification.type"),
       dataIndex: "type",
       key: "type",
       width: 120,
@@ -182,14 +182,14 @@ const NotificationManagement: React.FC = () => {
       ),
     },
     {
-      title: t("sys.notification.read-by-users"),
+      title: t("notification.read-by-users"),
       dataIndex: "readByUsers",
       key: "readByUsers",
       width: 120,
       render: (readByUsers?: string[]) => readByUsers?.length || 0,
     },
     {
-      title: t("sys.notification.created-at"),
+      title: t("notification.created-at"),
       dataIndex: "createdAt",
       key: "createdAt",
       width: 150,
@@ -197,7 +197,7 @@ const NotificationManagement: React.FC = () => {
         renderWithTooltip(dayjs(date).format("DD/MM/YYYY HH:mm")),
     },
     {
-      title: t("sys.notification.actions"),
+      title: t("notification.actions"),
       key: "actions",
       width: 120,
       align: "center",
@@ -213,10 +213,10 @@ const NotificationManagement: React.FC = () => {
               onClick={() => handleEdit(record)}
             />
             <Popconfirm
-              title={t("sys.notification.delete-notification")}
+              title={t("notification.delete-notification")}
               onConfirm={() => handleDelete(record._id)}
-              okText={t("sys.notification.delete-notification")}
-              cancelText={t("sys.notification.cancel")}
+              okText={t("notification.delete-notification")}
+              cancelText={t("notification.cancel")}
             >
               <Button type="text" danger icon={<DeleteOutlined />} />
             </Popconfirm>
@@ -233,10 +233,10 @@ const NotificationManagement: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground">
-              🔔 {t("sys.notification.management")}
+              🔔 {t("notification.management")}
             </h1>
             <p className="text-muted-foreground mt-2">
-              {t("sys.notification.management-description")}
+              {t("notification.management-description")}
             </p>
           </div>
           <Link to="/notifications/new-notification">
@@ -246,7 +246,7 @@ const NotificationManagement: React.FC = () => {
               icon={<PlusOutlined />}
               className="bg-blue-600 hover:bg-blue-700"
             >
-              {t("sys.notification.new-notification")}
+              {t("notification.new-notification")}
             </Button>
           </Link>
         </div>

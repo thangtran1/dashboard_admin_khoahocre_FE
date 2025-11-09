@@ -31,10 +31,10 @@ export default function FilterSearch({
     <div className="grid grid-cols-1 items-end gap-4 pb-5 md:grid-cols-2 xl:grid-cols-4">
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t("sys.notification.search")}
+          {t("notification.search")}
         </label>
         <Search
-          placeholder={t("sys.notification.search-placeholder")}
+          placeholder={t("notification.search-placeholder")}
           size="large"
           prefix={<SearchOutlined />}
           allowClear
@@ -45,7 +45,7 @@ export default function FilterSearch({
       </div>
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t("sys.notification.date-range")}
+          {t("notification.date-range")}
         </label>
         <RangePicker
           size="large"
@@ -59,7 +59,7 @@ export default function FilterSearch({
       </div>
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t("sys.notification.type")}
+          {t("notification.type")}
         </label>
         <Select
           size="large"
@@ -67,19 +67,17 @@ export default function FilterSearch({
           allowClear
           value={selectedType || undefined}
           onChange={setSelectedType}
-          placeholder={t("sys.notification.type-placeholder")}
+          placeholder={t("notification.type-placeholder")}
         >
-          <Option value="system">{t("sys.notification.system")}</Option>
-          <Option value="promotion">{t("sys.notification.promotion")}</Option>
-          <Option value="maintenance">
-            {t("sys.notification.maintenance")}
-          </Option>
-          <Option value="update">{t("sys.notification.update")}</Option>
+          <Option value="system">{t("notification.system")}</Option>
+          <Option value="promotion">{t("notification.promotion")}</Option>
+          <Option value="maintenance">{t("notification.maintenance")}</Option>
+          <Option value="update">{t("notification.update")}</Option>
         </Select>
       </div>
       <div className="flex gap-2">
         <Button danger size="large" onClick={handleClearFilter}>
-          {t("sys.notification.clear-filter")}
+          {t("notification.clear-filter")}
         </Button>
         <Button
           size="large"
@@ -87,7 +85,7 @@ export default function FilterSearch({
           variant="outlined"
           onClick={handleSearchClick}
         >
-          {t("sys.notification.search")}
+          {t("notification.search")}
         </Button>
       </div>
     </div>

@@ -87,14 +87,12 @@ const NewNotification: React.FC = () => {
     <Card className="!bg-background">
       <Breadcrumb style={{ marginBottom: "8px" }}>
         <Breadcrumb.Item>
-          <Link to="/notifications">{t("sys.notification.management")}</Link>
+          <Link to="/notifications">{t("notification.management")}</Link>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          {t("sys.notification.new-notification")}
-        </Breadcrumb.Item>
+        <Breadcrumb.Item>{t("notification.new-notification")}</Breadcrumb.Item>
       </Breadcrumb>
 
-      <Title level={3}>{t("sys.notification.new-notification")}</Title>
+      <Title level={3}>{t("notification.new-notification")}</Title>
 
       <Divider style={{ margin: "12px 0" }} />
 
@@ -110,12 +108,12 @@ const NewNotification: React.FC = () => {
           <Col span={12}>
             <Form.Item
               name="type"
-              label={t("sys.notification.type")}
+              label={t("notification.type")}
               rules={[
                 { required: true, message: "Vui lòng chọn loại thông báo" },
               ]}
             >
-              <Select placeholder={t("sys.notification.select-type")}>
+              <Select placeholder={t("notification.select-type")}>
                 <Option value="system">{t("notification.system")}</Option>
                 <Option value="news">{t("notification.news")}</Option>
                 <Option value="maintenance">
@@ -127,21 +125,21 @@ const NewNotification: React.FC = () => {
         </Row>
 
         <Title level={4} style={{ marginBottom: "12px" }}>
-          {t("sys.notification.content")}
+          {t("notification.content")}
         </Title>
 
         <Row gutter={24}>
           <Col span={8}>
             <Form.Item
               name="actionUrl"
-              label={t("sys.notification.image-video")}
+              label={t("notification.image-video")}
               rules={[
                 {
                   validator: (_, value) => {
                     if (!value) return Promise.resolve();
                     if (validateUrl(value)) return Promise.resolve();
                     return Promise.reject(
-                      new Error(t("sys.notification.url-invalid"))
+                      new Error(t("notification.url-invalid"))
                     );
                   },
                 },
@@ -168,14 +166,14 @@ const NewNotification: React.FC = () => {
                 ) : (
                   <div style={{ color: "#999" }}>
                     <PlusOutlined style={{ fontSize: 48, marginBottom: 8 }} />
-                    <div>{t("sys.notification.preview-image-video")}</div>
+                    <div>{t("notification.preview-image-video")}</div>
                   </div>
                 )}
               </div>
 
               {/* Input luôn hiển thị */}
               <Input
-                placeholder={t("sys.notification.image-video-placeholder")}
+                placeholder={t("notification.image-video-placeholder")}
                 status={urlError ? "error" : ""}
                 value={form.getFieldValue("actionUrl") || ""}
                 onChange={(e) => {
@@ -189,7 +187,7 @@ const NewNotification: React.FC = () => {
                     } else {
                       setActionUrlFile(null);
                       form.setFieldsValue({ actionUrl: url });
-                      setUrlError(t("sys.notification.url-invalid"));
+                      setUrlError(t("notification.url-invalid"));
                     }
                   } else {
                     setActionUrlFile(null);
@@ -216,17 +214,17 @@ const NewNotification: React.FC = () => {
               <Form.Item
                 style={{ marginBottom: 12 }}
                 name="title"
-                label={t("sys.notification.title")}
+                label={t("notification.title")}
                 rules={[
                   {
                     required: true,
-                    message: t("sys.notification.title-required"),
+                    message: t("notification.title-required"),
                   },
-                  { max: 200, message: t("sys.notification.title-max") },
+                  { max: 200, message: t("notification.title-max") },
                 ]}
               >
                 <Input
-                  placeholder={t("sys.notification.title")}
+                  placeholder={t("notification.title")}
                   showCount
                   maxLength={200}
                 />
@@ -234,21 +232,21 @@ const NewNotification: React.FC = () => {
 
               <Form.Item
                 name="content"
-                label={t("sys.notification.content")}
+                label={t("notification.content")}
                 rules={[
                   {
                     required: true,
-                    message: t("sys.notification.content-required"),
+                    message: t("notification.content-required"),
                   },
                   {
                     max: 500,
-                    message: t("sys.notification.content-max"),
+                    message: t("notification.content-max"),
                   },
                 ]}
               >
                 <TextArea
                   rows={7}
-                  placeholder={t("sys.notification.content-placeholder")}
+                  placeholder={t("notification.content-placeholder")}
                   showCount
                   maxLength={500}
                 />
@@ -266,7 +264,7 @@ const NewNotification: React.FC = () => {
               setActionUrlFile(null);
             }}
           >
-            {t("sys.notification.cancel")}
+            {t("notification.cancel")}
           </Button>
           <Button
             size="large"
@@ -275,7 +273,7 @@ const NewNotification: React.FC = () => {
             loading={loading}
             onClick={handleSendForApproval}
           >
-            {t("sys.notification.add")}
+            {t("notification.add")}
           </Button>
         </div>
       </Form>
