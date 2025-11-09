@@ -25,6 +25,8 @@
       "errMsg505": "Phiên bản HTTP không hỗ trợ yêu cầu này!"
     },
     "login": {
+      "signInFailed": "Đăng nhập thất bại",
+      "loggingIn": "Đang đăng nhập...",
       "passwordNewTitle": "Đặt lại mật khẩu mới",
       "resetPasswordDescription": "Vui lòng ghi nhớ mật khẩu mới sau khi thay đổi để tránh mất quyền truy cập.",
       "emailRequired": "Email là bắt buộc",

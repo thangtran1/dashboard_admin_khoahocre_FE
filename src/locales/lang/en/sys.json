@@ -24,6 +24,8 @@
       "timeoutMessage": "Login timed out, please log in again!"
     },
     "login": {
+      "signInFailed": "Sign in failed",
+      "loggingIn": "Logging in...",
       "passwordNewTitle": "Set new password",
       "resetPasswordDescription": "Please remember the new password after changing to avoid losing access.",
       "emailRequired": "Email is required",

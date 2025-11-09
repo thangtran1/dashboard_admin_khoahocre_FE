@@ -7,7 +7,7 @@ export interface SignInReq {
   password: string;
 }
 
-export type SignInRes = UserToken & { user: UserInfo };
+export type SignInRes = { data: UserToken & { user: UserInfo } };
 
 export interface ForgotPasswordReq {
   email: string;

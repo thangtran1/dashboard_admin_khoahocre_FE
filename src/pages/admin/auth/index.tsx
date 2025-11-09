@@ -2,25 +2,12 @@ import PlaceholderImg from "@/assets/images/background/placeholder.svg";
 import LocalePicker from "@/components/common/locale-picker";
 import Logo from "@/components/common/logo";
 import SettingButton from "@/layouts/dashboard/components/setting-button";
-import { useUserInfo, useUserToken } from "@/store/userStore";
-import { Navigate } from "react-router";
 import LoginForm from "./login/login-form";
 import { LoginProvider } from "./login/providers/login-provider";
 import RegisterForm from "./login/register-form";
 import ForgotPasswordForm from "./forgot-password/forgot-password-form";
 
-const { VITE_APP_ADMIN: HOMEPAGE } = import.meta.env;
 export default function LoginPage() {
-  const token = useUserToken();
-  const { role } = useUserInfo();
-  if (token.accessToken) {
-    if (String(role) === "user") {
-      return <Navigate to={"/"} replace />;
-    }
-
-    return <Navigate to={HOMEPAGE} replace />;
-  }
-
   return (
     <div className="relative grid min-h-svh lg:grid-cols-2 bg-background">
       <div className="flex flex-col gap-4 p-6 md:p-10">
