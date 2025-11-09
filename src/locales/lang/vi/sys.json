@@ -25,7 +25,9 @@
       "errMsg505": "Phiên bản HTTP không hỗ trợ yêu cầu này!"
     },
     "login": {
-      "signInFailed": "Đăng nhập thất bại",
+      "passwordMinLength": "Mật khẩu phải ít nhất 6 ký tự",
+      "emailInvalid": "Email không hợp lệ",
+      "registering": "Đang đăng ký...",
       "loggingIn": "Đang đăng nhập...",
       "passwordNewTitle": "Đặt lại mật khẩu mới",
       "resetPasswordDescription": "Vui lòng ghi nhớ mật khẩu mới sau khi thay đổi để tránh mất quyền truy cập.",
@@ -45,7 +47,7 @@
       "resetLink": "Nhận link đặt lại mật khẩu",
       "receiveOTP": "Nhận mã OTP",
       "noteConfirmRegister": "Sau khi đăng ký, bạn sẽ nhận email với thông tin tài khoản và mật khẩu tạm thời. Hãy đổi mật khẩu ngay khi đăng nhập lần đầu.",
-      "noteConfirm": "Nếu bạn không có email, vui lòng liên hệ hotline 0389215396 để được hỗ trợ lấy lại mật khẩu",
+      "noteConfirm": "Khi chọn phương thức nhận link đặt lại mật khẩu, bạn sẽ nhận được link đặt lại mật khẩu qua email",
       "sending": "Đang gửi...",
       "confirmOTP": "Nhập mã xác thực",
       "sentMessageBefore": "Chúng tôi đã gửi mã OTP đến email <b>{{email}}</b> vui lòng kiểm tra hộp thư và nhập mã bên dưới.",
@@ -81,7 +83,6 @@
       "sendSmsText": "{{second}} giây sau thử lại",
       "sendEmailButton": "Gửi email",
 
-      "loginSuccessTitle": "Đăng nhập thành công",
       "loginSuccessDesc": "Chào mừng quay lại",
 
       "accountPlaceholder": "Nhập tài khoản",

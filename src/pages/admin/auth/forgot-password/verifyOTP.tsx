@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Button, Modal, Input } from "antd";
 import { useMutation } from "@tanstack/react-query";
@@ -7,7 +6,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
-
+import { FullPageLoading } from "@/components/common/loading";
 interface OtpModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -19,7 +18,6 @@ type FormValues = {
 };
 
 const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const verifyOTPMutation = useMutation({
@@ -36,7 +34,6 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
 
   const onSubmit = async ({ otp }: FormValues) => {
     if (!otp) return;
-    setIsLoading(true);
 
     try {
       const res = await verifyOTPMutation.mutateAsync({ email, otp });
@@ -54,8 +51,6 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -73,6 +68,9 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
       width={400}
       onCancel={onClose}
     >
+      {verifyOTPMutation.isPending && (
+        <FullPageLoading message={t("sys.login.sending")} />
+      )}
       <div className="text-center">
         <Icon
           icon="local:ic-new-transaction"
@@ -82,7 +80,9 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
       </div>
 
       <div className="flex flex-col items-center gap-1 text-center px-4 py-3 max-w-sm mx-auto">
-        <h1 className="text-2xl text-foreground font-bold mb-2">{t("sys.login.confirmOTP")}</h1>
+        <h1 className="text-2xl text-foreground font-bold mb-2">
+          {t("sys.login.confirmOTP")}
+        </h1>
         <p
           className="text-sm text-gray-600 mb-4"
           dangerouslySetInnerHTML={{
@@ -121,8 +121,10 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
               </div>
             )}
           />
-          
-          <p className="text-sm text-muted-foreground font-medium  mt-2">{t("sys.login.noteOTP")}</p>
+
+          <p className="text-sm text-muted-foreground font-medium  mt-2">
+            {t("sys.login.noteOTP")}
+          </p>
           <div className="flex w-full mt-2 gap-2">
             <Button onClick={onClose} danger size="large" className="w-full">
               {t("sys.login.cancel")}
@@ -132,7 +134,6 @@ const VerifyOTP = ({ isOpen, onClose, email }: OtpModalProps) => {
               htmlType="submit"
               color="primary"
               variant="outlined"
-              loading={isLoading}
               size="large"
               className="w-full"
             >

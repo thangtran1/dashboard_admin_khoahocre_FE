@@ -18,53 +18,54 @@ import {
 } from "../login/providers/login-provider";
 import { Radio } from "antd";
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import userService from "@/api/services/userApi";
 import { toast } from "sonner";
 import VerifyOTP from "./verifyOTP";
-
+import { FullPageLoading } from "@/components/common/loading";
+import { REGEX_EMAIL } from "@/utils/use-always";
 function ForgotPasswordForm() {
   const { t } = useTranslation();
   const { loginState, backToLogin } = useLoginStateContext();
   const form = useForm();
   const [email, setEmail] = useState("");
   const [method, setMethod] = useState("link");
-  const [isLoading, setIsLoading] = useState(false);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
-  const navigate = useNavigate();
   const forgotPasswordMutation = useMutation({
     mutationFn: userService.forgotPassword,
   });
 
   const onFinish = async () => {
-    setIsLoading(true);
     try {
       const res = await forgotPasswordMutation.mutateAsync({ email });
+      const success = res.data?.success;
 
-      if (res.data?.success) {
-        if (method === "link") {
-          toast.success(t("sys.login.linkContent"));
-          form.reset();
-          setEmail("");
-          navigate("/login");
-        } else {
-          toast.success(t("sys.login.methodOTP"));
-          setIsOtpModalOpen(true);
-        }
+      if (!success) {
+        return toast.error(
+          res.data?.message || t("sys.login.errorForgetPassword")
+        );
+      }
+
+      if (method === "link") {
+        toast.success(t("sys.login.linkContent"));
+        form.reset();
+        setEmail("");
+        backToLogin();
       } else {
-        toast.success(res.data?.message || t("sys.login.errorForgetPassword"));
+        toast.success(t("sys.login.methodOTP"));
+        setIsOtpModalOpen(true);
       }
     } catch (error) {
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
   if (loginState !== LoginStateEnum.RESET_PASSWORD) return null;
 
   return (
     <>
+      {forgotPasswordMutation.isPending && (
+        <FullPageLoading message={t("sys.login.sending")} />
+      )}
       <div className="mb-8 text-center">
         <Icon
           icon="local:ic-reset-password"
@@ -86,7 +87,13 @@ function ForgotPasswordForm() {
           <FormField
             control={form.control}
             name="email"
-            rules={{ required: t("sys.login.emailRequired") }}
+            rules={{
+              required: t("sys.login.emailRequired"),
+              pattern: {
+                value: REGEX_EMAIL,
+                message: t("sys.login.emailInvalid"),
+              },
+            }}
             render={({ field }) => (
               <FormItem>
                 <FormControl>
@@ -140,12 +147,9 @@ function ForgotPasswordForm() {
           </div>
           <Button
             type="submit"
-            disabled={isLoading}
-            className="w-full text-foreground font-medium"
+            className="w-full cursor-pointer text-foreground font-medium"
           >
-            {isLoading
-              ? t("sys.login.sending")
-              : t("sys.login.sendEmailButton")}
+            {t("sys.login.sendEmailButton")}
           </Button>
           <ReturnButton onClick={backToLogin} />
         </form>

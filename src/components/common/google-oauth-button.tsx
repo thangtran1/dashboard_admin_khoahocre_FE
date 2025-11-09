@@ -2,7 +2,7 @@ import { Button } from "@/ui/button";
 import { Icon } from "@/components/icon";
 import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
-
+import { styleTooltip } from "@/utils/use-always";
 interface GoogleOAuthButtonProps {
   className?: string;
   mode?: "login" | "register";
@@ -21,14 +21,13 @@ export function GoogleOAuthButton({
     mode === "register"
       ? t("sys.login.googleLoginRegister")
       : t("sys.login.googleLoginLogin");
-  const tooltipColor = mode === "register" ? "blue" : "green";
 
   return (
     <Tooltip
+      className="cursor-pointer"
       title={tooltipTitle}
-      overlayInnerStyle={{
-        backgroundColor: "#f5f5f5",
-        color: tooltipColor,
+      styles={{
+        body: styleTooltip.body,
       }}
     >
       <Button

@@ -24,7 +24,9 @@
       "timeoutMessage": "Login timed out, please log in again!"
     },
     "login": {
-      "signInFailed": "Sign in failed",
+      "passwordMinLength": "Password must be at least 6 characters!",
+      "emailInvalid": "Email is invalid",
+      "registering": "Registering...",
       "loggingIn": "Logging in...",
       "passwordNewTitle": "Set new password",
       "resetPasswordDescription": "Please remember the new password after changing to avoid losing access.",
@@ -46,7 +48,7 @@
       "selectMethod": "Select the receiving method",
       "resetLink": "Receive password reset link",
       "receiveOTP": "Receive OTP code",
-      "noteConfirm": "If you do not have an email, please contact hotline 0389215396 for assistance in retrieving your password.",
+      "noteConfirm": "When selecting the password reset link receiving method, you will receive the password reset link via email",
       "noteConfirmRegister": "After registering, you will receive an email with your account and temporary password. Please change your password immediately after logging in for the first time.",
       "sending": "Sending...",
       "confirmOTP": "Enter authentication code",
@@ -69,7 +71,6 @@
       "forgetPassword": "Forget Password?",
       "loginButton": "Sign in",
       "loginSuccessDesc": "Welcome back",
-      "loginSuccessTitle": "Login successful",
       "logout": "Logout",
       "login": "Login",
 
@@ -104,12 +105,17 @@
       "signInFormDescription": "Enter your username to login to your account",
       "noAccount": "Don't have an account?",
 
-      "googleLoginSuccess": "Google login successful!",
-      "googleLoginError": "Google login error!",
-      "googleLoginProcessing": "Google login processing...",
-      "googleLoginErrorDescription": "An error occurred when logging in with Google. Please try again.",
+      "githubLoginRegister": "Register with GitHub",
+      "githubLoginLogin": "Login with GitHub",
+      "googleLoginRegister": "Register with Google",
+      "googleLoginLogin": "Login with Google",
+      "githubLoginError": "GitHub login failed!",
+      "githubLoginErrorDescription": "An error occurred when logging in with GitHub. Please try again.",
+      "backToLogin": "Back to login",
+      "githubLoginSuccess": "GitHub login successful!",
+      "githubLoginProcessing": "Processing GitHub login...",
       "logoutSuccess": "Logout successful!",
-      "signInSuccess": "Sign in successful!",
+      "signInSuccess": "Login successful!",
       "registerSuccess": "Register successful!"
     },
     "menu": {

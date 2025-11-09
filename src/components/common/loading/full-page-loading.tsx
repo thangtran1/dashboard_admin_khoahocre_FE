@@ -1,31 +1,13 @@
 import { Loader2 } from "lucide-react";
 import { cn } from "@/utils";
-import { useEffect, useState } from "react";
 import "./full-page-loading.css";
 
 interface FullPageLoadingProps {
   message?: string;
   className?: string;
-  minDuration?: number;
 }
 
-export function FullPageLoading({
-  message,
-  className,
-  minDuration = 1000,
-}: FullPageLoadingProps) {
-  const [finished, setFinished] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFinished(true);
-    }, minDuration);
-
-    return () => clearTimeout(timer);
-  }, [minDuration]);
-
-  if (finished) return null;
-
+export function FullPageLoading({ message, className }: FullPageLoadingProps) {
   return (
     <div
       className={cn(
