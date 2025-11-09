@@ -26,7 +26,7 @@ export default function MaintenanceActionBar({
         <div className="flex items-center gap-2 text-blue-700">
           <InfoCircleOutlined />
           <span className="font-medium">
-            {t("sys.maintenance.selected-count", {
+            {t("maintenance.selected-count", {
               count: selectedMaintenances.length,
             })}
           </span>
@@ -37,20 +37,17 @@ export default function MaintenanceActionBar({
           {/* Actions for Active and Scheduled */}
           {(tabType === "all" || tabType === "scheduled") && (
             <Popconfirm
-              title={t("sys.maintenance.confirm-delete")}
-              description={t(
-                "sys.maintenance.confirm-delete-many-description",
-                {
-                  count: selectedMaintenances.length,
-                }
-              )}
+              title={t("maintenance.confirm-delete")}
+              description={t("maintenance.confirm-delete-many-description", {
+                count: selectedMaintenances.length,
+              })}
               onConfirm={onDeleteMany}
-              okText={t("sys.maintenance.delete")}
-              cancelText={t("sys.maintenance.cancel-action")}
+              okText={t("maintenance.delete")}
+              cancelText={t("maintenance.cancel-action")}
               okButtonProps={{ danger: true }}
             >
               <Button danger icon={<DeleteOutlined />} size="large">
-                {t("sys.maintenance.delete")} ({selectedMaintenances.length})
+                {t("maintenance.delete")} ({selectedMaintenances.length})
               </Button>
             </Popconfirm>
           )}

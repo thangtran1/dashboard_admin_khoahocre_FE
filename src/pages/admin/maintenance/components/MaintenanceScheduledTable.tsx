@@ -81,7 +81,7 @@ export default function MaintenanceScheduledTable({
       ),
     },
     {
-      title: t("sys.maintenance.title"),
+      title: t("maintenance.title"),
       dataIndex: "title",
       key: "title",
       width: 350,
@@ -97,17 +97,17 @@ export default function MaintenanceScheduledTable({
       ),
     },
     {
-      title: t("sys.maintenance.type"),
+      title: t("maintenance.type"),
       dataIndex: "type",
       key: "type",
       render: (type: MaintenanceType) => (
         <Tag color={getTypeConfig(type).color}>
-          {t(`sys.maintenance.type-${type}`)}
+          {t(`maintenance.type-${type}`)}
         </Tag>
       ),
     },
     {
-      title: t("sys.maintenance.scheduled-time"),
+      title: t("maintenance.scheduled-time"),
       dataIndex: "startTime",
       key: "startTime",
       width: 200,
@@ -133,7 +133,7 @@ export default function MaintenanceScheduledTable({
       ),
     },
     {
-      title: t("sys.maintenance.duration"),
+      title: t("maintenance.duration"),
       key: "duration",
       render: (_: any, record: Maintenance) => {
         const duration =
@@ -151,7 +151,7 @@ export default function MaintenanceScheduledTable({
       },
     },
     {
-      title: t("sys.maintenance.created-at"),
+      title: t("maintenance.created-at"),
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt: string) => (
@@ -166,13 +166,13 @@ export default function MaintenanceScheduledTable({
       ),
     },
     {
-      title: t("sys.maintenance.actions"),
+      title: t("maintenance.actions"),
       key: "actions",
       width: 150,
       align: "center",
       render: (_: any, record: Maintenance) => (
         <Space>
-          <Tooltip title={t("sys.maintenance.detail")}>
+          <Tooltip title={t("maintenance.detail")}>
             <Button
               type="text"
               size="small"
@@ -183,7 +183,7 @@ export default function MaintenanceScheduledTable({
           </Tooltip>
 
           {record.status === MaintenanceStatus.SCHEDULED && (
-            <Tooltip title={t("sys.maintenance.edit")}>
+            <Tooltip title={t("maintenance.edit")}>
               <Button
                 type="text"
                 size="small"
@@ -194,13 +194,13 @@ export default function MaintenanceScheduledTable({
             </Tooltip>
           )}
 
-          <Tooltip title={t("sys.maintenance.start-now")}>
+          <Tooltip title={t("maintenance.start-now")}>
             <Popconfirm
-              title={t("sys.maintenance.confirm-start")}
-              description={t("sys.maintenance.confirm-start-description")}
+              title={t("maintenance.confirm-start")}
+              description={t("maintenance.confirm-start-description")}
               onConfirm={() => onStartNow(record._id)}
-              okText={t("sys.maintenance.start")}
-              cancelText={t("sys.maintenance.cancel-action")}
+              okText={t("maintenance.start")}
+              cancelText={t("maintenance.cancel-action")}
             >
               <Button
                 type="text"
@@ -211,13 +211,13 @@ export default function MaintenanceScheduledTable({
             </Popconfirm>
           </Tooltip>
 
-          <Tooltip title={t("sys.maintenance.cancel-maintenance")}>
+          <Tooltip title={t("maintenance.cancel-maintenance")}>
             <Popconfirm
-              title={t("sys.maintenance.confirm-cancel")}
-              description={t("sys.maintenance.confirm-cancel-description")}
+              title={t("maintenance.confirm-cancel")}
+              description={t("maintenance.confirm-cancel-description")}
               onConfirm={() => onCancel(record._id)}
-              okText={t("sys.maintenance.confirm")}
-              cancelText={t("sys.maintenance.cancel-action")}
+              okText={t("maintenance.confirm")}
+              cancelText={t("maintenance.cancel-action")}
               okButtonProps={{ danger: true }}
             >
               <Button

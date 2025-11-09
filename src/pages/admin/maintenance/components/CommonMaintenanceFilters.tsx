@@ -28,11 +28,11 @@ export default function CommonMaintenanceFilters({
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
         <div>
           <label className="block text-sm font-medium mb-2">
-            {t("sys.maintenance.search")}
+            {t("maintenance.search")}
           </label>
           <Input
             size="large"
-            placeholder={t("sys.maintenance.search-placeholder")}
+            placeholder={t("maintenance.search-placeholder")}
             value={filters.title}
             onChange={(e) => onFilterChange("title", e.target.value)}
             prefix={<SearchOutlined />}
@@ -43,27 +43,27 @@ export default function CommonMaintenanceFilters({
         {/* Type Filter */}
         <div>
           <label className="block text-sm font-medium mb-2">
-            {t("sys.maintenance.type")}
+            {t("maintenance.type")}
           </label>
           <Select
             size="large"
-            placeholder={t("sys.maintenance.all-types")}
+            placeholder={t("maintenance.all-types")}
             value={filters.type || undefined}
             onChange={(value) => onFilterChange("type", value)}
             allowClear
             className="w-full"
           >
             <Option value={MaintenanceType.DATABASE}>
-              {t("sys.maintenance.type-database")}
+              {t("maintenance.type-database")}
             </Option>
             <Option value={MaintenanceType.SYSTEM}>
-              {t("sys.maintenance.type-system")}
+              {t("maintenance.type-system")}
             </Option>
             <Option value={MaintenanceType.NETWORK}>
-              {t("sys.maintenance.type-network")}
+              {t("maintenance.type-network")}
             </Option>
             <Option value={MaintenanceType.OTHER}>
-              {t("sys.maintenance.type-other")}
+              {t("maintenance.type-other")}
             </Option>
           </Select>
         </div>
@@ -71,11 +71,11 @@ export default function CommonMaintenanceFilters({
         {/* Status Filter */}
         <div>
           <label className="block text-sm font-medium mb-2">
-            {t("sys.maintenance.status")}
+            {t("maintenance.status")}
           </label>
           <Select
             size="large"
-            placeholder={t("sys.maintenance.all-status")}
+            placeholder={t("maintenance.all-status")}
             value={
               isScheduledTab
                 ? MaintenanceStatus.SCHEDULED
@@ -88,25 +88,25 @@ export default function CommonMaintenanceFilters({
             className="w-full"
           >
             <Option value={MaintenanceStatus.SCHEDULED}>
-              {t("sys.maintenance.status-scheduled")}
+              {t("maintenance.status-scheduled")}
             </Option>
             <Option
               value={MaintenanceStatus.IN_PROGRESS}
               disabled={isScheduledTab}
             >
-              {t("sys.maintenance.status-in-progress")}
+              {t("maintenance.status-in-progress")}
             </Option>
             <Option
               value={MaintenanceStatus.COMPLETED}
               disabled={isScheduledTab}
             >
-              {t("sys.maintenance.status-completed")}
+              {t("maintenance.status-completed")}
             </Option>
             <Option
               value={MaintenanceStatus.CANCELLED}
               disabled={isScheduledTab}
             >
-              {t("sys.maintenance.status-cancelled")}
+              {t("maintenance.status-cancelled")}
             </Option>
           </Select>
         </div>
@@ -115,7 +115,7 @@ export default function CommonMaintenanceFilters({
         <div>
           {/* Clear Filters */}
           <Button size="large" danger onClick={onClearFilters}>
-            {t("sys.maintenance.clear-filters")}
+            {t("maintenance.clear-filters")}
           </Button>
         </div>
       </div>

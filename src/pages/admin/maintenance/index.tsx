@@ -22,7 +22,7 @@ export default function MaintenceSystemPage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:list-check" className="h-4 w-4" />
-          {t("sys.maintenance.maintenance-all")}
+          {t("maintenance.maintenance-all")}
         </span>
       ),
       children: <MaintenanceAllTab />,
@@ -32,7 +32,7 @@ export default function MaintenceSystemPage() {
       label: (
         <span className="flex items-center gap-2">
           <Icon icon="lucide:calendar-clock" className="h-4 w-4" />
-          {t("sys.maintenance.maintenance-scheduled")}
+          {t("maintenance.maintenance-scheduled")}
         </span>
       ),
       children: <MaintenanceScheduledTab />,
@@ -46,10 +46,10 @@ export default function MaintenceSystemPage() {
           <div>
             <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
               <Icon icon="lucide:wrench" className="h-7 w-7 text-primary" />
-              {t("sys.maintenance.title")}
+              {t("maintenance.title")}
             </CardTitle>
             <p className="text-muted-foreground mt-1">
-              {t("sys.maintenance.description")}
+              {t("maintenance.description")}
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function MaintenceSystemPage() {
               size="large"
               loading={loading}
             >
-              {t("sys.maintenance.refresh")}
+              {t("maintenance.refresh")}
             </Button>
             <Link to="/maintenance/created-new-maintenance">
               <Button
@@ -71,7 +71,7 @@ export default function MaintenceSystemPage() {
                 icon={<PlusOutlined />}
                 className="bg-blue-600 hover:bg-blue-700"
               >
-                {t("sys.maintenance.add-maintenance")}
+                {t("maintenance.add-maintenance")}
               </Button>
             </Link>
           </div>

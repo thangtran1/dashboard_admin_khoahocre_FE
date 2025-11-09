@@ -69,7 +69,7 @@ export default function MaintenanceTable({
 
     return (
       <Space size="small">
-        <Tooltip title={t("sys.maintenance.detail")}>
+        <Tooltip title={t("maintenance.detail")}>
           <Button
             type="text"
             size="small"
@@ -81,13 +81,13 @@ export default function MaintenanceTable({
 
         {status === MaintenanceStatus.SCHEDULED && (
           <>
-            <Tooltip title={t("sys.maintenance.start-now")}>
+            <Tooltip title={t("maintenance.start-now")}>
               <Popconfirm
-                title={t("sys.maintenance.confirm-start")}
-                description={t("sys.maintenance.confirm-start-description")}
+                title={t("maintenance.confirm-start")}
+                description={t("maintenance.confirm-start-description")}
                 onConfirm={() => onStartNow(_id)}
-                okText={t("sys.maintenance.start")}
-                cancelText={t("sys.maintenance.cancel-action")}
+                okText={t("maintenance.start")}
+                cancelText={t("maintenance.cancel-action")}
               >
                 <Button
                   type="text"
@@ -98,13 +98,13 @@ export default function MaintenanceTable({
               </Popconfirm>
             </Tooltip>
 
-            <Tooltip title={t("sys.maintenance.cancel-maintenance")}>
+            <Tooltip title={t("maintenance.cancel-maintenance")}>
               <Popconfirm
-                title={t("sys.maintenance.confirm-cancel")}
-                description={t("sys.maintenance.confirm-cancel-description")}
+                title={t("maintenance.confirm-cancel")}
+                description={t("maintenance.confirm-cancel-description")}
                 onConfirm={() => onCancel(_id)}
-                okText={t("sys.maintenance.confirm")}
-                cancelText={t("sys.maintenance.cancel-action")}
+                okText={t("maintenance.confirm")}
+                cancelText={t("maintenance.cancel-action")}
                 okButtonProps={{ danger: true }}
               >
                 <Button
@@ -116,7 +116,7 @@ export default function MaintenanceTable({
               </Popconfirm>
             </Tooltip>
 
-            <Tooltip title={t("sys.maintenance.edit")}>
+            <Tooltip title={t("maintenance.edit")}>
               <Button
                 type="text"
                 size="small"
@@ -130,13 +130,13 @@ export default function MaintenanceTable({
 
         {status === MaintenanceStatus.IN_PROGRESS && (
           <>
-            <Tooltip title={t("sys.maintenance.stop")}>
+            <Tooltip title={t("maintenance.stop")}>
               <Popconfirm
-                title={t("sys.maintenance.confirm-stop")}
-                description={t("sys.maintenance.confirm-stop-description")}
+                title={t("maintenance.confirm-stop")}
+                description={t("maintenance.confirm-stop-description")}
                 onConfirm={() => onStop(_id)}
-                okText={t("sys.maintenance.stop")}
-                cancelText={t("sys.maintenance.cancel-action")}
+                okText={t("maintenance.stop")}
+                cancelText={t("maintenance.cancel-action")}
                 okButtonProps={{ danger: true }}
               >
                 <Button
@@ -153,14 +153,14 @@ export default function MaintenanceTable({
         {(status === MaintenanceStatus.COMPLETED ||
           status === MaintenanceStatus.CANCELLED) && (
           <Popconfirm
-            title={t("sys.maintenance.confirm-delete")}
-            description={t("sys.maintenance.confirm-delete-description")}
+            title={t("maintenance.confirm-delete")}
+            description={t("maintenance.confirm-delete-description")}
             onConfirm={() => onDelete(_id)}
-            okText={t("sys.maintenance.delete")}
-            cancelText={t("sys.maintenance.cancel-action")}
+            okText={t("maintenance.delete")}
+            cancelText={t("maintenance.cancel-action")}
             okButtonProps={{ danger: true }}
           >
-            <Tooltip title={t("sys.maintenance.delete")}>
+            <Tooltip title={t("maintenance.delete")}>
               <Button
                 type="text"
                 size="small"
@@ -204,7 +204,7 @@ export default function MaintenanceTable({
     {
       title: (
         <span className="font-semibold">
-          {t("sys.maintenance.maintenance-info")}
+          {t("maintenance.maintenance-info")}
         </span>
       ),
       key: "info",
@@ -235,7 +235,7 @@ export default function MaintenanceTable({
                       status="processing"
                       text={
                         <span className="text-xs font-medium">
-                          {t("sys.maintenance.active")}
+                          {t("maintenance.active")}
                         </span>
                       }
                     />
@@ -243,7 +243,7 @@ export default function MaintenanceTable({
                   {maintenance.autoAdjusted && (
                     <Tag color="blue" className="text-xs">
                       <Icon icon="lucide:zap" className="h-3 w-3 inline mr-1" />
-                      {t("sys.maintenance.auto-adjusted")}
+                      {t("maintenance.auto-adjusted")}
                     </Tag>
                   )}
                 </div>
@@ -254,22 +254,20 @@ export default function MaintenanceTable({
       },
     },
     {
-      title: <span className="font-semibold">{t("sys.maintenance.type")}</span>,
+      title: <span className="font-semibold">{t("maintenance.type")}</span>,
       key: "type",
       render: (_: React.ReactNode, maintenance: Maintenance) => {
         const typeConfig = getTypeConfig(maintenance.type);
         return (
           <Tag color={typeConfig.color} className="font-medium">
             <Icon icon={typeConfig.icon} className="h-3 w-3 inline mr-1" />
-            {t(`sys.maintenance.type-${maintenance.type}`)}
+            {t(`maintenance.type-${maintenance.type}`)}
           </Tag>
         );
       },
     },
     {
-      title: (
-        <span className="font-semibold">{t("sys.maintenance.status")}</span>
-      ),
+      title: <span className="font-semibold">{t("maintenance.status")}</span>,
       key: "status",
       render: (_: React.ReactNode, maintenance: Maintenance) => {
         const statusConfig = getStatusConfig(maintenance.status);
@@ -279,15 +277,13 @@ export default function MaintenanceTable({
             className="font-medium text-xs px-3 py-1"
           >
             <Icon icon={statusConfig.icon} className="h-3 w-3 inline mr-1" />
-            {t(`sys.maintenance.status-${maintenance.status}`)}
+            {t(`maintenance.status-${maintenance.status}`)}
           </Tag>
         );
       },
     },
     {
-      title: (
-        <span className="font-semibold">{t("sys.maintenance.schedule")}</span>
-      ),
+      title: <span className="font-semibold">{t("maintenance.schedule")}</span>,
       key: "time",
       width: 180,
       render: (_: React.ReactNode, maintenance: Maintenance) => (
@@ -338,7 +334,7 @@ export default function MaintenanceTable({
 
     {
       title: (
-        <span className="font-semibold">{t("sys.maintenance.created-at")}</span>
+        <span className="font-semibold">{t("maintenance.created-at")}</span>
       ),
       key: "createdAt",
       render: (_: React.ReactNode, maintenance: Maintenance) => (
@@ -362,7 +358,7 @@ export default function MaintenanceTable({
     {
       title: (
         <span className="font-semibold text-center block">
-          {t("sys.maintenance.actions")}
+          {t("maintenance.actions")}
         </span>
       ),
       key: "actions",

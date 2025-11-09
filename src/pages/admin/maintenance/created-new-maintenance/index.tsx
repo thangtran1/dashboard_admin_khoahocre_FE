@@ -15,16 +15,16 @@ export default function CreatedNewMaintenance() {
     <Card className="!bg-background">
       <Breadcrumb style={{ marginBottom: "8px" }}>
         <Breadcrumb.Item>
-          <Link to="/maintenance">{t("sys.maintenance.title")}</Link>
+          <Link to="/maintenance">{t("maintenance.title")}</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          {t("sys.maintenance.create-new-maintenance")}
+          {t("maintenance.create-new-maintenance")}
         </Breadcrumb.Item>
       </Breadcrumb>
 
       <Title level={3}>
         <Icon icon="lucide:wrench" className="h-6 w-6 text-primary mr-2" />
-        {t("sys.maintenance.create-new-maintenance")}
+        {t("maintenance.create-new-maintenance")}
       </Title>
 
       <Separator className="my-4" />

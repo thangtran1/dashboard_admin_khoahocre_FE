@@ -90,7 +90,7 @@ export function useMaintence(isScheduled: boolean = false) {
     try {
       setLoading(true);
       await maintenanceApi.create(values);
-      toast.success(t("sys.maintenance.create-success"));
+      toast.success(t("maintenance.create-success"));
       await fetchMaintenances();
       setupTimers(); // Thiết lập lại timer khi tạo mới
       return true;
@@ -107,7 +107,7 @@ export function useMaintence(isScheduled: boolean = false) {
       setLoading(true);
       const response = await maintenanceApi.update(id, values);
       if (response.data.success) {
-        toast.success(t("sys.maintenance.update-success"));
+        toast.success(t("maintenance.update-success"));
         await fetchMaintenances();
         setupTimers(); // Thiết lập lại timer khi cập nhật
         return true;
@@ -130,7 +130,7 @@ export function useMaintence(isScheduled: boolean = false) {
       setLoading(true);
       const response = await maintenanceApi.remove(ids);
       if (response.data.success) {
-        toast.success(t("sys.maintenance.delete-success"));
+        toast.success(t("maintenance.delete-success"));
         setSelectedMaintenances([]);
         await refreshData();
         return true;
@@ -150,7 +150,7 @@ export function useMaintence(isScheduled: boolean = false) {
       setLoading(true);
       await maintenanceApi.startNow(id);
 
-      toast.success(t("sys.maintenance.start-success"));
+      toast.success(t("maintenance.start-success"));
       await fetchMaintenances();
     } catch (error) {
       console.error("❌ startMaintenance ~ error:", error);
@@ -164,7 +164,7 @@ export function useMaintence(isScheduled: boolean = false) {
       setLoading(true);
       await maintenanceApi.stop(id);
 
-      toast.success(t("sys.maintenance.stop-success"));
+      toast.success(t("maintenance.stop-success"));
       await fetchMaintenances();
     } catch (error) {
       console.error("❌ stopMaintenance ~ error:", error);
@@ -178,7 +178,7 @@ export function useMaintence(isScheduled: boolean = false) {
       setLoading(true);
       await maintenanceApi.cancel(id);
 
-      toast.success(t("sys.maintenance.cancel-success"));
+      toast.success(t("maintenance.cancel-success"));
       await fetchMaintenances();
     } catch (error) {
       console.error("❌ cancelMaintenance ~ error:", error);

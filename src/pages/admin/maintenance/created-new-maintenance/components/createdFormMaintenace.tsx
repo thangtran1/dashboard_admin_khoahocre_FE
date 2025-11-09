@@ -39,13 +39,13 @@ export default function CreatedFormMaintenace() {
 
       const response = await maintenanceApi.create(createData);
       if (response.data.success) {
-        toast.success(t("sys.maintenance.create-success"));
+        toast.success(t("maintenance.create-success"));
         form.resetFields();
         setTimeout(() => {
           navigate("/maintenance");
         }, 1000);
       } else {
-        toast.error(t("sys.maintenance.create-error"));
+        toast.error(t("maintenance.create-error"));
       }
     } catch (error) {
       console.error("❌ handleSubmit ~ error:", error);
@@ -70,20 +70,20 @@ export default function CreatedFormMaintenace() {
         label={
           <span className="text-base font-semibold flex items-center gap-2">
             <FileTextOutlined className="text-primary" />
-            {t("sys.maintenance.title")}
+            {t("maintenance.title")}
           </span>
         }
         rules={[
           {
             required: true,
-            message: t("sys.maintenance.title-required"),
+            message: t("maintenance.title-required"),
           },
-          { min: 3, message: t("sys.maintenance.title-min-length") },
+          { min: 3, message: t("maintenance.title-min-length") },
         ]}
       >
         <Input
           size="large"
-          placeholder={t("sys.maintenance.title-placeholder")}
+          placeholder={t("maintenance.title-placeholder")}
           className="rounded-lg"
         />
       </Form.Item>
@@ -94,13 +94,13 @@ export default function CreatedFormMaintenace() {
         label={
           <span className="text-base font-semibold flex items-center gap-2">
             <Icon icon="lucide:file-text" className="h-4 w-4 text-primary" />
-            {t("sys.maintenance.description")}
+            {t("maintenance.description")}
           </span>
         }
       >
         <TextArea
           rows={4}
-          placeholder={t("sys.maintenance.description-placeholder")}
+          placeholder={t("maintenance.description-placeholder")}
           className="rounded-lg"
           showCount
           maxLength={500}
@@ -114,19 +114,19 @@ export default function CreatedFormMaintenace() {
           label={
             <span className="text-base font-semibold flex items-center gap-2">
               <Icon icon="lucide:tag" className="h-4 w-4 text-primary" />
-              {t("sys.maintenance.type")}
+              {t("maintenance.type")}
             </span>
           }
           rules={[
             {
               required: true,
-              message: t("sys.maintenance.type-required"),
+              message: t("maintenance.type-required"),
             },
           ]}
         >
           <Select
             size="large"
-            placeholder={t("sys.maintenance.select-type")}
+            placeholder={t("maintenance.select-type")}
             className="rounded-lg"
           >
             <Option value={MaintenanceType.DATABASE}>
@@ -135,7 +135,7 @@ export default function CreatedFormMaintenace() {
                   icon="lucide:database"
                   className="w-4 h-4 text-purple-500"
                 />
-                {t("sys.maintenance.type-database")}
+                {t("maintenance.type-database")}
               </Space>
             </Option>
             <Option value={MaintenanceType.SYSTEM}>
@@ -144,13 +144,13 @@ export default function CreatedFormMaintenace() {
                   icon="lucide:settings"
                   className="w-4 h-4 text-cyan-500"
                 />
-                {t("sys.maintenance.type-system")}
+                {t("maintenance.type-system")}
               </Space>
             </Option>
             <Option value={MaintenanceType.NETWORK}>
               <Space>
                 <Icon icon="lucide:network" className="w-4 h-4 text-blue-500" />
-                {t("sys.maintenance.type-network")}
+                {t("maintenance.type-network")}
               </Space>
             </Option>
             <Option value={MaintenanceType.OTHER}>
@@ -159,7 +159,7 @@ export default function CreatedFormMaintenace() {
                   icon="lucide:more-horizontal"
                   className="w-4 h-4 text-gray-500"
                 />
-                {t("sys.maintenance.type-other")}
+                {t("maintenance.type-other")}
               </Space>
             </Option>
           </Select>
@@ -171,13 +171,13 @@ export default function CreatedFormMaintenace() {
           label={
             <span className="text-base font-semibold flex items-center gap-2">
               <CalendarOutlined className="text-primary" />
-              {t("sys.maintenance.time-range")}
+              {t("maintenance.time-range")}
             </span>
           }
           rules={[
             {
               required: true,
-              message: t("sys.maintenance.time-range-required"),
+              message: t("maintenance.time-range-required"),
             },
           ]}
         >
@@ -186,8 +186,8 @@ export default function CreatedFormMaintenace() {
             showTime={{ format: "HH:mm" }}
             format="DD/MM/YYYY HH:mm"
             placeholder={[
-              t("sys.maintenance.start-time"),
-              t("sys.maintenance.end-time"),
+              t("maintenance.start-time"),
+              t("maintenance.end-time"),
             ]}
             className="w-full rounded-lg"
             disabledDate={(current) => {
@@ -208,7 +208,7 @@ export default function CreatedFormMaintenace() {
           className="flex-1 h-12 text-base font-semibold rounded-lg"
           icon={<Icon icon="lucide:check-circle" className="h-5 w-5" />}
         >
-          {t("sys.maintenance.create-maintenance")}
+          {t("maintenance.create-maintenance")}
         </Button>
         <Button
           danger
@@ -218,7 +218,7 @@ export default function CreatedFormMaintenace() {
           className="flex-1 h-12 text-base font-semibold rounded-lg"
           icon={<Icon icon="lucide:x-circle" className="h-5 w-5" />}
         >
-          {t("sys.maintenance.cancel")}
+          {t("maintenance.cancel")}
         </Button>
       </div>
     </Form>

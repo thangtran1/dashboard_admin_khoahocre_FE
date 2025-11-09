@@ -113,18 +113,16 @@ export default function MaintenanceModal({
   const getDuration = () => {
     if (maintenance.duration) {
       return maintenance.duration > 60
-        ? `${Math.round(maintenance.duration / 60)} ${t(
-            "sys.maintenance.hours"
-          )}`
-        : `${Math.round(maintenance.duration)} ${t("sys.maintenance.minutes")}`;
+        ? `${Math.round(maintenance.duration / 60)} ${t("maintenance.hours")}`
+        : `${Math.round(maintenance.duration)} ${t("maintenance.minutes")}`;
     }
     const duration =
       (new Date(maintenance.endTime).getTime() -
         new Date(maintenance.startTime).getTime()) /
       (1000 * 60);
     return duration > 60
-      ? `${Math.round(duration / 60)} ${t("sys.maintenance.hours")}`
-      : `${Math.round(duration)} ${t("sys.maintenance.minutes")}`;
+      ? `${Math.round(duration / 60)} ${t("maintenance.hours")}`
+      : `${Math.round(duration)} ${t("maintenance.minutes")}`;
   };
 
   const renderContent = () => {
@@ -143,7 +141,7 @@ export default function MaintenanceModal({
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="title"
-              label={t("sys.maintenance.title")}
+              label={t("maintenance.title")}
               rules={[{ required: true }]}
             >
               <Input />
@@ -155,7 +153,7 @@ export default function MaintenanceModal({
 
           <Form.Item
             name="description"
-            label={t("sys.maintenance.description")}
+            label={t("maintenance.description")}
             rules={[{ required: true }]}
           >
             <Input.TextArea rows={4} />
@@ -164,7 +162,7 @@ export default function MaintenanceModal({
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="startTime"
-              label={t("sys.maintenance.start-time")}
+              label={t("maintenance.start-time")}
               rules={[{ required: true }]}
             >
               <DatePicker
@@ -176,7 +174,7 @@ export default function MaintenanceModal({
 
             <Form.Item
               name="endTime"
-              label={t("sys.maintenance.end-time")}
+              label={t("maintenance.end-time")}
               rules={[{ required: true }]}
             >
               <DatePicker
@@ -190,19 +188,19 @@ export default function MaintenanceModal({
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="type"
-              label={t("sys.maintenance.type")}
+              label={t("maintenance.type")}
               rules={[{ required: true }]}
             >
               <Select>
                 {Object.values(MaintenanceType).map((type) => (
                   <Option key={type} value={type}>
-                    {t(`sys.maintenance.type-${type}`)}
+                    {t(`maintenance.type-${type}`)}
                   </Option>
                 ))}
               </Select>
             </Form.Item>
 
-            <Form.Item name="status" label={t("sys.maintenance.status")}>
+            <Form.Item name="status" label={t("maintenance.status")}>
               <Input disabled />
             </Form.Item>
           </div>
@@ -213,63 +211,63 @@ export default function MaintenanceModal({
     return (
       <div className="mt-6">
         <Descriptions bordered column={2} size="middle">
-          <Descriptions.Item label={t("sys.maintenance.title")} span={2}>
+          <Descriptions.Item label={t("maintenance.title")} span={2}>
             <span className="font-semibold">{maintenance.title}</span>
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.description")} span={2}>
-            {maintenance.description || t("sys.maintenance.no-description")}
+          <Descriptions.Item label={t("maintenance.description")} span={2}>
+            {maintenance.description || t("maintenance.no-description")}
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.status")}>
+          <Descriptions.Item label={t("maintenance.status")}>
             <Tag color={getStatusColor(maintenance.status)}>
-              {t(`sys.maintenance.status-${maintenance.status}`)}
+              {t(`maintenance.status-${maintenance.status}`)}
             </Tag>
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.type")}>
+          <Descriptions.Item label={t("maintenance.type")}>
             <Tag color={getTypeColor(maintenance.type)}>
-              {t(`sys.maintenance.type-${maintenance.type}`)}
+              {t(`maintenance.type-${maintenance.type}`)}
             </Tag>
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.start-time")}>
+          <Descriptions.Item label={t("maintenance.start-time")}>
             {new Date(maintenance.startTime).toLocaleString("vi-VN")}
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.end-time")}>
+          <Descriptions.Item label={t("maintenance.end-time")}>
             {new Date(maintenance.endTime).toLocaleString("vi-VN")}
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.duration")}>
+          <Descriptions.Item label={t("maintenance.duration")}>
             {getDuration()}
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.is-active")}>
+          <Descriptions.Item label={t("maintenance.is-active")}>
             <Tag color={maintenance.isActive ? "green" : "default"}>
               {maintenance.isActive
-                ? t("sys.maintenance.active")
-                : t("sys.maintenance.inactive")}
+                ? t("maintenance.active")
+                : t("maintenance.inactive")}
             </Tag>
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.auto-adjusted")}>
+          <Descriptions.Item label={t("maintenance.auto-adjusted")}>
             <Tag color={maintenance.autoAdjusted ? "blue" : "default"}>
               {maintenance.autoAdjusted
-                ? t("sys.maintenance.yes")
-                : t("sys.maintenance.no")}
+                ? t("maintenance.yes")
+                : t("maintenance.no")}
             </Tag>
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.created-at")}>
+          <Descriptions.Item label={t("maintenance.created-at")}>
             {new Date(maintenance.createdAt).toLocaleString("vi-VN")}
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.updated-at")}>
+          <Descriptions.Item label={t("maintenance.updated-at")}>
             {new Date(maintenance.updatedAt).toLocaleString("vi-VN")}
           </Descriptions.Item>
 
-          <Descriptions.Item label={t("sys.maintenance.id")} span={2}>
+          <Descriptions.Item label={t("maintenance.id")} span={2}>
             <code className="text-xs bg-muted px-2 py-1 rounded">
               {maintenance._id}
             </code>
@@ -295,7 +293,7 @@ export default function MaintenanceModal({
               icon={isEditing ? "lucide:edit" : "lucide:info"}
               className="h-5 w-5 text-primary"
             />
-            {t(isEditing ? "sys.maintenance.edit" : "sys.maintenance.detail")}
+            {t(isEditing ? "maintenance.edit" : "maintenance.detail")}
           </div>
         </div>
       }
@@ -306,11 +304,11 @@ export default function MaintenanceModal({
         {isEditing ? (
           <>
             <Button danger onClick={onClose}>
-              {t("sys.maintenance.close")}
+              {t("maintenance.close")}
             </Button>
 
             <Button color="primary" variant="outlined" onClick={handleSubmit}>
-              {t("sys.maintenance.update")}
+              {t("maintenance.update")}
             </Button>
           </>
         ) : (
@@ -321,11 +319,11 @@ export default function MaintenanceModal({
                 icon={<Icon icon="lucide:edit" className="h-4 w-4" />}
                 onClick={() => setIsEditing(true)}
               >
-                {t("sys.maintenance.edit")}
+                {t("maintenance.edit")}
               </Button>
             )}
             <Button danger onClick={onClose}>
-              {t("sys.maintenance.close")}
+              {t("maintenance.close")}
             </Button>
           </>
         )}
