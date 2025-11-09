@@ -21,10 +21,10 @@ export default function MultiLanguagePage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-foreground">
-              🌐 {t("sys.multiLanguage.title")}
+              🌐 {t("components.multiLanguage.title")}
             </h1>
             <p className="text-muted-foreground mt-2">
-              {t("sys.multiLanguage.description")}
+              {t("components.multiLanguage.description")}
             </p>
           </div>
         </div>
@@ -36,7 +36,7 @@ export default function MultiLanguagePage() {
         <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <div className="text-2xl font-medium text-green-800">
-              {t("sys.multiLanguage.available-languages")}
+              {t("components.multiLanguage.available-languages")}
             </div>
             <div className="p-2 bg-primary rounded-full">
               <Icon icon="lucide:languages" className="h-4 w-4 text-white" />
@@ -45,7 +45,7 @@ export default function MultiLanguagePage() {
           <CardContent>
             <div className="text-2xl font-bold text-green-900">2</div>
             <p className="text-xl text-green-700 mt-1">
-              {t("sys.multiLanguage.languages-supported")}
+              {t("components.multiLanguage.languages-supported")}
             </p>
           </CardContent>
         </Card>
@@ -53,7 +53,7 @@ export default function MultiLanguagePage() {
         <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-2xl font-medium text-green-800">
-              {t("sys.multiLanguage.current-language")}
+              {t("components.multiLanguage.current-language")}
             </CardTitle>
             <div className="p-2 bg-green-500 rounded-full">
               <Icon icon="lucide:check-circle" className="h-4 w-4 text-white" />
@@ -65,7 +65,7 @@ export default function MultiLanguagePage() {
               <div className="text-xl font-bold text-green-800">{label}</div>
             </div>
             <p className="text-xl text-green-700 mt-1">
-              {t("sys.multiLanguage.active-now")}
+              {t("components.multiLanguage.active-now")}
             </p>
           </CardContent>
         </Card>
@@ -75,10 +75,10 @@ export default function MultiLanguagePage() {
       <div className="py-4 pb-8">
         <h2 className="text-2xl font-semibold text-foreground flex items-center gap-2">
           <Icon icon="lucide:settings" className="h-5 w-5 text-muted" />
-          {t("sys.multiLanguage.select-language")}
+          {t("components.multiLanguage.select-language")}
         </h2>
         <p className="text-muted-foreground mt-1">
-          {t("sys.multiLanguage.select-language-description")}
+          {t("components.multiLanguage.select-language-description")}
         </p>
         <Separator className="my-6" />
 
@@ -105,7 +105,7 @@ export default function MultiLanguagePage() {
                 <Icon icon="local:flag-en" size="32" />
                 <div>
                   <div className="text-lg font-semibold text-foreground">
-                    {t("sys.multiLanguage.en")}
+                    {t("components.multiLanguage.en")}
                   </div>
                   <div className="text-sm text-foreground">
                     English (United States)
@@ -137,7 +137,7 @@ export default function MultiLanguagePage() {
                 <Icon icon="local:flag-vi" size="32" />
                 <div>
                   <div className="text-lg font-semibold text-foreground">
-                    {t("sys.multiLanguage.vi")}
+                    {t("components.multiLanguage.vi")}
                   </div>
                   <div className="text-sm text-foreground">
                     Tiếng Việt (Việt Nam)

@@ -54,13 +54,13 @@ export default function ChartColumnActiveInactive() {
   });
 
   if (!statusUserStats.labels.length)
-    return <div>{t("sys.chart.loading")}</div>;
+    return <div>{t("components.chart.loading")}</div>;
 
   return (
     <Card className="flex-col">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>{t("sys.chart.status-user-stats")}</span>
+          <span>{t("components.chart.status-user-stats")}</span>
           <Select
             onValueChange={(v) => setPeriod(v as StatsPeriod)}
             defaultValue={period.toString()}
@@ -70,16 +70,16 @@ export default function ChartColumnActiveInactive() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={StatsPeriod.DAY}>
-                {t("sys.chart.day")}
+                {t("components.chart.day")}
               </SelectItem>
               <SelectItem value={StatsPeriod.WEEK}>
-                {t("sys.chart.week")}
+                {t("components.chart.week")}
               </SelectItem>
               <SelectItem value={StatsPeriod.MONTH}>
-                {t("sys.chart.month")}
+                {t("components.chart.month")}
               </SelectItem>
               <SelectItem value={StatsPeriod.YEAR}>
-                {t("sys.chart.year")}
+                {t("components.chart.year")}
               </SelectItem>
             </SelectContent>
           </Select>
@@ -90,15 +90,15 @@ export default function ChartColumnActiveInactive() {
           type="bar"
           series={[
             {
-              name: t("sys.chart.total-users"),
+              name: t("components.chart.total-users"),
               data: statusUserStats.series[0]?.data || [],
             },
             {
-              name: t("sys.chart.total-active-users"),
+              name: t("components.chart.total-active-users"),
               data: statusUserStats.series[1]?.data || [],
             },
             {
-              name: t("sys.chart.total-inactive-users"),
+              name: t("components.chart.total-inactive-users"),
               data: statusUserStats.series[2]?.data || [],
             },
           ]}

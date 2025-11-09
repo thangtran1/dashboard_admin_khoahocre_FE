@@ -109,20 +109,6 @@
       "refresh": "Refresh"
     },
 
-    "multiLanguage": {
-      "title": "Choose Language",
-      "description": "Change the display language of the system",
-      "vi": "Vietnamese",
-      "en": "English",
-      "current": "Current",
-      "choose": "Choose Language",
-      "available-languages": "Available Languages",
-      "languages-supported": "Languages supported",
-      "current-language": "Current Language",
-      "active-now": "Active now",
-      "select-language": "Select Language",
-      "select-language-description": "Choose the language you want to use in the system"
-    },
     "chat": {
       "manager-chat-user": "Manager Chat User",
       "manager-chat-user-description": "Support customers through chat",
@@ -600,36 +586,7 @@
       "cancel": "Cancel",
       "new-password": "New Password"
     },
-    "chart": {
-      "loading": "Loading...",
-      "user-activity": "User Activity",
-      "day": "Day",
-      "week": "Week",
-      "month": "Month",
-      "year": "Year",
-      "login": "Login",
-      "logout": "Logout",
-      "total-banner": "Total Banner",
-      "active-banner": "Active",
-      "inactive-banner": "Paused",
-      "banner-stats": "Banner Stats",
-      "total-maintenance": "Total Maintenance",
-      "no-data": "No data",
-      "active-maintenance": "Active Maintenance",
-      "completed": "Completed",
-      "cancelled": "Cancelled",
-      "in_progress": "In Progress",
-      "total": "Total",
-      "scheduled": "Scheduled",
-      "total-users": "Total Users",
-      "total-active-users": "Active",
-      "total-inactive-users": "Inactive",
-      "status-user-stats": "Status User Stats",
-      "notification-stats": "Notification Stats",
-      "system": "System",
-      "news": "News",
-      "maintenance": "Maintenance"
-    },
+
     "auth-session": {
       "title": "Auth Session Management",
       "description": "Manage auth sessions, view and delete auth sessions",
@@ -876,5 +833,51 @@
     "level-1a": "Level 1a",
     "level-2a": "Level 2a",
     "level-3a": "Level 3a"
+  },
+  "components": {
+    "chart": {
+      "loading": "Loading...",
+      "user-activity": "User Activity",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year",
+      "login": "Login",
+      "logout": "Logout",
+      "total-banner": "Total Banner",
+      "active-banner": "Active",
+      "inactive-banner": "Paused",
+      "banner-stats": "Banner Stats",
+      "total-maintenance": "Total Maintenance",
+      "no-data": "No data",
+      "active-maintenance": "Active Maintenance",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "in_progress": "In Progress",
+      "total": "Total",
+      "scheduled": "Scheduled",
+      "total-users": "Total Users",
+      "total-active-users": "Active",
+      "total-inactive-users": "Inactive",
+      "status-user-stats": "Status User Stats",
+      "notification-stats": "Notification Stats",
+      "system": "System",
+      "news": "News",
+      "maintenance": "Maintenance"
+    },
+    "multiLanguage": {
+      "title": "Choose Language",
+      "description": "Change the display language of the system",
+      "vi": "Vietnamese",
+      "en": "English",
+      "current": "Current",
+      "choose": "Choose Language",
+      "available-languages": "Available Languages",
+      "languages-supported": "Languages supported",
+      "current-language": "Current Language",
+      "active-now": "Active now",
+      "select-language": "Select Language",
+      "select-language-description": "Choose the language you want to use in the system"
+    }
   }
 }

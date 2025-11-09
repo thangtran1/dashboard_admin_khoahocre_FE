@@ -54,7 +54,7 @@ export default function ChartNotification() {
     <Card className="flex-col">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>{t("sys.chart.notification-stats")}</span>
+          <span>{t("components.chart.notification-stats")}</span>
           <Select
             onValueChange={(value) => setPeriod(value as StatsPeriod)}
             defaultValue={period.toString()}
@@ -64,16 +64,16 @@ export default function ChartNotification() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={StatsPeriod.DAY}>
-                {t("sys.chart.day")}
+                {t("components.chart.day")}
               </SelectItem>
               <SelectItem value={StatsPeriod.WEEK}>
-                {t("sys.chart.week")}
+                {t("components.chart.week")}
               </SelectItem>
               <SelectItem value={StatsPeriod.MONTH}>
-                {t("sys.chart.month")}
+                {t("components.chart.month")}
               </SelectItem>
               <SelectItem value={StatsPeriod.YEAR}>
-                {t("sys.chart.year")}
+                {t("components.chart.year")}
               </SelectItem>
             </SelectContent>
           </Select>
@@ -111,15 +111,15 @@ function ChartArea({ stats }: { stats: ResponseStats }) {
       type="area"
       series={[
         {
-          name: t("sys.chart.system"),
+          name: t("components.chart.system"),
           data: stats.series[0]?.data || [],
         },
         {
-          name: t("sys.chart.news"),
+          name: t("components.chart.news"),
           data: stats.series[1]?.data || [],
         },
         {
-          name: t("sys.chart.maintenance"),
+          name: t("components.chart.maintenance"),
           data: stats.series[2]?.data || [],
         },
       ]}

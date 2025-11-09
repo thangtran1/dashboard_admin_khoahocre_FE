@@ -105,20 +105,6 @@
       "exitFullscreen": "Thoát toàn màn hình"
     },
 
-    "multiLanguage": {
-      "title": "Chọn Ngôn Ngữ",
-      "description": "Thay đổi ngôn ngữ hiển thị của hệ thống",
-      "vi": "Tiếng Việt",
-      "en": "Tiếng Anh",
-      "current": "Hiện tại",
-      "choose": "Chọn Ngôn Ngữ",
-      "available-languages": "Ngôn Ngữ Hỗ Trợ",
-      "languages-supported": "Ngôn ngữ được hỗ trợ",
-      "current-language": "Ngôn Ngữ Hiện Tại",
-      "active-now": "Đang sử dụng",
-      "select-language": "Lựa Chọn Ngôn Ngữ",
-      "select-language-description": "Chọn ngôn ngữ bạn muốn sử dụng trong hệ thống"
-    },
     "chat": {
       "manager-chat-user": "Quản lý đoạn chat người dùng",
       "manager-chat-user-description": "Hỗ trợ khách hàng qua chat",
@@ -600,36 +586,7 @@
       "cancel": "Hủy",
       "new-password": "Mật khẩu mới"
     },
-    "chart": {
-      "loading": "Đang tải...",
-      "user-activity": "Hoạt động người dùng",
-      "day": "Ngày",
-      "week": "Tuần",
-      "month": "Tháng",
-      "year": "Năm",
-      "login": "Đăng nhập",
-      "logout": "Đăng xuất",
-      "total-banner": "Tổng banner",
-      "active-banner": "Hoạt động",
-      "inactive-banner": "Tạm dừng",
-      "banner-stats": "Thống kê banner",
-      "total-maintenance": "Tổng số bảo trì",
-      "no-data": "Không có dữ liệu",
-      "active-maintenance": "Đang hoạt động",
-      "completed": "Hoàn thành",
-      "cancelled": "Đã hủy",
-      "in_progress": "Đang thực hiện",
-      "total": "Tổng",
-      "scheduled": "Đã lên lịch",
-      "total-users": "Tổng số người dùng",
-      "total-active-users": "Hoạt động",
-      "total-inactive-users": "Không hoạt động",
-      "status-user-stats": "Thống kê trạng thái người dùng",
-      "notification-stats": "Thống kê thông báo",
-      "system": "Hệ thống",
-      "news": "Tin tức",
-      "maintenance": "Bảo trì"
-    },
+
     "auth-session": {
       "title": "Quản lý phiên đăng nhập",
       "description": "Quản lý phiên đăng nhập, xem và xóa phiên đăng nhập",
@@ -876,5 +833,51 @@
     "level-1a": "Cấp 1a",
     "level-2a": "Cấp 2a",
     "level-3a": "Cấp 3a"
+  },
+  "components": {
+    "chart": {
+      "loading": "Đang tải...",
+      "user-activity": "Hoạt động người dùng",
+      "day": "Ngày",
+      "week": "Tuần",
+      "month": "Tháng",
+      "year": "Năm",
+      "login": "Đăng nhập",
+      "logout": "Đăng xuất",
+      "total-banner": "Tổng banner",
+      "active-banner": "Hoạt động",
+      "inactive-banner": "Tạm dừng",
+      "banner-stats": "Thống kê banner",
+      "total-maintenance": "Tổng số bảo trì",
+      "no-data": "Không có dữ liệu",
+      "active-maintenance": "Đang hoạt động",
+      "completed": "Hoàn thành",
+      "cancelled": "Đã hủy",
+      "in_progress": "Đang thực hiện",
+      "total": "Tổng",
+      "scheduled": "Đã lên lịch",
+      "total-users": "Tổng số người dùng",
+      "total-active-users": "Hoạt động",
+      "total-inactive-users": "Không hoạt động",
+      "status-user-stats": "Thống kê trạng thái người dùng",
+      "notification-stats": "Thống kê thông báo",
+      "system": "Hệ thống",
+      "news": "Tin tức",
+      "maintenance": "Bảo trì"
+    },
+    "multiLanguage": {
+      "title": "Chọn Ngôn Ngữ",
+      "description": "Thay đổi ngôn ngữ hiển thị của hệ thống",
+      "vi": "Tiếng Việt",
+      "en": "Tiếng Anh",
+      "current": "Hiện tại",
+      "choose": "Chọn Ngôn Ngữ",
+      "available-languages": "Ngôn Ngữ Hỗ Trợ",
+      "languages-supported": "Ngôn ngữ được hỗ trợ",
+      "current-language": "Ngôn Ngữ Hiện Tại",
+      "active-now": "Đang sử dụng",
+      "select-language": "Lựa Chọn Ngôn Ngữ",
+      "select-language-description": "Chọn ngôn ngữ bạn muốn sử dụng trong hệ thống"
+    }
   }
 }
