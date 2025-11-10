@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button, Spin, DatePicker, Input } from "antd";
+import { Button, Spin } from "antd";
 import {
-  ClearOutlined,
   DatabaseOutlined,
   DeleteOutlined,
   FileAddOutlined,
-  ReloadOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
-import dayjs from "dayjs";
 import { useSearchParams } from "react-router";
 import { databaseAdmin } from "@/api/services/databaseApi";
 import DatabaseInfoCard from "./components/inforCard";
@@ -18,14 +14,12 @@ import { toast } from "sonner";
 import { Separator } from "@/ui/separator";
 import { useTranslation } from "react-i18next";
 import CustomConfirmModal from "@/components/common/modals/custom-modal-confirm";
-
-const { RangePicker } = DatePicker;
-const { Search } = Input;
+import FilterSearch from "./components/filter-search";
 
 export default function DatabaseManagement() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [loadingBackups, setLoadingBackups] = useState(false);
   const [dbInfo, setDbInfo] = useState<any>(null);
   const [backups, setBackups] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -54,7 +48,7 @@ export default function DatabaseManagement() {
 
   // ================= Fetch Backups =================
   const fetchBackups = async (queryParams?: any) => {
-    setLoading(true);
+    setLoadingBackups(true);
     try {
       const params: any = {
         page,
@@ -71,10 +65,9 @@ export default function DatabaseManagement() {
         setPageSize(backupRes.pageSize);
       }
     } finally {
-      setLoading(false);
+      setLoadingBackups(false);
     }
   };
-
   // ================= Sync URL =================
   useEffect(() => {
     const params: any = {};
@@ -92,15 +85,16 @@ export default function DatabaseManagement() {
     fetchBackups();
   }, []);
 
-  const handleFilterChange = (field: string, value: string) => {
-    setFilters((prev) => ({ ...prev, [field]: value }));
-    setPage(1);
-  };
-
   const handleSearch = () => {
-    setAppliedFilters(filters);
+    const newFilters = { ...filters };
+    setAppliedFilters(newFilters);
     setPage(1);
-    fetchBackups({ page: 1 });
+
+    fetchBackups({
+      ...newFilters,
+      page: 1,
+      pageSize,
+    });
   };
 
   const handleClearFilters = () => {
@@ -108,7 +102,12 @@ export default function DatabaseManagement() {
     setFilters(cleared);
     setAppliedFilters(cleared);
     setPage(1);
-    fetchBackups({ page: 1 });
+    fetchBackups({
+      ...cleared,
+      page: 1,
+      pageSize,
+    });
+    fetchDbInfo();
   };
 
   const handleBackup = async () => {
@@ -172,7 +171,7 @@ export default function DatabaseManagement() {
       {/* Header */}
       <div className="pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-blue-700 flex items-center gap-2">
+          <h1 className="text-3xl font-bold flex items-center gap-2">
             <DatabaseOutlined className="text-blue-600" />
             {t("management.database.title")}
           </h1>
@@ -181,13 +180,6 @@ export default function DatabaseManagement() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
-          <Button
-            icon={<ReloadOutlined />}
-            onClick={() => fetchBackups()}
-            size="large"
-          >
-            {t("management.database.refresh")}
-          </Button>
           <Button
             icon={<FileAddOutlined />}
             onClick={handleBackup}
@@ -223,75 +215,17 @@ export default function DatabaseManagement() {
       ) : (
         <>
           <DatabaseInfoCard dbInfo={dbInfo} />
-
-          <div className="flex flex-col lg:flex-row gap-3 items-end">
-            <div className="flex-1">
-              <label className="block text-sm font-medium mb-2">
-                {t("management.database.search-by-name")}
-              </label>
-              <Search
-                placeholder={t("management.database.by-name")}
-                value={filters.search}
-                onChange={(e) => handleFilterChange("search", e.target.value)}
-                size="large"
-                prefix={<SearchOutlined />}
-                allowClear
-                className="w-full"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                {t("management.database.date-range")}
-              </label>
-              <RangePicker
-                size="large"
-                value={
-                  filters.startDate && filters.endDate
-                    ? [dayjs(filters.startDate), dayjs(filters.endDate)]
-                    : null
-                }
-                onChange={(dates) => {
-                  handleFilterChange(
-                    "startDate",
-                    dates?.[0]?.format("YYYY-MM-DD") || ""
-                  );
-                  handleFilterChange(
-                    "endDate",
-                    dates?.[1]?.format("YYYY-MM-DD") || ""
-                  );
-                }}
-                className="w-full"
-              />
-            </div>
-
-            <div className="flex gap-2">
-              <Button
-                danger
-                icon={<ClearOutlined />}
-                onClick={handleClearFilters}
-                size="large"
-                className="h-[40px]"
-              >
-                {t("management.database.clear-filters")}
-              </Button>
-              <Button
-                color="primary"
-                variant="outlined"
-                icon={<SearchOutlined />}
-                onClick={handleSearch}
-                size="large"
-                className="h-[40px]"
-              >
-                {t("management.database.search")}
-              </Button>
-            </div>
-          </div>
+          <FilterSearch
+            filters={filters}
+            setFilters={setFilters}
+            onSearch={handleSearch}
+            onClear={handleClearFilters}
+          />
 
           <BackupList
             backups={backups}
             reload={fetchBackups}
-            loading={loading}
+            loading={loadingBackups}
             pagination={{
               page,
               limit: pageSize,

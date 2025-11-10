@@ -105,7 +105,7 @@ const ResetPassword = () => {
             </div>
           </div>
           <div className="flex flex-1  items-center justify-center">
-            <div className="w-full p-4 rounded-lg max-w-xs">
+            <div className="w-full p-4 rounded-lg max-w-sm">
               <div className="text-center mb-4 space-y-1">
                 <div className="flex justify-center items-center mb-3">
                   <Icon

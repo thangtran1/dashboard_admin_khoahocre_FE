@@ -1,5 +1,4 @@
 import { Button, Input, DatePicker, Select } from "antd";
-const { Search } = Input;
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 import { SearchOutlined } from "@ant-design/icons";
@@ -33,14 +32,13 @@ export default function FilterSearch({
         <label className="block text-sm font-medium mb-2">
           {t("management.auth-session.search")}
         </label>
-        <Search
-          placeholder={t("management.auth-session.search-placeholder")}
+        <Input
           size="large"
-          prefix={<SearchOutlined />}
-          allowClear
+          placeholder={t("management.auth-session.search-placeholder")}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          onSearch={handleSearchClick}
+          prefix={<SearchOutlined />}
+          allowClear
         />
       </div>
       <div>
