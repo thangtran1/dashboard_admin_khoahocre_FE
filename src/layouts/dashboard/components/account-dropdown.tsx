@@ -1,6 +1,7 @@
 import { useUserActions } from "@/store/userStore";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { Button } from "@/ui/button";
+import DefaultAvatar from "@/assets/images/background/default_avt.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,7 +42,7 @@ export default function AccountDropdown() {
             src={
               profile?.avatar
                 ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
-                : "/default-avatar.svg"
+                : DefaultAvatar
             }
             alt=""
           />
@@ -54,7 +55,7 @@ export default function AccountDropdown() {
             src={
               profile?.avatar
                 ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
-                : "/default-avatar.svg"
+                : DefaultAvatar
             }
             alt=""
           />

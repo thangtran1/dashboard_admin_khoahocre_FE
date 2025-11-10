@@ -19,7 +19,7 @@ export default function LocalePicker() {
       key: item.locale,
       label: item.label,
       icon: (
-        <Icon icon={`local:${item.icon}`} size="20" className="rounded-md" />
+        <Icon icon={`local:${item.icon}`} size={20} className="rounded-md" />
       ),
     };
   });
@@ -28,7 +28,7 @@ export default function LocalePicker() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full">
-          <Icon icon={`local:${LANGUAGE_MAP[locale].icon}`} size="20" />
+          <Icon icon={`local:${LANGUAGE_MAP[locale].icon}`} size={20} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

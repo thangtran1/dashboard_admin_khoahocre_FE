@@ -45,7 +45,7 @@ export default function NoticeButton() {
     }
   }, [isLoggedIn]);
 
- useEffect(() => {
+  useEffect(() => {
     if (!drawerOpen && isLoggedIn) {
       loadUnreadCount();
     }

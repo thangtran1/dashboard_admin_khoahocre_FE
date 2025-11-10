@@ -3,17 +3,13 @@ import { Card, Avatar, Button, Drawer, Tooltip } from "antd";
 import {
   UserOutlined,
   LockOutlined,
-  CameraOutlined,
   MailOutlined,
   PhoneOutlined,
-  CalendarOutlined,
-  HomeOutlined,
   MenuOutlined,
   LeftOutlined,
   RightOutlined,
 } from "@ant-design/icons";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import CoverImage from "@/assets/images/cover/cover_4.jpg";
 import PersonalInfoTab from "./components/PersonalInfoTab";
 import SecurityTab from "./components/SecurityTab";
 import { type CSSProperties } from "react";
@@ -48,7 +44,7 @@ function UserProfile() {
   }, [updateProfile]);
 
   const bgStyle: CSSProperties = {
-    background: `linear-gradient(135deg, rgba(56,189,248,0.85), rgba(168,85,247,0.85)), url(${CoverImage})`,
+    background: `linear-gradient(135deg, rgba(56,189,248,0.85), rgba(168,85,247,0.85)))`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
