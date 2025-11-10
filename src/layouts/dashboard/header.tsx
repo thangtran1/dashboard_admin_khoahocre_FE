@@ -1,9 +1,7 @@
 import LocalePicker from "@/components/common/locale-picker";
-import { useSettings } from "@/store/settingStore";
 import { cn } from "@/utils";
 import type { ReactNode } from "react";
 import AccountDropdown from "./components/account-dropdown";
-import BreadCrumb from "./components/bread-crumb";
 import SearchBar from "./components/search-bar";
 import SettingButton from "./components/setting-button";
 import { useUserInfo } from "@/store/userStore";
@@ -13,7 +11,6 @@ interface HeaderProps {
 }
 
 export default function Header({ headerLeftSlot }: HeaderProps) {
-  const { breadCrumb } = useSettings();
   const { role } = useUserInfo();
 
   return (
@@ -25,17 +22,9 @@ export default function Header({ headerLeftSlot }: HeaderProps) {
       )}
     >
       {role === "user" ? (
-        <div className="flex items-center">
-          {headerLeftSlot}
-          <div className="hidden md:block ml-4">
-            {breadCrumb && <BreadCrumb />}
-          </div>
-        </div>
+        <div className="flex items-center">{headerLeftSlot}</div>
       ) : (
-        <>
-          <SearchBar />
-          <div className="flex flex-1" />
-        </>
+        <SearchBar /> // Admin search bar
       )}
 
       <div className="flex w-full justify-end items-center gap-2 pr-4">

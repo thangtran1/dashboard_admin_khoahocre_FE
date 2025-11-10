@@ -9,9 +9,6 @@ export type SettingsType = {
   themeMode: ThemeMode;
   themeLayout: ThemeLayout;
   themeStretch: boolean;
-  breadCrumb: boolean;
-  accordion: boolean;
-  darkSidebar: boolean;
   fontFamily: string;
   fontSize: number;
   direction: "ltr" | "rtl";
@@ -32,9 +29,6 @@ const useSettingStore = create<SettingStore>()(
         themeMode: ThemeMode.Light,
         themeLayout: ThemeLayout.Vertical,
         themeStretch: false,
-        breadCrumb: true,
-        accordion: false,
-        darkSidebar: false,
         fontFamily: FontFamilyPreset.openSans,
         fontSize: Number(typographyTokens.fontSize.sm),
         direction: "ltr",

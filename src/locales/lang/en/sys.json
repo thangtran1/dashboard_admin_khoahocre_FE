@@ -857,9 +857,6 @@
     "family": "Font family",
     "size": "Size",
     "page": "Page",
-    "breadcrumb": "Breadcrumb",
-    "darkSidebar": "Dark sidebar",
-    "accordion": "Accordion menu",
     "fullscreen": "Fullscreen",
     "exitFullscreen": "Exit fullscreen"
   },

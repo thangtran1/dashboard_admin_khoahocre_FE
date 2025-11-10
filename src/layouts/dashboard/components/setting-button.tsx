@@ -22,7 +22,6 @@ import {
   SheetTrigger,
 } from "@/ui/sheet";
 import { Slider } from "@/ui/slider";
-import { Switch } from "@/ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
 import { cn } from "@/utils";
 import { type CSSProperties, useState } from "react";
@@ -38,11 +37,8 @@ export default function SettingButton() {
     themeColorPresets,
     themeLayout,
     themeStretch,
-    breadCrumb,
-    darkSidebar,
     fontSize,
     fontFamily,
-    accordion,
   } = settings;
   const { setSettings } = useSettingActions();
 
@@ -356,42 +352,6 @@ export default function SettingButton() {
                   updateSettings({ fontSize: value[0] })
                 }
               />
-            </div>
-
-            {/* Page config */}
-            <div>
-              <div className="mb-3 text-base font-semibold text-text-secondary">
-                {t("settings.page")}
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between text-sm text-text-disabled">
-                  <div>{t("settings.breadcrumb")}</div>
-                  <Switch
-                    checked={breadCrumb}
-                    onCheckedChange={(checked) =>
-                      updateSettings({ breadCrumb: checked })
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between text-sm text-text-disabled">
-                  <div>{t("settings.darkSidebar")}</div>
-                  <Switch
-                    checked={darkSidebar}
-                    onCheckedChange={(checked) =>
-                      updateSettings({ darkSidebar: checked })
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between text-sm text-text-disabled">
-                  <div>{t("settings.accordion")}</div>
-                  <Switch
-                    checked={accordion}
-                    onCheckedChange={(checked) =>
-                      updateSettings({ accordion: checked })
-                    }
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </ScrollArea>
