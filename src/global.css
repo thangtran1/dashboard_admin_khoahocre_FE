@@ -1,6 +1,7 @@
 @import "@fontsource-variable/open-sans";
 @import "@fontsource-variable/inter";
-
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/nunito-sans";
 @import "react-quill/dist/quill.snow.css";
 @import "./styles/sidebar-animation.css";
 

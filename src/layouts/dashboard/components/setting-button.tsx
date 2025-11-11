@@ -313,19 +313,17 @@ export default function SettingButton() {
               <div className="mb-3 text-base font-semibold text-text-secondary">
                 {t("settings.font")}
               </div>
-
-              <div className="my-3 text-sm font-semibold text-text-disabled">
-                {t("settings.family")}
-              </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-row flex-wrap gap-3">
                 {Object.entries(FontFamilyPreset).map(([font, family]) => (
                   <Card
                     key={font}
                     className={cn(
-                      "flex h-20 w-full cursor-pointer items-center justify-center text-text-disabled",
+                      "flex h-20 w-[calc(50%-0.75rem)] cursor-pointer items-center justify-center text-text-disabled", // 50% width - gap
                       fontFamily === family && "text-primary font-medium",
                       family === FontFamilyPreset.inter && "font-inter",
-                      family === FontFamilyPreset.openSans && "font-openSans"
+                      family === FontFamilyPreset.openSans && "font-openSans",
+                      family === FontFamilyPreset.nunito && "font-nunito-sans",
+                      family === FontFamilyPreset.dmSans && "font-dm-sans"
                     )}
                     onClick={() => updateSettings({ fontFamily: family })}
                   >

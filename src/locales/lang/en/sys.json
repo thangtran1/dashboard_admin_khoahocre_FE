@@ -853,7 +853,6 @@
     "stretchTip": "Only used for resolution > 1600px (xl)",
     "presetThemes": "Preset themes",
     "font": "Font",
-    "family": "Font family",
     "size": "Size",
     "page": "Page",
     "fullscreen": "Fullscreen",

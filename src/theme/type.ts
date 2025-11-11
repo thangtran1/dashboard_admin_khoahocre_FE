@@ -76,6 +76,8 @@ export const themeTokens = {
     fontFamily: {
       openSans: null,
       inter: null,
+      nunito: null,
+      dmSans: null,
     },
     fontSize: {
       xs: null,
