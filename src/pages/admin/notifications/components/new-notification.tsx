@@ -68,11 +68,8 @@ const NewNotification: React.FC = () => {
         URL.revokeObjectURL(actionUrlFile);
       }
       setActionUrlFile(null);
-    } catch (error: any) {
-      toast.error("Có lỗi xảy ra khi tạo thông báo", {
-        description: error.message || "Vui lòng thử lại sau",
-        duration: 3000,
-      });
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -109,9 +106,7 @@ const NewNotification: React.FC = () => {
             <Form.Item
               name="type"
               label={t("notification.type")}
-              rules={[
-                { required: true, message: "Vui lòng chọn loại thông báo" },
-              ]}
+              rules={[{ message: "Vui lòng chọn loại thông báo" }]}
             >
               <Select placeholder={t("notification.select-type")}>
                 <Option value="system">{t("notification.system")}</Option>

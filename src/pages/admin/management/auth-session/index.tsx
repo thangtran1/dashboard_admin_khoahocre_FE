@@ -161,17 +161,15 @@ const AuthSessionManagement: React.FC = () => {
 
       <Separator />
 
-      <div className="pb-4">
-        <div className="overflow-x-auto">
-          <TableAntd
-            columns={columns}
-            data={authSessions}
-            loading={loading}
-            pagination={pagination}
-            onPageChange={onPageChange}
-            scroll={{ y: 500, x: 600 }}
-          />
-        </div>
+      <div className="overflow-x-auto">
+        <TableAntd
+          columns={columns}
+          data={authSessions}
+          loading={loading}
+          pagination={pagination}
+          onPageChange={onPageChange}
+          scroll={{ y: 500, x: 600 }}
+        />
       </div>
     </div>
   );

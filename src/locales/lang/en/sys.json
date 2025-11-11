@@ -141,10 +141,11 @@
     }
   },
   "maintenance": {
+    "create-maintenance-loading": "Creating maintenance...",
     "title": "Maintenance",
     "create-new-maintenance": "Create New Maintenance",
     "create-success": "Create maintenance successfully!",
-    "description": "Maintenance system, create, restore and delete backup",
+    "description": "Maintenance description (optional)",
     "refresh": "Refresh",
     "add-maintenance": "Create New Maintenance",
     "total-maintenance": "Total Maintenance",

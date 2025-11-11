@@ -29,7 +29,7 @@ export default function BannerCard() {
           {t("dashboard.workbench.join-discord-channel")}
           <div>
             <a
-              href="https://blog.slashspaces.com"
+              href="https://vanthang.io.vn"
               target="_blank"
               className="text-base opacity-80"
               style={{ color: themeVars.colors.palette.primary.dark }}

@@ -18,7 +18,7 @@ const TableAntd: React.FC<TableAntdProps> = ({
   scroll,
 }) => {
   return (
-    <div>
+    <div className="mb-4">
       {/* PageSize selector góc trên bên phải */}
       <div className="flex justify-end items-center mb-4 gap-3">
         <div className="text-base font-medium text-gray-600">

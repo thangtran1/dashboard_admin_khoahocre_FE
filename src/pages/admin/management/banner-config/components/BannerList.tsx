@@ -151,10 +151,6 @@ export default function BannerList() {
       <Modal
         title={
           <div className="flex items-center gap-2">
-            <Icon
-              icon={editingBanner ? "lucide:edit" : "lucide:plus"}
-              className="h-5 w-5 text-blue-600"
-            />
             {editingBanner
               ? t("management.banner.edit-banner")
               : t("management.banner.create-banner")}
@@ -165,7 +161,7 @@ export default function BannerList() {
         width={800}
         footer={[
           <Button danger key="cancel" onClick={resetForm}>
-            ❌ {t("management.banner.cancel")}
+            {t("management.banner.cancel")}
           </Button>,
           <Button
             key="submit"
@@ -186,7 +182,7 @@ export default function BannerList() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-sm font-semibold text-foreground">
-                  {t("management.banner.banner-content")} *
+                  {t("management.banner.banner-content")}
                 </Label>
                 <Textarea
                   placeholder={t(
@@ -260,7 +256,7 @@ export default function BannerList() {
 
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-blue-900 mb-2">
-                  📋 {t("management.banner.banner-info")}
+                  {t("management.banner.banner-info")}
                 </h4>
                 <ul className="text-sm text-blue-800 space-y-1">
                   <li>• {t("management.banner.banner-color-description")}</li>

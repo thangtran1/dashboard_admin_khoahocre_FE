@@ -56,7 +56,7 @@ function Basic({ percent, title, subtitle, iconify, bg, strokeColor }: Props) {
       />
       <div className="ml-2 flex flex-col">
         <span className="text-2xl font-bold">{title}</span>
-        <span className="opacity-50">{subtitle}</span>
+        <span>{subtitle}</span>
       </div>
       <div className="absolute right-0">
         <Icon icon={iconify} style={{ opacity: 0.08 }} size={100} />

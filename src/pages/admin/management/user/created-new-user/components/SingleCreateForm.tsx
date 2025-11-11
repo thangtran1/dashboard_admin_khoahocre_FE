@@ -94,7 +94,6 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
           label={t("management.user.role")}
           rules={[
             {
-              required: true,
               message: t("management.user.role-required"),
             },
           ]}
@@ -165,7 +164,7 @@ export default function SingleCreateForm({ onSuccess }: SingleCreateFormProps) {
         <Input.TextArea rows={3} placeholder={t("management.user.bio")} />
       </Form.Item>
 
-      <div className="flex justify-end gap-4 pt-6">
+      <div className="flex justify-end gap-4 pt-2">
         <Button danger size="large" onClick={() => form.resetFields()}>
           <Icon icon="lucide:x-circle" className="h-5 w-5" />
           {t("management.user.cancel")}
