@@ -725,6 +725,9 @@
     "news": "News"
   },
   "profile": {
+    "updating-profile": "Updating profile...",
+    "updating-avatar": "Updating avatar...",
+    "isChangePass": "Changing password...",
     "update-system-settings-success": "Update system settings successfully!",
     "title": "Personal information",
     "description": "Manage personal information, security and system settings",

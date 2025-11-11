@@ -19,9 +19,8 @@ import ActivityLogs from "../../management/user/[id]/tabs/activity-log";
 export default function ProfilePage() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { profile, loading: profileLoading, updateProfile } = useUserProfile();
+  const { profile, updateProfile } = useUserProfile();
 
-  const [loading, setLoading] = useState(false);
   const [systemSettings, setSystemSettings] = useState<SystemSettings | null>(
     null
   );
@@ -32,17 +31,9 @@ export default function ProfilePage() {
     setSearchParams({ tab });
   };
 
-  // Fetch system settings
   const fetchSystemSettings = async () => {
-    try {
-      setLoading(true);
-      const settingsData = await getSystemSettings();
-      setSystemSettings(settingsData);
-    } catch (error) {
-      console.error("Error fetching system settings:", error);
-    } finally {
-      setLoading(false);
-    }
+    const settingsData = await getSystemSettings();
+    setSystemSettings(settingsData);
   };
 
   useEffect(() => {
@@ -59,11 +50,7 @@ export default function ProfilePage() {
         </span>
       ),
       children: (
-        <PersonalInfoTab
-          profile={profile}
-          loading={profileLoading || loading}
-          onProfileUpdate={updateProfile}
-        />
+        <PersonalInfoTab profile={profile} onProfileUpdate={updateProfile} />
       ),
     },
     {
@@ -92,7 +79,7 @@ export default function ProfilePage() {
           {t("profile.security")}
         </span>
       ),
-      children: <SecurityTab loading={loading} setLoading={setLoading} />,
+      children: <SecurityTab />,
     },
     {
       key: "preferences",
@@ -104,8 +91,6 @@ export default function ProfilePage() {
       ),
       children: (
         <PreferencesTab
-          loading={loading}
-          setLoading={setLoading}
           setSystemSettings={setSystemSettings}
           systemSettings={systemSettings}
         />
@@ -127,9 +112,7 @@ export default function ProfilePage() {
             </p>
           </div>
         </div>
-
-        <Separator className="my-3" />
-
+        <Separator className="my-2" />
         <Tabs
           defaultActiveKey={activeTab}
           activeKey={activeTab}

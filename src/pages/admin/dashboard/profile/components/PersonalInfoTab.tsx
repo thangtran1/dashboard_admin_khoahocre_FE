@@ -19,37 +19,71 @@ import {
 import dayjs from "dayjs";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
 import {
   UserProfile,
   UpdateProfileReq,
   updateUserProfile,
   uploadAvatar,
 } from "@/api/services/profileApi";
+import { FullPageLoading } from "@/components/common/loading";
 
 const { TextArea } = Input;
+
 interface PersonalInfoTabProps {
   profile: UserProfile | null;
-  loading: boolean;
   onProfileUpdate: (profile: UserProfile) => void;
 }
 
 export default function PersonalInfoTab({
   profile,
-  loading,
   onProfileUpdate,
 }: PersonalInfoTabProps) {
-  const avatarUrl = profile?.avatar
-    ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
-    : undefined;
   const { t } = useTranslation();
   const [form] = Form.useForm<UpdateProfileReq>();
-  const [uploading, setUploading] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
 
   useEffect(() => {
     form.resetFields();
     setIsChanged(false);
   }, [profile]);
+
+  const { mutateAsync: updateProfile, isPending: isUpdating } = useMutation({
+    mutationFn: (values: UpdateProfileReq) => updateUserProfile(values),
+    onSuccess: (updated) => {
+      onProfileUpdate(updated);
+      toast.success(t("profile.update-profile-success"));
+      setIsChanged(false);
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const { mutateAsync: changeAvatar, isPending: isUploading } = useMutation({
+    mutationFn: (file: File) => uploadAvatar(file),
+    onSuccess: async (url: string) => {
+      if (!profile) return;
+      const updated = await updateProfile({ avatar: url });
+      onProfileUpdate(updated);
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleSave = async (values: UpdateProfileReq) => {
+    await updateProfile({
+      ...values,
+      dateOfBirth: values.dateOfBirth
+        ? dayjs(values.dateOfBirth).toISOString()
+        : undefined,
+    });
+  };
+
+  const handleAvatarUpload = async (file: File) => {
+    await changeAvatar(file);
+  };
 
   const handleValuesChange = () => {
     if (!profile) return;
@@ -63,38 +97,23 @@ export default function PersonalInfoTab({
         !dayjs(values.dateOfBirth).isSame(dayjs(profile.dateOfBirth), "day"));
     setIsChanged(Boolean(changed));
   };
-  const handleSave = async (values: UpdateProfileReq) => {
-    try {
-      const updated = await updateUserProfile({
-        ...values,
-        dateOfBirth: values.dateOfBirth
-          ? dayjs(values.dateOfBirth).toISOString()
-          : undefined,
-      });
-      onProfileUpdate(updated);
-      toast.success(t("profile.update-profile-success"));
-      setIsChanged(false);
-    } catch (err) {}
-  };
 
-  const handleAvatarUpload = async (file: File) => {
-    if (!profile) return;
-    try {
-      setUploading(true);
-      const url = await uploadAvatar(file);
-      const updated = await updateUserProfile({ avatar: url });
-      onProfileUpdate(updated);
-      toast.success(t("profile.update-avatar-success"));
-    } catch (err) {
-      throw err;
-    } finally {
-      setUploading(false);
-    }
-  };
+  const avatarUrl = profile?.avatar
+    ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
+    : undefined;
 
   return (
     <div>
-      <div className="flex items-center">
+      {(isUpdating || isUploading) && (
+        <FullPageLoading
+          message={
+            isUpdating
+              ? t("profile.updating-profile")
+              : t("profile.updating-avatar")
+          }
+        />
+      )}
+      <div className="flex items-center mb-4">
         <div className="relative">
           <Avatar size={100} icon={<UserOutlined />} src={avatarUrl} />
           <Upload
@@ -105,14 +124,14 @@ export default function PersonalInfoTab({
             accept="image/*"
           >
             <Button
-              className="absolute -bottom-6 right-6 "
+              className="absolute -bottom-6 right-6"
               shape="circle"
               icon={<CameraOutlined />}
-              loading={uploading}
+              loading={isUploading}
             />
           </Upload>
         </div>
-        <div>
+        <div className="ml-4">
           <h3>{profile?.name || t("profile.loading")}</h3>
           <p>{profile?.email || t("profile.loading")}</p>
         </div>
@@ -169,11 +188,10 @@ export default function PersonalInfoTab({
         <div className="flex justify-end">
           <Button
             size="large"
-            color="primary"
-            variant="outlined"
+            type="primary"
             htmlType="submit"
-            loading={loading}
             disabled={!isChanged}
+            loading={isUpdating}
           >
             {t("profile.update-profile")}
           </Button>

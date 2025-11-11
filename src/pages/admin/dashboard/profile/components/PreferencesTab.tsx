@@ -8,80 +8,73 @@ import {
   SystemSettings,
 } from "@/api/services/profileApi";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
+import { FullPageLoading } from "@/components/common/loading/full-page-loading";
 
 const { Option } = Select;
 const { TextArea } = Input;
 
 interface PreferencesTabProps {
-  loading: boolean;
-  setLoading: (loading: boolean) => void;
   setSystemSettings: (settings: SystemSettings) => void;
   systemSettings?: SystemSettings | null;
 }
 
 export default function PreferencesTab({
-  loading,
-  setLoading,
   setSystemSettings,
   systemSettings,
 }: PreferencesTabProps) {
   const { t } = useTranslation();
-  const [settingsForm] = Form.useForm();
+  const [form] = Form.useForm();
   const { refreshSettings } = useSystemSettings();
   const [isChanged, setIsChanged] = useState(false);
 
-  // Gán giá trị ban đầu vào form
   useEffect(() => {
-    if (systemSettings) {
-      settingsForm.setFieldsValue({
-        defaultLanguage: systemSettings.defaultLanguage,
-        systemName: systemSettings.systemName,
-        systemDescription: systemSettings.systemDescription,
-      });
-      setIsChanged(false); // reset trạng thái thay đổi
-    }
-  }, [systemSettings, settingsForm]);
+    if (!systemSettings) return;
+    form.setFieldsValue({
+      defaultLanguage: systemSettings.defaultLanguage,
+      systemName: systemSettings.systemName,
+      systemDescription: systemSettings.systemDescription,
+    });
+    setIsChanged(false);
+  }, [systemSettings]);
 
-  // Kiểm tra khi giá trị form thay đổi
   const handleValuesChange = () => {
     if (!systemSettings) return;
-
-    const currentValues = settingsForm.getFieldsValue();
-    const hasChanges =
-      currentValues.defaultLanguage !== systemSettings.defaultLanguage ||
-      currentValues.systemName !== systemSettings.systemName ||
-      currentValues.systemDescription !== systemSettings.systemDescription;
-
-    setIsChanged(hasChanges);
+    const current = form.getFieldsValue();
+    const changed =
+      current.defaultLanguage !== systemSettings.defaultLanguage ||
+      current.systemName !== systemSettings.systemName ||
+      current.systemDescription !== systemSettings.systemDescription;
+    setIsChanged(changed);
   };
 
-  const handleSystemSettingsChange = async (
-    values: UpdateSystemSettingsReq
-  ) => {
-    try {
-      setLoading(true);
-      const updatedSettings = await updateSystemSettings(values);
+  const { mutateAsync: updateSettings, isPending } = useMutation({
+    mutationFn: (values: UpdateSystemSettingsReq) =>
+      updateSystemSettings(values),
+    onSuccess: async (updatedSettings) => {
       setSystemSettings(updatedSettings);
       await refreshSettings();
-
       toast.success(t("profile.update-system-settings-success"));
       setIsChanged(false);
-    } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
-    }
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleSubmit = async (values: UpdateSystemSettingsReq) => {
+    await updateSettings(values);
   };
 
   return (
     <div>
-      <h3 className="text-lg font-semibold">{t("profile.preferences")}</h3>
-
+      {isPending && <FullPageLoading message={t("profile.loading")} />}
+      <h3 className="text-lg font-semibold mb-4">{t("profile.preferences")}</h3>
       <Form
-        form={settingsForm}
+        form={form}
         layout="vertical"
         onValuesChange={handleValuesChange}
-        onFinish={handleSystemSettingsChange}
+        onFinish={handleSubmit}
       >
         <Form.Item name="defaultLanguage" label={t("profile.default-language")}>
           <Select size="large">
@@ -106,14 +99,12 @@ export default function PreferencesTab({
             placeholder={t("profile.system-description-placeholder")}
           />
         </Form.Item>
-
         <div className="flex justify-end">
           <Button
-            color="primary"
-            variant="outlined"
+            type="primary"
             htmlType="submit"
             size="large"
-            loading={loading}
+            loading={isPending}
             disabled={!isChanged}
           >
             {t("profile.save-settings")}

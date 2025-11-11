@@ -725,6 +725,9 @@
     "news": "Tin tức"
   },
   "profile": {
+    "updating-profile": "Đang cập nhật thông tin cá nhân...",
+    "updating-avatar": "Đang cập nhập ảnh đại diện...",
+    "isChangePass": "Đang thay đổi mật khẩu...",
     "update-system-settings-success": "Cập nhật cài đặt hệ thống thành công!",
     "title": "Thông tin cá nhân",
     "description": "Quản lý thông tin cá nhân, bảo mật và tùy chỉnh hệ thống",

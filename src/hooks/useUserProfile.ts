@@ -4,7 +4,6 @@ import { useUserActions, useUserToken } from "@/store/userStore";
 
 export const useUserProfile = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { setUserInfo } = useUserActions();
   const { accessToken, refreshToken } = useUserToken();
@@ -28,20 +27,16 @@ export const useUserProfile = () => {
 
   const fetchProfile = async () => {
     if (!accessToken || !refreshToken) {
-      setLoading(false);
-      return; 
+      return;
     }
-  
+
     try {
-      setLoading(true);
       setError(null);
       const profileData = await getUserProfile();
       setProfile(profileData);
       setUserInfo(transformUserData(profileData));
     } catch (err: any) {
       setError(err.message || "Lỗi khi tải thông tin profile");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -75,7 +70,6 @@ export const useUserProfile = () => {
 
   return {
     profile,
-    loading,
     error,
     refetch: fetchProfile,
     updateProfile,
