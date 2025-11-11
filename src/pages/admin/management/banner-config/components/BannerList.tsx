@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Button, Popconfirm, Modal } from "antd";
+import { Button, Popconfirm } from "antd";
 import { Badge } from "@/ui/badge";
 import { Switch } from "@/ui/switch";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
-import { Textarea } from "@/ui/textarea";
 import { Icon } from "@/components/icon";
 import { useBanner } from "@/hooks/useBanner";
 import type {
@@ -15,13 +14,15 @@ import type {
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import EditCreateModal from "./Edit-Create-Modal";
+import { FullPageLoading } from "@/components/common/loading";
+import EmptyState from "./empty-state";
 
 export default function BannerList() {
   const { t } = useTranslation();
   const {
     banners,
     loading,
-    pagination,
     settings,
     fetchBanners,
     createBanner,
@@ -70,7 +71,6 @@ export default function BannerList() {
     setIsModalOpen(false);
   };
 
-  // Handle create banner
   const handleCreate = async () => {
     if (!formData.content.trim()) {
       toast.error(t("management.banner.banner-content-required"));
@@ -84,7 +84,6 @@ export default function BannerList() {
     }
   };
 
-  // Handle update banner
   const handleUpdateBanner = async () => {
     if (!editingBanner) return;
     if (!formData.content.trim()) {
@@ -104,7 +103,6 @@ export default function BannerList() {
     }
   };
 
-  // Handle edit banner
   const handleEdit = (banner: BannerConfig) => {
     setEditingBanner(banner);
     setFormData({
@@ -115,7 +113,6 @@ export default function BannerList() {
     setIsModalOpen(true);
   };
 
-  // Handle delete banner
   const handleDelete = async (id: string) => {
     const success = await deleteBanner(id);
     if (success) {
@@ -123,192 +120,43 @@ export default function BannerList() {
     }
   };
 
-  // Handle toggle banner
   const handleToggle = async (id: string, isActive: boolean) => {
     const success = await toggleBanner(id, isActive);
     if (success) {
-      fetchBanners(pagination.page, pagination.limit);
+      fetchBanners();
       toast.success(t("management.banner.toggle-banner-success"));
     }
   };
 
-  // Handle order change
   const handleOrderChange = async (id: string, newOrder: number) => {
     const success = await updateBannerOrder(id, newOrder);
     if (success) {
-      fetchBanners(pagination.page, pagination.limit);
+      fetchBanners();
       toast.success(t("management.banner.update-banner-order-success"));
     }
   };
 
-  // Handle page change
-  const handlePageChange = (newPage: number) => {
-    fetchBanners(newPage, pagination.limit);
-  };
-
   return (
     <div className="space-y-6">
-      <Modal
-        title={
-          <div className="flex items-center gap-2">
-            {editingBanner
-              ? t("management.banner.edit-banner")
-              : t("management.banner.create-banner")}
-          </div>
-        }
-        open={isModalOpen}
-        onCancel={resetForm}
-        width={800}
-        footer={[
-          <Button danger key="cancel" onClick={resetForm}>
-            {t("management.banner.cancel")}
-          </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            onClick={editingBanner ? handleUpdateBanner : handleCreate}
-            loading={loading}
-            disabled={!formData.content.trim()}
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            {editingBanner
-              ? t("management.banner.update-banner")
-              : t("management.banner.create-banner")}
-          </Button>,
-        ]}
-      >
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label className="text-sm font-semibold text-foreground">
-                  {t("management.banner.banner-content")}
-                </Label>
-                <Textarea
-                  placeholder={t(
-                    "management.banner.banner-content-placeholder"
-                  )}
-                  value={formData.content}
-                  onChange={(e) =>
-                    setFormData({ ...formData, content: e.target.value })
-                  }
-                  className="min-h-[100px] resize-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold text-foreground">
-                    {t("management.banner.banner-order")}
-                  </Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    value={formData.order}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        order: parseInt(e.target.value) || 0,
-                      })
-                    }
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold text-foreground">
-                    {t("management.banner.banner-status")}
-                  </Label>
-                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <Switch
-                      checked={formData.isActive}
-                      onCheckedChange={(checked) =>
-                        setFormData({ ...formData, isActive: checked })
-                      }
-                    />
-                    <Label className="text-sm font-medium text-foreground">
-                      {formData.isActive
-                        ? t("management.banner.active-banner")
-                        : t("management.banner.paused-banner")}
-                    </Label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label className="text-sm font-semibold text-foreground">
-                  {t("management.banner.preview-banner")}
-                </Label>
-                <div
-                  className="rounded-lg p-4 border-2 border-dashed border-border min-h-[100px] flex items-center justify-center overflow-hidden"
-                  style={{
-                    backgroundColor: settings?.backgroundColor || "#1890ff",
-                    color: settings?.textColor || "#ffffff",
-                  }}
-                >
-                  <div className="whitespace-nowrap animate-marquee text-sm font-medium">
-                    {formData.content ||
-                      t("management.banner.banner-content-placeholder")}
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-900 mb-2">
-                  {t("management.banner.banner-info")}
-                </h4>
-                <ul className="text-sm text-blue-800 space-y-1">
-                  <li>• {t("management.banner.banner-color-description")}</li>
-                  <li>
-                    • {t("management.banner.banner-spacing-description")}:{" "}
-                    {settings?.bannerSpacing || 30}px
-                  </li>
-                  <li>
-                    • {t("management.banner.banner-scroll-speed-description")}:{" "}
-                    {settings?.scrollSpeed || 60}px/s
-                  </li>
-                  <li>
-                    • {t("management.banner.banner-status-description")}:{" "}
-                    {formData.isActive
-                      ? t("management.banner.active-banner")
-                      : t("management.banner.paused-banner")}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Modal>
-
+      <EditCreateModal
+        settings={settings}
+        resetForm={resetForm}
+        handleUpdateBanner={handleUpdateBanner}
+        handleCreate={handleCreate}
+        loading={loading}
+        formData={formData}
+        setFormData={setFormData}
+        editingBanner={editingBanner}
+        isModalOpen={isModalOpen}
+      />
       <div>
         {loading ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center space-y-4">
-              <Icon
-                icon="lucide:loader-2"
-                className="h-12 w-12 animate-spin mx-auto text-blue-600"
-              />
-              <p className="text-muted-foreground">
-                {t("management.banner.loading-banner")}
-              </p>
-            </div>
-          </div>
+          <FullPageLoading message={t("management.banner.loading-banner")} />
         ) : banners.length === 0 ? (
-          <div className="text-center py-12 space-y-4">
-            <Icon
-              icon="lucide:inbox"
-              className="h-16 w-16 mx-auto text-muted-foreground"
-            />
-            <div>
-              <p className="text-xl font-semibold text-foreground">
-                {t("management.banner.no-banner")}
-              </p>
-              <p className="text-muted-foreground mt-2">
-                {t("management.banner.create-banner-description")}
-              </p>
-            </div>
-          </div>
+          <EmptyState
+            message={t("management.banner.no-banner")}
+            icon="lucide:inbox"
+          />
         ) : (
           <div className="max-h-[650px] overflow-y-auto">
             <div className="space-y-4">
@@ -449,56 +297,7 @@ export default function BannerList() {
             </div>
           </div>
         )}
-
-        {/* Pagination */}
-        {pagination.totalPages > 1 && (
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
-            <div className="text-sm text-muted-foreground">
-              {t("management.banner.display")}{" "}
-              {(pagination.page - 1) * pagination.limit + 1} -{" "}
-              {Math.min(pagination.page * pagination.limit, pagination.total)}{" "}
-              {t("management.banner.banner-total")} {pagination.total}
-            </div>
-            <div className="flex gap-2">
-              <Button
-                size="small"
-                onClick={() => handlePageChange(pagination.page - 1)}
-                disabled={pagination.page <= 1}
-                icon={<Icon icon="lucide:chevron-left" className="h-4 w-4" />}
-              >
-                {t("management.banner.previous")}
-              </Button>
-              <div className="flex items-center gap-2 px-3 py-1 bg-blue-100 text-muted-foreground rounded">
-                <span className="text-sm font-medium">
-                  {pagination.page} / {pagination.totalPages}
-                </span>
-              </div>
-              <Button
-                size="small"
-                onClick={() => handlePageChange(pagination.page + 1)}
-                disabled={pagination.page >= pagination.totalPages}
-                icon={<Icon icon="lucide:chevron-right" className="h-4 w-4" />}
-              >
-                {t("management.banner.next")}
-              </Button>
-            </div>
-          </div>
-        )}
       </div>
-
-      <style>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(100%);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
-        }
-        .animate-marquee {
-          animation: marquee 25s linear infinite;
-        }
-      `}</style>
     </div>
   );
 }

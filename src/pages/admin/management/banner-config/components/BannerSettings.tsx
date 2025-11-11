@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { Button } from "antd";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
-import { Icon } from "@/components/icon";
 import { useBanner } from "@/hooks/useBanner";
 import type { UpdateBannerSettingsRequest } from "@/api/services/bannerApi";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { FullPageLoading } from "@/components/common/loading";
 
 export default function BannerSettings() {
   const { t } = useTranslation();
@@ -35,7 +35,6 @@ export default function BannerSettings() {
     }
   }, [settings]);
 
-  // Handle update global settings
   const handleUpdateSettings = async () => {
     const success = await updateSettings(settingsForm);
     if (success) {
@@ -43,7 +42,6 @@ export default function BannerSettings() {
     }
   };
 
-  // Handle reset settings
   const handleResetSettings = async () => {
     const success = await resetSettings();
     if (success) {
@@ -55,15 +53,7 @@ export default function BannerSettings() {
     <div className="space-y-6">
       <div>
         {settingsLoading ? (
-          <div className="flex items-center justify-center py-8">
-            <Icon
-              icon="lucide:loader-2"
-              className="h-8 w-8 animate-spin text-blue-600"
-            />
-            <span className="ml-2 text-muted-foreground">
-              {t("management.banner.loading-settings")}
-            </span>
-          </div>
+          <FullPageLoading message={t("management.banner.loading-settings")} />
         ) : (
           <>
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -180,7 +170,6 @@ export default function BannerSettings() {
               </div>
             </div>
 
-            {/* Preview */}
             <div className="my-8">
               <Label className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 {t("management.banner.preview-color")}
@@ -201,7 +190,6 @@ export default function BannerSettings() {
               </div>
             </div>
 
-            {/* Settings Info */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
               <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
                 {t("management.banner.settings-info")}
@@ -262,20 +250,6 @@ export default function BannerSettings() {
           </>
         )}
       </div>
-
-      <style>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(100%);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
-        }
-        .animate-marquee {
-          animation: marquee 25s linear infinite;
-        }
-      `}</style>
     </div>
   );
 }

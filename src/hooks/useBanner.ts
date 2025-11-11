@@ -30,16 +30,8 @@ interface UseBannerReturn {
   settings: BannerSettings | null;
   settingsLoading: boolean;
 
-  // Pagination
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  };
-
   // Banner methods
-  fetchBanners: (page?: number, limit?: number) => Promise<void>;
+  fetchBanners: () => Promise<void>;
   fetchActiveBanners: () => Promise<void>;
   createBanner: (banner: CreateBannerRequest) => Promise<boolean>;
   updateBanner: (banner: UpdateBannerRequest) => Promise<boolean>;
@@ -68,21 +60,13 @@ export const useBanner = (): UseBannerReturn => {
   const [settings, setSettings] = useState<BannerSettings | null>(null);
   const [settingsLoading, setSettingsLoading] = useState(false);
 
-  // Pagination state
-  const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 10,
-    total: 0,
-    totalPages: 0,
-  });
-
   // Debounce refs
   const fetchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const statsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // ========== OPTIMIZED FETCH METHODS ==========
 
-  const fetchBanners = useCallback(async (page = 1, limit = 10) => {
+  const fetchBanners = useCallback(async () => {
     // Debounce để tránh gọi API liên tục
     if (fetchTimeoutRef.current) {
       clearTimeout(fetchTimeoutRef.current);
@@ -91,10 +75,9 @@ export const useBanner = (): UseBannerReturn => {
     fetchTimeoutRef.current = setTimeout(async () => {
       try {
         setLoading(true);
-        const response = await getAllBanners(page, limit);
+        const response = await getAllBanners();
 
         setBanners(response.banners);
-        setPagination(response.pagination);
       } catch (error) {
         console.error("❌ fetchBanners ~ error:", error);
       } finally {
@@ -133,10 +116,7 @@ export const useBanner = (): UseBannerReturn => {
         await createBannerApi(banner);
 
         // Batch refresh - chỉ refresh cần thiết
-        await Promise.all([
-          fetchBanners(pagination.page, pagination.limit),
-          fetchActiveBanners(),
-        ]);
+        await Promise.all([fetchBanners(), fetchActiveBanners()]);
 
         return true;
       } catch (error) {
@@ -146,7 +126,7 @@ export const useBanner = (): UseBannerReturn => {
         setLoading(false);
       }
     },
-    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
+    [fetchBanners, fetchActiveBanners]
   );
 
   const updateBanner = useCallback(
@@ -166,13 +146,13 @@ export const useBanner = (): UseBannerReturn => {
         return true;
       } catch (error) {
         console.error("❌ updateBanner ~ error:", error);
-        await fetchBanners(pagination.page, pagination.limit);
+        await fetchBanners();
         return false;
       } finally {
         setLoading(false);
       }
     },
-    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
+    [fetchBanners, fetchActiveBanners]
   );
 
   const deleteBanner = useCallback(
@@ -191,13 +171,13 @@ export const useBanner = (): UseBannerReturn => {
         return true;
       } catch (error) {
         console.error("❌ deleteBanner ~ error:", error);
-        await fetchBanners(pagination.page, pagination.limit);
+        await fetchBanners();
         return false;
       } finally {
         setLoading(false);
       }
     },
-    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
+    [fetchBanners, fetchActiveBanners]
   );
 
   const toggleBanner = useCallback(
@@ -217,11 +197,11 @@ export const useBanner = (): UseBannerReturn => {
       } catch (error) {
         console.error("❌ toggleBanner ~ error:", error);
         // Rollback
-        await fetchBanners(pagination.page, pagination.limit);
+        await fetchBanners();
         return false;
       }
     },
-    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
+    [fetchBanners, fetchActiveBanners]
   );
 
   const updateBannerOrder = useCallback(
@@ -240,11 +220,11 @@ export const useBanner = (): UseBannerReturn => {
         return true;
       } catch (error) {
         console.error("❌ updateBannerOrder ~ error:", error);
-        await fetchBanners(pagination.page, pagination.limit);
+        await fetchBanners();
         return false;
       }
     },
-    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
+    [fetchBanners, fetchActiveBanners]
   );
 
   // ========== SETTINGS METHODS ==========
@@ -304,10 +284,7 @@ export const useBanner = (): UseBannerReturn => {
         await batchUpdateBanners(updates);
 
         // Refresh all data
-        await Promise.all([
-          fetchBanners(pagination.page, pagination.limit),
-          fetchActiveBanners(),
-        ]);
+        await Promise.all([fetchBanners(), fetchActiveBanners()]);
 
         return true;
       } catch (error: any) {
@@ -318,7 +295,7 @@ export const useBanner = (): UseBannerReturn => {
         setLoading(false);
       }
     },
-    [pagination.page, pagination.limit, fetchBanners, fetchActiveBanners]
+    [fetchBanners, fetchActiveBanners]
   );
 
   // ========== INITIAL LOAD WITH PREFETCH ==========
@@ -364,9 +341,6 @@ export const useBanner = (): UseBannerReturn => {
     // Settings data
     settings,
     settingsLoading,
-
-    // Pagination
-    pagination,
 
     // Banner methods
     fetchBanners,
