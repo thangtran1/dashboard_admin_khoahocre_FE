@@ -14,7 +14,7 @@ function Workbench() {
           <BannerCard />
         </div>
         <div className="flex-1">
-          <div className="flex flex-col justify-between h-full gap-2">
+          <div className="flex flex-col justify-between h-full">
             <Conversion />
             <Applications />
           </div>
@@ -23,7 +23,7 @@ function Workbench() {
       <StatusUserChart />
       <div className="flex flex-col md:flex-row gap-2">
         <div className="flex-1">
-          <MaintenanceChart />
+        <BannerChart />
         </div>
         <div className="flex-1">
           <UserActivityChart />
@@ -32,7 +32,7 @@ function Workbench() {
 
       <div className="flex flex-col md:flex-row gap-2">
         <div className="flex-1">
-          <BannerChart />
+          <MaintenanceChart />
         </div>
         <div className="flex-1">
           <ChartColumnMultiple />
