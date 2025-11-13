@@ -17,7 +17,7 @@ import {
 
 export default function BannerChart() {
   const { t } = useTranslation();
-  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.WEEK);
+  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.MONTH);
   const [stats, setStats] = useState<ResponseStats>({
     labels: [],
     series: [],

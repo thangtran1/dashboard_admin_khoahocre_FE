@@ -46,7 +46,7 @@ export default function MaintenceSystemPage() {
               {t("maintenance.title")}
             </CardTitle>
             <p className="text-muted-foreground mt-1">
-              {t("maintenance.description")}
+              {t("maintenance.description-text")} 
             </p>
           </div>
 

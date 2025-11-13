@@ -20,7 +20,7 @@ import {
 export default function UserActivityChart() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.WEEK);
+  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.MONTH);
   const [stats, setStats] = useState<ResponseStats>({
     labels: [],
     series: [],

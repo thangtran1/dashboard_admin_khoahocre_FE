@@ -40,6 +40,8 @@
       "confirm": "Confirm"
     },
     "login": {
+      "githubLoginLogin": "Login with GitHub",
+      "githubLoginRegister": "Register with GitHub",
       "googleLoginLogin": "Login with Google",
       "googleLoginRegister": "Register with Google",
       "profile": "Profile",
@@ -141,6 +143,7 @@
     }
   },
   "maintenance": {
+    "description-text": "System maintenance to help you manage maintenance on the system",
     "create-maintenance-loading": "Creating maintenance...",
     "title": "Maintenance",
     "create-new-maintenance": "Create New Maintenance",

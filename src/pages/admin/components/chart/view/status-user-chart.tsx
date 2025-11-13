@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 export default function StatusUserChart() {
   const { t } = useTranslation();
-  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.WEEK);
+  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.MONTH);
   const [statusUserStats, setStatusUserStats] = useState<ResponseStats>({
     labels: [],
     series: [],

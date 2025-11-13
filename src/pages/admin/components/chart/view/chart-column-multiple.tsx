@@ -18,7 +18,7 @@ import { CardContent } from "@/ui/card";
 
 export default function ChartColumnActiveInactive() {
   const { t } = useTranslation();
-  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.WEEK);
+  const [period, setPeriod] = useState<StatsPeriod>(StatsPeriod.MONTH);
   const [statusUserStats, setStatusUserStats] = useState<ResponseStats>({
     labels: [],
     series: [],

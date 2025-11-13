@@ -40,6 +40,8 @@
       "confirm": "Xác nhận"
     },
     "login": {
+     "githubLoginLogin": "Đăng nhập bằng GitHub",
+     "githubLoginRegister": "Đăng ký bằng GitHub",
       "googleLoginLogin": "Đăng nhập bằng Google",
       "googleLoginRegister": "Đăng ký bằng Google",
       "profile": "Thông tin cá nhân",
@@ -141,6 +143,7 @@
     }
   },
   "maintenance": {
+    "description-text": "Hệ thống bảo trì để bạn có thể quản lý các bảo trì trên hệ thống",
     "create-maintenance-loading": "Đang tạo bảo trì...",
     "title": "Bảo trì hệ thống",
     "create-new-maintenance": "Tạo Bảo trì Mới",
