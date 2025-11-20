@@ -13,12 +13,12 @@ import {
   AudioOutlined,
   PictureOutlined,
   CameraOutlined,
-  PlusOutlined,
   SmileOutlined,
   CloseOutlined,
   EllipsisOutlined,
   SearchOutlined,
   SendOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import { useChat } from "@/hooks/useChat";
 import { ChatMessage, CurrentUser, Conversation } from "@/types/entity";
@@ -321,7 +321,7 @@ const ModalChatAdmin: React.FC<ModalChatAdminProps> = ({
               <div className="flex items-center p-[12px_20px] bg-background border-t border-border">
                 <Space size="small">
                   <Tooltip title="Thêm">
-                    <Button type="text" icon={<PlusOutlined />} />
+                    <Button type="text" icon={<PlusCircleOutlined />} />
                   </Tooltip>
                   <Tooltip title="Camera">
                     <Button type="text" icon={<CameraOutlined />} />

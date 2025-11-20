@@ -15,7 +15,7 @@ import {
   AudioOutlined,
   PictureOutlined,
   CameraOutlined,
-  PlusOutlined,
+  PlusCircleOutlined,
   SmileOutlined,
   EllipsisOutlined,
   SearchOutlined,
@@ -299,7 +299,7 @@ const ManagerChatUser: React.FC<ManagerChatUserProps> = () => {
               <div className="flex items-center px-5 py-4 bg-background border-t border-border">
                 <Space size="small">
                   <Tooltip title={t("management.chat.add")}>
-                    <Button type="text" icon={<PlusOutlined />} />
+                    <Button type="text" icon={<PlusCircleOutlined />} />
                   </Tooltip>
                   <Tooltip title={t("management.chat.camera")}>
                     <Button type="text" icon={<CameraOutlined />} />

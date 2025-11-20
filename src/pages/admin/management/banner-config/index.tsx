@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Tabs, Button } from "antd";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import BannerList from "./components/BannerList";
 import BannerSettings from "./components/BannerSettings";
 import { Separator } from "@/ui/separator";
@@ -54,7 +54,7 @@ export default function BannerConfigPage() {
           <Button
             type="primary"
             size="large"
-            icon={<PlusOutlined />}
+            icon={<PlusCircleOutlined />}
             onClick={() => {
               setActiveTab("list");
               // Trigger create modal in BannerList component

@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { Link } from "react-router";
 import { toast } from "sonner";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { NotificationType } from "@/types/enum";
 import { useAdminNotifications } from "@/hooks/useAdminNotifications";
@@ -160,7 +160,7 @@ const NewNotification: React.FC = () => {
                   </div>
                 ) : (
                   <div style={{ color: "#999" }}>
-                    <PlusOutlined style={{ fontSize: 48, marginBottom: 8 }} />
+                    <PlusCircleOutlined style={{ fontSize: 48, marginBottom: 8 }} />
                     <div>{t("notification.preview-image-video")}</div>
                   </div>
                 )}

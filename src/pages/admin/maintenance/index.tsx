@@ -1,5 +1,5 @@
 import { Tabs, Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { CardTitle } from "@/ui/card";
 import { Separator } from "@/ui/separator";
 import { Icon } from "@/components/icon";
@@ -55,7 +55,7 @@ export default function MaintenceSystemPage() {
               <Button
                 type="primary"
                 size="large"
-                icon={<PlusOutlined />}
+                icon={<PlusCircleOutlined />}
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 {t("maintenance.add-maintenance")}

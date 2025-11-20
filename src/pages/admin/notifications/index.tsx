@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Space, Popconfirm, Tag } from "antd";
 import {
-  PlusOutlined,
+  PlusCircleOutlined,
   EyeOutlined,
   EditOutlined,
   DeleteOutlined,
@@ -243,7 +243,7 @@ const NotificationManagement: React.FC = () => {
             <Button
               type="primary"
               size="large"
-              icon={<PlusOutlined />}
+              icon={<PlusCircleOutlined />}
               className="bg-blue-600 hover:bg-blue-700"
             >
               {t("notification.new-notification")}
