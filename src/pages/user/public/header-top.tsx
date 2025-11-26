@@ -1,47 +1,27 @@
-import { Button } from "@heroui/react";
 import { Image } from "antd";
 import {
-  ChevronDown,
-  ChevronUp,
-  Heart,
   LogOut,
-  Menu,
   Search,
   Shield,
   User,
   UserCircle,
-  X,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import CartDropdown from "../cart/CartDropdown";
 import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserToken } from "@/store/userStore";
-import { useFavoriteStore } from "@/store/favoriteStore";
 import { toast } from "sonner";
 import { Link, replace } from "react-router";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import userApi from "@/api/services/userApi";
 import { useTranslation } from "react-i18next";
 
-const navLinks = [
-  { label: "Trang Chủ", href: "/", className: "text-primary font-semibold" },
-  { label: "Shop Khóa Học Rẻ", href: "/shop" },
-  { label: "Khóa Học Free", href: "/free" },
-  { label: "Gói Hội Viên", href: "/goi-hoi-vien" },
-  { label: "Combo Tiết Kiệm", href: "/combo" },
-];
-
 const HeaderTop = () => {
   const { t } = useTranslation();
   const { profile, refetch } = useUserProfile();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [infoOpen, setInfoOpen] = useState(false);
-  const [subGuideOpen, setSubGuideOpen] = useState(false);
-  const router = useRouter();
+    const router = useRouter();
   const { accessToken } = useUserToken();
   const { clearUserInfoAndToken } = useUserActions();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { favorites } = useFavoriteStore();
 
   // Listen for avatar updates
   useEffect(() => {
@@ -82,12 +62,6 @@ const HeaderTop = () => {
         <div className="flex flex-col  md:flex-row items-start md:items-center justify-between gap-3">
           <div className="flex w-full md:w-auto justify-between items-center">
             <div className="flex justify-between w-full items-center gap-4">
-              <button
-                onClick={() => setMenuOpen(true)}
-                className="md:hidden p-2"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
               <Image
                 src="https://khoahocre.com/wp-content/uploads/2023/05/noichiasenew-1.png"
                 alt="logo"
@@ -154,23 +128,6 @@ const HeaderTop = () => {
                           <User className="w-4 h-4" />
                         </button>
 
-                        <button
-                          onClick={() => router.push("/wish-list")}
-                          className="relative flex justify-between items-center w-full px-4 py-2 text-sm text-pink-600 hover:bg-pink-50 transition"
-                        >
-                          <span>Yêu thích 1</span>
-
-                          {/* Icon + badge */}
-                          <div className="relative">
-                            <Heart className="w-5 h-5 text-pink-500" />
-                            {favorites.length >= 0 && (
-                              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 leading-tight shadow">
-                                {favorites.length}
-                              </span>
-                            )}
-                          </div>
-                        </button>
-
                         {/* Nút Đăng xuất */}
                         <button
                           onClick={handleLogout}
@@ -195,10 +152,6 @@ const HeaderTop = () => {
                 placeholder="Tìm kiếm khóa học hoặc giảng viên tại đây..."
                 className="w-full bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground"
               />
-            </div>
-
-            <div className="relative">
-              <CartDropdown />
             </div>
 
             <div className="hidden md:flex items-center gap-1 ml-4">
@@ -283,23 +236,6 @@ const HeaderTop = () => {
                         <UserCircle className="w-4 h-4 " />
                       </button>
 
-                      <button
-                        onClick={() => router.push("/wish-list")}
-                        className="relative flex justify-between items-center w-full px-4 py-2 text-sm text-pink-600 hover:bg-pink-50 transition"
-                      >
-                        <span>Yêu thích 2</span>
-
-                        {/* Icon + badge */}
-                        <div className="relative">
-                          <Heart className="w-5 h-5 text-pink-500" />
-                          {favorites.length >= 0 && (
-                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 leading-tight shadow">
-                              {favorites.length}
-                            </span>
-                          )}
-                        </div>
-                      </button>
-
                       {/* Nút Đăng xuất */}
                       <button
                         onClick={handleLogout}
@@ -315,163 +251,6 @@ const HeaderTop = () => {
             </div>
           </div>
         </div>
-
-        <nav className="hidden md:flex items-center gap-10 mt-4 text-sm font-medium whitespace-nowrap relative">
-          <Button className="bg-primary text-primary-foreground px-4 py-2 rounded-md">
-            Danh Mục Khóa Học
-          </Button>
-          {navLinks.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className={item.className || ""}
-            >
-              {item.label}
-            </a>
-          ))}
-
-          {/* Dropdown Thông Tin */}
-          <div className="relative group">
-            <div className="relative">
-              <button className="cursor-pointer text-primary">
-                Thông Tin ▾
-              </button>
-
-              {/* Hiển thị khi hover */}
-              <div className="absolute top-full left-0 min-w-[220px] rounded-md border bg-background shadow-lg z-50 hidden group-hover:block">
-                <a
-                  href="/gioi-thieu"
-                  className="block px-4 py-2 hover:bg-gray-100"
-                >
-                  Về chúng tôi
-                </a>
-                <a
-                  href="/contact"
-                  className="block px-4 py-2 hover:bg-gray-100"
-                >
-                  Liên hệ
-                </a>
-
-                {/* Chính sách bảo mật lồng trong dropdown cha */}
-                <div className="w-full group/sub">
-                  <button className="w-full text-left flex justify-between items-center px-4 py-2 hover:bg-background">
-                    Hướng dẫn
-                    <span className="text-sm">▸</span>
-                  </button>
-                  <div className="hidden group-hover/sub:block ml-4 border-l border-border pl-2">
-                    <a
-                      href="/buy-course"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100"
-                    >
-                      Hướng dẫn mua khóa học
-                    </a>
-                    <a
-                      href="/clear-cache"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100"
-                    >
-                      Hướng dẫn xóa bộ nhớ đệm trình duyệtttt
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        {menuOpen && (
-          <>
-            <div
-              onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 bg-black/40 z-40"
-            />
-            <div className="fixed top-0 left-0 h-full w-64 bg-background text-foreground shadow-lg z-50 overflow-y-auto">
-              <div className="flex justify-between items-center px-4 py-3 border-b border-border">
-                <span className="font-semibold text-lg">Menu</span>
-                <button onClick={() => setMenuOpen(false)} className="p-2">
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              <nav className="flex flex-col gap-4 px-4 py-6 text-sm font-medium">
-                {navLinks.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className={item.className || ""}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-
-                {/* Dropdown Thông Tin */}
-                <div>
-                  <button
-                    onClick={() => setInfoOpen((v) => !v)}
-                    className="flex items-center justify-between w-full"
-                  >
-                    <span className="text-primary">Thông Tin</span>
-                    {infoOpen ? (
-                      <ChevronUp className="w-4 h-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
-                  </button>
-
-                  {infoOpen && (
-                    <div className="ml-4 mt-2 flex flex-col gap-2 text-gray-500 text-[13px]">
-                      <a
-                        href="/gioi-thieu"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                        Về chúng tôi
-                      </a>
-                      <a
-                        href="/contact"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                        Liên hệ
-                      </a>
-                      <div>
-                        <button
-                          onClick={() => setSubGuideOpen((prev) => !prev)}
-                          className="flex items-center justify-between w-full text-left hover:text-primary"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                            Hướng dẫn
-                          </div>
-                          <span className="text-sm">
-                            {subGuideOpen ? "▾" : "▸"}
-                          </span>
-                        </button>
-                        {subGuideOpen && (
-                          <div className="ml-4 mt-2 flex flex-col gap-2 text-gray-500 text-[13px]">
-                            <a
-                              href="/buy-course"
-                              className="flex items-center gap-2 hover:text-primary"
-                            >
-                              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                              Hướng dẫn mua khóa học
-                            </a>
-                            <a
-                              href="/huong-dan/kich-hoat"
-                              className="flex items-center gap-2 hover:text-primary"
-                            >
-                              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                              Hướng dẫn xóa bộ nhớ đệm trình duyệt
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </nav>
-            </div>
-          </>
-        )}
       </header>
     </>
   );

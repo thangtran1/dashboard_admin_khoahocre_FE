@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Pagination } from "@heroui/react";
 import Breadcrumbs from "@/utils/Breadcrumb";
 import { Link } from "react-router";
-import { SiderBarDetail } from "../public/siderbarDetail";
 import { NewCourseData } from "../public/dataExport";
 
 const NewCoursesPage = () => {
@@ -62,8 +61,6 @@ const NewCoursesPage = () => {
           ))}
         </div>
 
-        {/* Sidebar - chiếm 1 cột bên phải */}
-        <SiderBarDetail />
       </div>
 
       <div className="text-right mt-5 flex justify-center">

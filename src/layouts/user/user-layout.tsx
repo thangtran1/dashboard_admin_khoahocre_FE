@@ -1,48 +1,46 @@
 import { ThemeProvider } from "@/theme/theme-provider";
 import { AntdAdapter } from "@/theme/adapter/antd.adapter";
-import HeaderTop from "@/pages/user/public/header-top";
-import Footer from "@/pages/user/public/footer";
-import NearFooter from "@/pages/user/public/near-footer";
-import Logo from "@/components/common/logo";
+import { Outlet } from "react-router";
+
 import clsx from "clsx";
 import { contentWrapper } from "@/utils/use-always";
-import { Link, Outlet } from "react-router";
+
 import ScrollToTop from "@/utils/ScrollToTop";
+import Logo from "@/components/common/logo";
 import LocalePicker from "@/components/common/locale-picker";
-import SettingButton from "../dashboard/components/setting-button";
-import WhyChooseCourse from "@/pages/user/public/why-choose-course";
-import NoticeButton from "../dashboard/components/notice";
 import UserBannerMarquee from "@/components/user/banner-marquee/user-banner";
+
+import HeaderTop from "@/pages/user/public/header-top";
+import Footer from "@/pages/user/public/footer";
+
+import SettingButton from "../dashboard/components/setting-button";
+import NoticeButton from "../dashboard/components/notice";
 
 export default function UserLayout() {
   return (
     <ThemeProvider adapters={[AntdAdapter]}>
       <ScrollToTop />
-      <div className="sticky top-0 left-0 w-full z-50 px-2 py-1 flex flex-row items-center justify-between bg-muted shadow">
-        <div />
-        <div className="flex items-center gap-2 font-medium cursor-pointer">
-          <Logo size={28} />
-          <span>TVT Admin</span>
-        </div>
-        <div className="flex items-center">
-          <LocalePicker />
-          <NoticeButton />
-          <SettingButton />
-        </div>
-      </div>
-      <div className="bg-primary text-muted text-sm text-center p-2">
-        THAM GIA CỘNG ĐỒNG (2) ĐỂ NHẬN THÔNG BÁO, VOUCHER VÀ KHÓA HỌC MIỄN PHÍ
-        DÀNH RIÊNG CHO NHÓM! 👉
-        <Link
-          to="/blog"
-          className="underline bg-background !text-muted font-semibold"
-        >
-          BẤM VÀO ĐÂY
-        </Link>
-      </div>
-
-      {/* Banner Marquee - chỉ hiển thị ở user UI */}
       <UserBannerMarquee />
+
+      <div className="sticky top-0 left-0 z-50 py-1 bg-muted shadow">
+        <div
+          className={clsx(
+            "flex flex-row items-center justify-between gap-4 md:px-6 lg:px-16 mx-auto",
+            contentWrapper
+          )}
+        >
+          <div className="flex items-center gap-2 font-medium cursor-pointer">
+            <Logo size={28} />
+            <span>TVT Admin</span>
+          </div>
+
+          <div className="flex items-center">
+            <LocalePicker />
+            <NoticeButton />
+            <SettingButton />
+          </div>
+        </div>
+      </div>
 
       <div className="bg-background text-foreground">
         <main
@@ -52,11 +50,9 @@ export default function UserLayout() {
           )}
         >
           <HeaderTop />
-          <Outlet /> {/* Route con sẽ hiển thị ở đây */}
+          <Outlet />
         </main>
-        <WhyChooseCourse />
 
-        <NearFooter />
         <Footer />
       </div>
     </ThemeProvider>

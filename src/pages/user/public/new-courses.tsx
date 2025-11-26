@@ -2,7 +2,6 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  Heart,
   Youtube,
 } from "lucide-react";
 import { NewCourseData } from "./dataExport";
@@ -13,19 +12,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
 import { Link } from "react-router";
-import { useFavoriteStore } from "@/store/favoriteStore";
 
 const NewCourses = () => {
   const newCourseMiniSwiperRef = useRef<SwiperClass | null>(null);
-
-  const { favorites, addFavorite, removeFavorite } = useFavoriteStore();
 
   const scroll = (swiper: SwiperClass | null, dir: "left" | "right") => {
     if (!swiper) return;
     dir === "left" ? swiper.slidePrev() : swiper.slideNext();
   };
   return (
-    <div className="relative w-full py-8">
+    <div className="relative w-full">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">
           <span className="text-success">TOP</span> Khóa Học Mới Nhất
@@ -52,34 +48,9 @@ const NewCourses = () => {
           }}
         >
           {NewCourseData.map((course, idx) => {
-            const isFavorite = favorites.some((f) => f.id === course.id);
-
-            const toggleFavorite = () => {
-              if (isFavorite) {
-                removeFavorite(course.id);
-              } else {
-                addFavorite(course);
-              }
-            };
-
             return (
               <SwiperSlide key={idx}>
                 <div className="bg-muted rounded-lg border shadow p-2 relative overflow-hidden">
-                  {/* Icon trái tim */}
-                  <button
-                    onClick={toggleFavorite}
-                    className="absolute top-2 right-2 z-10 bg-white/90 p-1 rounded-full shadow hover:bg-white transition"
-                  >
-                    <Heart
-                      className={`w-5 h-5 ${
-                        isFavorite
-                          ? "text-red-500 fill-red-500"
-                          : "text-gray-400"
-                      }`}
-                      fill={isFavorite ? "currentColor" : "none"}
-                    />
-                  </button>
-
                   {/* Hình ảnh */}
                   <img
                     src={course.image}

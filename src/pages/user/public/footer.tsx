@@ -34,106 +34,7 @@ const Footer = () => {
     circumference - (scrollPercent / 100) * circumference;
   return (
     <>
-      <footer className="bg-background text-foreground">
-        <div
-          className={clsx("w-full px-4 lg:px-16 py-10 mx-auto", contentWrapper)}
-        >
-          {/* Logo + Info: Mobile -> flex row | Desktop -> block */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Cột 1: Logo + Info */}
-
-            <div className="grid grid-cols-2 gap-6 md:col-span-4 md:grid-cols-4">
-              {/* Cột 2 */}
-              <div>
-                <h3 className="font-semibold text-2xl mb-2">
-                  {t("footer.category")}
-                </h3>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>{t("footer.investment")}</li>
-                  <li>{t("footer.marketing")}</li>
-                  <li>{t("footer.graphicDesign")}</li>
-                  <li>{t("footer.videoPhotography")}</li>
-                  <li>{t("footer.language")}</li>
-                  <li className="flex items-center gap-2">
-                    {t("footer.business")}{" "}
-                    <span className="text-xs bg-yellow-400 text-white px-1 rounded">
-                      {t("footer.tagSale")}
-                    </span>
-                  </li>
-                  <li>{t("footer.mmo")}</li>
-                  <li>{t("footer.celebrities")}</li>
-                </ul>
-              </div>
-
-              {/* Cột 3 */}
-              <div>
-                <h3 className="font-semibold mb-2 text-2xl">
-                  {t("footer.content")}
-                </h3>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>{t("footer.newCourses")}</li>
-                  <li className="flex items-center gap-2">
-                    {t("footer.bestSell")}{" "}
-                    <span className="text-xs bg-green-200 text-green-800 px-1 rounded">
-                      {t("footer.tagPopular")}
-                    </span>
-                  </li>
-                  <li>{t("footer.saleCourses")}</li>
-                  <li>{t("footer.freeCourses")}</li>
-                  <li className="flex items-center gap-2">
-                    {t("footer.blog")}{" "}
-                    <span className="text-xs bg-green-200 text-green-800 px-1 rounded">
-                      {t("footer.tagPopular")}
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    {t("footer.ebooks")}{" "}
-                    <span className="text-xs bg-blue-200 text-blue-800 px-1 rounded">
-                      {t("footer.tagNew")}
-                    </span>
-                  </li>
-                  <li>{t("footer.events")}</li>
-                </ul>
-              </div>
-
-              {/* Cột 4 */}
-              <div>
-                <h3 className="font-semibold mb-2 text-2xl">
-                  {t("footer.info")}
-                </h3>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>{t("footer.aboutUs")}</li>
-                  <li>{t("footer.privacy")}</li>
-                  <li>{t("footer.contact")}</li>
-                  <li className="flex items-center gap-2">
-                    {t("footer.support")}{" "}
-                    <span className="text-xs bg-pink-200 text-pink-700 px-1 rounded">
-                      {t("footer.tagHiring")}
-                    </span>
-                  </li>
-                  <li>{t("footer.becomeSeller")}</li>
-                  <li>{t("footer.terms")}</li>
-                  <li>{t("footer.policy")}</li>
-                </ul>
-              </div>
-
-              {/* Cột 5 */}
-              <div>
-                <h3 className="font-semibold mb-2 text-2xl">
-                  {t("footer.highlight")}
-                </h3>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>{t("footer.userManagement")}</li>
-                  <li>{t("footer.deviceUsage")}</li>
-                  <li>{t("footer.report")}</li>
-                  <li>{t("footer.courseGroup")}</li>
-                  <li>{t("footer.languageSetting")}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <footer className="bg-background border-t border-border text-foreground">
         {/* Nút social nổi góc dưới bên trái */}
         <div className="fixed bottom-16 left-6 flex flex-col gap-2 z-50">
           <a
@@ -198,7 +99,7 @@ const Footer = () => {
         {scrollPercent > 0 && (
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-14 right-8 z-50 w-14 h-14 rounded-full bg-background border border-border text-primary hover:bg-primary hover:text-white transition flex items-center justify-center"
+            className="fixed bottom-25 right-8 z-50 w-14 h-14 rounded-full bg-background border border-border text-primary hover:bg-primary hover:text-white transition flex items-center justify-center"
           >
             <svg
               className="absolute w-full h-full rotate-[-90deg]"

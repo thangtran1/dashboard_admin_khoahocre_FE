@@ -14,30 +14,9 @@ import GitHubSuccess from "@/pages/admin/auth/login/pages/github-success";
 import GitHubError from "@/pages/admin/auth/login/pages/github-error";
 import UserHomePage from "@/pages/user";
 import UserLayout from "@/layouts/user/user-layout";
-import BlogGridPage from "@/pages/user/blog/blog";
-import BlogDetail from "@/pages/user/blog/blogDetail";
-import TipsAiPage from "@/pages/user/tips-ai/tips-ai";
-import TipsAiDetail from "@/pages/user/tips-ai/tips-ai-detail";
-import YoutubePage from "@/pages/user/youtube/youtube";
-import YoutubeDetail from "@/pages/user/youtube/youtube-detail";
-import CartPage from "@/pages/user/cart";
-import CheckoutPage from "@/pages/user/checkout";
-import CheckoutConfirmPage from "@/pages/user/checkout/confirm";
-import CheckoutSuccessPage from "@/pages/user/checkout/success";
-import ListTopicsPage from "@/pages/user/listTopics/list-topics";
-import ListTopicsDetail from "@/pages/user/listTopics/list-topics-detail";
-import WishList from "@/pages/user/wishList";
 import UserProfile from "@/pages/user/profile";
-import Introduce from "@/pages/user/information/introduce";
-import Contact from "@/pages/user/information/contact";
-import { BuyCourse } from "@/pages/user/information/buyCourse";
-import { ClearCache } from "@/pages/user/clear-cache";
 import NewCoursesDetail from "@/pages/user/new-courses/new-courses-detail";
 import NewCoursesPage from "@/pages/user/new-courses/new-courses";
-import MarketPage from "@/pages/user/market/market";
-import MarketDetail from "@/pages/user/market/market-detail";
-import GroupBuyPage from "@/pages/user/group-buy/group-buy";
-import GroupBuyDetail from "@/pages/user/group-buy/group-buy-detail";
 import ProtectedRoute from "./components/protected-route";
 import MaintenanceGuard from "./components/maintenance-guard";
 import { LoginProvider } from "@/pages/admin/auth/login/providers/login-provider";
@@ -118,7 +97,7 @@ export default function Router() {
         </ErrorBoundary>
       ),
     },
-  ];
+  ];  
 
   const APP_HOMEPAGE_USER: AppRouteObject = {
     path: "/",
@@ -132,34 +111,6 @@ export default function Router() {
     children: [
       { index: true, element: <UserHomePage /> },
       {
-        path: "blog",
-        children: [
-          { index: true, element: <BlogGridPage /> },
-          { path: ":id", element: <BlogDetail /> },
-        ],
-      },
-      {
-        path: "tips-ai",
-        children: [
-          { index: true, element: <TipsAiPage /> },
-          { path: ":id", element: <TipsAiDetail /> },
-        ],
-      },
-      {
-        path: "youtube",
-        children: [
-          { index: true, element: <YoutubePage /> },
-          { path: ":id", element: <YoutubeDetail /> },
-        ],
-      },
-      {
-        path: "list-topics",
-        children: [
-          { index: true, element: <ListTopicsPage /> },
-          { path: ":id", element: <ListTopicsDetail /> },
-        ],
-      },
-      {
         path: "new-courses",
         children: [
           { index: true, element: <NewCoursesPage /> },
@@ -167,54 +118,8 @@ export default function Router() {
         ],
       },
       {
-        path: "market",
-        children: [
-          { index: true, element: <MarketPage /> },
-          { path: ":id", element: <MarketDetail /> },
-        ],
-      },
-      {
-        path: "group-buy",
-        children: [
-          { index: true, element: <GroupBuyPage /> },
-          { path: ":id", element: <GroupBuyDetail /> },
-        ],
-      },
-      {
-        path: "cart",
-        children: [{ index: true, element: <CartPage /> }],
-      },
-      {
-        path: "thanh-toan",
-        children: [
-          { index: true, element: <CheckoutPage /> },
-          { path: "xac-nhan", element: <CheckoutConfirmPage /> },
-          { path: "thanh-cong", element: <CheckoutSuccessPage /> },
-        ],
-      },
-      {
-        path: "wish-list",
-        children: [{ index: true, element: <WishList /> }],
-      },
-      {
         path: "ho-so",
         children: [{ index: true, element: <UserProfile /> }],
-      },
-      {
-        path: "gioi-thieu",
-        children: [{ index: true, element: <Introduce /> }],
-      },
-      {
-        path: "contact",
-        children: [{ index: true, element: <Contact /> }],
-      },
-      {
-        path: "buy-course",
-        children: [{ index: true, element: <BuyCourse /> }],
-      },
-      {
-        path: "clear-cache",
-        children: [{ index: true, element: <ClearCache /> }],
       },
     ],
   };
