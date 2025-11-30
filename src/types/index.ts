@@ -1,0 +1,86 @@
+export interface Image {
+  asset: {
+    url: string;
+  };
+}
+
+export interface Slug {
+  current: string;
+}
+
+export interface Category {
+  _id: string;
+  _ref?: string;
+  name: string;
+  slug: Slug;
+  description?: string;
+  productCount?: number;
+  image?: Image;
+}
+
+export interface Brand {
+  _id: string;
+  _ref?: string;
+  name: string;
+  slug: Slug;
+  description?: string;
+  image?: Image;
+}
+
+export interface Product {
+  _id: string;
+  name: string;
+  slug: Slug;
+  price: number;
+  discount?: number;
+  description?: string;
+  image?: Image;
+  images?: Image[];
+  category?: Category;
+  brand?: Brand;
+  stock?: number;
+  isNew?: boolean;
+  isFeatured?: boolean;
+  specifications?: string[];
+}
+
+export interface Author {
+  name: string;
+  image?: Image;
+}
+
+export interface BlogCategory {
+  _id: string;
+  title: string;
+  slug: Slug;
+  description?: string;
+}
+
+export interface Blog {
+  _id: string;
+  title: string;
+  slug: Slug;
+  excerpt?: string;
+  content?: string;
+  publishedAt: string;
+  image?: Image;
+  author?: Author;
+  category?: BlogCategory;
+}
+
+export interface Order {
+  _id: string;
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+  totalAmount: number;
+  status: string;
+  orderDate: string;
+  items: OrderItem[];
+}
+
+export interface OrderItem {
+  product: Product;
+  quantity: number;
+  price: number;
+}

@@ -20,6 +20,8 @@ import NewCoursesPage from "@/pages/user/new-courses/new-courses";
 import ProtectedRoute from "./components/protected-route";
 import MaintenanceGuard from "./components/maintenance-guard";
 import { LoginProvider } from "@/pages/admin/auth/login/providers/login-provider";
+import BlogPage from "@/pages/user/blog/page";
+import BlogDetailPage from "@/pages/user/blog/[slug]/page";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -120,6 +122,13 @@ export default function Router() {
       {
         path: "ho-so",
         children: [{ index: true, element: <UserProfile /> }],
+      },
+      {
+        path: "blog",
+        children: [
+          { index: true, element: <BlogPage /> },
+          { path: ":slug", element: <BlogDetailPage /> },
+        ],
       },
     ],
   };
