@@ -212,6 +212,28 @@ export const fakeBrands = [
         url: "/images/brands/brand_6.png"
       }
     }
+  },
+  {
+    _id: "brand7",
+    name: "Lenovo",
+    slug: { current: "lenovo" },
+    description: "Computer technology solutions",
+    image: {
+      asset: {
+        url: "/images/brands/brand_7.png"
+      }
+    }
+  },
+  {
+    _id: "brand8",
+    name: "HP",
+    slug: { current: "hp" },
+    description: "Computer technology solutions",
+    image: {
+      asset: {
+        url: "/images/brands/brand_8.png"
+      }
+    }
   }
 ];
 
