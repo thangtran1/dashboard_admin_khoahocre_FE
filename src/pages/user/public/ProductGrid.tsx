@@ -53,7 +53,7 @@ const ProductGrid = () => {
   }, [selectedTab]);
 
   return (
-    <div className="flex flex-col lg:px-0 my-10">
+    <div className="flex flex-col lg:px-0 my-2">
       <HomeTabbar selectedTab={selectedTab} onTabSelect={setSelectedTab} />
       {loading ? (
         <div className="flex flex-col items-center justify-center py-10 min-h-80 space-y-4 text-center  rounded-lg w-full mt-10">

@@ -23,7 +23,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         )}
         <ProductSideMenu product={product} />
         {product?.discount && product?.discount > 0 ? (
-          <p className="absolute top-2 left-2 z-10 text-xs border border-darkColor/50 px-2 rounded-full group-hover:border-success hover:text-success ">
+          <p className="absolute top-2 left-2 z-10 text-sm border border-border px-2 py-1 rounded-full group-hover:border-success hover:text-success ">
             Sale!
           </p>
         ) : (
@@ -46,27 +46,25 @@ const ProductCard = ({ product }: { product: Product }) => {
           </p>
         )}
         <Title className="text-sm line-clamp-1">{product.name}</Title>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <div className="flex items-center">
             {[...Array(5)].map((_, index) => (
               <StarIcon
                 key={index}
-                className={
-                  index < 4 ? "text-success" : " text-foreground"
-                }
+                className={`${index < 4 ? "text-success" : "text-foreground"} size-4`}
                 fill={index < 4 ? "#93D991" : "#ababab"}
               />
             ))}
           </div>
-          <p className="text-foreground text-xs tracking-wide">5 Reviews</p>
+          <p className="text-foreground tracking-wide"> |  {' '} 5 Reviews</p>
         </div>
 
         <div className="flex items-center gap-2.5">
-          <p className="font-medium">In Stock</p>
+          <p className="font-medium">Trong kho</p>
           <p
-            className={`${product?.stock === 0 ? "text-error" : "text-success/80 font-semibold"}`}
+            className={`${product?.stock === 0 ? "text-error" : "text-success font-semibold"}`}
           >
-            {(product?.stock as number) > 0 ? product?.stock : "unavailable"}
+            {(product?.stock as number) > 0 ? product?.stock : "Hết hàng"}
           </p>
         </div>
 
