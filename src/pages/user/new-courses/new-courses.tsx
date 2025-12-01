@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Pagination } from "@heroui/react";
 import Breadcrumbs from "@/utils/Breadcrumb";
 import { Link } from "react-router";
-import { NewCourseData } from "../public/dataExport";
+import { NewCourseData } from "@/constants/fakeData";
 
 const NewCoursesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);

@@ -4,7 +4,7 @@ import {
   ChevronRight,
   Youtube,
 } from "lucide-react";
-import { NewCourseData } from "./dataExport";
+import { NewCourseData } from "@/constants/fakeData";
 import { useRef } from "react";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import "swiper/css";

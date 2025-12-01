@@ -1,7 +1,7 @@
 import Title from "@/components/user/Title";
 import { Link } from "react-router";
 import { getFakeBrands } from "@/constants/fakeData";
-import { GitCompareArrows, Headset, ShieldCheck, Truck } from "lucide-react";
+import { ArrowRight, GitCompareArrows, Headset, ShieldCheck, Truck } from "lucide-react";
 
 const extraData = [
   {
@@ -33,9 +33,12 @@ const ShopByBrands = async () => {
     <>
     <div className="flex items-center justify-between">
     <Title>Shop By Brands</Title>
-    <Link to={"/shop"} className="font-semibold">
-      View all →
-    </Link>
+    <Link
+            to={"/shop"}
+            className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
+          >
+            Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
+          </Link>
   </div>
     <div className="border border-border p-3 rounded-xl shadow-sm">
       {/* Brand Grid */}

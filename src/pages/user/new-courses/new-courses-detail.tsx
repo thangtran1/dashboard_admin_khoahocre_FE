@@ -1,4 +1,4 @@
-import { NewCourseData } from "@/pages/user/public/dataExport";
+import { NewCourseData } from "@/constants/fakeData";
 import Breadcrumbs from "@/utils/Breadcrumb";
 import { inputClass } from "@/utils/use-always";
 import { Divider } from "@heroui/react";
