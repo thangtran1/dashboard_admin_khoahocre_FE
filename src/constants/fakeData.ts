@@ -243,7 +243,7 @@ export const fakeProducts = [
     name: "iPhone 15 Pro Max",
     slug: { current: "iphone-15-pro-max" },
     price: 1199,
-    discount: 0,
+    discount: 20,
     description: "Latest iPhone with advanced camera system and A17 Pro chip",
     image: {
       asset: {

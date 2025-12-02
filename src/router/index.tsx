@@ -21,6 +21,7 @@ import { LoginProvider } from "@/pages/admin/auth/login/providers/login-provider
 import BlogPage from "@/pages/user/blog/page";
 import BlogDetailPage from "@/pages/user/blog/[slug]/page";
 import Contact from "@/pages/user/contact";
+import DealPage from "@/pages/user/deal/page";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -125,6 +126,10 @@ export default function Router() {
       {
         path: "contact",
         children: [{ index: true, element: <Contact /> }],
+      },
+      {
+        path: "deal",
+        children: [{ index: true, element: <DealPage /> }],
       },
     ],
   };
