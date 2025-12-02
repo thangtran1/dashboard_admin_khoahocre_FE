@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { m } from "framer-motion";
 import { Search, RefreshCw, ShoppingBag, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/user/button";
+import { Button } from "@/components/user/ui/button";
 import { Link } from "react-router";
 
 const NoProductAvailable = ({

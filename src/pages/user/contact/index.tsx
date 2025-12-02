@@ -2,6 +2,8 @@
 
 import { Form, Input, Button } from "antd";
 import { toast } from "sonner";
+import { Typography } from "antd";
+const { Title } = Typography;
 
 export default function Contact() {
   const [form] = Form.useForm();
@@ -17,7 +19,7 @@ export default function Contact() {
     <div>
 
       <div className="mx-auto max-w-2xl">
-      <h2 className="text-2xl font-bold text-center mb-6">Liên hệ với chúng tôi</h2>
+      <Title level={3} className="mb-4 text-center">Liên hệ với chúng tôi</Title>
 
       <Form
         form={form}

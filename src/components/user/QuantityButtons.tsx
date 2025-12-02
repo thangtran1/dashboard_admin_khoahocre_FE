@@ -3,7 +3,7 @@ import useStore from "@/store/store";
 import { Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 
 interface Props {
   product: Product;

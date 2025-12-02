@@ -23,6 +23,7 @@ import BlogDetailPage from "@/pages/user/blog/[slug]/page";
 import Contact from "@/pages/user/contact";
 import DealPage from "@/pages/user/deal/page";
 import Shop from "@/pages/user/shop";
+import WishListPage from "@/pages/user/wishlist/page";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -135,6 +136,10 @@ export default function Router() {
       {
         path: "shop",
         children: [{ index: true, element: <Shop /> }],
+      },
+      {
+        path: "wishlist",
+        children: [{ index: true, element: <WishListPage /> }],
       },
     ],
   };

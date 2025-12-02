@@ -310,7 +310,7 @@ export const fakeProducts = [
     _id: "prod3",
     name: "AirPods Pro (2nd generation)",
     slug: { current: "airpods-pro-2nd" },
-    price: 249,
+    price: 800,
     discount: 0,
     description: "Premium wireless earbuds with active noise cancellation",
     image: {

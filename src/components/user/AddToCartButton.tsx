@@ -6,7 +6,7 @@ import useStore from "@/store/store";
 import PriceFormatter from "@/components/user/PriceFormatter";
 import QuantityButtons from "@/components/user/QuantityButtons";
 import { toast } from "sonner";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 
 interface Props {
   product: Product;
@@ -33,7 +33,7 @@ const AddToCartButton = ({ product, className }: Props) => {
       {itemCount ? (
         <div className="text-sm w-full">
           <div className="flex items-center justify-between">
-            <span className="text-xs">Quantity</span>
+            <span className="text-xs mr-5">Quantity</span>
             <QuantityButtons product={product} />
           </div>
           <div className="flex items-center justify-between border-t pt-1">
