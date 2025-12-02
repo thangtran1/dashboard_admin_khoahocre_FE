@@ -18,7 +18,7 @@ const HomeBanner = () => {
       </div>
       <div>
         <img
-          src="/public/images/banner/banner_1.png"
+          src="/images/banner/banner_1.png"
           alt="banner_1"
           className="hidden md:inline-flex w-96"
       />

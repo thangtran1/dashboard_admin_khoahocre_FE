@@ -243,7 +243,7 @@ export const fakeProducts = [
     name: "iPhone 15 Pro Max",
     slug: { current: "iphone-15-pro-max" },
     price: 1199,
-    discount: 10,
+    discount: 0,
     description: "Latest iPhone with advanced camera system and A17 Pro chip",
     image: {
       asset: {
@@ -277,7 +277,7 @@ export const fakeProducts = [
     name: "MacBook Pro 16-inch",
     slug: { current: "macbook-pro-16" },
     price: 2499,
-    discount: 5,
+    discount: 0,
     description: "Powerful laptop for professionals with M3 Pro chip",
     image: {
       asset: {
@@ -311,7 +311,7 @@ export const fakeProducts = [
     name: "AirPods Pro (2nd generation)",
     slug: { current: "airpods-pro-2nd" },
     price: 249,
-    discount: 15,
+    discount: 0,
     description: "Premium wireless earbuds with active noise cancellation",
     image: {
       asset: {
@@ -345,7 +345,7 @@ export const fakeProducts = [
     name: "iPad Air",
     slug: { current: "ipad-air" },
     price: 599,
-    discount: 8,
+    discount: 0,
     description: "Versatile tablet with M1 chip for work and creativity",
     image: {
       asset: {

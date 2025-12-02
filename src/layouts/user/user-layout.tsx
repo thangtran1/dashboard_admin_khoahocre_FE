@@ -10,11 +10,11 @@ import Logo from "@/components/common/logo";
 import LocalePicker from "@/components/common/locale-picker";
 import UserBannerMarquee from "@/components/user/banner-marquee/user-banner";
 
-import HeaderTop from "@/pages/user/public/header-top";
 import Footer from "@/pages/user/public/footer";
 
 import SettingButton from "../dashboard/components/setting-button";
 import NoticeButton from "../dashboard/components/notice";
+import Header from "@/components/user/Header";
 
 export default function UserLayout() {
   return (
@@ -43,13 +43,14 @@ export default function UserLayout() {
       </div>
 
       <div className="bg-background text-foreground">
+      <Header />
+
         <main
           className={clsx(
             "w-full flex flex-col gap-4 px-4 py-3 md:px-6 lg:px-16 mx-auto",
             contentWrapper
           )}
         >
-          <HeaderTop />
           <Outlet />
         </main>
 
