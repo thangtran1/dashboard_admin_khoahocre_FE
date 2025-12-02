@@ -16,7 +16,7 @@ const NoProductAvailable = ({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center py-16 min-h-96 space-y-6 text-center bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl w-full mt-10 border border-gray-200",
+        "flex flex-col items-center justify-center py-5 min-h-96 space-y-6 text-center rounded-2xl w-full border border-border",
         className
       )}
     >
