@@ -21,12 +21,12 @@ const ImageView = ({ images = [], isStock }: Props) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-h-[450px] min-h-[400px] border border-border rounded-md group overflow-hidden"
+          className="w-full max-h-[350px] min-h-[300px] border border-border rounded-md group overflow-hidden"
         >
           <img
             src={activeImage?.asset?.url}
             alt="productImage"
-            className={`w-full max-h-[450px] min-h-[400px] object-contain group-hover:scale-110 rounded-md ${
+            className={`w-full max-h-[350px] min-h-[300px] object-contain group-hover:scale-110 rounded-md ${
               isStock === 0 ? "opacity-50" : ""
             }`}
           />

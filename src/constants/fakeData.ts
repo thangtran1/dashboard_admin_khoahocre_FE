@@ -255,6 +255,7 @@ export const fakeProducts = [
     name: "iPhone 15 Pro Max",
     slug: { current: "iphone-15-pro-max" },
     price: 1199,
+    warrantyPeriod: 12,
     discount: 20,
     description: "Latest iPhone with advanced camera system and A17 Pro chip",
     image: {
@@ -282,7 +283,70 @@ export const fakeProducts = [
       "A17 Pro chip",
       "48MP Main camera",
       "5G connectivity"
-    ]
+    ],
+    reviews: [
+      {
+        _id: "review1",
+        rating: 5,
+        comment: "Comment 4",
+        createdAt: new Date("2025-12-03T08:30:00Z"),
+        user: {
+          _id: "user1",
+          name: "John Doe",
+          avatar: "/images/products/product_1.png"
+        },
+        type: 'smartphone',
+        images: [
+          "/images/products/product_1.png",
+          "/images/products/product_2.jpg"
+        ]
+      },
+      {
+        _id: "review2",
+        rating: 4,
+        comment: "Comment 3",
+        createdAt: new Date("2025-12-03T08:30:00Z"),
+        user: {
+          _id: "user2",
+          name: "Jane Doe",
+          avatar: "/images/products/product_3.png"
+        },
+        type: 'smartphone',
+        images: [
+          "/images/products/product_3.png",
+          "/images/products/product_4.png"
+        ]
+      },
+      {
+        _id: "review3",
+        rating: 3,
+          comment: "Comment 2",
+        type: 'smartphone',
+        createdAt: new Date("2025-12-03T08:30:00Z"),
+        user: {
+          _id: "user3",
+          name: "Jim Doe",
+          avatar: "/images/products/product_5.png"
+        },
+        images: [
+          "/images/products/product_5.png",
+          "/images/products/product_6.png"
+        ]
+      },
+      {
+        _id: "review4",
+        rating: 2,
+        comment: "Comment 1",
+        type: 'laptop',
+        createdAt: new Date("2025-12-03T08:30:00Z"),
+        user: {
+          _id: "user4",
+          name: "Jill Doe",
+          avatar: "/images/products/product_7.png"
+        },
+        images: []
+      }
+    ],
   },
   {
     _id: "prod2",
