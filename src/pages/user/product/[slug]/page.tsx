@@ -5,6 +5,7 @@ import { StarIcon, Truck, CornerDownLeft } from "lucide-react";
 import ImageView from "@/components/user/products/ImageView";
 import PriceView from "@/components/user/products/PriceView";
 import ProductCharacteristics from "@/components/user/products/ProductCharacteristics";
+import ProductReviewSection from "@/components/user/products/ProductReviewSection";
 import AddToCartButton from "@/components/user/AddToCartButton";
 import FavoriteButton from "@/components/user/FavoriteButton";
 
@@ -103,53 +104,10 @@ const SingleProductPage = () => {
       key: "reviews",
       label: "Đánh giá",
       children: (
-        <div className="space-y-6 max-h-[600px] overflow-y-auto">
-          {product.reviews?.map((review) => (
-            <div key={review._id} className="pb-4 border-b">
-              <div className="flex items-center gap-3">
-                <img
-                  src={"/images/avatar/avatar-default.png"}
-                  alt={review.user.name}
-                  className="w-10 h-10 border rounded-full object-cover"
-                />
-
-                <div>
-                  <p className="font-semibold text-sm">{review.user.name}</p>
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, index) => (
-                      <StarIcon
-                        key={index}
-                        size={16}
-                        className="text-shop_light_green"
-                        fill="#3b9c3c"
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-sm text-foreground mt-1">
-                {new Date(review.createdAt).toLocaleDateString("vi-VN")} • Phân loại:{" "}
-                {review.type}
-              </p>
-
-              <p className="text-md mt-2">{review.comment}</p>
-
-              {review.images?.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {review.images.map((img, idx) => (
-                    <img
-                      key={idx}
-                      src={img}
-                      alt=""
-                      className="w-24 h-24 object-cover rounded-md border"
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        <ProductReviewSection 
+          reviews={product.reviews || []} 
+          productName={product.name} 
+        />
       ),
     },
   ];

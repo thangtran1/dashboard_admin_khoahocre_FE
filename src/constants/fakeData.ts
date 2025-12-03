@@ -288,63 +288,49 @@ export const fakeProducts = [
       {
         _id: "review1",
         rating: 5,
-        comment: "Comment 4",
+        comment: "Sản phẩm tuyệt vời! Camera chụp rất đẹp, pin trâu, màn hình sắc nét. Rất hài lòng!",
         createdAt: new Date("2025-12-03T08:30:00Z"),
-        user: {
-          _id: "user1",
-          name: "John Doe",
-          avatar: "/images/products/product_1.png"
-        },
-        type: 'smartphone',
-        images: [
-          "/images/products/product_1.png",
-          "/images/products/product_2.jpg"
+        user: { _id: "user1", name: "John Doe", avatar: "/images/products/product_1.png" },
+        type: 'Đã mua hàng',
+        images: ["/images/products/product_1.png", "/images/products/product_2.jpg"],
+        replies: [
+          { _id: "reply1", comment: "Cảm ơn bạn đã tin tưởng và mua hàng! Chúc bạn sử dụng vui vẻ ạ 🎉", createdAt: new Date("2025-12-03"), user: { _id: "admin1", name: "Admin Shop", isAdmin: true } },
+          { _id: "reply2", comment: "Mình cũng mua con này, dùng rất ổn!", createdAt: new Date("2025-12-03"), user: { _id: "user1", name: "John Doe" } },
         ]
       },
       {
         _id: "review2",
         rating: 4,
-        comment: "Comment 3",
-        createdAt: new Date("2025-12-03T08:30:00Z"),
-        user: {
-          _id: "user2",
-          name: "Jane Doe",
-          avatar: "/images/products/product_3.png"
-        },
-        type: 'smartphone',
-        images: [
-          "/images/products/product_3.png",
-          "/images/products/product_4.png"
+        comment: "Máy đẹp, chạy mượt. Chỉ tiếc là hơi nóng khi chơi game nặng.",
+        createdAt: new Date("2025-12-02T10:00:00Z"),
+        user: { _id: "user2", name: "Jane Doe", avatar: "/images/products/product_3.png" },
+        type: 'Đã mua hàng',
+        images: ["/images/products/product_3.png"],
+        replies: [
+          { _id: "reply3", comment: "Cảm ơn góp ý của bạn! Bạn có thể giảm đồ họa game để máy mát hơn nhé.", createdAt: new Date("2025-12-02"), user: { _id: "admin1", name: "Admin Shop", isAdmin: true } },
         ]
       },
       {
         _id: "review3",
         rating: 3,
-          comment: "Comment 2",
-        type: 'smartphone',
-        createdAt: new Date("2025-12-03T08:30:00Z"),
-        user: {
-          _id: "user3",
-          name: "Jim Doe",
-          avatar: "/images/products/product_5.png"
-        },
-        images: [
-          "/images/products/product_5.png",
-          "/images/products/product_6.png"
-        ]
+        comment: "Sản phẩm tạm được, giao hàng hơi chậm.",
+        type: 'Đã mua hàng',
+        createdAt: new Date("2025-12-01T14:00:00Z"),
+        user: { _id: "user3", name: "Jim Doe", avatar: "/images/products/product_5.png" },
+        images: [],
+        replies: []
       },
       {
         _id: "review4",
-        rating: 2,
-        comment: "Comment 1",
-        type: 'laptop',
-        createdAt: new Date("2025-12-03T08:30:00Z"),
-        user: {
-          _id: "user4",
-          name: "Jill Doe",
-          avatar: "/images/products/product_7.png"
-        },
-        images: []
+        rating: 5,
+        comment: "10 điểm không có nhưng! Ship nhanh, đóng gói cẩn thận.",
+        type: 'Đã mua hàng',
+        createdAt: new Date("2025-11-30T09:00:00Z"),
+        user: { _id: "user4", name: "Jill Doe", avatar: "/images/products/product_7.png" },
+        images: ["/images/products/product_5.png", "/images/products/product_6.png"],
+        replies: [
+          { _id: "reply4", comment: "Cảm ơn bạn nhiều ạ! 💖", createdAt: new Date("2025-11-30"), user: { _id: "admin1", name: "Admin Shop", isAdmin: true } },
+        ]
       }
     ],
   },
