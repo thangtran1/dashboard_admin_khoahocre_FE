@@ -4,7 +4,7 @@ import LoginPage from "@/pages/admin/auth";
 import { usePermissionRoutes } from "@/router/hooks";
 import { ERROR_ROUTE } from "@/router/routes/error-routes";
 import { ErrorBoundary } from "react-error-boundary";
-import { Navigate, type RouteObject, createBrowserRouter } from "react-router";
+import { Navigate, type RouteObject, createBrowserRouter, useParams } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
 import ResetPassword from "@/pages/admin/auth/reset-passworđ/resetPassword";
@@ -24,6 +24,8 @@ import Contact from "@/pages/user/contact";
 import DealPage from "@/pages/user/deal/page";
 import Shop from "@/pages/user/shop";
 import WishListPage from "@/pages/user/wishlist/page";
+import CartPage from "@/pages/user/cart/page";
+import SingleProductPage from "@/pages/user/product/[slug]/page";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -140,6 +142,14 @@ export default function Router() {
       {
         path: "wishlist",
         children: [{ index: true, element: <WishListPage /> }],
+      },
+      {
+        path: "cart",
+        children: [{ index: true, element: <CartPage /> }],
+      },
+      {
+        path: "product/:slug",
+        element: <SingleProductPage />,
       },
     ],
   };

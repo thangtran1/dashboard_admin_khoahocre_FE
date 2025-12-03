@@ -6,7 +6,7 @@ import useStore from "@/store/store";
 import PriceFormatter from "@/components/user/PriceFormatter";
 import QuantityButtons from "@/components/user/QuantityButtons";
 import { toast } from "sonner";
-import { Button } from "./ui/button";
+import { Button } from "@/ui/button";
 
 interface Props {
   product: Product;

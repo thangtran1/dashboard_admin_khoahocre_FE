@@ -6,34 +6,41 @@ import {
   CardTitle,
 } from "@/components/user/ui/card";
 import Logo from "./Logo";
-import { Button } from "@/components/user/ui/button";
+import { Separator } from "@/components/user/ui/separator";
+import { LoginStateEnum, useLoginStateContext } from "@/pages/admin/auth/login/providers/login-provider";
+import { Button } from "@/ui/button";
 
 const NoAccess = ({
-  details = "Log in to view your cart items and checkout. Don't miss out on your favorite products!",
+  details = "Đăng nhập để xem sản phẩm trong giỏ hàng và thanh toán. Không bỏ lỡ sản phẩm yêu thích của bạn!",
 }: {
   details?: string;
 }) => {
+  const { setLoginState } = useLoginStateContext();
+
   return (
-    <div className="flex items-center justify-center py-12 md:py-32 bg-gray-100 p-4">
-      <Card className="w-full max-w-md p-5">
+    <div className="mx-auto max-w-lg">
+      <Card className="w-full p-5">
         <CardHeader className="flex items-center flex-col">
           <Logo />
           <CardTitle className="text-2xl font-bold text-center">
-            Welcome Back!
+            Chào mừng trở lại!
           </CardTitle>
         </CardHeader>
+        <Separator />
         <CardContent className="space-y-4">
-          <p className="text-center font-medium text-darkColor/80">{details}</p>
-          <Button className="w-full" size="lg">
-            Sign in
+          <p className="text-center font-medium">{details}</p>
+          <Button onClick={() => setLoginState(LoginStateEnum.LOGIN)} className="w-full cursor-pointer" size="lg">
+            Đăng nhập
           </Button>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <div className="text-sm text-muted-foreground text-center">
-            Don&rsquo;t have an account?
+            Bạn không có tài khoản?
           </div>
-          <Button variant="outline" className="w-full" size="lg">
-            Create an account
+          <Button              onClick={() => setLoginState(LoginStateEnum.REGISTER)}
+
+ variant="outline" className="w-full cursor-pointer" size="lg">
+Tạo tài khoản
           </Button>
         </CardFooter>
       </Card>

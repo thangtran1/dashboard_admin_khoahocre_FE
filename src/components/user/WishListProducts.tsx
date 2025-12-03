@@ -130,10 +130,10 @@ import { Heart } from "lucide-react";
           </div>
           <div className="space-y-2">
             <h2 className="text-2xl font-semibold tracking-tight">
-              Giỏ hàng của bạn trống
+              Danh sách yêu thích của bạn trống
             </h2>
             <p className="text-sm text-muted-foreground">
-              Sản phẩm được thêm vào giỏ hàng của bạn sẽ hiện ở đây
+              Sản phẩm được thêm vào danh sách yêu thích của bạn sẽ hiện ở đây
             </p>
           </div>
           <Button variant="outlined" color="primary">
