@@ -1,388 +1,142 @@
-import { useState, useEffect } from "react";
-import { Card, Avatar, Button, Drawer, Tooltip } from "antd";
-import {
-  UserOutlined,
-  LockOutlined,
-  MailOutlined,
-  PhoneOutlined,
-  MenuOutlined,
-  LeftOutlined,
-  RightOutlined,
-} from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { Card, Avatar, Tabs, Upload, Button } from "antd";
+import { UserOutlined, CameraOutlined } from "@ant-design/icons";
+import { useSearchParams } from "react-router";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { Separator } from "@/ui/separator";
+import { Icon } from "@/components/icon";
 import PersonalInfoTab from "./components/PersonalInfoTab";
 import SecurityTab from "./components/SecurityTab";
-import { type CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
+import { uploadAvatar, updateUserProfile } from "@/api/services/profileApi";
+import { toast } from "sonner";
 
-function UserProfile() {
+export default function UserProfile() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState("profile");
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const { profile, loading, error, updateProfile } = useUserProfile();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { profile, error, updateProfile } = useUserProfile();
+  const [isUploading, setIsUploading] = useState(false);
 
-  // Listen for profile updates (không reload page)
+  const loading = !profile && !error;
+  const activeTab = searchParams.get("tab") || "profile";
+
+  const handleTabChange = (tab: string) => setSearchParams({ tab });
+
+  // Listen for profile updates
   useEffect(() => {
     const handleProfileUpdate = (event: CustomEvent) => {
-      // Chỉ cập nhật state, không reload page
-      if (event.detail) {
-        updateProfile(event.detail);
-      }
+      if (event.detail) updateProfile(event.detail);
     };
-
-    window.addEventListener(
-      "profileUpdated",
-      handleProfileUpdate as EventListener
-    );
-    return () => {
-      window.removeEventListener(
-        "profileUpdated",
-        handleProfileUpdate as EventListener
-      );
-    };
+    window.addEventListener("profileUpdated", handleProfileUpdate as EventListener);
+    return () => window.removeEventListener("profileUpdated", handleProfileUpdate as EventListener);
   }, [updateProfile]);
 
-  const bgStyle: CSSProperties = {
-    background: `linear-gradient(135deg, rgba(56,189,248,0.85), rgba(168,85,247,0.85)))`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+  const avatarUrl = profile?.avatar ? `${import.meta.env.VITE_API_URL}${profile.avatar}` : undefined;
+
+  const handleAvatarUpload = async (file: File) => {
+    setIsUploading(true);
+    try {
+      const url = await uploadAvatar(file); // upload file, trả về URL
+      const updated = await updateUserProfile({ avatar: url }); // update profile
+      updateProfile(updated);
+      toast.success("Cập nhật ảnh đại diện thành công!");
+    } catch (err: any) {
+      toast.error(err.message || "Upload thất bại");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
-  const avatarUrl = profile?.avatar
-    ? `${import.meta.env.VITE_API_URL}${profile.avatar}`
-    : undefined;
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-[400px] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4" />
+          <p className="text-muted-foreground">{t("profile.loading")}</p>
+        </div>
+      </div>
+    );
+  }
 
-  const menuItems = [
+  // Error state
+  if (error) {
+    return (
+      <Card className="max-w-md mx-auto text-center">
+        <div className="text-5xl mb-4">⚠️</div>
+        <h3 className="text-xl font-bold mb-2">{t("profile.error")}</h3>
+        <p className="text-muted-foreground mb-4">{error}</p>
+        <button onClick={() => window.location.reload()} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg">
+          {t("profile.try-again")}
+        </button>
+      </Card>
+    );
+  }
+
+  const tabItems = [
     {
       key: "profile",
-      icon: <UserOutlined />,
-      label: t("userProfile.personal-info"),
-      description: t("userProfile.manage-personal-info"),
-      color: "from-blue-500 to-indigo-600",
-      bgColor: "bg-blue-50",
-      iconColor: "text-blue-600",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="lucide:user" className="h-4 w-4" />
+          {t("profile.title")}
+        </span>
+      ),
+      children: <PersonalInfoTab profile={profile} onProfileUpdate={updateProfile} />,
     },
     {
       key: "security",
-      icon: <LockOutlined />,
-      label: t("userProfile.security"),
-      description: t("userProfile.manage-security"),
-      color: "from-red-500 to-pink-600",
-      bgColor: "bg-red-50",
-      iconColor: "text-red-600",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="lucide:shield" className="h-4 w-4" />
+          {t("profile.security")}
+        </span>
+      ),
+      children: <SecurityTab />,
     },
   ];
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-border blue-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="relative">
-            <div className="animate-spin rounded-full h-20 w-20 border-4 border-border border-t-transparent mx-auto mb-4"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <UserOutlined className="text-2xl text-border" />
-            </div>
-          </div>
-          <p className="text-muted text-lg font-medium">
-            {t("userProfile.loading")}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-border red-50 flex items-center justify-center p-4">
-        <Card className="max-w-md text-center shadow-2xl border-0">
-          <div className="text-muted text-6xl mb-4">⚠️</div>
-          <h3 className="text-xl font-bold mb-2 text-muted">
-            {t("userProfile.error")}
-          </h3>
-          <p className="text-muted mb-4">{error}</p>
-          <Button
-            type="primary"
-            size="large"
-            className="bg-gradient-to-r from-border to-border border-0"
-            onClick={() => window.location.reload()}
-          >
-            {t("userProfile.try-again")}
-          </Button>
-        </Card>
-      </div>
-    );
-  }
-
-  const SidebarContent = ({ isMobile = false }) => (
-    <div className={`flex flex-col border-r ${isMobile ? "px-2" : ""}`}>
-      {/* Header */}
-      <div
-        className={` border-b pb-3 border-border flex items-center ${
-          sidebarCollapsed && !isMobile ? "justify-center" : "px-1"
-        }`}
-      >
-        {!sidebarCollapsed || isMobile ? (
-          <div>
-            <h2 className="text-lg font-bold text-foreground">
-              ⚙️ {t("userProfile.settings")}
-            </h2>
-            <p className="text-xs text-muted-foreground">
-              {t("userProfile.manage-personal-info")}
-            </p>
-          </div>
-        ) : (
-          <span className="text-xl text-foreground">⚙️</span>
-        )}
-
-        <Button
-          type="text"
-          icon={sidebarCollapsed ? <RightOutlined /> : <LeftOutlined />}
-          onClick={() =>
-            isMobile
-              ? setMobileDrawerOpen(false)
-              : setSidebarCollapsed(!sidebarCollapsed)
-          }
-          className="ml-auto text-muted-foreground hover:text-foreground hover:bg-foreground/10 rounded-lg transition-all duration-200"
-        />
-      </div>
-
-      {/* Menu Items */}
-      <div
-        className={`flex-1 py-3 ${
-          sidebarCollapsed ? "flex flex-col items-center" : "px-1"
-        } space-y-2`}
-      >
-        {menuItems.map((item) => (
-          <Tooltip
-            key={item.key}
-            title={
-              sidebarCollapsed && !isMobile ? (
-                <div className="flex flex-col">
-                  <span className="font-semibold text-sm">{item.label}</span>
-                  <span className="text-xs text-muted-foreground mt-0.5">
-                    {item.description}
-                  </span>
-                </div>
-              ) : (
-                ""
-              )
-            }
-            placement="right"
-          >
-            <div
-              onClick={() => {
-                setActiveTab(item.key);
-                if (isMobile) setMobileDrawerOpen(false);
-              }}
-              className={`group relative cursor-pointer w-full rounded-xl transition-all duration-300 flex items-center gap-3 ${
-                activeTab === item.key
-                  ? "bg-gradient-to-r from-indigo-500/10 to-indigo-600/10 border border-indigo-500 shadow-md"
-                  : "hover:bg-foreground/10 border border-transparent"
-              } ${sidebarCollapsed ? "p-3 justify-center" : "p-3"}`}
-            >
-              <div
-                className={`flex items-center justify-center text-xl rounded-lg transition-all duration-300 ${
-                  activeTab === item.key
-                    ? "text-indigo-400 bg-indigo-500/10"
-                    : "text-muted-foreground group-hover:text-foreground"
-                }`}
-              >
-                {item.icon}
-              </div>
-
-              {!sidebarCollapsed && (
-                <div className="flex-1">
-                  <div className="font-medium text-foreground">
-                    {item.label}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    {item.description}
-                  </div>
-                </div>
-              )}
-            </div>
-          </Tooltip>
-        ))}
-      </div>
-
-      {/* Footer Quick Info */}
-      {!sidebarCollapsed && (
-        <div className="py-4 px-1 border-t border-border bg-background/30">
-          <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-1">
-            📊 {t("userProfile.quick-info")}
-          </h3>
-          <div className="space-y-3 text-sm">
-            {profile?.email && (
-              <div className="flex items-center gap-2">
-                <MailOutlined className="text-muted-foreground" />
-                <span className="truncate">{profile.email}</span>
-              </div>
-            )}
-            {profile?.phone && (
-              <div className="flex items-center gap-2">
-                <PhoneOutlined className="text-muted-foreground" />
-                <span>{profile.phone}</span>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card transition-colors duration-500">
+    <div className="bg-card text-card-foreground px-6 pb-6 flex flex-col gap-6 rounded-xl border shadow-sm">
       {/* Header */}
-      <div className="relative h-80 mb-8 rounded-3xl overflow-hidden shadow-2xl">
-        {/* Cover background (tùy bgStyle là ảnh hoặc gradient) */}
-        <div style={bgStyle} className="h-full w-full object-cover">
-          {/* Overlay gradient + blur effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-foreground/10 via-background/40 to-background/90 backdrop-blur-sm"></div>
-
-          {/* Avatar & Info */}
-          <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 text-center z-10">
-            {/* Avatar */}
-            <div className="relative inline-block mb-4">
-              <Avatar
-                size={120}
-                icon={<UserOutlined />}
-                src={avatarUrl}
-                className="border-4 border-border bg-card shadow-xl transition-transform hover:scale-105 duration-300"
+      <div className="pt-4 flex items-center">
+        <div className="relative">
+          <Avatar size={64} icon={<UserOutlined />} src={avatarUrl} className="border-2 border-border" />
+          <Upload
+            showUploadList={false}
+            customRequest={({ file }) => handleAvatarUpload(file as File)}
+            accept="image/*"
+          >
+             <Button
+                shape="circle"
+                size="middle"
+                icon={<CameraOutlined />}
+                className="absolute -bottom-6 right-6 shadow-lg bg-blue-500 border-blue-500 text-white hover:bg-blue-600"
+                loading={isUploading}
               />
-            </div>
+          </Upload>
+        </div>
 
-            {/* Name & Email */}
-            <h1 className="text-3xl font-bold mb-1 text-foreground drop-shadow-sm">
-              {profile?.name || t("userProfile.user")}
-            </h1>
-            <p className="text-foreground text-sm mb-3">
-              {profile?.email || "example@email.com"}
-            </p>
-
-            {/* Role & Verification */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <span className="px-4 py-1.5 rounded-full text-sm bg-primary/10 border border-primary/30 text-primary backdrop-blur-sm">
-                {profile?.role === "admin"
-                  ? "👑 " + t("userProfile.admin")
-                  : profile?.role === "moderator"
-                  ? "🛡️ " + t("userProfile.moderator")
-                  : "👤 " + t("userProfile.user")}
+        <div className="flex-1">
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-foreground">{profile?.name || t("profile.user")}</h1>
+            {profile?.role && (
+              <span className="px-2 py-0.5 text-xs rounded-full bg-primary/10 text-primary border border-primary/30">
+                {profile.role === "admin" ? "👑 Admin" : profile.role === "moderator" ? "🛡️ Mod" : "👤 User"}
               </span>
-
-              {profile?.isEmailVerified && (
-                <span className="px-4 py-1.5 rounded-full text-sm bg-primary/10 border border-primary/30 text-primary backdrop-blur-sm">
-                  ✅ {t("userProfile.verified")}
-                </span>
-              )}
-            </div>
+            )}
+            {profile?.isEmailVerified && (
+              <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-700">✅ Verified</span>
+            )}
           </div>
+          <p className="text-muted-foreground">{profile?.email || "example@email.com"}</p>
         </div>
       </div>
 
-      {/* Main */}
-      <div className="pb-12">
-        {/* Mobile Menu Button */}
-        <div className="lg:hidden mb-4">
-          <Button
-            type="primary"
-            icon={<MenuOutlined />}
-            onClick={() => setMobileDrawerOpen(true)}
-            className="shadow-lg bg-primary hover:bg-primary/90 border-none transition"
-            size="large"
-          >
-            {t("userProfile.settings")}
-          </Button>
-        </div>
+      <Separator />
 
-        <div className="flex gap-6">
-          {/* Desktop Sidebar */}
-          <div
-            className={`hidden lg:block transition-all duration-500 ${
-              sidebarCollapsed ? "w-20" : "w-80"
-            }`}
-          >
-            <Card className="sticky shadow-md bg-card border-border backdrop-blur-md h-fit">
-              <SidebarContent />
-            </Card>
-          </div>
-
-          {/* Mobile Drawer */}
-          <Drawer
-            title={
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-muted rounded-lg">
-                  <UserOutlined className="text-foreground" />
-                </div>
-                <span className="text-foreground">
-                  {t("userProfile.settings")}
-                </span>
-              </div>
-            }
-            placement="left"
-            onClose={() => setMobileDrawerOpen(false)}
-            open={mobileDrawerOpen}
-            className="lg:hidden"
-            width={320}
-            styles={{
-              body: { padding: 0 },
-              header: { borderBottom: "1px solid var(--border)" },
-            }}
-          >
-            <SidebarContent isMobile />
-          </Drawer>
-
-          {/* Main Content */}
-          <div className="flex-1">
-            <Card className="shadow-lg bg-card border-border backdrop-blur-md">
-              {activeTab === "profile" && (
-                <section>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
-                      <UserOutlined className="text-2xl" />
-                    </div>
-                    <div>
-                      <h2 className="text-3xl font-bold text-foreground">
-                        {t("userProfile.personal-info")}
-                      </h2>
-                      <p className="text-muted-foreground">
-                        {t("userProfile.manage-personal-info")}
-                      </p>
-                    </div>
-                  </div>
-                  <PersonalInfoTab
-                    profile={profile}
-                    loading={loading}
-                    onProfileUpdate={updateProfile}
-                  />
-                </section>
-              )}
-
-              {activeTab === "security" && (
-                <section>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-md">
-                      <LockOutlined className="text-2xl" />
-                    </div>
-                    <div>
-                      <h2 className="text-3xl font-bold text-foreground">
-                        {t("userProfile.security")}
-                      </h2>
-                      <p className="text-muted-foreground">
-                        {t("userProfile.manage-security")}
-                      </p>
-                    </div>
-                  </div>
-                  <SecurityTab />
-                </section>
-              )}
-            </Card>
-          </div>
-        </div>
-      </div>
+      {/* Tabs */}
+      <Tabs activeKey={activeTab} onChange={handleTabChange} items={tabItems} />
     </div>
   );
 }
-
-export default UserProfile;
