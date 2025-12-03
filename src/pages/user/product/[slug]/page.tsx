@@ -22,7 +22,7 @@ const SingleProductPage = () => {
       <div className="w-full md:w-1/2 flex flex-col gap-5">
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">{product?.name}</h2>
-          <p className="text-sm text-gray-600 tracking-wide">
+          <p className="text-sm text-muted-foreground tracking-wide">
             {product?.description}
           </p>
           <div className="flex items-center gap-0.5 text-xs">
@@ -55,24 +55,24 @@ const SingleProductPage = () => {
         </div>
         <ProductCharacteristics product={product as Product} />
         <div className="flex flex-col">
-          <div className="border border-lightColor/25 border-b-0 p-3 flex items-center gap-2.5">
+          <div className="border border-border border-b-0 p-3 flex items-center gap-2.5">
             <Truck size={30} className="text-shop_orange" />
             <div>
-              <p className="text-base font-semibold text-black">
+              <p className="text-base font-semibold text-foreground">
                 Miễn phí vận chuyển
               </p>
-              <p className="text-sm text-gray-500 underline underline-offset-2">
+              <p className="text-sm text-foreground underline underline-offset-2">
                 Nhập mã bưu điện để kiểm tra tính sẵn sàng vận chuyển.
               </p>
             </div>
           </div>
-          <div className="border border-lightColor/25 p-3 flex items-center gap-2.5">
+          <div className="border border-border p-3 flex items-center gap-2.5">
             <CornerDownLeft size={30} className="text-shop_orange" />
             <div>
-              <p className="text-base font-semibold text-black">
+              <p className="text-base font-semibold text-foreground">
                 Hoàn trả vận chuyển
               </p>
-              <p className="text-sm text-gray-500 ">
+              <p className="text-sm text-foreground ">
                 Miễn phí hoàn trả vận chuyển trong vòng 30 ngày.{" "}
                 <span className="underline underline-offset-2">Chi tiết</span>
               </p>

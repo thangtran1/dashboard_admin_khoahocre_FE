@@ -1,6 +1,18 @@
 // Fake data để thay thế Sanity CMS
 export const fakeCategories = [
   {
+    _id: "cat0",
+    name: "Tất cả sản phẩm",
+    slug: { current: "all" },
+    description: "Tất cả sản phẩm",
+    productCount: 31,
+    image: {
+      asset: {
+        url: "/images/banner/banner_1.png"
+      }
+    }
+  },
+  {
     _id: "cat1",
     name: "Smartphones",
     slug: { current: "smartphones" },
