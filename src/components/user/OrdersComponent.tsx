@@ -51,13 +51,13 @@ const OrdersComponent = ({ orders }: { orders: Order[] }) => {
                   <TableCell>
                     {order?.status && (
                       <span
-                        className={`px-2 py-1 rounded-full text-xs uppercase font-semibold text-foreground ${
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
                           order.status === "paid"
-                            ? "bg-success"
-                            : "bg-warning"
+                            ? "bg-success text-white"
+                            : "bg-warning text-white"
                         }`}
                       >
-                        {order?.status}
+                        {order.status === "paid" ? "Đã thanh toán" : "Chờ thanh toán"}
                       </span>
                     )}
                   </TableCell>  

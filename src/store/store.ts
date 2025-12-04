@@ -1,10 +1,22 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Product } from "@/types";
+import { Product, Order } from "@/types";
 
 export interface CartItem {
   product: Product;
   quantity: number;
+}
+
+export interface CustomerInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  notes?: string;
 }
 
 interface StoreState {
@@ -17,11 +29,15 @@ interface StoreState {
   getSubTotalPrice: () => number;
   getItemCount: (productId: string) => number;
   getGroupedItems: () => CartItem[];
-  //   // favorite
+  // favorite
   favoriteProduct: Product[];
   addToFavorite: (product: Product) => Promise<void>;
   removeFromFavorite: (productId: string) => void;
   resetFavorite: () => void;
+  // orders
+  orders: Order[];
+  addOrder: (orderNumber: string, customerInfo: CustomerInfo, paymentMethod: string) => Order;
+  getOrders: () => Order[];
 }
 
 const useStore = create<StoreState>()(
@@ -29,6 +45,7 @@ const useStore = create<StoreState>()(
     (set, get) => ({
       items: [],
       favoriteProduct: [],
+      orders: [],
       addItem: (product) =>
         set((state) => {
           const existingItem = state.items.find(
@@ -112,6 +129,42 @@ const useStore = create<StoreState>()(
       resetFavorite: () => {
         set({ favoriteProduct: [] });
       },
+      // Orders
+      addOrder: (orderNumber: string, customerInfo: CustomerInfo, paymentMethod: string) => {
+        const items = get().items;
+        const totalAmount = get().getTotalPrice();
+        
+        const newOrder: Order = {
+          _id: crypto.randomUUID(),
+          orderNumber,
+          customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
+          customerEmail: customerInfo.email,
+          customerPhone: customerInfo.phone,
+          shippingAddress: {
+            address: customerInfo.address,
+            city: customerInfo.city,
+            state: customerInfo.state,
+            zipCode: customerInfo.zipCode,
+          },
+          notes: customerInfo.notes,
+          totalAmount,
+          status: paymentMethod === "card" ? "paid" : "pending",
+          paymentMethod,
+          orderDate: new Date().toISOString(),
+          items: items.map((item) => ({
+            product: item.product,
+            quantity: item.quantity,
+            price: item.product.price,
+          })),
+        };
+        
+        set((state) => ({
+          orders: [newOrder, ...state.orders],
+        }));
+        
+        return newOrder;
+      },
+      getOrders: () => get().orders,
     }),
     {
       name: "cart-store",

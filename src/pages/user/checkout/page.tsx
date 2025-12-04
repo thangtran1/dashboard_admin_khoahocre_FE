@@ -29,7 +29,7 @@ import { useRouter } from "@/router/hooks";
 const CheckoutPage = () => {
   const navigate = useRouter();
 
-  const { getTotalPrice, getSubTotalPrice, resetCart } = useStore();
+  const { getTotalPrice, getSubTotalPrice, resetCart, addOrder } = useStore();
   const groupedItems = useStore((state) => state.getGroupedItems());
   
   const [loading, setLoading] = useState(false);
@@ -179,6 +179,9 @@ const CheckoutPage = () => {
           return;
         }
         
+        // Lưu order vào store trước khi reset cart
+        addOrder(orderNumber, formData, paymentMethod);
+        
         toast.success("Thanh toán thành công!");
         resetCart();
         navigate.push(`/success?orderNumber=${orderNumber}&payment=card`);
@@ -186,6 +189,9 @@ const CheckoutPage = () => {
       } else {
         // COD - Thanh toán khi nhận hàng
         await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Lưu order vào store trước khi reset cart
+        addOrder(orderNumber, formData, paymentMethod);
         
         toast.success("Đặt hàng thành công! Vui lòng chuẩn bị tiền mặt khi nhận hàng.");
         resetCart();

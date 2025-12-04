@@ -4,92 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 import { ScrollArea, ScrollBar } from "@/ui/scroll-area";
 import { Table, TableHead, TableHeader, TableRow } from "@/ui/table";
 import { Link } from "react-router";
-import { Order } from "@/types";
+import useStore from "@/store/store";
 
 const OrdersPage = () => {
-  const orders = [
-    {
-      orderNumber: "ORD-12345678",
-      customerName: "Tran Van Thang",
-      customerEmail: "thang@example.com",
-      orderDate: "2024-12-10T14:30:00",
-      totalAmount: 350000,
-      status: "paid",
-      items: [
-        {
-          product: {
-            name: "Serum Vitamin C",
-            images: [
-              {
-                asset: { url: "/images/products/product_1.png" }
-              }
-            ]
-          },
-          quantity: 1,
-          price: 150000
-        },
-        {
-          product: {
-            name: "Sữa Rửa Mặt Dịu Nhẹ",
-            images: [
-              {
-                asset: { url: "/images/products/product_3.png" }
-              }
-            ]
-          },
-          quantity: 2,
-          price: 100000
-        },
-        {
-          product: {
-            name: "Serum Vitamin C",
-            images: [
-              {
-                asset: { url: "/images/products/product_1.png" }
-              }
-            ]
-          },
-          quantity: 1,
-          price: 150000
-        },
-        {
-          product: {
-            name: "Sữa Rửa Mặt Dịu Nhẹ",
-            images: [
-              {
-                asset: { url: "/images/products/product_3.png" }
-              }
-            ]
-          },
-          quantity: 2,
-          price: 100000
-        }
-      ]
-    },
-    {
-      orderNumber: "ORD-98765432",
-      customerName: "Tran Van Thang",
-      customerEmail: "thang@example.com",
-      orderDate: "2024-12-11T09:15:00",
-      totalAmount: 120000,
-      totalQuantity: 1,
-        status: "pending",
-      items: [
-        {
-          product: {
-            name: "Kem Dưỡng Ẩm",
-            images: [
-              {
-                asset: { url: "/images/products/product_3.png" }
-              }
-            ]
-          },
-          quantity: 1,
-          price: 120000
-        }
-      ]
-    }
-  ] as Order[];
+  const orders = useStore((state) => state.orders);
 
   return (
     <div>

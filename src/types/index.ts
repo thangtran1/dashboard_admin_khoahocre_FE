@@ -68,13 +68,24 @@ export interface Blog {
   category?: BlogCategory;
 }
 
+export interface ShippingAddress {
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+}
+
 export interface Order {
-  _id: string;
+  _id?: string;
   orderNumber: string;
   customerName: string;
   customerEmail: string;
+  customerPhone?: string;
+  shippingAddress?: ShippingAddress;
+  notes?: string;
   totalAmount: number;
   status: string;
+  paymentMethod?: string;
   orderDate: string;
   items: OrderItem[];
 }
