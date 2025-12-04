@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Dialog, DialogContent, DialogHeader } from "@/components/user/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/ui/dialog";
 import { Search, X, Clock, TrendingUp, ShoppingBag } from "lucide-react";
 import { getFakeProducts } from "@/constants/fakeData";
 import { Product } from "@/types";

@@ -1,19 +1,18 @@
 "use client";
 
-import Container from "@/components/user/Container";
 import PriceFormatter from "@/components/user/PriceFormatter";
 import QuantityButtons from "@/components/user/QuantityButtons";
-import Title from "@/components/user/Title";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/user/ui/card";
-import { Label } from "@/components/user/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/user/ui/radio-group";
-import { Separator } from "@/components/user/ui/separator";
+import Title from "@/ui/title";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
+import { Label } from "@/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
+import { Separator } from "@/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/user/ui/tooltip";
+} from "@/ui/tooltip";
 import { Button } from "@/ui/button";
 import useStore from "@/store/store";
 import { ShoppingBag, Trash } from "lucide-react";
@@ -56,7 +55,7 @@ const CartPage = () => {
   };
   return (
     <div className="pb-6">
-      <Container>
+      <div>
         {/* ==== 3 TRẠNG THÁI ==== */}
         {!userToken?.accessToken ? (
           <NoAccess />
@@ -301,7 +300,7 @@ const CartPage = () => {
             </div>
           </>
         )}
-      </Container>
+      </div>
     </div>
   );
   

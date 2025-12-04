@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { StarIcon } from "lucide-react";
 import { Flame } from "lucide-react";
 import PriceView from "./PriceView";
-import Title from "@/components/user/Title";
+import Title from "@/ui/title";
 import ProductSideMenu from "./ProductSideMenu";
 import AddToCartButton from "@/components/user/AddToCartButton";
 

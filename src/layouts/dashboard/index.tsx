@@ -1,5 +1,4 @@
 import { Icon } from "@/components/icon";
-import Logo from "@/components/common/logo";
 import { down, useMediaQuery } from "@/hooks";
 import { useSettingActions, useSettings } from "@/store/settingStore";
 import { Button } from "@/ui/button";
@@ -12,6 +11,7 @@ import { useUserInfo } from "@/store/userStore";
 import { useGlobalKeyboard } from "@/hooks/use-global-keyboard";
 import { SidebarToast } from "@/layouts/dashboard/nav-bar/sidebar-toast";
 import AutoPageTitle from "@/components/common/auto-page-title";
+import Logo from "@/ui/logo";
 
 export default function DashboardLayout() {
   const isMobile = useMediaQuery(down("md"));

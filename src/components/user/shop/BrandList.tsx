@@ -1,8 +1,8 @@
 import { Brand } from "@/types";
 import React from "react";
-import Title from "../Title";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Label } from "../ui/label";
+import Title from "../../../ui/title";
+import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
+import { Label } from "@/ui/label";
 
 interface Props {
   brands: Brand[];

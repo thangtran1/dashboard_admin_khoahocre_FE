@@ -1,10 +1,9 @@
-import Container from "./Container";
-import Logo from "./Logo";
+import Logo from "@/ui/logo";
 import SearchBar from "./SearchBar";
 import MobileMenu from "./MobileMenu";
 import { Link } from "react-router";
 import { Logs } from "lucide-react";
-import HeaderMenu from "../HeaderMenu";
+import HeaderMenu from "./HeaderMenu";
 import CartIcon from "./CartIcon";
 import FavoriteButton from "./FavoriteButton";
 import SignIn from "@/pages/user/public/SignIn";
@@ -18,7 +17,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 py-5 backdrop-blur-md">
-      <Container className={clsx("flex items-center justify-between px-4 md:px-6 lg:px-16 mx-auto", contentWrapper)}>
+      <div className={clsx("flex items-center justify-between px-4 md:px-6 lg:px-16 mx-auto", contentWrapper)}>
         <div className="w-auto md:w-1/3 flex items-center gap-2.5 justify-start md:gap-0">
           <MobileMenu />
           <Logo />
@@ -43,7 +42,7 @@ const Header = () => {
 
             {!user && <SignIn />}
         </div>
-      </Container>
+      </div>
     </header>
   );
 };

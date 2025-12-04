@@ -1,7 +1,7 @@
 "use client";
 import { Product } from "@/types";
 import { useEffect, useState } from "react";
-import Title from "@/components/user/Title";
+import Title from "@/ui/title";
 import CategoryList from "@/components/user/shop/CategoryList";
 import BrandList from "@/components/user/shop/BrandList";
 import PriceList from "@/components/user/shop/PriceList";

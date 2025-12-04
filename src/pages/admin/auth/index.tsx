@@ -1,6 +1,6 @@
 import PlaceholderImg from "@/assets/images/background/placeholder.svg";
 import LocalePicker from "@/components/common/locale-picker";
-import Logo from "@/components/common/logo";
+import Logo from "@/ui/logo";
 import SettingButton from "@/layouts/dashboard/components/setting-button";
 import LoginForm from "./login/login-form";
 import { LoginProvider } from "./login/providers/login-provider";
@@ -13,7 +13,7 @@ export default function LoginPage() {
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <div className="flex items-center gap-2 font-medium cursor-pointer">
-            <Logo size={28} />
+            <Logo />
             <span>TVT Admin</span>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import PlaceholderImg from "@/assets/images/background/placeholder.svg";
 import { Icon } from "@/components/icon";
-import Logo from "@/components/common/logo";
+import Logo from "@/ui/logo";
 import LocalePicker from "@/components/common/locale-picker";
 import SettingButton from "@/layouts/dashboard/components/setting-button";
 import { FullPageLoading } from "@/components/common/loading";
@@ -100,7 +100,7 @@ const ResetPassword = () => {
         <div className="flex flex-col  gap-4 p-6 md:p-10">
           <div className="flex justify-center gap-2 md:justify-start">
             <div className="flex items-center gap-2 font-medium cursor-pointer">
-              <Logo size={28} />
+              <Logo />
               <span>TVT Admin</span>
             </div>
           </div>

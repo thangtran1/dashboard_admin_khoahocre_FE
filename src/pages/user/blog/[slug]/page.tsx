@@ -1,5 +1,4 @@
-import Container from "@/components/user/Container";
-import Title from "@/components/user/Title";
+import Title from "@/ui/title";
 import {
   getFakeOtherBlogs,
   getFakeBlogBySlug,
@@ -17,7 +16,7 @@ const BlogDetailPage = () => {
   const otherBlogs = getFakeOtherBlogs(slug || "", 10);
   return (
     <div className="py-6">
-      <Container className="grid grid-cols-1 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
         <div className="md:col-span-3">
           <div className="border border-border rounded-lg overflow-hidden">
           {blogData?.image && (
@@ -111,8 +110,8 @@ const BlogDetailPage = () => {
   </div>
 </div>
 
-      </Container>
-      <Container className="mt-10">
+      </div>
+      <div className="mt-10">
         <div className="flex items-center justify-between border-t border-t-gray-200 pt-5">
           <Link
             to="/blog"
@@ -122,7 +121,7 @@ const BlogDetailPage = () => {
             Back to Blog
           </Link>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

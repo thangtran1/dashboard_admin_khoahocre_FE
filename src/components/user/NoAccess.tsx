@@ -4,9 +4,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/user/ui/card";
-import Logo from "./Logo";
-import { Separator } from "@/components/user/ui/separator";
+} from "@/ui/card";
+import Logo from "@/ui/logo";
+import { Separator } from "@/ui/separator";
 import { LoginStateEnum, useLoginStateContext } from "@/pages/admin/auth/login/providers/login-provider";
 import { Button } from "@/ui/button";
 

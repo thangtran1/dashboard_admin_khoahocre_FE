@@ -1,4 +1,4 @@
-import Title from "@/components/user/Title";
+import Title from "@/ui/title";
 import { Link } from "react-router";
 import { getFakeBrands } from "@/constants/fakeData";
 import { ArrowRight, GitCompareArrows, Headset, ShieldCheck, Truck } from "lucide-react";

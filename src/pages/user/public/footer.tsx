@@ -1,6 +1,6 @@
 import { ChevronUp, Facebook, Github, Linkedin, MessageCircleMore, Slack, Youtube } from "lucide-react";
 import FooterTop from "./footer-top";
-import Logo from "./Logo";
+import Logo from "@/ui/logo";
 import { Button, Input } from "antd";
 import { Link } from "react-router";
 import { contentWrapper } from "@/utils/use-always";
@@ -73,7 +73,6 @@ const Footer = () => {
   gap-6 lg:gap-16`}
 >
 
-  {/* Logo + Social */}
   <div className="space-y-5">
     <Logo />
 
@@ -168,7 +167,7 @@ const Footer = () => {
 </div>
       <div className="py-4 border-t text-center text-sm text-gray-600">
         <div>
-          © {new Date().getFullYear()} <Logo className="text-sm" />. All
+          © {new Date().getFullYear()} <Logo />. All
           rights reserved.
         </div>
       </div>

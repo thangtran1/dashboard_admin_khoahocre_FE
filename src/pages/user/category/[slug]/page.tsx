@@ -1,6 +1,6 @@
 "use client";
 
-import Title from "@/components/user/Title";
+import Title from "@/ui/title";
 import { getFakeCategories } from "@/constants/fakeData";
 import { useParams } from "react-router";
 import CategoryPage from "@/pages/user/category/page";

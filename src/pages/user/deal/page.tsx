@@ -1,6 +1,6 @@
 
 import ProductCard from "@/pages/user/public/ProductCard";
-import Title from "@/components/user/Title";
+import Title from "@/ui/title";
 import { getFakeDealProducts } from "@/constants/fakeData";
 
 const DealPage = async () => {

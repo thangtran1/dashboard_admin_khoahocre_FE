@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { contentWrapper } from "@/utils/use-always";
 
 import ScrollToTop from "@/utils/ScrollToTop";
-import Logo from "@/components/common/logo";
+import Logo from "@/ui/logo";
 import LocalePicker from "@/components/common/locale-picker";
 import UserBannerMarquee from "@/components/user/banner-marquee/user-banner";
 
@@ -30,8 +30,7 @@ export default function UserLayout() {
           )}
         >
           <div className="flex items-center gap-2 font-medium cursor-pointer">
-            <Logo size={28} />
-            <span>TVT Admin</span>
+            <Logo />
           </div>
 
           <div className="flex items-center">

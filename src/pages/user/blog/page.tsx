@@ -1,4 +1,4 @@
-import Title from "@/components/user/Title";
+import Title from "@/ui/title";
 import { getFakeBlogs } from "@/constants/fakeData";
 import { Calendar } from "lucide-react";
 import dayjs from "dayjs";
@@ -23,7 +23,6 @@ const BlogPage = async () => {
             )}
             <div className="bg-background p-3 border-t border-border">
               <div className="text-xs flex items-center gap-5">
-                {/* CATEGORY WITH BEAUTIFUL UNDERLINE ANIMATION */}
                 <div className="flex items-center relative cursor-pointer">
                   <p
                     className="

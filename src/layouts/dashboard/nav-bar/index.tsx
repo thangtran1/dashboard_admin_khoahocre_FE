@@ -1,6 +1,6 @@
 import { varFade } from "@/components/admin/animate/variants/fade";
 import { Icon } from "@/components/icon";
-import Logo from "@/components/common/logo";
+import Logo from "@/ui/logo";
 import { NavHorizontal, NavMini, NavVertical } from "@/components/admin/nav";
 import { down, useMediaQuery } from "@/hooks";
 import { useRouteToMenu } from "@/router/hooks";
@@ -50,7 +50,6 @@ export default function NavBar({ className }: Props) {
         <SheetContent side="left" className="[&>button]:hidden px-2">
           <div className="flex gap-2 px-2 h-[var(--layout-header-height)] items-center">
             <Logo />
-            <span className="text-xl font-bold text-primary">TVT Admin</span>
           </div>
           <ScrollArea className="h-full">
             <NavVertical data={menuList} />
@@ -89,13 +88,13 @@ export default function NavBar({ className }: Props) {
         )}
       >
         <div className="flex items-center gap-2">
-          <Logo />
+          <Logo hideText={true} />
           {themeLayout !== ThemeLayout.Mini && (
             <m.span
               className="text-xl font-bold text-primary sidebar-text-transition"
               variants={varFade().in}
             >
-              TVT Admin
+              Admin Dashboard
             </m.span>
           )}
         </div>
