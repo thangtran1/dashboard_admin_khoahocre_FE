@@ -4,6 +4,7 @@ import Title from "@/ui/title";
 import { getFakeCategories } from "@/constants/fakeData";
 import { useParams } from "react-router";
 import CategoryPage from "@/pages/user/category/page";
+import { Separator } from "@/ui/separator";
 
 const DetailCategory = async () => {
   const { slug } = useParams();  
@@ -15,14 +16,14 @@ const DetailCategory = async () => {
   const categoryName = currentSlug === "all" ? "Tất cả sản phẩm" : currentCategory?.name || slug;
 
   return (
-      <div>
-        <Title>
+      <div className="border-t">
+                    <Title className="text-lg my-5 uppercase tracking-wide">
           Sản phẩm theo danh mục:{" "}
           <span className="font-bold text-primary capitalize tracking-wide">
             {categoryName}
           </span>
         </Title>
-
+    
         <CategoryPage categories={categories} slug={currentSlug} />
       </div>
   );

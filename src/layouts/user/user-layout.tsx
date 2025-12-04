@@ -25,7 +25,7 @@ export default function UserLayout() {
       <div className="sticky top-0 left-0 z-50 py-1 bg-muted shadow">
         <div
           className={clsx(
-            "flex flex-row items-center justify-between gap-4 md:px-6 lg:px-16 mx-auto",
+            "flex flex-row items-center justify-between gap-4 px-4 sm:px-6 lg:px-0 mx-auto",
             contentWrapper
           )}
         >
@@ -45,11 +45,7 @@ export default function UserLayout() {
       <Header />
 
         <main
-          className={clsx(
-            "w-full flex flex-col gap-4 px-4 py-3 md:px-6 lg:px-16 mx-auto",
-            contentWrapper
-          )}
-        >
+          className={`${contentWrapper} py-8 px-4 sm:px-6 lg:px-0 border-t mx-auto`}>
           <Outlet />
         </main>
 

@@ -17,8 +17,9 @@ const Header = () => {
   const orders = []; // Fake orders array
 
   return (
-    <header className="sticky top-0 z-50 py-5 backdrop-blur-md">
-      <div className={clsx("flex items-center justify-between px-4 md:px-6 lg:px-16 mx-auto", contentWrapper)}>
+    <header className="sticky top-0 z-50 py-5 px-4 sm:px-6 lg:px-0 backdrop-blur-md">
+
+      <div className={clsx("flex items-center justify-between mx-auto", contentWrapper)}>
         <div className="w-auto md:w-1/3 flex items-center gap-2.5 justify-start md:gap-0">
           <MobileMenu />
           <Logo />

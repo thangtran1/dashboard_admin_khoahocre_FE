@@ -7,9 +7,10 @@ import { Link } from "react-router";
 const BlogPage = async () => {
   const blogs = await getFakeBlogs(10);
   return (
-    <div className="mb-10 lg:mb-20">
-      <Title>Blog</Title>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
+    <div className="mb-5 border-t">
+                  <Title className="text-lg mt-5 uppercase tracking-wide">
+                  Blog</Title>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-4">
         {blogs?.map((blog) => (
           <div key={blog?._id} className="rounded-lg overflow-hidden border border-border">
             {blog?.image && (

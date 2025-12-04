@@ -109,7 +109,7 @@ const Shop = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-5 border-t border-border">
+        <div className="flex flex-col md:flex-row gap-2 border-t border-border">
           <div className="md:sticky md:top-20 md:self-start md:h-[calc(100vh-160px)] md:overflow-y-auto md:min-w-64 pb-5 md:border-r border-r scrollbar-hide">
             <CategoryList
               categories={categories}
@@ -127,7 +127,7 @@ const Shop = () => {
             />
           </div>
 
-          <div className="flex-1 pt-5">
+          <div className="flex-1 pt-2">
   <div
     className={
       products.length > 0
@@ -143,7 +143,7 @@ const Shop = () => {
         </p>
       </div>
     ) : products.length > 0 ? (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 p-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 py-2">
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}

@@ -60,7 +60,7 @@ const CategoryPage = ({ categories, slug }: Props) => {
   const currentCategory = categories.find(cat => cat.slug?.current === currentSlug);
 
   return (
-    <div className="py-3 flex flex-row items-start gap-3">
+    <div className="pb-3 flex flex-row items-start gap-2">
       {/* Sidebar */}
       <div
         className={`rounded-lg shadow-sm border transition-all duration-300
@@ -115,7 +115,7 @@ const CategoryPage = ({ categories, slug }: Props) => {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6  rounded-lg shadow-sm border p-4"
+            className="mb-1 rounded-lg shadow-sm border p-3"
           >
             <h2 className="text-2xl font-bold text-primary capitalize mb-1">
               {currentCategory.name}
@@ -148,7 +148,7 @@ const CategoryPage = ({ categories, slug }: Props) => {
   animate={{ opacity: 1 }}
   transition={{ duration: 0.4 }}
   className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 
-             h-[100vh] overflow-y-auto p-2"
+             h-[100vh] overflow-y-auto py-2"
 >
   {products?.map((product, index) => (
     <AnimatePresence key={product._id}>

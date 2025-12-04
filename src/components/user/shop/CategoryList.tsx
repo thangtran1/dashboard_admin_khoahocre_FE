@@ -16,11 +16,11 @@ const CategoryList = ({
   setSelectedCategory,
 }: Props) => {
   return (
-    <div className="w-full p-5">
+    <div className="w-full py-3">
       <Title className="text-base font-bold">Product Categories</Title>
       <RadioGroup value={selectedCategory || ""} className="mt-2 space-y-1">
         {categories?.map((category) => (
-          <div
+          <div  
             onClick={() => {
               setSelectedCategory(category?.slug?.current as string);
             }}
