@@ -101,7 +101,7 @@ const Footer = () => {
         <li key={item.title}>
           <Link
             to={item.href}
-            className="text-gray-700 hover:text-shop_light_green transition font-medium"
+            className="!text-foreground hover:!text-primary transition font-medium"
           >
             {item.title}
           </Link>
@@ -118,7 +118,7 @@ const Footer = () => {
         <li key={item.title}>
           <Link
             to={item.href}
-            className="text-gray-700 hover:text-shop_light_green transition font-medium"
+            className="!text-foreground hover:!text-primary transition font-medium"
           >
             {item.title}
           </Link>

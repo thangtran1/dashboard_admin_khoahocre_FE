@@ -12,8 +12,8 @@ const HeaderMenu = () => {
         <Link
           key={item?.title}
           to={item?.href}
-          className={`text-base hover:text-primary hover:cursor-pointer relative group ${
-            pathname === item?.href && "text-primary"
+          className={`text-base !text-foreground hover:!text-primary hover:cursor-pointer relative group ${
+            pathname === item?.href && "!text-primary"
           }`}
         >
           {item?.title}

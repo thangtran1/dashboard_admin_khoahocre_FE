@@ -31,7 +31,7 @@ const Header = () => {
           {user && (
             <Link
               to={"/orders"}
-              className="group relative"
+              className="group relative !text-foreground hover:!text-primary"
             >
               <Logs />
               <span className="absolute -top-1 -right-1 text-white h-3.5 w-3.5 rounded-full text-xs font-semibold flex items-center justify-center">

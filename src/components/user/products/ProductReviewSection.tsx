@@ -33,7 +33,7 @@ const ReviewCard = ({ review, canReply, onReply }: { review: any; canReply: bool
   const [showReplies, setShowReplies] = useState(false);
   const [replyFormOpen, setReplyFormOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
-
+  const [showAllReplies, setShowAllReplies] = useState(false);
   const submitReply = () => {
     if (!replyText.trim()) return;
     onReply(review._id, replyText);
@@ -101,25 +101,31 @@ const ReviewCard = ({ review, canReply, onReply }: { review: any; canReply: bool
             </div>
           )}
 
-          {/* Replies */}
           {showReplies && replies.length > 0 && (
-            <div className="mt-2 ml-2 pl-3 border-l-2 border-border/50">
-              {replies.slice(0,3).map((r: any) => (
-                <div key={r._id} className="flex gap-3 py-3 border-t border-border/50 first:border-0">
-                  <img src="/images/avatar/avatar-default.png" className="w-8 h-8 rounded-full border object-cover" />
-                  <div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <span className="font-medium">{r.user.name}</span>
-                      {r.user.isAdmin && <span className="text-xs px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded flex items-center gap-1"><Shield size={10}/>Admin</span>}
-                      <span className="text-xs text-muted-foreground">{new Date(r.createdAt).toLocaleDateString("vi-VN")}</span>
-                    </div>
-                    <p className="text-sm mt-1">{r.comment}</p>
-                  </div>
-                </div>
-              ))}
-              {replies.length > 3 && <button className="text-xs text-primary mt-2">Xem thêm {replies.length - 3} phản hồi</button>}
-            </div>
-          )}
+  <div className="mt-2 ml-2 pl-3 border-l-2 border-border/50">
+    {(showAllReplies ? replies : replies.slice(0,3)).map((r: any) => (
+      <div key={r._id} className="flex gap-3 py-3 border-t border-border/50 first:border-0">
+        <img src="/images/avatar/avatar-default.png" className="w-8 h-8 rounded-full border object-cover" />
+        <div>
+          <div className="flex items-center gap-2 text-sm">
+            <span className="font-medium">{r.user.name}</span>
+            {r.user.isAdmin && <span className="text-xs px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded flex items-center gap-1"><Shield size={10}/>Admin</span>}
+            <span className="text-xs text-muted-foreground">{new Date(r.createdAt).toLocaleDateString("vi-VN")}</span>
+          </div>
+          <p className="text-sm mt-1">{r.comment}</p>
+        </div>
+      </div>
+    ))}
+    {replies.length > 3 && !showAllReplies && (
+      <button
+        onClick={() => setShowAllReplies(true)}
+        className="text-xs text-primary mt-2"
+      >
+        Xem thêm {replies.length - 3} phản hồi
+      </button>
+    )}
+  </div>
+)}
         </div>
       </div>
     </div>

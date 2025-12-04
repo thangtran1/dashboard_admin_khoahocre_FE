@@ -1,7 +1,7 @@
 import Title from "@/ui/title";
 import { Link } from "react-router";
 import { fakeCategories } from "@/constants/fakeData";
-import { ArrowRight } from "lucide-react";
+import SeeMore from "@/ui/see-more";
 
 const CategoryProduct = async () => {
   return (
@@ -10,12 +10,7 @@ const CategoryProduct = async () => {
       <Title className="text-lg font-semibold">
         Danh mục phổ biến
       </Title>
-      <Link
-            to={"/category-product"}
-            className="text-sm text-blue-600 font-medium hover:underline inline-flex items-center"
-          >
-            Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
-          </Link>
+      <SeeMore to="/category-product">Xem Thêm</SeeMore>
       </div>
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

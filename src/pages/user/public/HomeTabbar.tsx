@@ -1,9 +1,8 @@
 "use client";
 
-import { Link } from "react-router";
-import { ArrowRight } from "lucide-react";
 import { productType } from "@/constants/data";
 import { Tabs } from "antd";
+import SeeMore from "@/ui/see-more";
 
 interface Props {
   selectedTab: string;
@@ -25,12 +24,8 @@ const HomeTabbar = ({ selectedTab, onTabSelect }: Props) => {
       />
     </div>
   
-    <Link
-      to="/shop"
-      className="text-sm text-primary font-medium hover:underline inline-flex items-center whitespace-nowrap"
-    >
-      Xem Thêm <ArrowRight className="w-4 h-4 ml-1" />
-    </Link>
+    <SeeMore to="/shop">Xem Thêm</SeeMore>
+     
   </div>
   
   );

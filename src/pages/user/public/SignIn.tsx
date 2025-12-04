@@ -1,9 +1,9 @@
-import { LogOut, Shield, User, UserCircle } from "lucide-react";
+import { LogOut, Shield, UserCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserToken } from "@/store/userStore";
 import { toast } from "sonner";
-import { replace } from "react-router";
+import { Link, replace } from "react-router";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import userApi from "@/api/services/userApi";
 import { useTranslation } from "react-i18next";
@@ -44,12 +44,12 @@ const SignIn = () => {
   return (
         <div className="md:flex items-center gap-1">
           {!accessToken ? (
-            <div
-              className="flex items-center gap-1 cursor-pointer"
-              onClick={() => router.push("/login")}
+            <Link
+              to="/login"
+              className="flex items-center gap-1 cursor-pointer !text-foreground hover:!text-primary"
             >
               <span className="font-semibold">Đăng Nhập</span>
-            </div>
+            </Link>
           ) : (
             <div
               className="relative group"
@@ -60,15 +60,13 @@ const SignIn = () => {
                 {profile?.avatar ? (
                   <img
                     src={`${import.meta.env.VITE_API_URL}${profile.avatar}`}
-                    className="w-6 h-6 rounded-full object-cover border border-gray-200"
+                    className="w-6 h-6 rounded-full object-cover border border-border"
                   />
                 ) : (
-                  <UserCircle className="w-5 h-5" />
+                  <UserCircle className="w-5 h-5 !text-foreground hover:!text-primary" />
                 )}
 
-                <span className="hidden md:block font-medium text-sm">
-                  {profile?.name || "Hồ sơ"}
-                </span>
+                <span className="hidden md:block font-medium text-sm !text-foreground hover:!text-primary">{profile?.name || "Hồ sơ"}</span>
               </div>
 
               {dropdownOpen && (
@@ -111,7 +109,7 @@ const SignIn = () => {
                     className="flex justify-between items-center w-full px-4 py-2 text-sm hover:bg-primary transition"
                   >
                     <span>Hồ sơ</span>
-                    <UserCircle className="w-4 h-4" />
+                    <UserCircle className="w-4 h-4 !text-foreground hover:!text-primary" />
                   </button>
 
                   {/* Logout */}
