@@ -3,9 +3,6 @@
 import PriceFormatter from "@/components/user/PriceFormatter";
 import QuantityButtons from "@/components/user/QuantityButtons";
 import Title from "@/ui/title";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
-import { Label } from "@/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
 import { Separator } from "@/ui/separator";
 import {
   Tooltip,
@@ -37,8 +34,6 @@ const CartPage = () => {
   } = useStore();
   const [loading, setLoading] = useState(false);
   const groupedItems = useStore((state) => state.getGroupedItems());
-  const [addresses, setAddresses] = useState<any[] | null>(null);
-  const [selectedAddress, setSelectedAddress] = useState<any | null>(null);
 
   const handleResetCart = () => {
     const confirmed = window.confirm(
@@ -198,7 +193,7 @@ const CartPage = () => {
                       </div>
   
                       <Button
-                        className="w-full rounded-full font-semibold"
+                        className="w-full cursor-pointer rounded-full font-semibold"
                         size="lg"
                         disabled={loading}
                         onClick={handleCheckout}
@@ -207,55 +202,6 @@ const CartPage = () => {
                       </Button>
                     </div>
                   </div>
-  
-                  {addresses && (
-                    <div className="rounded-md mt-5">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Delivery Address</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <RadioGroup
-                            defaultValue={addresses
-                              ?.find((addr: any) => addr.default)
-                              ?._id.toString()}
-                          >
-                            {addresses?.map((address: any) => (
-                              <div
-                                key={address?._id}
-                                onClick={() => setSelectedAddress(address)}
-                                className={`flex items-center space-x-2 mb-4 cursor-pointer ${
-                                  selectedAddress?._id?.toString() ===
-                                    address?._id?.toString() &&
-                                  "text-shop_dark_green"
-                                }`}
-                              >
-                                <RadioGroupItem
-                                  value={address?._id.toString()}
-                                />
-                                <Label
-                                  htmlFor={`address-${address?._id}`}
-                                  className="grid gap-1.5 flex-1"
-                                >
-                                  <span className="font-semibold">
-                                    {address?.name}
-                                  </span>
-                                  <span className="text-sm text-black/60">
-                                    {address.address}, {address.city},{" "}
-                                    {address.state} {address.zip}
-                                  </span>
-                                </Label>
-                              </div>
-                            ))}
-                          </RadioGroup>
-  
-                          <Button variant="outline" className="w-full mt-4">
-                            Add New Address
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  )}
                 </div>
               </div>
   

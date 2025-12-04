@@ -27,6 +27,9 @@ import WishListPage from "@/pages/user/wishlist/page";
 import CartPage from "@/pages/user/cart/page";
 import SingleProductPage from "@/pages/user/product/[slug]/page";
 import DetailCategory from "@/pages/user/category/[slug]/page";
+import CheckoutPage from "@/pages/user/checkout/page";
+import SuccessPage from "@/pages/user/success/page";
+import OrdersPage from "@/pages/user/orders/page";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -158,7 +161,19 @@ export default function Router() {
         children: [
             { path: ":slug", element: <DetailCategory /> },
         ],
-    }
+    },
+    {
+      path: "checkout",
+      element: <CheckoutPage />,
+    },
+    {
+      path: "success",
+      element: <SuccessPage />,
+    },
+    {
+      path: "orders",
+      element: <OrdersPage />,
+    },
     ],
   };
 

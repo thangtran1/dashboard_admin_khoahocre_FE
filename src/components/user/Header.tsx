@@ -9,6 +9,7 @@ import FavoriteButton from "./FavoriteButton";
 import SignIn from "@/pages/user/public/SignIn";
 import clsx from "clsx";
 import { contentWrapper } from "@/utils/use-always";
+import OrderIcon from "./OrderIcon";
 
 const Header = () => {
   // Fake user state - có thể thay đổi thành true để test UI với user đăng nhập
@@ -27,6 +28,7 @@ const Header = () => {
           <SearchBar />
           <CartIcon />
           <FavoriteButton />
+          <OrderIcon />
 
           {user && (
             <Link
