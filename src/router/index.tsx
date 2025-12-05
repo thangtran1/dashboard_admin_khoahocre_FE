@@ -30,6 +30,10 @@ import DetailCategory from "@/pages/user/category/[slug]/page";
 import CheckoutPage from "@/pages/user/checkout/page";
 import SuccessPage from "@/pages/user/success/page";
 import OrdersPage from "@/pages/user/orders/page";
+import TermsPage from "@/pages/user/public/terms";
+import AboutUs from "@/pages/user/public/abouts";
+import FAQs from "@/pages/user/public/faqs";
+import Help from "@/pages/user/public/help";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -173,6 +177,22 @@ export default function Router() {
       {
         path: "orders",
         element: <OrdersPage />,
+      },
+      {
+        path: "terms",
+        element: <TermsPage />,
+      },
+      {
+        path: "about",
+        element: <AboutUs />,
+      },
+      {
+        path: "faqs",
+        element: <FAQs />,
+      },
+      {
+        path: "help",
+        element: <Help />,
       },
     ],
   };

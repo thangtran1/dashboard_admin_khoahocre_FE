@@ -2,93 +2,83 @@ import { Button, Col, Input, Row, Typography, Form } from "antd";
 import { useRouter } from "@/router/hooks";
 import Logo from "@/ui/logo";
 import {
+    Headphones,
     Mail,
     Phone,
     MapPin,
     Clock,
+    MessageCircle,
+    FileText,
+    ShoppingBag,
+    Truck,
+    CreditCard,
+    Shield,
     Send,
-    MessageSquare,
-    Globe,
-    Facebook,
-    Youtube,
-    Instagram,
-    ArrowRight,
-    CheckCircle,
-    Headphones
+    ArrowRight
 } from "lucide-react";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
-import { toast } from "sonner";
 
 const { Title, Paragraph, Text } = Typography;
 
-const contactInfo = [
+const contactMethods = [
     {
         icon: Phone,
         title: "Hotline",
         value: "1900 1234 56",
-        subValue: "Miễn phí cuộc gọi",
-        color: "bg-green-500/10 text-green-600",
-        hoverColor: "hover:bg-green-500/20"
+        desc: "Miễn phí cuộc gọi",
+        color: "bg-green-500/10 text-green-600"
     },
     {
         icon: Mail,
         title: "Email",
         value: "support@shopcart.vn",
-        subValue: "Phản hồi trong 24h",
-        color: "bg-blue-500/10 text-blue-600",
-        hoverColor: "hover:bg-blue-500/20"
+        desc: "Phản hồi trong 24h",
+        color: "bg-blue-500/10 text-blue-600"
+    },
+    {
+        icon: MessageCircle,
+        title: "Live Chat",
+        value: "Chat trực tuyến",
+        desc: "Hỗ trợ 24/7",
+        color: "bg-purple-500/10 text-purple-600"
     },
     {
         icon: MapPin,
         title: "Địa chỉ",
-        value: "123 Nguyễn Huệ, Quận 1",
-        subValue: "TP. Hồ Chí Minh, Việt Nam",
-        color: "bg-orange-500/10 text-orange-600",
-        hoverColor: "hover:bg-orange-500/20"
-    },
-    {
-        icon: Clock,
-        title: "Giờ làm việc",
-        value: "8:00 - 21:00",
-        subValue: "Thứ 2 - Chủ nhật",
-        color: "bg-purple-500/10 text-purple-600",
-        hoverColor: "hover:bg-purple-500/20"
+        value: "123 Nguyễn Huệ, Q.1, TP.HCM",
+        desc: "Văn phòng chính",
+        color: "bg-orange-500/10 text-orange-600"
     },
 ];
 
-const socialLinks = [
-    { icon: Facebook, name: "Facebook", url: "https://facebook.com", color: "bg-blue-600" },
-    { icon: Youtube, name: "Youtube", url: "https://youtube.com", color: "bg-red-600" },
-    { icon: Instagram, name: "Instagram", url: "https://instagram.com", color: "bg-pink-600" },
-    { icon: Globe, name: "Website", url: "https://vanthang.io.vn", color: "bg-primary" },
+const helpCategories = [
+    { icon: ShoppingBag, title: "Đặt hàng", desc: "Hướng dẫn mua sắm", link: "/faqs?category=order" },
+    { icon: Truck, title: "Vận chuyển", desc: "Theo dõi đơn hàng", link: "/faqs?category=shipping" },
+    { icon: CreditCard, title: "Thanh toán", desc: "Phương thức thanh toán", link: "/faqs?category=payment" },
+    { icon: FileText, title: "Đổi trả", desc: "Chính sách hoàn tiền", link: "/faqs?category=return" },
+    { icon: Shield, title: "Tài khoản", desc: "Quản lý thông tin", link: "/faqs?category=account" },
+    { icon: Headphones, title: "Hỗ trợ khác", desc: "Câu hỏi thường gặp", link: "/faqs" },
 ];
 
-const quickLinks = [
-    { label: "Câu hỏi thường gặp", link: "/faqs" },
-    { label: "Trung tâm hỗ trợ", link: "/help" },
-    { label: "Điều khoản sử dụng", link: "/terms" },
-    { label: "Về chúng tôi", link: "/about" },
+const workingHours = [
+    { day: "Thứ 2 - Thứ 6", hours: "8:00 - 21:00" },
+    { day: "Thứ 7", hours: "9:00 - 18:00" },
+    { day: "Chủ nhật", hours: "9:00 - 17:00" },
 ];
 
-const features = [
-    "Phản hồi nhanh chóng trong 24h",
-    "Đội ngũ hỗ trợ chuyên nghiệp",
-    "Giải đáp mọi thắc mắc",
-    "Hỗ trợ đa kênh 24/7"
-];
-
-export default function Contact() {
+export default function Help() {
     const navigate = useRouter();
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = () => {
         setLoading(true);
+        // Simulate API call
         setTimeout(() => {
             setLoading(false);
-            toast.success("Tin nhắn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm nhất.");
             form.resetFields();
+            // Show success message
         }, 1500);
     };
 
@@ -101,34 +91,74 @@ export default function Contact() {
                     <div className="rounded-xl p-4 border border-border bg-gradient-to-r from-primary/10 to-primary/5 mb-6">
                         <div className="flex items-center gap-2 mb-2">
                             <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                                <MessageSquare className="w-8 h-8 text-primary" />
+                                <Headphones className="w-8 h-8 text-primary" />
                             </div>
                             <div>
                                 <Title level={2} className="!text-primary font-extrabold mb-0">
-                                    Liên Hệ Với Chúng Tôi
+                                    Trung Tâm Hỗ Trợ
                                 </Title>
                                 <Paragraph className="!text-muted-foreground mb-0">
-                                    Chúng tôi luôn sẵn lòng lắng nghe và hỗ trợ bạn
+                                    Chúng tôi luôn sẵn sàng giúp đỡ bạn
                                 </Paragraph>
                             </div>
                         </div>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                            {features.map((feature) => (
-                                <div key={feature} className="flex items-center gap-2 text-sm">
-                                    <CheckCircle className="w-4 h-4 text-green-500" />
-                                    <Text className="!text-muted-foreground">{feature}</Text>
-                                </div>
+                    </div>
+
+                    {/* Contact Methods */}
+                    <div className="mb-6">
+                        <Title level={4} className="font-bold mb-4">
+                            Liên Hệ Với Chúng Tôi
+                        </Title>
+                        <Row gutter={[16, 16]}>
+                            {contactMethods.map(({ icon: Icon, title, value, desc, color }) => (
+                                <Col xs={12} sm={6} key={title}>
+                                    <div className="p-4 rounded-xl border border-border hover:border-primary/30 hover:shadow-md transition-all cursor-pointer h-full">
+                                        <div className={`w-12 h-12 rounded-full ${color} flex items-center justify-center mb-3`}>
+                                            <Icon className="w-6 h-6" />
+                                        </div>
+                                        <Text className="font-semibold block">{title}</Text>
+                                        <Text className="text-primary font-medium block text-sm">{value}</Text>
+                                        <Text className="!text-muted-foreground text-xs">{desc}</Text>
+                                    </div>
+                                </Col>
                             ))}
-                        </div>
+                        </Row>
+                    </div>
+
+                    {/* Help Categories */}
+                    <div className="mb-6">
+                        <Title level={4} className="font-bold mb-4">
+                            Bạn Cần Hỗ Trợ Về?
+                        </Title>
+                        <Row gutter={[16, 16]}>
+                            {helpCategories.map(({ icon: Icon, title, desc, link }) => (
+                                <Col xs={12} sm={8} key={title}>
+                                    <div
+                                        className="p-4 rounded-xl border border-border hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                                        onClick={() => navigate.push(link)}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                                                <Icon className="w-5 h-5 text-primary group-hover:text-white" />
+                                            </div>
+                                            <div>
+                                                <Text className="font-semibold block">{title}</Text>
+                                                <Text className="!text-muted-foreground text-xs">{desc}</Text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Col>
+                            ))}
+                        </Row>
                     </div>
 
                     {/* Contact Form */}
                     <div className="rounded-xl p-6 border border-border">
-                        <Title level={4} className="font-bold mb-2 flex items-center gap-2">
+                        <Title level={4} className="font-bold mb-4 flex items-center gap-2">
                             <Send className="w-5 h-5 text-primary" />
-                            Gửi Tin Nhắn Cho Chúng Tôi
+                            Gửi Yêu Cầu Hỗ Trợ
                         </Title>
-                        <Paragraph className="!text-muted-foreground mb-6">
+                        <Paragraph className="!text-muted-foreground mb-4">
                             Điền thông tin bên dưới, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.
                         </Paragraph>
 
@@ -144,7 +174,7 @@ export default function Contact() {
                                         label="Họ và tên"
                                         rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
                                     >
-                                        <Input size="large" placeholder="Nhập họ và tên của bạn" className="rounded-lg" />
+                                        <Input size="large" placeholder="Nhập họ và tên" className="rounded-lg" />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={12}>
@@ -174,24 +204,24 @@ export default function Contact() {
                                 label="Tiêu đề"
                                 rules={[{ required: true, message: "Vui lòng nhập tiêu đề" }]}
                             >
-                                <Input size="large" placeholder="Nhập tiêu đề tin nhắn" className="rounded-lg" />
+                                <Input size="large" placeholder="Nhập tiêu đề yêu cầu" className="rounded-lg" />
                             </Form.Item>
 
                             <Form.Item
                                 name="message"
-                                label="Nội dung tin nhắn"
+                                label="Nội dung"
                                 rules={[{ required: true, message: "Vui lòng nhập nội dung" }]}
                             >
                                 <TextArea
-                                    rows={5}
-                                    placeholder="Nhập nội dung tin nhắn của bạn..."
+                                    rows={4}
+                                    placeholder="Mô tả chi tiết vấn đề của bạn..."
                                     className="rounded-lg"
                                 />
                             </Form.Item>
 
                             <div className="flex justify-end gap-3">
                                 <Button size="large" onClick={() => form.resetFields()} className="rounded-lg">
-                                    Xóa nội dung
+                                    Đặt lại
                                 </Button>
                                 <Button
                                     type="primary"
@@ -201,65 +231,51 @@ export default function Contact() {
                                     icon={<Send className="w-4 h-4" />}
                                     className="rounded-lg"
                                 >
-                                    Gửi tin nhắn
+                                    Gửi yêu cầu
                                 </Button>
                             </div>
                         </Form>
-                    </div>
-
-                    {/* Map Section */}
-                    <div className="rounded-xl p-4 border border-border mt-6">
-                        <Title level={4} className="font-bold mb-4 flex items-center gap-2">
-                            <MapPin className="w-5 h-5 text-primary" />
-                            Vị Trí Của Chúng Tôi
-                        </Title>
-                        <div className="rounded-xl overflow-hidden border border-border">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.896245889863!2d108.20216637470624!3d16.054407884625524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792d2b4ff%3A0xa084d0b12304c3d!2zSMOibiBDaOG7hyDEkOG7qWMgRGFuYW5nLCBWaWV0bmFt!5e0!3m2!1svi!2s!4v1701788400000!5m2!1svi!2s
-"
-                                width="100%"
-                                height="300"
-                                style={{ border: 0 }}
-                                allowFullScreen
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                title="Google Maps"
-                            />
-                        </div>
                     </div>
                 </Col>
 
                 {/* Sidebar */}
                 <Col xs={24} lg={8}>
                     <div className="sticky top-4 space-y-4">
-                        {/* Social Links */}
+                        {/* Working Hours */}
                         <div className="border border-border p-4 rounded-2xl">
-                            <Title level={4} className="font-bold mb-4">
-                                Kết Nối Với Chúng Tôi
-                            </Title>
-                            <div className="grid grid-cols-2 gap-3">
-                                {socialLinks.map(({ icon: Icon, name, url, color }) => (
-                                    <a
-                                        key={name}
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`flex items-center gap-2 p-3 rounded-lg ${color} text-white hover:opacity-90 transition-all`}
-                                    >
-                                        <Icon className="w-5 h-5" />
-                                        <Text className="text-white font-medium text-sm">{name}</Text>
-                                    </a>
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                    <Clock className="w-5 h-5 text-primary" />
+                                </div>
+                                <Title level={4} className="font-bold mb-0">
+                                    Giờ Làm Việc
+                                </Title>
+                            </div>
+                            <div className="space-y-2">
+                                {workingHours.map(({ day, hours }) => (
+                                    <div key={day} className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
+                                        <Text>{day}</Text>
+                                        <Text className="font-medium text-primary">{hours}</Text>
+                                    </div>
                                 ))}
                             </div>
+                            <Paragraph className="!text-muted-foreground text-sm mt-4 mb-0">
+                                * Hotline và Live Chat hoạt động 24/7 để hỗ trợ bạn.
+                            </Paragraph>
                         </div>
 
                         {/* Quick Links */}
                         <div className="border border-border p-4 rounded-2xl">
                             <Title level={4} className="font-bold mb-4">
-                                Liên Kết Hữu Ích
+                                Liên Kết Nhanh
                             </Title>
                             <div className="space-y-2">
-                                {quickLinks.map(({ label, link }) => (
+                                {[
+                                    { label: "Câu hỏi thường gặp", link: "/faqs" },
+                                    { label: "Điều khoản sử dụng", link: "/terms" },
+                                    { label: "Chính sách bảo mật", link: "/privacy" },
+                                    { label: "Về chúng tôi", link: "/about" },
+                                ].map(({ label, link }) => (
                                     <div
                                         key={label}
                                         className="p-3 bg-muted/30 rounded-lg hover:bg-primary/10 cursor-pointer transition-all flex items-center justify-between group"
@@ -270,28 +286,6 @@ export default function Contact() {
                                     </div>
                                 ))}
                             </div>
-                        </div>
-
-                        {/* Support CTA */}
-                        <div className="border border-primary bg-primary/5 p-6 rounded-2xl text-center">
-                            <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
-                                <Headphones className="w-7 h-7 text-primary" />
-                            </div>
-                            <Title level={4} className="font-bold mb-2">
-                                Cần Hỗ Trợ Ngay?
-                            </Title>
-                            <Paragraph className="!text-muted-foreground mb-4">
-                                Gọi ngay hotline để được tư vấn miễn phí
-                            </Paragraph>
-                            <Button
-                                type="primary"
-                                size="large"
-                                icon={<Phone className="w-4 h-4" />}
-                                className="rounded-lg"
-                                block
-                            >
-                                1900 1234 56
-                            </Button>
                         </div>
 
                         {/* Newsletter */}

@@ -25,11 +25,11 @@ const Footer = () => {
   ];
 
   const categoriesData = [
-    { title: t("footer.categories"), href: "mobiles" },
-    { title: t("footer.appliances"), href: "appliances" },
-    { title: t("footer.smartphones"), href: "smartphones" },
-    { title: t("footer.airConditioners"), href: "air-conditioners" },
-    { title: t("footer.washingMachine"), href: "washing-machine" },
+    { title: t("footer.categories"), href: "category" },
+    { title: t("footer.laptops"), href: "category/laptops" },
+    { title: t("footer.smartphones"), href: "category/smartphones" },
+    { title: t("footer.gaming"), href: "category/gaming" },
+    { title: t("footer.tablets"), href: "category/tablets" },
   ];
 
   useEffect(() => {
