@@ -7,22 +7,25 @@ import { Link } from "react-router";
 const BlogPage = async () => {
   const blogs = await getFakeBlogs(10);
   return (
-    <div className="mb-5 border-t">
-                  <Title className="text-lg mt-5 uppercase tracking-wide">
-                  Blog</Title>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-4">
+    <div >
+      <Title className="text-lg uppercase tracking-wide">
+        Blog</Title>
+      <div className="grid grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mt-2">
         {blogs?.map((blog) => (
-          <div key={blog?._id} className="rounded-lg overflow-hidden border border-border">
+          <div
+            key={blog?._id}
+            className="rounded-lg group overflow-hidden border border-border"
+          >
             {blog?.image && (
-              <Link to={`/blog/${blog?.slug?.current}`}>
+              <Link to={`/blog/${blog?.slug?.current}`} className="block">
                 <img
                   src={blog?.image?.asset?.url || "/images/products/product_1.png"}
                   alt="blogImage"
-                  className="w-full max-h-80 object-cover"
+                  className="w-full h-64 object-cover"
                 />
               </Link>
             )}
-            <div className="bg-background p-3 border-t border-border">
+            <div className="p-3 border-t border-border">
               <div className="text-xs flex items-center gap-5">
                 <div className="flex items-center relative cursor-pointer">
                   <p

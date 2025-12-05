@@ -19,9 +19,8 @@ const ProductCharacteristics = async ({
       accordion
       expandIcon={({ isActive }) => (
         <ChevronDownIcon
-          className={`size-4 text-muted-foreground transition-transform duration-200 ${
-            isActive ? "rotate-180" : ""
-          }`}
+          className={`size-4 text-muted-foreground transition-transform duration-200 ${isActive ? "rotate-180" : ""
+            }`}
         />
       )}
       className="bg-white border border-border rounded-md shadow-sm"

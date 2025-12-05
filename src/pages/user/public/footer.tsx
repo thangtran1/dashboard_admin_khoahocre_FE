@@ -48,27 +48,27 @@ const Footer = () => {
 
       {/* Floating Social Buttons */}
       <div className="fixed bottom-16 left-6 flex flex-col gap-2 z-50">
-<a
-  href="https://facebook.com"
-  className="w-12 h-12 rounded-full !bg-primary flex items-center justify-center shadow-lg"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <Facebook size={20} className="text-white" />
-</a>
-<a
-  href="https://zalo.me"
-  className="w-12 h-12 rounded-full !bg-primary flex items-center justify-center shadow-lg"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <MessageCircleMore size={20} className="text-white" />
-</a>
-</div>
+        <a
+          href="https://facebook.com"
+          className="w-12 h-12 rounded-full !bg-primary flex items-center justify-center shadow-lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Facebook size={20} className="text-white" />
+        </a>
+        <a
+          href="https://zalo.me"
+          className="w-12 h-12 rounded-full !bg-primary flex items-center justify-center shadow-lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MessageCircleMore size={20} className="text-white" />
+        </a>
+      </div>
 
       {/* Footer Content */}
       <div className={`${contentWrapper} py-8 px-4 sm:px-6 lg:px-0 border-t mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-16`}>
-        
+
         {/* Logo + Description + Social */}
         <div className="space-y-3">
           <Logo />
@@ -117,30 +117,30 @@ const Footer = () => {
         </div>
 
         {/* Scroll To Top */}
-        
-{scrollPercent > 0 && (
-  <button
-    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-    className="fixed bottom-25 right-8 z-50 w-14 h-14 rounded-full bg-background border border-border text-primary hover:bg-primary hover:text-white transition flex items-center justify-center"
-  >
-    <svg
-      className="absolute w-full h-full rotate-[-90deg]"
-      viewBox="0 0 50 50"
-    >
-      <circle
-        cx="25"
-        cy="25"
-        r={radius}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeDasharray={circumference}
-        strokeDashoffset={strokeDashoffset}
-      />
-    </svg>
-    <ChevronUp size={22} className="relative z-10" />
-  </button>
-)}
+
+        {scrollPercent > 0 && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-25 right-8 z-50 w-14 h-14 rounded-full bg-background border border-border text-primary hover:bg-primary hover:text-white transition flex items-center justify-center"
+          >
+            <svg
+              className="absolute w-full h-full rotate-[-90deg]"
+              viewBox="0 0 50 50"
+            >
+              <circle
+                cx="25"
+                cy="25"
+                r={radius}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray={circumference}
+                strokeDashoffset={strokeDashoffset}
+              />
+            </svg>
+            <ChevronUp size={22} className="relative z-10" />
+          </button>
+        )}
 
       </div>
 

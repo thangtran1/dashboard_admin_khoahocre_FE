@@ -92,7 +92,7 @@ const NoProductAvailable = ({
         <p className="text-sm text-foreground mb-4">
           Bạn có thể thử những gợi ý sau:
         </p>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Button
             variant="outline"
@@ -102,7 +102,7 @@ const NoProductAvailable = ({
             <RefreshCw className="w-4 h-4" />
             Làm mới trang
           </Button>
-          
+
           <Link to="/shop">
             <Button
               variant="outline"

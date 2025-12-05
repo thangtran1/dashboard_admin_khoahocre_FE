@@ -26,9 +26,8 @@ const ImageView = ({ images = [], isStock }: Props) => {
           <img
             src={activeImage?.asset?.url}
             alt="productImage"
-            className={`w-full max-h-[350px] min-h-[300px] object-contain group-hover:scale-110 rounded-md ${
-              isStock === 0 ? "opacity-50" : ""
-            }`}
+            className={`w-full max-h-[350px] min-h-[300px] object-contain group-hover:scale-110 rounded-md ${isStock === 0 ? "opacity-50" : ""
+              }`}
           />
         </m.div>
       </AnimatePresence>

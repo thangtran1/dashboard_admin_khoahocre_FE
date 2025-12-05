@@ -9,7 +9,7 @@ import { Textarea } from "@/ui/textarea";
 // ------------------- Stars Component -------------------
 const Stars = ({ value, size = 14, interactive, onRate, hover, onHover }: any) => (
   <div className="flex gap-0.5">
-    {[1,2,3,4,5].map(s => (
+    {[1, 2, 3, 4, 5].map(s => (
       <button
         key={s}
         type="button"
@@ -80,7 +80,7 @@ const ReviewCard = ({ review, canReply, onReply }: { review: any; canReply: bool
             )}
             {replies.length > 0 && (
               <button onClick={() => setShowReplies(!showReplies)} className="text-muted-foreground flex items-center gap-1">
-                {showReplies ? <ChevronUp size={14}/> : <ChevronDown size={14}/>} {replies.length} phản hồi
+                {showReplies ? <ChevronUp size={14} /> : <ChevronDown size={14} />} {replies.length} phản hồi
               </button>
             )}
           </div>
@@ -96,36 +96,36 @@ const ReviewCard = ({ review, canReply, onReply }: { review: any; canReply: bool
                 className="flex-1 px-3 py-2 text-sm border rounded-lg bg-muted"
               />
               <button onClick={submitReply} className="px-3 py-2 bg-primary text-primary-foreground rounded-lg">
-                <Send size={14}/>
+                <Send size={14} />
               </button>
             </div>
           )}
 
           {showReplies && replies.length > 0 && (
-  <div className="mt-2 ml-2 pl-3 border-l-2 border-border/50">
-    {(showAllReplies ? replies : replies.slice(0,3)).map((r: any) => (
-      <div key={r._id} className="flex gap-3 py-3 border-t border-border/50 first:border-0">
-        <img src="/images/avatar/avatar-default.png" className="w-8 h-8 rounded-full border object-cover" />
-        <div>
-          <div className="flex items-center gap-2 text-sm">
-            <span className="font-medium">{r.user.name}</span>
-            {r.user.isAdmin && <span className="text-xs px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded flex items-center gap-1"><Shield size={10}/>Admin</span>}
-            <span className="text-xs text-muted-foreground">{new Date(r.createdAt).toLocaleDateString("vi-VN")}</span>
-          </div>
-          <p className="text-sm mt-1">{r.comment}</p>
-        </div>
-      </div>
-    ))}
-    {replies.length > 3 && !showAllReplies && (
-      <button
-        onClick={() => setShowAllReplies(true)}
-        className="text-xs text-primary mt-2"
-      >
-        Xem thêm {replies.length - 3} phản hồi
-      </button>
-    )}
-  </div>
-)}
+            <div className="mt-2 ml-2 pl-3 border-l-2 border-border/50">
+              {(showAllReplies ? replies : replies.slice(0, 3)).map((r: any) => (
+                <div key={r._id} className="flex gap-3 py-3 border-t border-border/50 first:border-0">
+                  <img src="/images/avatar/avatar-default.png" className="w-8 h-8 rounded-full border object-cover" />
+                  <div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="font-medium">{r.user.name}</span>
+                      {r.user.isAdmin && <span className="text-xs px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded flex items-center gap-1"><Shield size={10} />Admin</span>}
+                      <span className="text-xs text-muted-foreground">{new Date(r.createdAt).toLocaleDateString("vi-VN")}</span>
+                    </div>
+                    <p className="text-sm mt-1">{r.comment}</p>
+                  </div>
+                </div>
+              ))}
+              {replies.length > 3 && !showAllReplies && (
+                <button
+                  onClick={() => setShowAllReplies(true)}
+                  className="text-xs text-primary mt-2"
+                >
+                  Xem thêm {replies.length - 3} phản hồi
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -150,7 +150,7 @@ export default function ProductReviewSection({ reviews, productName }: any) {
 
   // Derived data
   const avgRating = allReviews.length ? (allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length).toFixed(1) : "0";
-  const counts = [5,4,3,2,1].map(s => ({ s, c: allReviews.filter(r => r.rating === s).length }));
+  const counts = [5, 4, 3, 2, 1].map(s => ({ s, c: allReviews.filter(r => r.rating === s).length }));
   const labels = ["", "Rất tệ 😞", "Tệ 😕", "Bình thường 😐", "Tốt 😊", "Tuyệt vời 🤩"];
 
   // Submit new review
@@ -188,7 +188,7 @@ export default function ProductReviewSection({ reviews, productName }: any) {
   const addReply = (id: string, text: string) => {
     setAllReviews(allReviews.map(r => r._id === id ? {
       ...r,
-      replies: [...(r.replies||[]), {
+      replies: [...(r.replies || []), {
         _id: `rp_${Date.now()}`,
         comment: text,
         createdAt: new Date(),
@@ -213,7 +213,7 @@ export default function ProductReviewSection({ reviews, productName }: any) {
             <div key={s} className="flex items-center gap-2 text-sm">
               <span className="w-6">{s}⭐</span>
               <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-amber-500 rounded-full" style={{width: allReviews.length ? `${c/allReviews.length*100}%` : 0}} />
+                <div className="h-full bg-amber-500 rounded-full" style={{ width: allReviews.length ? `${c / allReviews.length * 100}%` : 0 }} />
               </div>
               <span className="w-6 text-muted-foreground">{c}</span>
             </div>
@@ -248,8 +248,8 @@ export default function ProductReviewSection({ reviews, productName }: any) {
               {images.map((img, i) => (
                 <div key={i} className="relative group">
                   <img src={img} className="w-16 h-16 object-cover rounded border" />
-                  <button type="button" onClick={() => setImages(images.filter((_,j) => j!==i))} className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100">
-                    <X size={12} className="mx-auto"/>
+                  <button type="button" onClick={() => setImages(images.filter((_, j) => j !== i))} className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100">
+                    <X size={12} className="mx-auto" />
                   </button>
                 </div>
               ))}
@@ -257,7 +257,7 @@ export default function ProductReviewSection({ reviews, productName }: any) {
                 <label className="w-16 h-16 border-2 border-dashed rounded flex items-center justify-center cursor-pointer hover:border-primary">
                   <Camera size={18} className="text-muted-foreground" />
                   <input type="file" accept="image/*" multiple onChange={e => {
-                    if(e.target.files) setImages([...images, ...Array.from(e.target.files).map((_,i) => `/images/products/product_${(i%5)+1}.png`)].slice(0,5));
+                    if (e.target.files) setImages([...images, ...Array.from(e.target.files).map((_, i) => `/images/products/product_${(i % 5) + 1}.png`)].slice(0, 5));
                   }} className="hidden" />
                 </label>
               )}
@@ -266,7 +266,7 @@ export default function ProductReviewSection({ reviews, productName }: any) {
 
           {/* Submit */}
           <button disabled={loading} className="px-6 py-2 bg-primary text-primary-foreground rounded-lg flex items-center gap-2 disabled:opacity-50">
-            {loading ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"/> : <Send size={16}/>} Gửi
+            {loading ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Send size={16} />} Gửi
           </button>
         </form>
       ) : (
@@ -274,7 +274,7 @@ export default function ProductReviewSection({ reviews, productName }: any) {
           <LogIn size={40} className="mx-auto mb-3 text-muted-foreground" />
           <h3 className="font-semibold mb-1">Đăng nhập để đánh giá</h3>
           <p className="text-sm text-muted-foreground mb-3">Chia sẻ trải nghiệm của bạn</p>
-          <Link to="/login"><Button type="primary" icon={<LogIn size={16}/>}>Đăng nhập</Button></Link>
+          <Link to="/login"><Button type="primary" icon={<LogIn size={16} />}>Đăng nhập</Button></Link>
         </div>
       )}
 

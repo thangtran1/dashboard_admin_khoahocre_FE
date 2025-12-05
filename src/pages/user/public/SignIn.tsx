@@ -42,89 +42,89 @@ const SignIn = () => {
   };
 
   return (
-        <div className="md:flex items-center gap-1">
-          {!accessToken ? (
-            <Link
-              to="/login"
-              className="flex items-center gap-1 cursor-pointer !text-foreground hover:!text-primary"
-            >
-              <span className="font-semibold">Đăng Nhập</span>
-            </Link>
-          ) : (
-            <div
-              className="relative group"
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
-            >
-              <div className="flex items-center gap-1 cursor-pointer rounded-md transition">
+    <div className="md:flex items-center gap-1">
+      {!accessToken ? (
+        <Link
+          to="/login"
+          className="flex items-center gap-1 cursor-pointer !text-foreground hover:!text-primary"
+        >
+          <span className="font-semibold">Đăng Nhập</span>
+        </Link>
+      ) : (
+        <div
+          className="relative group"
+          onMouseEnter={() => setDropdownOpen(true)}
+          onMouseLeave={() => setDropdownOpen(false)}
+        >
+          <div className="flex items-center gap-1 cursor-pointer rounded-md transition">
+            {profile?.avatar ? (
+              <img
+                src={`${import.meta.env.VITE_API_URL}${profile.avatar}`}
+                className="w-6 h-6 rounded-full object-cover border border-border"
+              />
+            ) : (
+              <UserCircle className="w-5 h-5 !text-foreground hover:!text-primary" />
+            )}
+
+            <span className="hidden md:block font-medium text-sm !text-foreground hover:!text-primary">{profile?.name || "Hồ sơ"}</span>
+          </div>
+
+          {dropdownOpen && (
+            <div className="absolute right-0 w-56 bg-muted rounded-xl border border-border shadow-xl z-50 animate-fade-in">
+              {/* Top avatar + name */}
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
                 {profile?.avatar ? (
                   <img
                     src={`${import.meta.env.VITE_API_URL}${profile.avatar}`}
-                    className="w-6 h-6 rounded-full object-cover border border-border"
+                    className="w-8 h-8 rounded-full object-cover border border-gray-200"
                   />
                 ) : (
-                  <UserCircle className="w-5 h-5 !text-foreground hover:!text-primary" />
+                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                    <UserCircle className="w-5 h-5 text-gray-500" />
+                  </div>
                 )}
 
-                <span className="hidden md:block font-medium text-sm !text-foreground hover:!text-primary">{profile?.name || "Hồ sơ"}</span>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">
+                    {profile?.name || "Hồ sơ"}
+                  </span>
+                  <span className="text-xs">Tài khoản cá nhân</span>
+                </div>
               </div>
 
-              {dropdownOpen && (
-                <div className="absolute right-0 w-56 bg-muted rounded-xl border border-border shadow-xl z-50 animate-fade-in">
-                  {/* Top avatar + name */}
-                  <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
-                    {profile?.avatar ? (
-                      <img
-                        src={`${import.meta.env.VITE_API_URL}${profile.avatar}`}
-                        className="w-8 h-8 rounded-full object-cover border border-gray-200"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                        <UserCircle className="w-5 h-5 text-gray-500" />
-                      </div>
-                    )}
-
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium">
-                        {profile?.name || "Hồ sơ"}
-                      </span>
-                      <span className="text-xs">Tài khoản cá nhân</span>
-                    </div>
-                  </div>
-
-                  {/* Admin */}
-                  {profile?.role === "admin" && (
-                    <button
-                      onClick={() => router.push("/dashboard/workbench")}
-                      className="flex justify-between items-center w-full px-4 py-2 text-sm hover:bg-primary transition"
-                    >
-                      <span>Trang Quản Trị</span>
-                      <Shield className="w-4 h-4" />
-                    </button>
-                  )}
-
-                  {/* Hồ sơ */}
-                  <button
-                    onClick={() => router.push("/ho-so")}
-                    className="flex justify-between items-center w-full px-4 py-2 text-sm hover:bg-primary transition"
-                  >
-                    <span>Hồ sơ</span>
-                    <UserCircle className="w-4 h-4 !text-foreground hover:!text-primary" />
-                  </button>
-
-                  {/* Logout */}
-                  <button
-                    onClick={handleLogout}
-                    className="flex justify-between items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
-                  >
-                    <span>Đăng xuất</span>
-                    <LogOut className="w-4 h-4 text-red-500" />
-                  </button>
-                </div>
+              {/* Admin */}
+              {profile?.role === "admin" && (
+                <button
+                  onClick={() => router.push("/dashboard/workbench")}
+                  className="flex justify-between items-center w-full px-4 py-2 text-sm hover:bg-primary transition"
+                >
+                  <span>Trang Quản Trị</span>
+                  <Shield className="w-4 h-4" />
+                </button>
               )}
+
+              {/* Hồ sơ */}
+              <button
+                onClick={() => router.push("/ho-so")}
+                className="flex justify-between items-center w-full px-4 py-2 text-sm hover:bg-primary transition"
+              >
+                <span>Hồ sơ</span>
+                <UserCircle className="w-4 h-4 !text-foreground hover:!text-primary" />
+              </button>
+
+              {/* Logout */}
+              <button
+                onClick={handleLogout}
+                className="flex justify-between items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+              >
+                <span>Đăng xuất</span>
+                <LogOut className="w-4 h-4 text-red-500" />
+              </button>
             </div>
           )}
         </div>
+      )}
+    </div>
   );
 };
 

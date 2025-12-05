@@ -107,7 +107,7 @@ export default function Router() {
         </ErrorBoundary>
       ),
     },
-  ];  
+  ];
 
   const APP_HOMEPAGE_USER: AppRouteObject = {
     path: "/",
@@ -159,21 +159,21 @@ export default function Router() {
         path: "category",
         element: <DetailCategory />,
         children: [
-            { path: ":slug", element: <DetailCategory /> },
+          { path: ":slug", element: <DetailCategory /> },
         ],
-    },
-    {
-      path: "checkout",
-      element: <CheckoutPage />,
-    },
-    {
-      path: "success",
-      element: <SuccessPage />,
-    },
-    {
-      path: "orders",
-      element: <OrdersPage />,
-    },
+      },
+      {
+        path: "checkout",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "success",
+        element: <SuccessPage />,
+      },
+      {
+        path: "orders",
+        element: <OrdersPage />,
+      },
     ],
   };
 

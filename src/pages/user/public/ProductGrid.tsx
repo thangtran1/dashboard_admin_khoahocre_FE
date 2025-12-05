@@ -57,13 +57,13 @@ const ProductGrid = () => {
       <HomeTabbar selectedTab={selectedTab} onTabSelect={setSelectedTab} />
       {loading ? (
         <div className="flex flex-col items-center justify-center py-10 min-h-80 space-y-4 text-center  rounded-lg w-full mt-10">
-             <div className="relative flex flex-col items-center justify-center">
-          <Loader2
-            className="h-10 w-10 animate-spin text-primary relative z-10"
-            style={{ animationDuration: "0.8s" }}
-          />
-          <span>Đang tải sản phẩm...</span>
-        </div>
+          <div className="relative flex flex-col items-center justify-center">
+            <Loader2
+              className="h-10 w-10 animate-spin text-primary relative z-10"
+              style={{ animationDuration: "0.8s" }}
+            />
+            <span>Đang tải sản phẩm...</span>
+          </div>
         </div>
       ) : products?.length ? (
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 mt-2">

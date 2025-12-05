@@ -12,37 +12,37 @@ interface ContactItemData {
 
 
 const FooterTop = () => {
- const { t } = useTranslation();
-    const data: ContactItemData[] = [
-        {
-          title: t("footerTop.visitUs"),
-          subtitle: t("footerTop.newOrleans"),
-          icon: (
-            <MapPin className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-          ),
-        },
-        {
-          title: t("footerTop.callUs"),
-          subtitle: "+12 958 648 597",
-          icon: (
-            <Phone className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-          ),
-        },
-        {
-          title: t("footerTop.workingHours"),
-          subtitle: "Mon - Sat: 10:00 AM - 7:00 PM",
-          icon: (
-            <Clock className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-          ),
-        },
-        {
-          title: t("footerTop.emailUs"),
-          subtitle: "thangtrandz04@gmail.com",
-          icon: (
-            <Mail className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-          ),
-        },
-      ];
+  const { t } = useTranslation();
+  const data: ContactItemData[] = [
+    {
+      title: t("footerTop.visitUs"),
+      subtitle: t("footerTop.newOrleans"),
+      icon: (
+        <MapPin className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      title: t("footerTop.callUs"),
+      subtitle: "+12 958 648 597",
+      icon: (
+        <Phone className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      title: t("footerTop.workingHours"),
+      subtitle: "Mon - Sat: 10:00 AM - 7:00 PM",
+      icon: (
+        <Clock className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      title: t("footerTop.emailUs"),
+      subtitle: "thangtrandz04@gmail.com",
+      icon: (
+        <Mail className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+      ),
+    },
+  ];
   return (
     <div className={`${contentWrapper} mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 `}>
       {data?.map((item, index) => (

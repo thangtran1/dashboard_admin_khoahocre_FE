@@ -74,7 +74,7 @@ export function TerminalSecurityUI() {
         );
         console.log(
           "%c📊 Đang bảo vệ: 100% an toàn | 🕐 " +
-            new Date().toLocaleString("vi-VN"),
+          new Date().toLocaleString("vi-VN"),
           "color: #059669; font-size: 12px; font-style: italic;"
         );
       }, 2500);

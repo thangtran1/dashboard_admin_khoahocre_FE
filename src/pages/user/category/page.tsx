@@ -6,7 +6,7 @@ import { getFakeProducts } from "@/constants/fakeData";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader2, Package } from "lucide-react";
 import NoProductAvailable from "@/pages/user/public/NoProductAvailable";
-import ProductCard from "@/components/user/products/ProductCard";
+import ProductCard from "@/pages/user/public/ProductCard";
 
 interface Props {
   categories: Category[];
@@ -86,13 +86,13 @@ const CategoryPage = ({ categories, slug }: Props) => {
         <div className="flex flex-col">
           {categories?.map(item => (
             <button
-            key={item._id}
-            onClick={() => handleCategoryChange(item.slug?.current as string)}
-            className={`group flex items-center gap-2 px-3 py-3 border-b hover:bg-primary/10
+              key={item._id}
+              onClick={() => handleCategoryChange(item.slug?.current as string)}
+              className={`group flex items-center gap-2 px-3 py-3 border-b hover:bg-primary/10
                 transition-colors duration-200 relative
                 ${item.slug?.current === currentSlug ? "bg-primary/10 text-primary border-l-2 border-l-primary" : "text-foreground"}
             `}
-        >
+            >
               {/* Icon thay cho image nếu muốn */}
               <Package className="w-5 h-5" />
 
@@ -144,24 +144,24 @@ const CategoryPage = ({ categories, slug }: Props) => {
           </div>
         ) : products?.length > 0 ? (
           <motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.4 }}
-  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 
              h-[100vh] overflow-y-auto py-2"
->
-  {products?.map((product, index) => (
-    <AnimatePresence key={product._id}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.05, duration: 0.3 }}
-      >
-        <ProductCard product={product} />
-      </motion.div>
-    </AnimatePresence>
-  ))}
-</motion.div>
+          >
+            {products?.map((product, index) => (
+              <AnimatePresence key={product._id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05, duration: 0.3 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
+              </AnimatePresence>
+            ))}
+          </motion.div>
         ) : (
           <NoProductAvailable selectedTab={currentSlug} className="mt-0 w-full" />
         )}

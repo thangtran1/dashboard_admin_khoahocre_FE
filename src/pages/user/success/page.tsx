@@ -113,7 +113,7 @@ const SuccessPageContent = () => {
                 #{orderNumber}
               </p>
             </div>
-            
+
             {/* Payment Method Info */}
             <div className={`border rounded-xl p-3 shadow-sm ${paymentMethod === 'card' ? 'border-blue-500 bg-blue-500/10' : 'border-amber-500 bg-amber-500/10'}`}>
               <div className="flex items-center justify-between mb-2">

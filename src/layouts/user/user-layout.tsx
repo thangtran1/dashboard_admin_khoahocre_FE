@@ -42,10 +42,10 @@ export default function UserLayout() {
       </div>
 
       <div className="bg-background text-foreground">
-      <Header />
+        <Header />
 
         <main
-          className={`${contentWrapper} py-8 px-4 sm:px-6 lg:px-0 border-t mx-auto`}>
+          className={`${contentWrapper} p-4 sm:px-6 lg:px-0 border-t mx-auto`}>
           <Outlet />
         </main>
 
