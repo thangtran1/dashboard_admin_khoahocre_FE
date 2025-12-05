@@ -1007,72 +1007,72 @@ export const fakeProducts = [
   },
   
   // REFRIGERATORS products
-  {
-    _id: "prod22",
-    name: "Samsung Double Door 253L",
-    slug: { current: "samsung-double-door-253l" },
-    price: 899,
-    discount: 10,
-    description: "Energy efficient double door refrigerator",
-    image: {
-      asset: {
-        url: "/images/products/product_11.png"
-      }
-    },
-    images: [
-      { asset: { url: "/images/products/product_11.png" } }
-    ],
-    category: {
-      _ref: "cat9",
-      name: "Refrigerators"
-    },
-    brand: {
-      _ref: "brand2",
-      name: "Samsung"
-    },
-    stock: 10,
-    isNew: true,
-    isFeatured: true,
-    specifications: [
-      "253L capacity",
-      "Double door design",
-      "Digital inverter compressor",
-      "5 Star energy rating"
-    ]
-  },
-  {
-    _id: "prod23",
-    name: "LG Single Door 190L",
-    slug: { current: "lg-single-door-190l" },
-    price: 599,
-    discount: 8,
-    description: "Compact single door refrigerator",
-    image: {
-      asset: {
-        url: "/images/products/product_12.png"
-      }
-    },
-    images: [
-      { asset: { url: "/images/products/product_12.png" } }
-    ],
-    category: {
-      _ref: "cat9",
-      name: "Refrigerators"
-    },
-    brand: {
-      _ref: "brand2",
-      name: "Samsung"
-    },
-    stock: 15,
-    isNew: false,
-    isFeatured: false,
-    specifications: [
-      "190L capacity",
-      "Single door design",
-      "Smart inverter compressor",
-      "4 Star energy rating"
-    ]
-  },
+  // {
+  //   _id: "prod22",
+  //   name: "Samsung Double Door 253L",
+  //   slug: { current: "samsung-double-door-253l" },
+  //   price: 899,
+  //   discount: 10,
+  //   description: "Energy efficient double door refrigerator",
+  //   image: {
+  //     asset: {
+  //       url: "/images/products/product_11.png"
+  //     }
+  //   },
+  //   images: [
+  //     { asset: { url: "/images/products/product_11.png" } }
+  //   ],
+  //   category: {
+  //     _ref: "cat9",
+  //     name: "Refrigerators"
+  //   },
+  //   brand: {
+  //     _ref: "brand2",
+  //     name: "Samsung"
+  //   },
+  //   stock: 10,
+  //   isNew: true,
+  //   isFeatured: true,
+  //   specifications: [
+  //     "253L capacity",
+  //     "Double door design",
+  //     "Digital inverter compressor",
+  //     "5 Star energy rating"
+  //   ]
+  // },
+  // {
+  //   _id: "prod23",
+  //   name: "LG Single Door 190L",
+  //   slug: { current: "lg-single-door-190l" },
+  //   price: 599,
+  //   discount: 8,
+  //   description: "Compact single door refrigerator",
+  //   image: {
+  //     asset: {
+  //       url: "/images/products/product_12.png"
+  //     }
+  //   },
+  //   images: [
+  //     { asset: { url: "/images/products/product_12.png" } }
+  //   ],
+  //   category: {
+  //     _ref: "cat9",
+  //     name: "Refrigerators"
+  //   },
+  //   brand: {
+  //     _ref: "brand2",
+  //     name: "Samsung"
+  //   },
+  //   stock: 15,
+  //   isNew: false,
+  //   isFeatured: false,
+  //   specifications: [
+  //     "190L capacity",
+  //     "Single door design",
+  //     "Smart inverter compressor",
+  //     "4 Star energy rating"
+  //   ]
+  // },
   {
     _id: "prod24",
     name: "Haier Deep Freezer 300L",

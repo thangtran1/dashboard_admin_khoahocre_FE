@@ -23,13 +23,13 @@ const ProductCard = ({ product }: { product: Product }) => {
         )}
         <ProductSideMenu product={product} />
         {product?.discount && product?.discount > 0 ? (
-          <p className="absolute top-2 left-2 z-10 text-sm border border-border px-2 py-1 rounded-full group-hover:border-success hover:text-success ">
+          <p className="absolute top-2 left-2 z-10 text-sm border border-primary/30 px-2 py-1 rounded-full group-hover:border-success hover:text-success ">
             Sale!
           </p>
         ) : (
           <Link
             to={"/deal"}
-            className="absolute top-2 left-2 z-10 border border-warning/50 p-1 rounded-full group-hover:border-border "
+            className="absolute top-2 left-2 z-10 border border-warning/50 p-1 rounded-full group-hover:border-warning"
           >
             <Flame
               size={18}

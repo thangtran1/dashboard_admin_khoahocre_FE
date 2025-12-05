@@ -25,23 +25,16 @@ const contactMethods = [
     {
         icon: Phone,
         title: "Hotline",
-        value: "1900 1234 56",
+        value: "038 921 5396",
         desc: "Miễn phí cuộc gọi",
         color: "bg-green-500/10 text-green-600"
     },
     {
         icon: Mail,
         title: "Email",
-        value: "support@shopcart.vn",
+        value: "thangtrandz04@gmail.com",
         desc: "Phản hồi trong 24h",
         color: "bg-blue-500/10 text-blue-600"
-    },
-    {
-        icon: MessageCircle,
-        title: "Live Chat",
-        value: "Chat trực tuyến",
-        desc: "Hỗ trợ 24/7",
-        color: "bg-purple-500/10 text-purple-600"
     },
     {
         icon: MapPin,
@@ -111,7 +104,7 @@ export default function Help() {
                         </Title>
                         <Row gutter={[16, 16]}>
                             {contactMethods.map(({ icon: Icon, title, value, desc, color }) => (
-                                <Col xs={12} sm={6} key={title}>
+                                <Col xs={24} sm={12} md={8} key={title}>
                                     <div className="p-4 rounded-xl border border-border hover:border-primary/30 hover:shadow-md transition-all cursor-pointer h-full">
                                         <div className={`w-12 h-12 rounded-full ${color} flex items-center justify-center mb-3`}>
                                             <Icon className="w-6 h-6" />
@@ -289,7 +282,7 @@ export default function Help() {
                         </div>
 
                         {/* Newsletter */}
-                        <div className="border border-border p-4 rounded-2xl flex flex-col items-center space-y-4">
+                        <div className="border border-primary/30 p-4 rounded-2xl flex flex-col items-center space-y-4">
                             <Title level={4} className="font-extrabold text-center">
                                 Đăng Ký Nhận Tin
                             </Title>

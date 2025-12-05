@@ -265,7 +265,7 @@ export default function FAQs() {
                         </div>
 
                         {/* Newsletter */}
-                        <div className="border border-border p-4 rounded-2xl flex flex-col items-center space-y-4">
+                        <div className="border border-primary/30 p-4 rounded-2xl flex flex-col items-center space-y-4">
                             <Title level={4} className="font-extrabold text-center">
                                 Đăng Ký Nhận Tin
                             </Title>

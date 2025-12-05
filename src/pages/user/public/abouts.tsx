@@ -193,8 +193,8 @@ export default function AboutUs() {
                         </div>
 
                         {/* CTA */}
-                        <div className="border border-primary bg-primary/5 p-4 rounded-2xl text-center">
-                            <Title level={4} className="font-bold mb-2">
+                        <div className="border border-primary/30 bg-primary/5 p-4 rounded-2xl text-center">
+                            <Title level={4} className="font-semibold mb-2">
                                 Bạn Cần Hỗ Trợ?
                             </Title>
                             <Paragraph className="!text-muted-foreground mb-4">

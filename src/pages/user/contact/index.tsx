@@ -273,11 +273,11 @@ export default function Contact() {
                         </div>
 
                         {/* Support CTA */}
-                        <div className="border border-primary bg-primary/5 p-6 rounded-2xl text-center">
+                        <div className="border border-primary/30 bg-primary/5 p-6 rounded-2xl text-center">
                             <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
                                 <Headphones className="w-7 h-7 text-primary" />
                             </div>
-                            <Title level={4} className="font-bold mb-2">
+                            <Title level={4} className="font-semibold mb-2">
                                 Cần Hỗ Trợ Ngay?
                             </Title>
                             <Paragraph className="!text-muted-foreground mb-4">
@@ -295,7 +295,7 @@ export default function Contact() {
                         </div>
 
                         {/* Newsletter */}
-                        <div className="border border-border p-4 rounded-2xl flex flex-col items-center space-y-4">
+                        <div className="border border-primary/30 p-4 rounded-2xl flex flex-col items-center space-y-4">
                             <Title level={4} className="font-extrabold text-center">
                                 Đăng Ký Nhận Tin
                             </Title>

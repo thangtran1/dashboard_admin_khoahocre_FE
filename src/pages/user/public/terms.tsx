@@ -280,13 +280,13 @@ export default function TermsPage() {
                             <Col xs={24} sm={12}>
                                 <div className="p-4 bg-muted/30 rounded-lg">
                                     <Text className="font-medium block">Email hỗ trợ:</Text>
-                                    <Text className="text-primary">support@shopcart.vn</Text>
+                                    <Text className="text-primary">thangtrandz04@gmail.com</Text>
                                 </div>
                             </Col>
                             <Col xs={24} sm={12}>
                                 <div className="p-4 bg-muted/30 rounded-lg">
                                     <Text className="font-medium block">Hotline:</Text>
-                                    <Text className="text-primary">1900 1234 56</Text>
+                                    <Text className="text-primary">038 921 5396</Text>
                                 </div>
                             </Col>
                         </Row>
@@ -366,7 +366,7 @@ export default function TermsPage() {
                         </div>
 
                         {/* Newsletter */}
-                        <div className="border border-border p-4 rounded-2xl flex flex-col items-center space-y-4">
+                        <div className="border border-primary/30 p-4 rounded-2xl flex flex-col items-center space-y-4">
                             <Title level={4} className="font-extrabold text-center">
                                 Đăng Ký Nhận Tin
                             </Title>

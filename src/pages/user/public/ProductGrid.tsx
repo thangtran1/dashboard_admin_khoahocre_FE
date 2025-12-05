@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { m, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import HomeTabbar from "./HomeTabbar";
 import { productType } from "@/constants/data";
@@ -70,20 +70,20 @@ const ProductGrid = () => {
           <>
             {products?.map((product) => (
               <AnimatePresence key={product?._id}>
-                <m.div
+                <motion.div
                   layout
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
                   <ProductCard key={product?._id} product={product} />
-                </m.div>
+                </motion.div>
               </AnimatePresence>
             ))}
           </>
         </div>
       ) : (
-        <NoProductAvailable selectedTab={selectedTab} />
+        <NoProductAvailable />
       )}
     </div>
   );

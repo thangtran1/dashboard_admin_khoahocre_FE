@@ -21,6 +21,13 @@ const CategoryPage = ({ categories, slug }: Props) => {
 
   const navigate = useNavigate();
 
+  // Đồng bộ currentSlug với slug prop khi navigate từ bên ngoài (footer, etc.)
+  useEffect(() => {
+    if (slug && slug !== currentSlug) {
+      setCurrentSlug(slug);
+    }
+  }, [slug]);
+
   const handleCategoryChange = (newSlug: string) => {
     if (newSlug === currentSlug) return;
     setCurrentSlug(newSlug);
@@ -148,7 +155,7 @@ const CategoryPage = ({ categories, slug }: Props) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 
-             h-[100vh] overflow-y-auto py-2"
+             max-h-[100vh] overflow-y-auto py-2"
           >
             {products?.map((product, index) => (
               <AnimatePresence key={product._id}>
@@ -163,7 +170,7 @@ const CategoryPage = ({ categories, slug }: Props) => {
             ))}
           </motion.div>
         ) : (
-          <NoProductAvailable selectedTab={currentSlug} className="mt-0 w-full" />
+          <NoProductAvailable />
         )}
       </div>
     </div>
