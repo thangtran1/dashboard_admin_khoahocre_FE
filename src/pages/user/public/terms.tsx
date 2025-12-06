@@ -1,6 +1,5 @@
-import { Button, Col, Input, Row, Typography, Collapse } from "antd";
+import { Button, Col, Row, Typography, Collapse } from "antd";
 import { useRouter } from "@/router/hooks";
-import Logo from "@/ui/logo";
 import {
     FileText,
     Shield,
@@ -17,6 +16,7 @@ import {
     Calendar,
     BookOpen
 } from "lucide-react";
+import SigninNewletter from "@/components/user/signin-newletter";
 
 const { Title, Paragraph, Text } = Typography;
 const { Panel } = Collapse;
@@ -366,27 +366,7 @@ export default function TermsPage() {
                         </div>
 
                         {/* Newsletter */}
-                        <div className="border border-primary/30 p-4 rounded-2xl flex flex-col items-center space-y-4">
-                            <Title level={4} className="font-extrabold text-center">
-                                Đăng Ký Nhận Tin
-                            </Title>
-                            <div className="w-20 h-1 bg-primary rounded-full" />
-                            <Paragraph className="text-center !text-muted-foreground">
-                                Nhận thông báo khi có cập nhật điều khoản mới.
-                            </Paragraph>
-                            <Input
-                                size="large"
-                                placeholder="Nhập email của bạn"
-                                type="email"
-                                className="w-full rounded-lg"
-                            />
-                            <Button type="primary" size="large" block className="rounded-lg mt-2">
-                                Đăng Ký
-                            </Button>
-                            <Text className="text-sm !text-muted-foreground text-center">
-                                Bằng việc đăng ký, bạn đồng ý với chính sách của <Logo />.
-                            </Text>
-                        </div>
+                        <SigninNewletter />
                     </div>
                 </Col>
             </Row>
