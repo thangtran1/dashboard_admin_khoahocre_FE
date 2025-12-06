@@ -21,7 +21,8 @@ const BlogPage = async () => {
                 <img
                   src={blog?.image?.asset?.url || "/images/products/product_1.png"}
                   alt="blogImage"
-                  className="w-full h-64 object-cover"
+                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105
+"
                 />
               </Link>
             )}

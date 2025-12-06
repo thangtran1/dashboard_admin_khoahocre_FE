@@ -69,7 +69,7 @@ const ShopByBrands = async () => {
               key={index}
               className="flex items-center gap-4 p-4 rounded-xl border border-border hover:border-primary/30 hover:shadow-md transition-all duration-300 group bg-primary/5"
             >
-              <div className="p-3 rounded-full bg-primary/5 group-hover:bg-primary/90 transition-all flex items-center justify-center">
+              <div className="p-3 rounded-full bg-primary/5 group-hover:bg-primary/20 transition-all flex items-center justify-center">
                 <span className="text-primary group-hover:scale-110 transition-transform">
                   {item.icon}
                 </span>
