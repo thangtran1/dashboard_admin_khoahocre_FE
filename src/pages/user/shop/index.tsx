@@ -1,38 +1,44 @@
 "use client";
 import { Product } from "@/types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useSearchParams } from "react-router";
 import Title from "@/ui/title";
 import CategoryList from "@/components/user/shop/CategoryList";
 import BrandList from "@/components/user/shop/BrandList";
 import PriceList from "@/components/user/shop/PriceList";
 import { getFakeCategories, getFakeProducts } from "@/constants/fakeData";
 import { getFakeBrands } from "@/constants/fakeData";
-import { Loader2, ShoppingBag, RefreshCw, Search } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import ProductCard from "@/pages/user/public/ProductCard";
-import { cn } from "@/utils";
-import { motion } from "framer-motion";
+import NoProductAvailable from "../public/NoProductAvailable";
 
 const Shop = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [categories, setCategories] = useState<any[]>([]);
   const [brands, setBrands] = useState<any[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const brandParams = typeof window !== "undefined"
-    ? new URLSearchParams(window.location.search).get("brand")
-    : null;
+  // Đọc filter từ URL
+  const selectedCategory = searchParams.get("category");
+  const selectedBrand = searchParams.get("brand");
+  const selectedPrice = searchParams.get("price");
 
-  const categoryParams = typeof window !== "undefined"
-    ? new URLSearchParams(window.location.search).get("category")
-    : null;
+  // Hàm cập nhật URL khi filter thay đổi
+  const updateFilter = useCallback((key: string, value: string | null) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set(key, value);
+    } else {
+      newParams.delete(key);
+    }
+    setSearchParams(newParams);
+  }, [searchParams, setSearchParams]);
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(
-    categoryParams || null
-  );
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(
-    brandParams || null
-  );
-  const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
+  // Wrapper functions để set filter
+  const setSelectedCategory = (value: string | null) => updateFilter("category", value);
+  const setSelectedBrand = (value: string | null) => updateFilter("brand", value);
+  const setSelectedPrice = (value: string | null) => updateFilter("price", value);
 
   // Fetch categories & brands ONCE
   useEffect(() => {
@@ -46,27 +52,31 @@ const Shop = () => {
   }, []);
 
   // Fetch products on filter change
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     let filtered = getFakeProducts();
 
-    // category filter
+    // category filter - chỉ filter nếu có selectedCategory VÀ tìm được category
     if (selectedCategory) {
       const cat = categories.find(
         (c) => c.slug?.current === selectedCategory
       );
-      filtered = filtered.filter(
-        (p) => p.category?._ref === cat?._id
-      );
+      if (cat) {
+        filtered = filtered.filter(
+          (p) => p.category?._ref === cat?._id
+        );
+      }
     }
 
-    // brand filter
+    // brand filter - chỉ filter nếu có selectedBrand VÀ tìm được brand
     if (selectedBrand) {
       const br = brands.find((b) => b.slug?.current === selectedBrand);
-      filtered = filtered.filter((p) => p.brand?._ref === br?._id);
+      if (br) {
+        filtered = filtered.filter((p) => p.brand?._ref === br?._id);
+      }
     }
 
     // price filter
@@ -79,20 +89,30 @@ const Shop = () => {
 
     setProducts(filtered as Product[]);
     setLoading(false);
-  };
+  }, [categories, brands, selectedCategory, selectedBrand, selectedPrice]);
 
   // re-fetch products when filters or data ready
   useEffect(() => {
     if (categories.length > 0 && brands.length > 0) {
       fetchProducts();
     }
-  }, [categories, brands, selectedCategory, selectedBrand, selectedPrice]);
+  }, [fetchProducts]);
 
-  const handleClear = () => {
-    setSelectedCategory(null);
-    setSelectedBrand(null);
-    setSelectedPrice(null);
-  };
+  // Callback cho NoProductAvailable - Làm mới (fetch lại với filter hiện tại)
+  const handleRefresh = useCallback(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  // Callback cho NoProductAvailable - Xem tất cả (xóa hết filter)
+  const handleViewAll = useCallback(() => {
+    setSearchParams(new URLSearchParams());
+  }, [setSearchParams]);
+
+  // Reset tất cả filters
+  const handleResetFilters = useCallback(() => {
+    setSearchParams(new URLSearchParams());
+  }, [setSearchParams]);
+
   return (
     <div>
       <div className="sticky top-0 z-10 mb-5">
@@ -103,11 +123,7 @@ const Shop = () => {
 
           {(selectedCategory || selectedBrand || selectedPrice) && (
             <button
-              onClick={() => {
-                setSelectedCategory(null);
-                setSelectedBrand(null);
-                setSelectedPrice(null);
-              }}
+              onClick={handleResetFilters}
               className="text-primary underline text-sm mt-2 font-medium"
             >
               Reset Filters
@@ -156,79 +172,10 @@ const Shop = () => {
                 ))}
               </div>
             ) : (
-              <div
-                className={cn(
-                  "flex flex-col items-center justify-center py-5 min-h-96 space-y-6 text-center rounded-2xl w-full border border-border",
-                )}
-              >
-                <div className="flex flex-col items-center justify-center pt-4 text-center">
-                  <div className="w-28 h-28 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center shadow-md mb-6">
-                    <Search className="w-14 h-14 text-primary opacity-80" />
-                  </div>
-
-                  <h2 className="text-2xl font-bold text-foreground mb-2">
-                    Không có sản phẩm
-                  </h2>
-
-                  <p className="text-sm text-muted-foreground max-w-xs leading-relaxed mb-3">
-                    Rất tiếc, hiện tại không có sản phẩm nào phù hợp với bộ lọc của bạn.
-                  </p>
-
-                  {/* Status indicator */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 0.5 }}
-                    className="flex items-center space-x-3 bg-background rounded-full px-6 py-3 shadow-md border"
-                  >
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                    >
-                      <RefreshCw className="w-5 h-5 text-success" />
-                    </motion.div>
-                    <span className="text-success font-medium">
-                      Chúng tôi đang cập nhật sản phẩm mới
-                    </span>
-                  </motion.div>
-                  <p className="text-sm text-foreground my-3">
-                    Bạn có thể thử những gợi ý sau:
-                  </p>
-
-                  <div className="flex items-center gap-3">
-
-                    <button
-                      onClick={() => {
-                        handleClear();
-                      }}
-                      className="px-5 cursor-pointer py-2.5 rounded-lg border border-border hover:!bg-primary/10 hover:border-primary transition-all duration-300 flex items-center gap-2 text-sm font-medium"
-                    >
-                      <RefreshCw className="w-4 h-4" />
-                      Làm mới
-                    </button>
-
-                    <button onClick={() => {
-                      handleClear();
-                    }} className="px-5 cursor-pointer py-2.5 rounded-lg border border-border hover:!bg-primary/10 hover:border-primary transition-all duration-300 flex items-center gap-2 text-sm font-medium">
-                      <ShoppingBag className="w-4 h-4" />
-                      Xem tất cả
-                    </button>
-                  </div>
-                </div>
-                {/* Additional help */}
-                <div
-                  className="pt-4 border-t border-border w-full max-w-md"
-                >
-                  <p className="text-xs text-foreground">
-                    Cần hỗ trợ? Liên hệ với chúng tôi qua{" "}
-                    <a href="mailto:thangtrandz04@gmail.com" className="text-primary hover:underline">
-                      thangtrandz04@gmail.com
-                    </a>
-                  </p>
-                </div>
-              </div>
-
-
+              <NoProductAvailable
+                onRefresh={handleRefresh}
+                onViewAll={handleViewAll}
+              />
             )}
           </div>
         </div>

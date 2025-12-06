@@ -4,11 +4,35 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Search, RefreshCw, ShoppingBag } from "lucide-react";
 
+interface NoProductAvailableProps {
+  className?: string;
+  /** Callback khi click "Làm mới" - reload filter hiện tại */
+  onRefresh?: () => void;
+  /** Callback khi click "Xem tất cả" - bỏ filter, xem toàn bộ */
+  onViewAll?: () => void;
+}
+
 const NoProductAvailable = ({
   className,
-}: {
-  className?: string;
-}) => {
+  onRefresh,
+  onViewAll,
+}: NoProductAvailableProps) => {
+  const handleRefresh = () => {
+    if (onRefresh) {
+      onRefresh();
+    } else {
+      window.location.reload();
+    }
+  };
+
+  const handleViewAll = () => {
+    if (onViewAll) {
+      onViewAll();
+    } else {
+      window.location.href = "/shop";
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -51,27 +75,25 @@ const NoProductAvailable = ({
         </p>
 
         <div className="flex items-center gap-3">
-
           <button
-            onClick={() => {
-            }}
+            onClick={handleRefresh}
             className="px-5 cursor-pointer py-2.5 rounded-lg border border-border hover:!bg-primary/10 hover:border-primary transition-all duration-300 flex items-center gap-2 text-sm font-medium"
           >
             <RefreshCw className="w-4 h-4" />
             Làm mới
           </button>
 
-          <button onClick={() => {
-          }} className="px-5 cursor-pointer py-2.5 rounded-lg border border-border hover:!bg-primary/10 hover:border-primary transition-all duration-300 flex items-center gap-2 text-sm font-medium">
+          <button
+            onClick={handleViewAll}
+            className="px-5 cursor-pointer py-2.5 rounded-lg border border-border hover:!bg-primary/10 hover:border-primary transition-all duration-300 flex items-center gap-2 text-sm font-medium"
+          >
             <ShoppingBag className="w-4 h-4" />
             Xem tất cả
           </button>
         </div>
       </div>
       {/* Additional help */}
-      <div
-        className="pt-4 border-t border-border w-full max-w-md"
-      >
+      <div className="pt-4 border-t border-border w-full max-w-md">
         <p className="text-xs text-foreground">
           Cần hỗ trợ? Liên hệ với chúng tôi qua{" "}
           <a href="mailto:thangtrandz04@gmail.com" className="text-primary hover:underline">

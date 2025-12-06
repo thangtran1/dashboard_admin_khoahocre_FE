@@ -1,4 +1,3 @@
-import React from "react";
 import Title from "../../../ui/title";
 import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
 import { Label } from "@/ui/label";
@@ -13,13 +12,34 @@ const priceArray = [
 
 interface Props {
   selectedPrice?: string | null;
-  setSelectedPrice: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedPrice: (value: string | null) => void;
 }
 const PriceList = ({ selectedPrice, setSelectedPrice }: Props) => {
+  const isAllSelected = !selectedPrice;
+
   return (
     <div className="w-full py-4">
       <Title className="text-base font-bold">Price</Title>
-      <RadioGroup className="mt-2 space-y-1" value={selectedPrice || ""}>
+      <RadioGroup className="mt-2 space-y-1" value={selectedPrice || "all"}>
+        <div
+          onClick={() => setSelectedPrice(null)}
+          className="flex items-center space-x-2 hover:cursor-pointer"
+        >
+          <RadioGroupItem
+            value="all"
+            id="all-prices"
+            className="rounded-sm"
+            checked={isAllSelected}
+          />
+          <Label
+            htmlFor="all-prices"
+            className={`${isAllSelected ? "font-semibold text-primary" : "font-normal"}`}
+          >
+            Tất cả mức giá
+          </Label>
+        </div>
+
+        {/* Các mức giá khác */}
         {priceArray?.map((price, index) => (
           <div
             key={index}
@@ -35,7 +55,7 @@ const PriceList = ({ selectedPrice, setSelectedPrice }: Props) => {
               htmlFor={price.value}
               className={`${selectedPrice === price?.value ? "font-semibold text-primary" : "font-normal"}`}
             >
-              {price?.value}
+              {price?.title}
             </Label>
           </div>
         ))}

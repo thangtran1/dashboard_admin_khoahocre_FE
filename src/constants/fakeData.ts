@@ -1,18 +1,6 @@
 // Fake data để thay thế Sanity CMS
 export const fakeCategories = [
   {
-    _id: "cat0",
-    name: "Tất cả sản phẩm",
-    slug: { current: "all" },
-    description: "Tất cả sản phẩm",
-    productCount: 31,
-    image: {
-      asset: {
-        url: "/images/banner/banner_1.png"
-      }
-    }
-  },
-  {
     _id: "cat1",
     name: "Smartphones",
     slug: { current: "smartphones" },
@@ -1073,72 +1061,72 @@ export const fakeProducts = [
   //     "4 Star energy rating"
   //   ]
   // },
-  {
-    _id: "prod24",
-    name: "Haier Deep Freezer 300L",
-    slug: { current: "haier-deep-freezer-300l" },
-    price: 799,
-    discount: 12,
-    description: "Large capacity deep freezer",
-    image: {
-      asset: {
-        url: "/images/products/product_13.png"
-      }
-    },
-    images: [
-      { asset: { url: "/images/products/product_13.png" } }
-    ],
-    category: {
-      _ref: "cat10",
-      name: "Freezers"
-    },
-    brand: {
-      _ref: "brand2",
-      name: "Samsung"
-    },
-    stock: 8,
-    isNew: true,
-    isFeatured: false,
-    specifications: [
-      "300L capacity",
-      "Deep freezer design",
-      "Manual defrost",
-      "Lock and key"
-    ]
-  },
-  {
-    _id: "prod25",
-    name: "Blue Star Chest Freezer 200L",
-    slug: { current: "blue-star-chest-freezer-200l" },
-    price: 549,
-    discount: 15,
-    description: "Reliable chest freezer for home use",
-    image: {
-      asset: {
-        url: "/images/products/product_14.png"
-      }
-    },
-    images: [
-      { asset: { url: "/images/products/product_14.png" } }
-    ],
-    category: {
-      _ref: "cat10",
-      name: "Freezers"
-    },
-    brand: {
-      _ref: "brand3",
-      name: "Sony"
-    },
-    stock: 12,
-    isNew: false,
-    isFeatured: false,
-    specifications: [
-      "200L capacity",
-      "Chest freezer design",
-      "Energy efficient",
-      "Removable baskets"
-    ]
-  },
+  // {
+  //   _id: "prod24",
+  //   name: "Haier Deep Freezer 300L",
+  //   slug: { current: "haier-deep-freezer-300l" },
+  //   price: 799,
+  //   discount: 12,
+  //   description: "Large capacity deep freezer",
+  //   image: {
+  //     asset: {
+  //       url: "/images/products/product_13.png"
+  //     }
+  //   },
+  //   images: [
+  //     { asset: { url: "/images/products/product_13.png" } }
+  //   ],
+  //   category: {
+  //     _ref: "cat10",
+  //     name: "Freezers"
+  //   },
+  //   brand: {
+  //     _ref: "brand2",
+  //     name: "Samsung"
+  //   },
+  //   stock: 8,
+  //   isNew: true,
+  //   isFeatured: false,
+  //   specifications: [
+  //     "300L capacity",
+  //     "Deep freezer design",
+  //     "Manual defrost",
+  //     "Lock and key"
+  //   ]
+  // },
+  // {
+  //   _id: "prod25",
+  //   name: "Blue Star Chest Freezer 200L",
+  //   slug: { current: "blue-star-chest-freezer-200l" },
+  //   price: 549,
+  //   discount: 15,
+  //   description: "Reliable chest freezer for home use",
+  //   image: {
+  //     asset: {
+  //       url: "/images/products/product_14.png"
+  //     }
+  //   },
+  //   images: [
+  //     { asset: { url: "/images/products/product_14.png" } }
+  //   ],
+  //   category: {
+  //     _ref: "cat10",
+  //     name: "Freezers"
+  //   },
+  //   brand: {
+  //     _ref: "brand3",
+  //     name: "Sony"
+  //   },
+  //   stock: 12,
+  //   isNew: false,
+  //   isFeatured: false,
+  //   specifications: [
+  //     "200L capacity",
+  //     "Chest freezer design",
+  //     "Energy efficient",
+  //     "Removable baskets"
+  //   ]
+  // },
   
   // OTHERS products
   {

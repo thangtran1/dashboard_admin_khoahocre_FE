@@ -1,5 +1,4 @@
 import { Brand } from "@/types";
-import React from "react";
 import Title from "../../../ui/title";
 import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
 import { Label } from "@/ui/label";
@@ -7,14 +6,35 @@ import { Label } from "@/ui/label";
 interface Props {
   brands: Brand[];
   selectedBrand?: string | null;
-  setSelectedBrand: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedBrand: (value: string | null) => void;
 }
 
 const BrandList = ({ brands, selectedBrand, setSelectedBrand }: Props) => {
+  const isAllSelected = !selectedBrand;
+
   return (
     <div className="w-full py-2">
       <Title className="text-base font-bold">Brands</Title>
-      <RadioGroup value={selectedBrand || ""} className="mt-2 space-y-1">
+      <RadioGroup value={selectedBrand || "all"} className="mt-2 space-y-1">
+        <div
+          onClick={() => setSelectedBrand(null)}
+          className="flex items-center space-x-2 hover:cursor-pointer"
+        >
+          <RadioGroupItem
+            value="all"
+            id="all-brands"
+            className="rounded-sm"
+            checked={isAllSelected}
+          />
+          <Label
+            htmlFor="all-brands"
+            className={`${isAllSelected ? "font-semibold text-primary" : "font-normal"}`}
+          >
+            Tất cả thương hiệu
+          </Label>
+        </div>
+
+        {/* Các brand khác */}
         {brands?.map((brand) => (
           <div
             key={brand?._id}

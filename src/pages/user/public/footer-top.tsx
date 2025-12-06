@@ -44,15 +44,15 @@ const FooterTop = () => {
     },
   ];
   return (
-    <div className={`${contentWrapper} mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 `}>
+    <div className={`${contentWrapper} mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2`}>
       {data?.map((item, index) => (
         <div
           key={index}
-          className="flex items-center gap-3 group hover:bg-muted p-4 transition-colors hoverEffect"
+          className="flex items-center gap-3 group hover:bg-muted p-3 transition-colors"
         >
           {item?.icon}
           <div>
-            <h3 className="font-bold text-foreground hoverEffect">
+            <h3 className="font-bold text-foreground">
               {item?.title}
             </h3>
             <p className="text-muted-foreground text-sm mt-1 group-hover:text-foreground hoverEffect">
