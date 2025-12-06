@@ -2,16 +2,13 @@ import { Button, Col, Input, Row, Typography, Form } from "antd";
 import { useRouter } from "@/router/hooks";
 import Logo from "@/ui/logo";
 import {
-    Mail,
     Phone,
     MapPin,
-    Clock,
     Send,
     MessageSquare,
     Globe,
     Facebook,
     Youtube,
-    Instagram,
     ArrowRight,
     CheckCircle,
     Headphones
@@ -19,49 +16,16 @@ import {
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { toast } from "sonner";
+import { feedbackService } from "@/api/services/feedback";
+import { useUserInfo } from "@/store/userStore";
 
 const { Title, Paragraph, Text } = Typography;
 
-const contactInfo = [
-    {
-        icon: Phone,
-        title: "Hotline",
-        value: "1900 1234 56",
-        subValue: "Miễn phí cuộc gọi",
-        color: "bg-green-500/10 text-green-600",
-        hoverColor: "hover:bg-green-500/20"
-    },
-    {
-        icon: Mail,
-        title: "Email",
-        value: "support@shopcart.vn",
-        subValue: "Phản hồi trong 24h",
-        color: "bg-blue-500/10 text-blue-600",
-        hoverColor: "hover:bg-blue-500/20"
-    },
-    {
-        icon: MapPin,
-        title: "Địa chỉ",
-        value: "123 Nguyễn Huệ, Quận 1",
-        subValue: "TP. Hồ Chí Minh, Việt Nam",
-        color: "bg-orange-500/10 text-orange-600",
-        hoverColor: "hover:bg-orange-500/20"
-    },
-    {
-        icon: Clock,
-        title: "Giờ làm việc",
-        value: "8:00 - 21:00",
-        subValue: "Thứ 2 - Chủ nhật",
-        color: "bg-purple-500/10 text-purple-600",
-        hoverColor: "hover:bg-purple-500/20"
-    },
-];
-
 const socialLinks = [
-    { icon: Facebook, name: "Facebook", url: "https://facebook.com", color: "bg-blue-600" },
+    { icon: Facebook, name: "Facebook", url: "https://www.facebook.com/thang.tran.631808", color: "bg-blue-600" },
     { icon: Youtube, name: "Youtube", url: "https://youtube.com", color: "bg-red-600" },
-    { icon: Instagram, name: "Instagram", url: "https://instagram.com", color: "bg-pink-600" },
-    { icon: Globe, name: "Website", url: "https://vanthang.io.vn", color: "bg-primary" },
+    { icon: Send, name: "Telegram", url: "https://t.me/kai_dev123", color: "bg-sky-500" },
+    { icon: Globe, name: "Website", url: "https://vanthang.io.vn/", color: "bg-primary" },
 ];
 
 const quickLinks = [
@@ -82,14 +46,25 @@ export default function Contact() {
     const navigate = useRouter();
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
-
-    const handleSubmit = () => {
+    const userInfo = useUserInfo();
+    const handleSubmit = async () => {
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            toast.success("Tin nhắn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm nhất.");
+        const values = await form.validateFields();
+        const response = await feedbackService.create({
+            fullName: userInfo.username || values.fullName,
+            phone: userInfo.phone || values.phoneNumber,
+            email: userInfo.email || values.emailAddress,
+            title: values.title,
+            content: values.content,
+        });
+        if (response.success) {
+            toast.success(response.message);
             form.resetFields();
-        }, 1500);
+            setLoading(false);
+        } else {
+            toast.error(response.message);
+            setLoading(false);
+        }
     };
 
     return (
@@ -126,7 +101,7 @@ export default function Contact() {
                     <div className="rounded-xl p-6 border border-border">
                         <Title level={4} className="font-bold mb-2 flex items-center gap-2">
                             <Send className="w-5 h-5 text-primary" />
-                            Gửi Tin Nhắn Cho Chúng Tôi
+                            Gửi Feedback Cho Chúng Tôi
                         </Title>
                         <Paragraph className="!text-muted-foreground mb-6">
                             Điền thông tin bên dưới, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.
@@ -140,37 +115,55 @@ export default function Contact() {
                             <Row gutter={16}>
                                 <Col xs={24} sm={12}>
                                     <Form.Item
-                                        name="name"
+                                        name="fullName"
                                         label="Họ và tên"
+                                        initialValue={userInfo.username || ""}
                                         rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
                                     >
-                                        <Input size="large" placeholder="Nhập họ và tên của bạn" className="rounded-lg" />
+                                        <Input
+                                            size="large"
+                                            placeholder="Nhập họ và tên của bạn"
+                                            className="rounded-lg"
+                                            disabled={!!userInfo.username} // Có thì khóa input
+                                        />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={12}>
                                     <Form.Item
-                                        name="phone"
+                                        name="phoneNumber"
                                         label="Số điện thoại"
+                                        initialValue={userInfo.phone || ""}
                                         rules={[{ required: true, message: "Vui lòng nhập số điện thoại" }]}
                                     >
-                                        <Input size="large" placeholder="Nhập số điện thoại" className="rounded-lg" />
+                                        <Input
+                                            size="large"
+                                            placeholder="Nhập số điện thoại"
+                                            className="rounded-lg"
+                                            disabled={!!userInfo.phone}
+                                        />
                                     </Form.Item>
                                 </Col>
                             </Row>
 
                             <Form.Item
-                                name="email"
+                                name="emailAddress"
                                 label="Email"
+                                initialValue={userInfo.email || ""}
                                 rules={[
                                     { required: true, message: "Vui lòng nhập email" },
                                     { type: "email", message: "Email không hợp lệ" }
                                 ]}
                             >
-                                <Input size="large" placeholder="Nhập địa chỉ email" className="rounded-lg" />
+                                <Input
+                                    size="large"
+                                    placeholder="Nhập địa chỉ email"
+                                    className="rounded-lg"
+                                    disabled={!!userInfo.email}
+                                />
                             </Form.Item>
 
                             <Form.Item
-                                name="subject"
+                                name="title"
                                 label="Tiêu đề"
                                 rules={[{ required: true, message: "Vui lòng nhập tiêu đề" }]}
                             >
@@ -178,7 +171,7 @@ export default function Contact() {
                             </Form.Item>
 
                             <Form.Item
-                                name="message"
+                                name="content"
                                 label="Nội dung tin nhắn"
                                 rules={[{ required: true, message: "Vui lòng nhập nội dung" }]}
                             >

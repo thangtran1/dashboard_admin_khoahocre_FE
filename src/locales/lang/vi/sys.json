@@ -723,6 +723,32 @@
     "title-description": "Tiêu đề",
     "news": "Tin tức"
   },
+  "feedback": {
+    "management": "Quản lý phản hồi",
+    "management-description": "Quản lý và xem phản hồi từ người dùng trong hệ thống",
+    "new-feedback": "Thêm mới phản hồi",
+    "detail": "Chi tiết phản hồi",
+    "title": "Tiêu đề",
+    "content": "Nội dung",
+    "name": "Họ và tên",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "created-at": "Ngày gửi",
+    "actions": "Thao tác",
+    "delete-feedback": "Xóa phản hồi",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "delete-feedback-success": "Xóa phản hồi thành công",
+    "delete-feedback-error": "Không thể xóa phản hồi",
+    "update-feedback-success": "Cập nhật phản hồi thành công",
+    "search": "Tìm kiếm",
+    "search-placeholder": "Tìm theo tên, email, SĐT, tiêu đề...",
+    "date-range": "Khoảng thời gian",
+    "clear-filter": "Xóa bộ lọc",
+    "filter-title": "Bộ lọc tìm kiếm",
+    "total-feedback": "phản hồi",
+    "close": "Đóng"
+  },
   "profile": {
     "updating-profile": "Đang cập nhật thông tin cá nhân...",
     "updating-avatar": "Đang cập nhập ảnh đại diện...",
@@ -811,6 +837,10 @@
     "notification-title": "Quản lý thông báo",
     "new-notification": "Thêm mới thông báo",
     "notification-detail": "Chi tiết thông báo",
+
+    "feedback": "Phản hồi",
+    "feedback-title": "Quản lý phản hồi",
+    "feedback-detail": "Chi tiết phản hồi",
 
     "menulevel": {
       "index": "Menu nhiều cấp",

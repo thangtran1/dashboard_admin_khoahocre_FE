@@ -723,6 +723,32 @@
     "title-description": "Title",
     "news": "News"
   },
+  "feedback": {
+    "management": "Feedback Management",
+    "management-description": "Manage and view feedback from users in the system",
+    "new-feedback": "New feedback",
+    "detail": "Feedback detail",
+    "title": "Title",
+    "content": "Content",
+    "name": "Full Name",
+    "phone": "Phone",
+    "email": "Email",
+    "created-at": "Sent at",
+    "actions": "Actions",
+    "delete-feedback": "Delete feedback",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete-feedback-success": "Feedback deleted successfully",
+    "delete-feedback-error": "Failed to delete feedback",
+    "update-feedback-success": "Feedback updated successfully",
+    "search": "Search",
+    "search-placeholder": "Search by name, email, phone, title...",
+    "date-range": "Date range",
+    "clear-filter": "Clear filters",
+    "filter-title": "Search filters",
+    "total-feedback": "feedbacks",
+    "close": "Close"
+  },
   "profile": {
     "updating-profile": "Updating profile...",
     "updating-avatar": "Updating avatar...",
@@ -811,6 +837,10 @@
     "notification-title": "Management notification",
     "new-notification": "New notification",
     "notification-detail": "Notification detail",
+
+    "feedback": "Feedback",
+    "feedback-title": "Management feedback",
+    "feedback-detail": "Feedback detail",
 
     "menulevel": {
       "index": "Multi-level menu",
