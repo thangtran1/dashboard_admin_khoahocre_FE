@@ -10,6 +10,21 @@ export enum ResultEnum {
   TIMEOUT = 401,
 }
 
+export enum BrandStatus {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+}
+
+export enum CategoryStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+}
+
+export enum ProductStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+}
+
 export enum StorageEnum {
   UserInfo = "userInfo",
   UserToken = "userToken",

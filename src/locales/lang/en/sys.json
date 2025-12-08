@@ -842,6 +842,9 @@
     "feedback-title": "Management feedback",
     "feedback-detail": "Feedback detail",
 
+    "catalog": "Catalog Management",
+    "catalog-management": "Product Catalog Management",
+
     "menulevel": {
       "index": "Multi-level menu",
       "1a": "Level 1a",

@@ -25,5 +25,12 @@
     "newOrleans": "New Orleans, Việt Nam",
     "phoneNumber": "+84 909 090 090",
     "monToSat": "Thứ Hai - Thứ Bảy: 08:00 - 17:00"
+  },
+  "catalog": {
+    "title": "Quản lý Danh mục và thương hiệu",
+    "subtitle": "Quản lý danh mục sản phẩm và thương hiệu một cách hiệu quả",
+    "overview": "Tổng quan",
+    "categories": "Danh mục",
+    "brands": "Thương hiệu"
   }
 }

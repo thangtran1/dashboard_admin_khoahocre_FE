@@ -25,5 +25,12 @@
     "newOrleans": "New Orleans, USA",
     "phoneNumber": "+12 958 648 597",
     "monToSat": "Mon - Sat: 10:00 AM - 7:00 PM"
+  },
+  "catalog": {
+    "title": "Catalog Management",
+    "subtitle": "Efficiently manage product categories and brands",
+    "overview": "Overview",
+    "categories": "Categories",
+    "brands": "Brands"
   }
 }
