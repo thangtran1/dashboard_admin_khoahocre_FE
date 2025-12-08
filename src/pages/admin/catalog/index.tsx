@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Tabs, Badge } from "antd";
+import { Tabs } from "antd";
 import { Icon } from "@/components/icon";
 import { useTranslation } from "react-i18next";
 import { CardTitle } from "@/ui/card";
@@ -48,7 +48,7 @@ export default function CatalogManagement() {
   const handleTabChange = (key: string) => {
     const newTab = key as TabType;
     setActiveTab(newTab);
-    
+
     // Cập nhật URL
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("tab", newTab);
@@ -69,41 +69,30 @@ export default function CatalogManagement() {
   return (
     <div className="bg-card text-card-foreground px-6 py-4 flex flex-col gap-2 rounded-xl border shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <Icon icon="solar:box-bold-duotone" className="h-7 w-7 text-primary" />
-            {t("catalog.title", "Quản lý Danh mục")}
-          </CardTitle>
-          <p className="text-muted-foreground mt-1">
-            {t(
-              "catalog.subtitle",
-              "Quản lý danh mục sản phẩm và thương hiệu một cách hiệu quả"
-            )}
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <Badge
-            className="px-3 py-1"
-            count={
-              <div className="flex items-center gap-1">
-                <Icon icon="solar:calendar-bold" className="w-4 h-4" />
-                {new Date().toLocaleDateString("vi-VN")}
-              </div>
-            }
-          />
-        </div>
+      <div>
+        <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-3">
+          <div className="p-2.5 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl">
+            <Icon icon="solar:layers-bold-duotone" className="h-7 w-7 text-primary" />
+          </div>
+          {t("catalog.title", "Quản lý Danh mục & Thương hiệu")}
+        </CardTitle>
+        <p className="text-muted-foreground mt-2 ml-14">
+          {t(
+            "catalog.subtitle",
+            "Quản lý danh mục sản phẩm và thương hiệu một cách hiệu quả"
+          )}
+        </p>
       </div>
 
       {/* Tabs */}
       <Separator className="mt-4" />
 
-        <Tabs
-          size="large"
-          activeKey={activeTab}
-          onChange={handleTabChange}
-          items={items}
-        />
+      <Tabs
+        size="large"
+        activeKey={activeTab}
+        onChange={handleTabChange}
+        items={items}
+      />
     </div>
   );
 }

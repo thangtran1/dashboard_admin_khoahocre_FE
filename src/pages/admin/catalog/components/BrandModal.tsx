@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Button, Input } from "antd";
+import { motion, AnimatePresence } from "framer-motion";
+import { Icon } from "@/components/icon";
 import { Label } from "@/ui/label";
-import { Textarea } from "@/ui/textarea";
-import { Select } from "antd";
-import { Switch } from "@/ui/switch";
+import { Button, Input, Select, InputNumber, Switch, Tabs } from "antd";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/ui/dialog";
+import { Textarea } from "@/ui/textarea";
 import { type Brand, type CreateBrandDto } from "@/api/services/brands";
 import { BrandStatus } from "@/types/enum";
+import { toast } from "sonner";
+import { StarFilled, GlobalOutlined } from "@ant-design/icons";
+
 const { Option } = Select;
 
 interface BrandModalProps {
@@ -29,6 +31,7 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
     isFeatured: false,
   });
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("basic");
 
   useEffect(() => {
     if (brand) {
@@ -54,36 +57,43 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
         isFeatured: false,
       });
     }
+    setActiveTab("basic");
   }, [brand, open]);
 
   const handleInputChange = (field: keyof CreateBrandDto, value: string | number | boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
 
     // Auto-generate slug from name
-    if (field === 'name' && typeof value === 'string') {
+    if (field === "name" && typeof value === "string") {
       const slug = value
         .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
         .trim();
-      
-      setFormData(prev => ({
+
+      setFormData((prev) => ({
         ...prev,
-        slug
+        slug,
       }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.name.trim()) {
+      toast.error("Vui lòng nhập tên thương hiệu");
+      return;
+    }
+
     setLoading(true);
-    
+
     try {
       await onSave(formData);
     } finally {
@@ -91,206 +101,329 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
     }
   };
 
+  const tabItems = [
+    {
+      key: "basic",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="solar:document-bold-duotone" className="w-4 h-4" />
+          Thông tin cơ bản
+        </span>
+      ),
+    },
+    {
+      key: "media",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="solar:gallery-bold-duotone" className="w-4 h-4" />
+          Logo & Website
+        </span>
+      ),
+    },
+    {
+      key: "settings",
+      label: (
+        <span className="flex items-center gap-2">
+          <Icon icon="solar:settings-bold-duotone" className="w-4 h-4" />
+          Cài đặt
+        </span>
+      ),
+    },
+  ];
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="!max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
+      <DialogContent className="!max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+        <DialogHeader className="pb-4 border-b border-border">
           <DialogTitle className="flex items-center gap-3 text-2xl text-foreground">
+            <div className="p-2 bg-amber-500/10 rounded-xl">
+              <Icon
+                icon={brand ? "solar:pen-bold-duotone" : "solar:star-ring-bold-duotone"}
+                className="w-6 h-6 text-amber-500"
+              />
+            </div>
             {brand ? "Chỉnh sửa thương hiệu" : "Thêm thương hiệu mới"}
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Basic Information */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-medium text-foreground">
-                  Tên thương hiệu *
-                </Label>
-                <Input
-                  size="large"
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  placeholder="Nhập tên thương hiệu"
-                  className="border-0 bg-muted focus:ring-2 focus:ring-primary w-full"
-                  required
-                />
-              </div>
+        <form onSubmit={handleSubmit} className="flex-1 overflow-hidden flex flex-col">
+          <Tabs
+            activeKey={activeTab}
+            onChange={setActiveTab}
+            items={tabItems}
+            className="brand-modal-tabs"
+          />
 
-              <div className="space-y-2">
-                <Label htmlFor="slug" className="text-sm font-medium text-foreground">
-                  Slug
-                </Label>
-                <Input
-                  size="large"
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => handleInputChange('slug', e.target.value)}
-                  placeholder="duong-dan-url"
-                  className="border-0 bg-muted focus:ring-2 focus:ring-primary w-full"
-                />
-              </div>
-            </div>
+          <div className="flex-1 overflow-y-auto px-1 py-4">
+            <AnimatePresence mode="wait">
+              {/* Basic Information Tab */}
+              {activeTab === "basic" && (
+                <motion.div
+                  key="basic"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="space-y-5"
+                >
+                  {/* Name & Slug */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-foreground flex items-center gap-1">
+                        Tên thương hiệu <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        size="large"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange("name", e.target.value)}
+                        placeholder="Nhập tên thương hiệu"
+                        className="w-full"
+                      />
+                    </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="description" className="text-sm font-medium text-foreground">
-                Mô tả
-              </Label>
-              <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
-                placeholder="Nhập mô tả cho thương hiệu"
-                rows={4}
-              />
-            </div>
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-foreground">Slug (URL)</Label>
+                      <Input
+                        size="large"
+                        value={formData.slug}
+                        onChange={(e) => handleInputChange("slug", e.target.value)}
+                        placeholder="duong-dan-thuong-hieu"
+                        className="w-full"
+                        prefix={<span className="text-muted-foreground">/brand/</span>}
+                      />
+                    </div>
+                  </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="logo" className="text-sm font-medium text-foreground">
-                  Logo (URL)
-                </Label>
-                <Input
-                  size="large"
-                    id="logo"
-                  value={formData.logo}
-                  onChange={(e) => handleInputChange('logo', e.target.value)}
-                  placeholder="https://example.com/logo.jpg"
-                  className="border-0 bg-muted focus:ring-2 focus:ring-primary w-full"
-                />
-                {formData.logo && (
-                  <div className="mt-2">
-                    <img
-                      src={formData.logo}
-                      alt="Logo Preview"
-                      className="w-32 h-20 object-contain bg-muted rounded-lg border-2 border-border p-2"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                      }}
+                  {/* Description */}
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium text-foreground">Mô tả</Label>
+                    <Textarea
+                      value={formData.description}
+                      onChange={(e) => handleInputChange("description", e.target.value)}
+                      placeholder="Nhập mô tả cho thương hiệu"
+                      rows={4}
                     />
                   </div>
-                )}
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="website" className="text-sm font-medium text-foreground">
-                  Website
-                </Label>
-                <Input
-                  size="large"
-                  id="website"
-                  value={formData.website || undefined}
-                  onChange={(e) => handleInputChange('website', e.target.value)}
-                  placeholder="https://example.com"
-                  className="border-0 bg-muted focus:ring-2 focus:ring-primary w-full"
-                />
-              </div>
-            </div>
-          </motion.div>
+                  {/* SEO Preview */}
+                  <div className="p-4 bg-muted/50 rounded-xl space-y-2">
+                    <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
+                      <Icon icon="solar:eye-bold-duotone" className="w-4 h-4 text-amber-500" />
+                      Xem trước SEO
+                    </h4>
+                    <div className="space-y-1">
+                      <div className="text-amber-600 dark:text-amber-400 text-lg font-medium truncate">
+                        {formData.name || "Tên thương hiệu"}
+                      </div>
+                      <div className="text-emerald-600 dark:text-emerald-400 text-sm">
+                        https://yoursite.com/brand/{formData.slug || "duong-dan"}
+                      </div>
+                      <div className="text-muted-foreground text-sm line-clamp-2">
+                        {formData.description || "Mô tả thương hiệu sẽ hiển thị ở đây..."}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
 
-          {/* Settings */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-foreground">
-              Cài đặt
-            </h3>
+              {/* Media Tab */}
+              {activeTab === "media" && (
+                <motion.div
+                  key="media"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="space-y-5"
+                >
+                  {/* Logo URL */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium text-foreground">Logo thương hiệu</Label>
+                    <Input
+                      size="large"
+                      value={formData.logo}
+                      onChange={(e) => handleInputChange("logo", e.target.value)}
+                      placeholder="https://example.com/logo.jpg"
+                      className="w-full"
+                      prefix={<Icon icon="solar:link-bold" className="w-4 h-4 text-muted-foreground" />}
+                    />
+                  </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="status" className="text-sm font-medium text-foreground">
-                  Trạng thái
-                </Label>
-                <Select
-            size="large"
-            placeholder="Trạng thái"
-            value={formData.status || undefined}
-            onChange={(value) => handleInputChange('status', value as BrandStatus)}
-            className="w-full"
-            getPopupContainer={(trigger) => trigger.parentElement!}
-          >
-            <Option value={BrandStatus.ACTIVE}>Hoạt động</Option>
-            <Option value={BrandStatus.INACTIVE}>Không hoạt động</Option>
-          </Select>
-              </div>
+                  {/* Logo Preview */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium text-foreground">Xem trước logo</Label>
+                    <div className="aspect-video rounded-xl border-2 border-dashed border-border overflow-hidden bg-white dark:bg-slate-800 flex items-center justify-center p-8">
+                      {formData.logo ? (
+                        <img
+                          src={formData.logo}
+                          alt="Logo Preview"
+                          className="max-w-full max-h-full object-contain"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = "none";
+                          }}
+                        />
+                      ) : (
+                        <div className="text-center text-muted-foreground">
+                          <Icon icon="solar:star-bold-duotone" className="w-16 h-16 mx-auto mb-2 opacity-30" />
+                          <p className="text-sm">Chưa có logo</p>
+                          <p className="text-xs mt-1">Nhập URL logo ở trên để xem trước</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="sortOrder" className="text-sm font-medium text-foreground">
-                  Thứ tự sắp xếp
-                </Label>
-                <Input
-                  size="large"
-                  id="sortOrder"
-                  type="number"
-                  value={formData.sortOrder}
-                  onChange={(e) => handleInputChange('sortOrder', parseInt(e.target.value) || 0)}
-                  placeholder="0"
-                  className="border-0 bg-muted focus:ring-2 focus:ring-primary w-full"
-                />
-              </div>
-            </div>
+                  {/* Website */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium text-foreground">Website</Label>
+                    <Input
+                      size="large"
+                      value={formData.website}
+                      onChange={(e) => handleInputChange("website", e.target.value)}
+                      placeholder="https://example.com"
+                      className="w-full"
+                      prefix={<GlobalOutlined className="text-muted-foreground" />}
+                    />
+                    {formData.website && (
+                      <a
+                        href={formData.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                      >
+                        <GlobalOutlined className="text-xs" />
+                        Truy cập website
+                      </a>
+                    )}
+                  </div>
 
-            <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-              <div className="space-y-1">
-                <Label className="text-sm font-medium text-foreground">
-                  Thương hiệu nổi bật
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  Hiển thị thương hiệu này trong danh sách nổi bật
-                </p>
-              </div>
-              <Switch
-                checked={formData.isFeatured}
-                onCheckedChange={(checked) => handleInputChange('isFeatured', checked)}
-              />
-            </div>
-          </motion.div>
+                  {/* Tips */}
+                  <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                    <h4 className="text-sm font-medium text-amber-700 dark:text-amber-300 flex items-center gap-2 mb-2">
+                      <Icon icon="solar:info-circle-bold" className="w-4 h-4" />
+                      Gợi ý
+                    </h4>
+                    <ul className="text-xs text-amber-600 dark:text-amber-400 space-y-1">
+                      <li>• Logo nên có nền trong suốt (PNG)</li>
+                      <li>• Kích thước khuyến nghị: 400x200 pixels</li>
+                      <li>• Website phải bắt đầu bằng https://</li>
+                    </ul>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Settings Tab */}
+              {activeTab === "settings" && (
+                <motion.div
+                  key="settings"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="space-y-5"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Status */}
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-foreground">Trạng thái</Label>
+                      <Select
+                        size="large"
+                        value={formData.status}
+                        onChange={(value) => handleInputChange("status", value)}
+                        className="w-full"
+                      >
+                        <Option value={BrandStatus.ACTIVE}>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                            Hoạt động
+                          </div>
+                        </Option>
+                        <Option value={BrandStatus.INACTIVE}>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-red-500" />
+                            Không hoạt động
+                          </div>
+                        </Option>
+                      </Select>
+                    </div>
+
+                    {/* Sort Order */}
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-foreground">Thứ tự hiển thị</Label>
+                      <InputNumber
+                        size="large"
+                        value={formData.sortOrder}
+                        onChange={(value) => handleInputChange("sortOrder", value || 0)}
+                        placeholder="0"
+                        className="w-full"
+                        min={0}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Featured Toggle */}
+                  <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-amber-500/20 rounded-lg">
+                          <StarFilled className="text-amber-500" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium text-foreground">Thương hiệu nổi bật</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Hiển thị thương hiệu trong danh sách nổi bật
+                          </p>
+                        </div>
+                      </div>
+                      <Switch
+                        checked={formData.isFeatured}
+                        onChange={(checked) => handleInputChange("isFeatured", checked)}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Info Box */}
+                  <div className="p-4 bg-muted/50 rounded-xl space-y-3">
+                    <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
+                      <Icon icon="solar:info-square-bold-duotone" className="w-4 h-4 text-amber-500" />
+                      Thông tin thêm
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Trạng thái:</span>
+                        <span className="ml-2 font-medium">
+                          {formData.status === BrandStatus.ACTIVE ? "Hiển thị" : "Ẩn"}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Thứ tự:</span>
+                        <span className="ml-2 font-medium">#{formData.sortOrder || 0}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Nổi bật:</span>
+                        <span className="ml-2 font-medium">{formData.isFeatured ? "Có" : "Không"}</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Thương hiệu có thứ tự nhỏ hơn sẽ hiển thị trước.
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex gap-3 pt-6 border-t border-border"
-          >
-            <Button
-            danger
-            size="large"
-              onClick={onClose}
-              disabled={loading}
-              className="flex-1"
-            >
+          <div className="flex gap-3 pt-4 border-t border-border mt-auto">
+            <Button size="large" onClick={onClose} className="flex-1" disabled={loading}>
               Hủy
             </Button>
             <Button
-                    color="primary"
-              variant="outlined"
-           htmlType="submit"
+              type="primary"
+              htmlType="submit"
               size="large"
-              className="flex-1"
-              disabled={loading}
+              className="flex-1 bg-amber-500 hover:bg-amber-600"
+              loading={loading}
             >
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  Đang lưu...
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  {brand ? "Cập nhật" : "Tạo mới"}
-                </div>
-              )}
+              {loading ? "Đang lưu..." : brand ? "Cập nhật" : "Tạo thương hiệu"}
             </Button>
-          </motion.div>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

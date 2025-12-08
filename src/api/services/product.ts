@@ -24,7 +24,12 @@ export interface BrandProductDto {
 export interface ReviewReplyProductDto {
   _id: string;
   comment: string;
+  user?: string;
+  userName?: string;
+  isAdmin?: boolean;
   images?: string[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ReviewProductDto {
@@ -41,7 +46,6 @@ export interface ReviewProductDto {
 }
 
 export interface DimensionsDto {
-  _id: string;
   length: number;
   width: number;
   height: number;
