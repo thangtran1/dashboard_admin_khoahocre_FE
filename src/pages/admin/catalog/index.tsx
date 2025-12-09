@@ -70,13 +70,10 @@ export default function CatalogManagement() {
     <div className="bg-card text-card-foreground px-6 py-4 flex flex-col gap-2 rounded-xl border shadow-sm">
       {/* Header */}
       <div>
-        <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-3">
-          <div className="p-2.5 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl">
-            <Icon icon="solar:layers-bold-duotone" className="h-7 w-7 text-primary" />
-          </div>
+        <CardTitle className="text-2xl font-bold text-foreground">
           {t("catalog.title", "Quản lý Danh mục & Thương hiệu")}
         </CardTitle>
-        <p className="text-muted-foreground mt-2 ml-14">
+        <p className="text-muted-foreground mt-2">
           {t(
             "catalog.subtitle",
             "Quản lý danh mục sản phẩm và thương hiệu một cách hiệu quả"

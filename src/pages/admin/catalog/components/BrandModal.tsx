@@ -9,6 +9,7 @@ import { type Brand, type CreateBrandDto } from "@/api/services/brands";
 import { BrandStatus } from "@/types/enum";
 import { toast } from "sonner";
 import { StarFilled, GlobalOutlined } from "@ant-design/icons";
+import { Badge } from "@/ui/badge";
 
 const { Option } = Select;
 
@@ -135,13 +136,7 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="!max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader className="pb-4 border-b border-border">
-          <DialogTitle className="flex items-center gap-3 text-2xl text-foreground">
-            <div className="p-2 bg-amber-500/10 rounded-xl">
-              <Icon
-                icon={brand ? "solar:pen-bold-duotone" : "solar:star-ring-bold-duotone"}
-                className="w-6 h-6 text-amber-500"
-              />
-            </div>
+          <DialogTitle className="text-2xl text-foreground">
             {brand ? "Chỉnh sửa thương hiệu" : "Thêm thương hiệu mới"}
           </DialogTitle>
         </DialogHeader>
@@ -205,9 +200,8 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
                   </div>
 
                   {/* SEO Preview */}
-                  <div className="p-4 bg-muted/50 rounded-xl space-y-2">
+                  <div className="p-4 bg-muted/50 border border-border rounded-xl space-y-2">
                     <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
-                      <Icon icon="solar:eye-bold-duotone" className="w-4 h-4 text-amber-500" />
                       Xem trước SEO
                     </h4>
                     <div className="space-y-1">
@@ -250,7 +244,8 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
                   {/* Logo Preview */}
                   <div className="space-y-3">
                     <Label className="text-sm font-medium text-foreground">Xem trước logo</Label>
-                    <div className="aspect-video rounded-xl border-2 border-dashed border-border overflow-hidden bg-white dark:bg-slate-800 flex items-center justify-center p-8">
+                    <div className="max-h-60 rounded-xl border-2 border-dashed border-border overflow-hidden bg-muted/50 flex items-center justify-center">
+
                       {formData.logo ? (
                         <img
                           src={formData.logo}
@@ -261,10 +256,9 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
                           }}
                         />
                       ) : (
-                        <div className="text-center text-muted-foreground">
-                          <Icon icon="solar:star-bold-duotone" className="w-16 h-16 mx-auto mb-2 opacity-30" />
-                          <p className="text-sm">Chưa có logo</p>
-                          <p className="text-xs mt-1">Nhập URL logo ở trên để xem trước</p>
+                        <div className="text-center text-foreground py-4">
+                          <p className="text-sm text-foreground">Chưa có logo</p>
+                          <p className="text-xs mt-1 text-muted-foreground">Nhập URL logo ở trên để xem trước</p>
                         </div>
                       )}
                     </div>
@@ -288,14 +282,13 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:underline"
                       >
-                        <GlobalOutlined className="text-xs" />
                         Truy cập website
                       </a>
                     )}
                   </div>
 
                   {/* Tips */}
-                  <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                  <div className="p-4 bg-amber-50 border border-border dark:bg-amber-900/20 rounded-xl">
                     <h4 className="text-sm font-medium text-amber-700 dark:text-amber-300 flex items-center gap-2 mb-2">
                       <Icon icon="solar:info-circle-bold" className="w-4 h-4" />
                       Gợi ý
@@ -358,7 +351,7 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
                   </div>
 
                   {/* Featured Toggle */}
-                  <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl">
+                  <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-border dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="p-2 bg-amber-500/20 rounded-lg">
@@ -366,7 +359,7 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
                         </div>
                         <div>
                           <Label className="text-sm font-medium text-foreground">Thương hiệu nổi bật</Label>
-                          <p className="text-xs text-muted-foreground mt-0.5">
+                          <p className="text-xs text-foreground mt-0.5">
                             Hiển thị thương hiệu trong danh sách nổi bật
                           </p>
                         </div>
@@ -379,28 +372,27 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
                   </div>
 
                   {/* Info Box */}
-                  <div className="p-4 bg-muted/50 rounded-xl space-y-3">
+                  <div className="p-4 bg-muted/50 border border-border rounded-xl space-y-3">
                     <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
-                      <Icon icon="solar:info-square-bold-duotone" className="w-4 h-4 text-amber-500" />
-                      Thông tin thêm
+                      Thông tin thêm:
                     </h4>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="text-muted-foreground">Trạng thái:</span>
+                        <span className="text-foreground">Trạng thái:</span>
                         <span className="ml-2 font-medium">
-                          {formData.status === BrandStatus.ACTIVE ? "Hiển thị" : "Ẩn"}
+                          {formData.status === BrandStatus.ACTIVE ? <Badge variant="success">Hiển thị</Badge> : <Badge variant="error">Ẩn</Badge>}
                         </span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Thứ tự:</span>
-                        <span className="ml-2 font-medium">#{formData.sortOrder || 0}</span>
+                        <span className="text-foreground">Thứ tự:</span>
+                        <span className="ml-2 font-medium text-foreground">#{formData.sortOrder || 0}</span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Nổi bật:</span>
-                        <span className="ml-2 font-medium">{formData.isFeatured ? "Có" : "Không"}</span>
+                        <span className="text-foreground">Nổi bật:</span>
+                        <span className="ml-2 font-medium text-foreground">{formData.isFeatured ? <Badge variant="success">Có</Badge> : <Badge variant="error">Không</Badge>}</span>
                       </div>
                     </div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-foreground">
                       Thương hiệu có thứ tự nhỏ hơn sẽ hiển thị trước.
                     </p>
                   </div>
@@ -410,15 +402,14 @@ export default function BrandModal({ open, onClose, onSave, brand }: BrandModalP
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 pt-4 border-t border-border mt-auto">
-            <Button size="large" onClick={onClose} className="flex-1" disabled={loading}>
+          <div className="flex gap-3 pt-4 border-t border-border mt-auto justify-end">
+            <Button size="large" danger onClick={onClose}  disabled={loading}>
               Hủy
             </Button>
             <Button
               type="primary"
               htmlType="submit"
               size="large"
-              className="flex-1 bg-amber-500 hover:bg-amber-600"
               loading={loading}
             >
               {loading ? "Đang lưu..." : brand ? "Cập nhật" : "Tạo thương hiệu"}

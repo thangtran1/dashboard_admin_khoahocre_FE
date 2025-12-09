@@ -8,6 +8,7 @@ import { Textarea } from "@/ui/textarea";
 import { type Category, type CreateCategoryDto } from "@/api/services/category";
 import { CategoryStatus } from "@/types/enum";
 import { toast } from "sonner";
+import { Badge } from "@/ui/badge";
 
 const { Option } = Select;
 
@@ -128,13 +129,7 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="!max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader className="pb-4 border-b border-border">
-          <DialogTitle className="flex items-center gap-3 text-2xl text-foreground">
-            <div className="p-2 bg-blue-500/10 rounded-xl">
-              <Icon
-                icon={category ? "solar:pen-bold-duotone" : "solar:folder-add-bold-duotone"}
-                className="w-6 h-6 text-blue-500"
-              />
-            </div>
+          <DialogTitle className="text-2xl text-foreground">
             {category ? "Chỉnh sửa danh mục" : "Thêm danh mục mới"}
           </DialogTitle>
         </DialogHeader>
@@ -147,7 +142,7 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
             className="category-modal-tabs"
           />
 
-          <div className="flex-1 overflow-y-auto px-1 py-4">
+          <div className="flex-1 overflow-y-auto px-1 pb-4">
             <AnimatePresence mode="wait">
               {/* Basic Information Tab */}
               {activeTab === "basic" && (
@@ -198,7 +193,7 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
                   </div>
 
                   {/* SEO Preview */}
-                  <div className="p-4 bg-muted/50 rounded-xl space-y-2">
+                  <div className="p-4 bg-muted/50 border border-border rounded-xl space-y-2">
                     <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
                       <Icon icon="solar:eye-bold-duotone" className="w-4 h-4 text-blue-500" />
                       Xem trước SEO
@@ -243,12 +238,12 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
                   {/* Image Preview */}
                   <div className="space-y-3">
                     <Label className="text-sm font-medium text-foreground">Xem trước</Label>
-                    <div className="aspect-video rounded-xl border-2 border-dashed border-border overflow-hidden bg-muted/50 flex items-center justify-center">
+                    <div className="max-h-60 rounded-xl border-2 border-dashed border-border overflow-hidden bg-muted/50 flex items-center justify-center">
                       {formData.image ? (
                         <img
                           src={formData.image}
                           alt="Preview"
-                          className="w-full h-full object-cover"
+                        className="w-full h-full  auto object-contain"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = "none";
                           }}
@@ -264,9 +259,8 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
                   </div>
 
                   {/* Tips */}
-                  <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                  <div className="p-4 bg-blue-50 border border-border dark:bg-blue-900/20 rounded-xl">
                     <h4 className="text-sm font-medium text-blue-700 dark:text-blue-300 flex items-center gap-2 mb-2">
-                      <Icon icon="solar:info-circle-bold" className="w-4 h-4" />
                       Gợi ý
                     </h4>
                     <ul className="text-xs text-blue-600 dark:text-blue-400 space-y-1">
@@ -296,6 +290,7 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
                         value={formData.status}
                         onChange={(value) => handleInputChange("status", value)}
                         className="w-full"
+                        getPopupContainer={(trigger) => trigger.parentNode as HTMLElement}
                       >
                         <Option value={CategoryStatus.ACTIVE}>
                           <div className="flex items-center gap-2">
@@ -327,24 +322,24 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
                   </div>
 
                   {/* Info Box */}
-                  <div className="p-4 bg-muted/50 rounded-xl space-y-3">
+                  <div className="p-4 bg-muted/50 rounded-xl border border-border space-y-3">
                     <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
-                      <Icon icon="solar:info-square-bold-duotone" className="w-4 h-4 text-blue-500" />
-                      Thông tin thêm
+                      Thông tin thêm:
                     </h4>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="text-muted-foreground">Trạng thái:</span>
-                        <span className="ml-2 font-medium">
-                          {formData.status === CategoryStatus.ACTIVE ? "Hiển thị" : "Ẩn"}
+                        <span className="text-foreground">Trạng thái:</span>
+                        <span className="ml-2 font-medium text-foreground">
+                          {formData.status === CategoryStatus.ACTIVE ? <Badge variant="success">Hiển thị</Badge>
+                           : <Badge variant="error">Ẩn</Badge>}
                         </span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Thứ tự:</span>
-                        <span className="ml-2 font-medium">#{formData.sortOrder || 0}</span>
+                        <span className="text-foreground">Thứ tự:</span>
+                        <span className="ml-2 font-medium text-foreground">#{formData.sortOrder || 0}</span>
                       </div>
                     </div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-foreground">
                       Danh mục có thứ tự nhỏ hơn sẽ hiển thị trước.
                     </p>
                   </div>
@@ -354,15 +349,14 @@ export default function CategoryModal({ open, onClose, onSave, category }: Categ
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 pt-4 border-t border-border mt-auto">
-            <Button size="large" onClick={onClose} className="flex-1" disabled={loading}>
+          <div className="flex gap-3 pt-4 border-t border-border mt-auto justify-end">
+            <Button size="large" danger onClick={onClose}  disabled={loading}>
               Hủy
             </Button>
             <Button
               type="primary"
               htmlType="submit"
               size="large"
-              className="flex-1 bg-blue-600 hover:bg-blue-700"
               loading={loading}
             >
               {loading ? "Đang lưu..." : category ? "Cập nhật" : "Tạo danh mục"}

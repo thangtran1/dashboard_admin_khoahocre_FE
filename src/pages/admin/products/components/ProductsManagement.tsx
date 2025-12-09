@@ -557,13 +557,10 @@ export default function ProductsManagement() {
         className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center"
       >
         <div>
-          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
-          <div className="p-2.5 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl">
-                            <Icon icon="solar:box-bold-duotone" className="h-7 w-7 text-primary" />
-                        </div>
+          <h2 className="text-2xl font-bold text-foreground">
             Quản lý Sản phẩm
           </h2>
-          <p className="text-muted-foreground ml-14"> Quản lý sản phẩm một cách hiệu quả</p>
+          <p className="text-muted-foreground mt-2"> Quản lý sản phẩm một cách hiệu quả</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -573,7 +570,7 @@ export default function ProductsManagement() {
               onClick={() => setViewMode("table")}
               className={`p-2 rounded-md transition-all ${viewMode === "table"
                 ? "bg-background text-primary shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
+                : "text-muted-foreground hover:text-foreground" 
                 }`}
             >
               <Icon icon="solar:list-bold" className="w-5 h-5" />
@@ -729,7 +726,7 @@ export default function ProductsManagement() {
             }}
             onPageChange={handlePageChange}
             scroll={{ x: 1200 }}
-            onRowClick={(record) => handleViewProduct(record)}
+            // onRowClick={(record) => handleViewProduct(record)}
           />
         </motion.div>
       )}

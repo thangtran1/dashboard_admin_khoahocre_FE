@@ -40,7 +40,6 @@ export default function CategoriesManagement() {
       }
     } catch (error) {
       console.error("Error fetching categories:", error);
-      toast.error("Lỗi khi tải danh sách danh mục");
     } finally {
       setLoading(false);
     }

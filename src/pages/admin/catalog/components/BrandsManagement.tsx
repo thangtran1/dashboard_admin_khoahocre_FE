@@ -42,7 +42,6 @@ export default function BrandsManagement() {
       }
     } catch (error) {
       console.error("Error fetching brands:", error);
-      toast.error("Lỗi khi tải danh sách thương hiệu");
     } finally {
       setLoading(false);
     }
