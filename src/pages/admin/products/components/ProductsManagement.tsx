@@ -9,9 +9,10 @@ import { ProductStatus } from "@/types/enum";
 import { toast } from "sonner";
 import ProductModal from "./ProductModal";
 import ProductDetailModal from "./ProductDetailModal";
-import { Button, Input, Select, Table, Popconfirm, Tag, Tooltip, Space } from "antd";
-import { PlusCircleOutlined, EyeOutlined, EditOutlined, DeleteOutlined, StarFilled, FireOutlined, ThunderboltOutlined } from "@ant-design/icons";
+import { Button, Input, Select, Popconfirm, Tag, Tooltip, Space } from "antd";
+import { PlusCircleOutlined, EyeOutlined, EditOutlined, DeleteOutlined, StarFilled, FireOutlined, ThunderboltOutlined, SearchOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
+import TableAntd from "@/components/common/tables/custom-table-antd";
 
 const { Option } = Select;
 
@@ -32,7 +33,7 @@ export default function ProductsManagement() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
-  const limit = 10;
+  const [limit, setLimit] = useState(10);
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -53,7 +54,7 @@ export default function ProductsManagement() {
     } finally {
       setLoading(false);
     }
-  }, [page, searchTerm, statusFilter, featuredFilter]);
+  }, [page, limit, searchTerm, statusFilter, featuredFilter]);
 
   const fetchCategories = async () => {
     try {
@@ -146,6 +147,13 @@ export default function ProductsManagement() {
       fetchProducts();
     } catch (error) {
       console.error("Error saving product:", error);
+    }
+  };
+
+  const handlePageChange = (newPage: number, newPageSize?: number) => {
+    setPage(newPage);
+    if (newPageSize && newPageSize !== limit) {
+      setLimit(newPageSize);
     }
   };
 
@@ -394,7 +402,7 @@ export default function ProductsManagement() {
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+      <div className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
         {/* Product Image */}
         <div className="relative aspect-square bg-gradient-to-br from-muted to-muted/50 overflow-hidden">
           {product.image ? (
@@ -550,10 +558,12 @@ export default function ProductsManagement() {
       >
         <div>
           <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <Icon icon="solar:box-bold-duotone" className="w-7 h-7 text-primary" />
+          <div className="p-2.5 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl">
+                            <Icon icon="solar:box-bold-duotone" className="h-7 w-7 text-primary" />
+                        </div>
             Quản lý Sản phẩm
           </h2>
-          <p className="text-muted-foreground mt-1">Tổng cộng {total} sản phẩm</p>
+          <p className="text-muted-foreground ml-14"> Quản lý sản phẩm một cách hiệu quả</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -596,7 +606,7 @@ export default function ProductsManagement() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-card border border-border rounded-2xl p-5"
+        className="border-b border-t py-5"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* Search Input */}
@@ -606,7 +616,7 @@ export default function ProductsManagement() {
               placeholder="Tìm theo tên, SKU..."
               value={searchTerm}
               size="large"
-              prefix={<Icon icon="solar:magnifer-bold" className="w-4 h-4 text-muted-foreground" />}
+              prefix={<SearchOutlined />}
               onChange={(e) => handleSearch(e.target.value)}
               className="w-full"
               allowClear
@@ -706,23 +716,20 @@ export default function ProductsManagement() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="bg-card border border-border rounded-2xl overflow-hidden"
+          className="overflow-hidden"
         >
-          <Table
+          <TableAntd
             columns={columns}
-            dataSource={products}
-            rowKey="_id"
+            data={products}
             loading={loading}
-            scroll={{ x: 1200 }}
             pagination={{
-              current: page,
-              pageSize: limit,
+              page: page,
+              limit: limit,
               total: total,
-              onChange: (p) => setPage(p),
-              showSizeChanger: false,
-              showTotal: (total, range) => `${range[0]}-${range[1]} của ${total} sản phẩm`,
             }}
-            className="products-table"
+            onPageChange={handlePageChange}
+            scroll={{ x: 1200 }}
+            onRowClick={(record) => handleViewProduct(record)}
           />
         </motion.div>
       )}

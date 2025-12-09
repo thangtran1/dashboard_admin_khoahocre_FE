@@ -6,9 +6,11 @@ import { categoryService, type Category, type CreateCategoryDto } from "@/api/se
 import { CategoryStatus } from "@/types/enum";
 import { toast } from "sonner";
 import CategoryModal from "./CategoryModal";
-import { Button, Input, Select, Table, Popconfirm, Tooltip, Space } from "antd";
+import { Button, Input, Select, Popconfirm, Tooltip, Space } from "antd";
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
+import TableAntd from "@/components/common/tables/custom-table-antd";
+import { Separator } from "@/ui/separator";
 
 const { Option } = Select;
 
@@ -22,7 +24,7 @@ export default function CategoriesManagement() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
-  const limit = 12;
+  const [limit, setLimit] = useState(12);
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -42,7 +44,7 @@ export default function CategoriesManagement() {
     } finally {
       setLoading(false);
     }
-  }, [page, searchTerm, statusFilter]);
+  }, [page, limit, searchTerm, statusFilter]);
 
   useEffect(() => {
     fetchCategories();
@@ -99,6 +101,13 @@ export default function CategoriesManagement() {
     } catch (error) {
       console.error("Error saving category:", error);
       toast.error("Lỗi khi lưu danh mục");
+    }
+  };
+
+  const handlePageChange = (newPage: number, newPageSize?: number) => {
+    setPage(newPage);
+    if (newPageSize && newPageSize !== limit) {
+      setLimit(newPageSize);
     }
   };
 
@@ -245,7 +254,7 @@ export default function CategoriesManagement() {
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300">
+      <div className="bg-card border border-border rounded-xl overflow-hidden hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300">
         {/* Category Image */}
         <div className="relative aspect-[4/3] bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
           {category.image ? (
@@ -338,10 +347,8 @@ export default function CategoriesManagement() {
       >
         <div>
           <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <Icon icon="solar:folder-bold-duotone" className="w-7 h-7 text-blue-500" />
             Quản lý Danh mục
           </h2>
-          <p className="text-muted-foreground mt-1">Tổng cộng {total} danh mục</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -378,13 +385,12 @@ export default function CategoriesManagement() {
           </Button>
         </div>
       </motion.div>
-
+              <Separator className="my-4" />
       {/* Filters */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-card border border-border rounded-2xl p-5"
       >
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Search Input */}
@@ -434,23 +440,19 @@ export default function CategoriesManagement() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="bg-card border border-border rounded-2xl overflow-hidden"
+          className="overflow-hidden"
         >
-          <Table
+          <TableAntd
             columns={columns}
-            dataSource={categories}
-            rowKey="_id"
+            data={categories}
             loading={loading}
-            scroll={{ x: 900 }}
             pagination={{
-              current: page,
-              pageSize: limit,
+              page: page,
+              limit: limit,
               total: total,
-              onChange: (p) => setPage(p),
-              showSizeChanger: false,
-              showTotal: (total, range) => `${range[0]}-${range[1]} của ${total} danh mục`,
             }}
-            className="categories-table"
+            onPageChange={handlePageChange}
+            scroll={{ x: 900 }}
           />
         </motion.div>
       )}
