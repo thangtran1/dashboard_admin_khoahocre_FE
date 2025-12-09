@@ -1,19 +1,17 @@
 "use client";
 
 import { Product } from "@/types";
-import { getFakeBrandBySlug } from "@/constants/fakeData";
+import { Badge } from "@/ui/badge";
 import { Collapse } from "antd";
 import { ChevronDownIcon } from "lucide-react";
 
 const { Panel } = Collapse;
 
-const ProductCharacteristics = async ({
+const ProductCharacteristics = ({
   product,
 }: {
   product: Product | null | undefined;
 }) => {
-  const brand = await getFakeBrandBySlug(product?.brand?.slug?.current as string);
-
   return (
     <Collapse
       accordion
@@ -35,29 +33,27 @@ const ProductCharacteristics = async ({
         className="text-sm"
       >
         <p className="flex items-center justify-between">
-          Brand:{" "}
-          {brand && (
-            <span className="font-semibold tracking-wide">{brand?.name}</span>
+          Thương hiệu:{" "}
+          {product?.brand?.name && (
+            <span className="font-semibold tracking-wide">{product?.brand?.name}</span>
           )}
         </p>
 
-        <p className="flex items-center justify-between">
-          Collection:{" "}
+        <p className="flex items-center mt-1 justify-between">
+          Năm sản xuất:{" "}
           <span className="font-semibold tracking-wide">2025</span>
         </p>
 
-        <p className="flex items-center justify-between">
-          Type:{" "}
+        <p className="flex items-center mt-1 justify-between">
+          Loại sản phẩm:{" "}
           <span className="font-semibold tracking-wide">
             {product?.category?.name}
           </span>
         </p>
 
-        <p className="flex items-center justify-between">
-          Stock:{" "}
-          <span className="font-semibold tracking-wide">
-            {product?.stock && product?.stock > 0 ? "Available" : "Out of Stock"}
-          </span>
+        <p className="flex items-center mt-1 justify-between">
+          Tình trạng:{" "}
+          {product?.stock && product?.stock > 0 ? <Badge variant="success">Available</Badge> : <Badge variant="error">Out of Stock</Badge>}
         </p>
       </Panel>
     </Collapse>

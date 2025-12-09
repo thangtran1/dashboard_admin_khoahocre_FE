@@ -3,12 +3,13 @@ import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
 import { Label } from "@/ui/label";
 
 const priceArray = [
-  { title: "Under $100", value: "0-100" },
-  { title: "$100 - $200", value: "100-200" },
-  { title: "$200 - $300", value: "200-300" },
-  { title: "$300 - $500", value: "300-500" },
-  { title: "Over $500", value: "500-10000" },
+  { title: "Dưới 5 triệu", value: "0-5000000" },
+  { title: "5 - 10 triệu", value: "5000000-10000000" },
+  { title: "10 - 20 triệu", value: "10000000-20000000" },
+  { title: "20 - 30 triệu", value: "20000000-30000000" },
+  { title: "Trên 30 triệu", value: "30000000-Infinity" },
 ];
+
 
 interface Props {
   selectedPrice?: string | null;

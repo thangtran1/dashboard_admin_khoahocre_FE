@@ -15,7 +15,6 @@ const CategoryList = ({
 }: Props) => {
   // Khi selectedCategory là null hoặc undefined → "Tất cả" được active
   const isAllSelected = !selectedCategory;
-
   return (
     <div className="w-full py-3">
       <Title className="text-base font-bold">Danh mục sản phẩm</Title>

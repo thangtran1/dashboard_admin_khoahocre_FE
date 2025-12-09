@@ -1,18 +1,39 @@
 "use client";
 
 import Title from "@/ui/title";
-import { getFakeCategories } from "@/constants/fakeData";
 import { useParams } from "react-router";
 import CategoryPage from "@/pages/user/category/page";
+import { useEffect, useState } from "react";
+import { categoryService } from "@/api/services/category";
+import { CategoryStatus, ProductStatus } from "@/types/enum";
+import { productService } from "@/api/services/product";
 
-const DetailCategory = async () => {
+const DetailCategory = () => {
   const { slug } = useParams();
-  const categories = await getFakeCategories();
+  const [category, setCategory] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchCategory = async () => {
+      const response = await categoryService.getAllCategories(1, 10, { status: CategoryStatus.ACTIVE });
+      if (response.success && response.data) setCategory(response.data.data);
+      else setCategory([]);
+    };
+    fetchCategory();
+  }, [slug]);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await productService.getAllProducts(1, 10, { status: ProductStatus.ACTIVE });
+      if (response.success && response.data) setProducts(response.data.data);
+      else setProducts([]);
+    };
+    fetchProducts();
+  }, [category]);
   const currentSlug = slug || "all";
+  const currentCategory = category[0]; // vì category là array 1 phần tử
 
-  const currentCategory = categories.find(cat => cat.slug?.current === slug);
-  const categoryName = currentSlug === "all" ? "Tất cả sản phẩm" : currentCategory?.name || slug;
+  const categoryName =
+    currentSlug === "all" ? "Tất cả sản phẩm" : currentCategory?.name || slug;
 
   return (
     <div>
@@ -23,7 +44,7 @@ const DetailCategory = async () => {
         </span>
       </Title>
 
-      <CategoryPage categories={categories} slug={currentSlug} />
+      <CategoryPage categories={category} products={products} slug={currentSlug} />
     </div>
   );
 };

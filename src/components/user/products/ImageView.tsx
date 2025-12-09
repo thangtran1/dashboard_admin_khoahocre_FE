@@ -1,10 +1,9 @@
 "use client";
 import { AnimatePresence, m } from "framer-motion";
 import { useState } from "react";
-import { Image as ImageType } from "@/types";
 
 interface Props {
-  images?: ImageType[];
+  images?: any[];
   isStock?: number | undefined;
 }
 
@@ -24,23 +23,25 @@ const ImageView = ({ images = [], isStock }: Props) => {
           className="w-full max-h-[350px] min-h-[300px] border border-border rounded-md group overflow-hidden"
         >
           <img
-            src={activeImage?.asset?.url}
-            alt="productImage"
+            src={activeImage?.url}
+            alt={activeImage?.alt || "productImage"}
             className={`w-full max-h-[350px] min-h-[300px] object-contain group-hover:scale-110 rounded-md ${isStock === 0 ? "opacity-50" : ""
               }`}
           />
         </m.div>
       </AnimatePresence>
+
       <div className="grid grid-cols-6 gap-2 h-20 md:h-24">
         {images?.map((image, index) => (
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
-            className={`border rounded-md overflow-hidden ${activeIndex === index ? "border-darkColor opacity-100" : "opacity-80"}`}
+            className={`border rounded-md overflow-hidden ${activeIndex === index ? "border-darkColor opacity-100" : "opacity-80"
+              }`}
           >
             <img
-              src={image?.asset?.url || "/images/products/product_1.png"}
-              alt={`Thumbnail ${index}`}
+              src={image?.url || "/images/products/product_1.png"}
+              alt={image?.alt || `Thumbnail ${index}`}
               className="w-full h-auto object-contain"
             />
           </button>

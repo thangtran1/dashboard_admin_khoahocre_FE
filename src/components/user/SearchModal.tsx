@@ -3,11 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader } from "@/ui/dialog";
 import { Search, X, Clock, TrendingUp, ShoppingBag } from "lucide-react";
-import { getFakeProducts } from "@/constants/fakeData";
 import { Product } from "@/types";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "antd";
+import { productService } from "@/api/services/product";
+import { CategoryStatus, ProductStatus } from "@/types/enum";
+import { categoryService } from "@/api/services/category";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -15,6 +17,15 @@ interface SearchModalProps {
 }
 
 const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
+  const [categories, setCategories] = useState<any[]>([]);
+  console.log("🚀 ~ SearchModal ~ categories:", categories)
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await categoryService.getAllCategories(1, 10, { status: CategoryStatus.ACTIVE });
+      setCategories(response.data.data);
+    };
+    fetchCategories();
+  }, []);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
@@ -23,18 +34,8 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const suggestedSearches = [
-    "iPhone 15 Pro Max", "MacBook Pro", "Samsung Galaxy", 
-    "AirPods Pro", "PlayStation 5", "Smart Watch", 
-    "Gaming Laptop", "Wireless Headphones"
-  ];
-
-  const popularCategories = [
-    { name: "Smartphones", icon: "📱" },
-    { name: "Laptops", icon: "💻" },
-    { name: "Headphones", icon: "🎧" },
-    { name: "Gaming", icon: "🎮" },
-    { name: "Smart Watch", icon: "⌚" },
-    { name: "Tablets", icon: "📱" }
+    "iPhone 17s Pro Max 256GB", "Camera Canon EOS HP", "iPhone 16 Pro Max 256GB",
+    "Samsung Galaxy S24 Ultra 256GB"
   ];
 
   // Focus input when modal opens
@@ -63,15 +64,16 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
       if (!searchQuery.trim()) return setSearchResults([]);
       setIsLoading(true);
 
-      setTimeout(() => {
-        const allProducts = getFakeProducts();
-        const filtered = allProducts.filter(p =>
+      setTimeout(async () => {
+        const response = await productService.getAllProducts(1, 10, { status: ProductStatus.ACTIVE });
+        const allProducts = response.data.data;
+        const filtered = allProducts.filter((p: any) =>
           p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.category?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.brand?.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
-        setSearchResults(filtered.slice(0, 8) as Product[]);
+        setSearchResults(filtered.slice(0, 8) as any);
         setIsLoading(false);
       }, 300);
     }, 300);
@@ -156,7 +158,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                           transition={{ delay: i * 0.05 }}
                         >
                           <Link
-                            to={`/product/${p.slug?.current || p._id}`}
+                            to={`/product/${p.slug}`}
                             onClick={() => handleProductClick(p)}
                             className="flex items-center gap-3 p-3 rounded-lg transition-colors group"
                           >
@@ -214,7 +216,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                       <button
                         key={i}
                         onClick={() => handleSuggestionClick(s)}
-                        className="flex items-center gap-3 w-full p-2 text-left hover:bg-background rounded-lg transition-colors"
+                        className="flex cursor-pointer items-center gap-3 w-full p-2 text-left hover:bg-background rounded-lg transition-colors"
                       >
                         <Clock className="w-4 h-4 text-foreground" />
                         <span className="text-foreground">{s}</span>
@@ -230,13 +232,17 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                   <TrendingUp className="w-4 h-4" /> Danh mục phổ biến
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
-                  {popularCategories.map((c, i) => (
+                  {categories.map((c: any, i: number) => (
                     <button
                       key={i}
                       onClick={() => handleSuggestionClick(c.name)}
-                      className="flex items-center gap-3 p-3 text-left hover:bg-background rounded-lg transition-colors border border-border"
+                      className="flex cursor-pointer items-center gap-3 p-3 text-left hover:bg-background rounded-lg transition-colors border border-border"
                     >
-                      <span className="text-xl">{c.icon}</span>
+                      <img
+                        src={c.image}
+                        alt={c.name}
+                        className="w-10 h-10 object-cover rounded-full flex-none"
+                      />
                       <span className="text-foreground font-medium">{c.name}</span>
                     </button>
                   ))}
@@ -253,7 +259,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                     <button
                       key={i}
                       onClick={() => handleSuggestionClick(s)}
-                      className="p-2 text-sm bg-primary/10 hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 text-primary rounded-full font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+                      className="p-2 text-sm bg-primary/10 hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 text-primary rounded-full font-medium transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
                     >
                       {s}
                     </button>

@@ -6,7 +6,6 @@ import Title from "@/ui/title";
 import CategoryList from "@/components/user/shop/CategoryList";
 import BrandList from "@/components/user/shop/BrandList";
 import PriceList from "@/components/user/shop/PriceList";
-import { getFakeProducts } from "@/constants/fakeData";
 import { Loader2 } from "lucide-react";
 import ProductCard from "@/pages/user/public/ProductCard";
 import NoProductAvailable from "../public/NoProductAvailable";
@@ -27,7 +26,6 @@ const Shop = () => {
   const selectedCategory = searchParams.get("category");
   const selectedBrand = searchParams.get("brand");
   const selectedPrice = searchParams.get("price");
-
   // Hàm cập nhật URL khi filter thay đổi
   const updateFilter = useCallback((key: string, value: string | null) => {
     const newParams = new URLSearchParams(searchParams);
@@ -70,27 +68,19 @@ const Shop = () => {
       return [];
     }
   }, []);
-  // Fetch categories & brands ONCE
   useEffect(() => {
-    const load = async () => {
-      fetchCategories(); // gọi API categories
-      fetchBrands(); // gọi API brands
-    };
-    load();
-  }, [ fetchBrands, fetchCategories ]);
+    fetchCategories();
+    fetchBrands();
+  }, [fetchBrands, fetchCategories]);
 
   // Fetch products on filter change
   const fetchProducts = useCallback(async () => {
     setLoading(true);
-
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
     const response = await productService.getAllProducts(1, 100, {
       status: ProductStatus.ACTIVE,
     });
     const allProducts = response.data.data;
     let filtered = allProducts;
-
     // category filter - chỉ filter nếu có selectedCategory VÀ tìm được category
     if (selectedCategory) {
       const cat = categories.find((c) => c.slug === selectedCategory);
@@ -98,7 +88,6 @@ const Shop = () => {
         filtered = filtered.filter((p) => p.category?._id === cat._id);
       }
     }
-
     // brand filter - chỉ filter nếu có selectedBrand VÀ tìm được brand
     if (selectedBrand) {
       const br = brands.find((b) => b.slug === selectedBrand);
@@ -106,20 +95,20 @@ const Shop = () => {
         filtered = filtered.filter((p) => p.brand?._id === br._id);
       }
     }
-
     // price filter
     if (selectedPrice) {
       const [minStr, maxStr] = selectedPrice.split("-");
       const min = Number(minStr) || 0;
-      const max = Number(maxStr) || Infinity;
-      filtered = filtered.filter((p) => p.price >= min && p.price <= max);
-    }
+      const max = maxStr === "Infinity" ? Infinity : Number(maxStr);
 
+      filtered = filtered.filter(
+        (p) => p.price >= min && p.price <= max
+      );
+    }
     setProducts(filtered as any[]);
     setLoading(false);
   }, [categories, brands, selectedCategory, selectedBrand, selectedPrice]);
 
-  // re-fetch products when filters or data ready
   useEffect(() => {
     if (categories.length > 0 && brands.length > 0) {
       fetchProducts();
@@ -190,7 +179,7 @@ const Shop = () => {
               <div className="p-20 flex flex-col gap-2 items-center justify-center">
                 <Loader2 className="w-10 h-10 text-primary animate-spin" />
                 <p className="font-semibold tracking-wide text-base">
-                  Đang tải sản phẩm . . .
+                  Đang tải phẩm . . .
                 </p>
               </div>
             ) : products.length > 0 ? (

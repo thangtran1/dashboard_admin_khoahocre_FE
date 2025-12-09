@@ -1,82 +1,3 @@
-export const fakeCategories = [
-  {
-    _id: "cat1",
-    name: "Smartphones",
-    slug: { current: "smartphones" },
-    description: "Latest smartphones and mobile devices",
-    productCount: 5,
-    image: { asset: { url: "/images/banner/banner_1.png" } }
-  },
-  {
-    _id: "cat2",
-    name: "Laptops",
-    slug: { current: "laptops" },
-    description: "High-performance laptops and computers",
-    productCount: 3,
-    image: { asset: { url: "/images/products/product_2.jpg" } }
-  },
-  {
-    _id: "cat3",
-    name: "Headphones",
-    slug: { current: "headphones" },
-    description: "Premium audio devices and headphones",
-    productCount: 4,
-    image: { asset: { url: "/images/products/product_3.png" } }
-  },
-  {
-    _id: "cat4",
-    name: "Tablets",
-    slug: { current: "tablets" },
-    description: "Tablets and e-readers",
-    productCount: 2,
-    image: { asset: { url: "/images/products/product_4.png" } }
-  },
-  {
-    _id: "cat5",
-    name: "Smart Watch",
-    slug: { current: "smart-watch" },
-    description: "Smartwatches and fitness trackers",
-    productCount: 3,
-    image: { asset: { url: "/images/products/product_5.png" } }
-  }
-];
-export const fakeBrands = [
-  {
-    _id: "brand1",
-    name: "Apple",
-    slug: { current: "apple" },
-    description: "Premium technology products",
-    image: { asset: { url: "/images/brands/brand_1.webp" } }
-  },
-  {
-    _id: "brand2",
-    name: "Samsung",
-    slug: { current: "samsung" },
-    description: "Innovation for everyone",
-    image: { asset: { url: "/images/brands/brand_2.jpg" } }
-  },
-  {
-    _id: "brand3",
-    name: "Sony",
-    slug: { current: "sony" },
-    description: "Audio and entertainment",
-    image: { asset: { url: "/images/brands/brand_3.png" } }
-  },
-  {
-    _id: "brand4",
-    name: "Microsoft",
-    slug: { current: "microsoft" },
-    description: "Software and hardware solutions",
-    image: { asset: { url: "/images/brands/brand_4.png" } }
-  },
-  {
-    _id: "brand5",
-    name: "Google",
-    slug: { current: "google" },
-    description: "Search and mobile technology",
-    image: { asset: { url: "/images/brands/brand_5.png" } }
-  }
-];
 export const fakeBlogs = [
   {
     _id: "blog1",
@@ -476,29 +397,8 @@ export const fakeProducts = [
   },
 ];
 
-// Helper functions để lấy data
-export const getFakeCategories = (quantity?: number) => {
-  return quantity ? fakeCategories.slice(0, quantity) : fakeCategories;
-};
-
-export const getFakeBrands = () => {
-  return fakeBrands;
-};
-
-export const getFakeProducts = (quantity?: number) => {
-  return quantity ? fakeProducts.slice(0, quantity) : fakeProducts;
-};
-
 export const getFakeDealProducts = () => {
   return fakeProducts.filter(product => product.discount > 10);
-};
-
-export const getFakeProductBySlug = (slug: string) => {
-  return fakeProducts.find(product => product.slug.current === slug) || null;
-};
-
-export const getFakeBrandBySlug = (slug: string) => {
-  return fakeBrands.find(brand => brand.slug.current === slug) || null;
 };
 
 export const getFakeBlogs = (quantity?: number) => {

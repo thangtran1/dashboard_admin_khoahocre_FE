@@ -12,7 +12,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     <div className="text-sm border rounded-md border-border group">
       <div className="relative group overflow-hidden bg-background">
         {product?.images && (
-          <Link to={`/product/${product?.slug?.current}`}>
+          <Link to={`/product/${product?.slug}`}>
             <img
               src={product.images[0]?.asset?.url || "/images/products/product_1.png"}
               alt="productImage"

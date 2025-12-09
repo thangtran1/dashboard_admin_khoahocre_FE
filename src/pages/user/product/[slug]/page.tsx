@@ -9,18 +9,32 @@ import ProductReviewSection from "@/components/user/products/ProductReviewSectio
 import AddToCartButton from "@/components/user/AddToCartButton";
 import FavoriteButton from "@/components/user/FavoriteButton";
 
-import { getFakeProductBySlug } from "@/constants/fakeData";
 import { Product } from "@/types";
+import { useCallback, useEffect, useState } from "react";
+import { productService } from "@/api/services/product";
 
 const SingleProductPage = () => {
   const { slug } = useParams();
-  const product = getFakeProductBySlug(slug as string);
+  const [product, setProduct] = useState<any | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  if (!product) return <div>Product not found!</div>;
+  const fetchProductBySlug = useCallback(async (slug: string) => {
+    setLoading(true);
+    const response = await productService.getProductBySlug(slug);
+    if (response.success) setProduct(response.data);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (slug) fetchProductBySlug(slug);
+  }, [slug, fetchProductBySlug]);
+
+  // 🔥 Chặn render UI khi chưa có product
+  if (loading || !product) return <div>Loading...</div>;
 
   /*------------------------------------
-   | TABS – Mô tả + Đánh giá
-   ------------------------------------*/
+    | TABS – Mô tả + Đánh giá
+  ------------------------------------*/
   const items = [
     {
       key: "details",
@@ -33,17 +47,25 @@ const SingleProductPage = () => {
             <h3 className="text-lg font-semibold mb-3">Thông tin sản phẩm</h3>
             <div className="space-y-3 p-4 bg-muted border rounded-lg text-sm">
               {[
-                { label: "Thương hiệu", value: product.brand?.name },
-                { label: "Danh mục", value: product.category?.name },
-                { label: "Tình trạng", value: product.stock === 0 ? "Hết hàng" : "Còn hàng" },
-                { label: "Bảo hành", value: product.warrantyPeriod || "12 tháng" },
+                { label: "Thương hiệu", value: product?.brand?.name },
+                { label: "Danh mục", value: product?.category?.name },
+                {
+                  label: "Tình trạng",
+                  value: product?.stock === 0 ? "Hết hàng" : "Còn hàng",
+                },
+                {
+                  label: "Bảo hành",
+                  value: product?.warrantyPeriod || "12 tháng",
+                },
               ].map((item, idx) => (
                 <div
                   key={idx}
                   className="flex justify-between border-b pb-2 last:border-none last:pb-0"
                 >
                   <span>{item.label}</span>
-                  <span className="font-medium">{item.value || "Đang cập nhật"}</span>
+                  <span className="font-medium">
+                    {item.value || "Đang cập nhật"}
+                  </span>
                 </div>
               ))}
             </div>
@@ -53,7 +75,7 @@ const SingleProductPage = () => {
           <div>
             <h3 className="text-lg font-semibold mb-3">Đặc điểm nổi bật</h3>
             <div className="text-sm leading-relaxed bg-muted p-4 border rounded-lg">
-              {product.description ? (
+              {product?.description ? (
                 <p className="whitespace-pre-line">{product.description}</p>
               ) : (
                 <p className="italic">Chưa có mô tả</p>
@@ -65,7 +87,7 @@ const SingleProductPage = () => {
           <div className="md:col-span-2">
             <h3 className="text-lg font-semibold mb-3">Mô tả chi tiết</h3>
             <div className="p-4 border rounded-lg bg-muted text-sm leading-relaxed">
-              {product.description ? (
+              {product?.description ? (
                 <div
                   className="prose max-w-full"
                   dangerouslySetInnerHTML={{ __html: product.description }}
@@ -77,17 +99,16 @@ const SingleProductPage = () => {
           </div>
 
           {/* Thông số kỹ thuật */}
-          {product.specifications && (
+          {product?.specifications && (
             <div className="md:col-span-2">
               <h3 className="text-lg font-semibold mb-3">Thông số kỹ thuật</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                {Object.entries(product.specifications).map(([key, value], idx) => (
+                {(product.specifications as string[]).map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between p-3 border bg-muted rounded-lg"
+                    className="p-3 border bg-muted rounded-lg"
                   >
-                    <span className="capitalize">{key}</span>
-                    <span className="font-medium">{value}</span>
+                    {item}
                   </div>
                 ))}
               </div>
@@ -97,16 +118,14 @@ const SingleProductPage = () => {
       ),
     },
 
-    /*------------------------------------
-     | TAB – Đánh giá
-     ------------------------------------*/
+    // TAB ĐÁNH GIÁ
     {
       key: "reviews",
       label: "Đánh giá",
       children: (
-        <ProductReviewSection 
-          reviews={product.reviews || []} 
-          productName={product.name} 
+        <ProductReviewSection
+          reviews={product?.reviews || []}
+          productName={product?.name}
         />
       ),
     },
@@ -114,23 +133,25 @@ const SingleProductPage = () => {
 
   return (
     <>
-      {/*------------------------------------
-        PRODUCT AREA
-      ------------------------------------*/}
+      {/* PRODUCT AREA */}
       <div className="flex flex-col md:flex-row gap-10 pt-5">
-        {product.images && (
+
+        {/* Ảnh */}
+        {product?.images && (
           <ImageView images={product.images} isStock={product.stock} />
         )}
 
-        {/* Right side: title + price + actions */}
+        {/* Right content */}
         <div className="w-full md:w-1/2 flex flex-col gap-5">
 
+          {/* Title + desc + rating */}
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold">{product.name}</h2>
+            <h2 className="text-2xl font-bold">{product?.name}</h2>
 
-            <p className="text-sm text-muted-foreground">{product.description}</p>
+            <p className="text-sm text-muted-foreground">
+              {product?.shortDescription}
+            </p>
 
-            {/* Rating */}
             <div className="flex items-center gap-0.5 text-xs">
               {[...Array(5)].map((_, index) => (
                 <StarIcon
@@ -144,22 +165,21 @@ const SingleProductPage = () => {
             </div>
           </div>
 
-          {/* Price + stock */}
+          {/* Price */}
           <div className="space-y-2 border-y py-5">
             <PriceView
-              price={product.price}
-              discount={product.discount}
+              price={product?.price}
+              discount={product?.discount}
               className="text-lg font-bold"
             />
 
             <p
-              className={`px-4 py-1.5 text-sm text-center font-semibold rounded-lg ${
-                product.stock === 0
-                  ? "bg-red-100 text-red-600"
-                  : "bg-green-100 text-green-600"
-              }`}
+              className={`px-4 py-1.5 text-sm text-center font-semibold rounded-lg ${product?.stock === 0
+                ? "bg-red-100 text-red-600"
+                : "bg-green-100 text-green-600"
+                }`}
             >
-              {product.stock > 0 ? "In Stock" : "Out of Stock"}
+              {product?.stock > 0 ? "In Stock" : "Out of Stock"}
             </p>
           </div>
 
@@ -170,11 +190,10 @@ const SingleProductPage = () => {
           </div>
 
           {/* Characteristics */}
-          <ProductCharacteristics product={product as Product} />
+          <ProductCharacteristics product={product as any} />
 
           {/* Info Boxes */}
           <div className="flex flex-col">
-            {/* Free shipping */}
             <div className="border p-3 flex items-center gap-3">
               <Truck size={30} className="text-shop_orange" />
               <div>
@@ -183,7 +202,6 @@ const SingleProductPage = () => {
               </div>
             </div>
 
-            {/* Return shipping */}
             <div className="border border-t-0 p-3 flex items-center gap-3">
               <CornerDownLeft size={30} className="text-shop_orange" />
               <div>
@@ -195,12 +213,11 @@ const SingleProductPage = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      {/*------------------------------------
-        TABS
-      ------------------------------------*/}
+      {/* TABS */}
       <div className="border-t py-5">
         <Tabs defaultActiveKey="details" items={items} size="large" />
       </div>
