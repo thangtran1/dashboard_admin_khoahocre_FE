@@ -1,10 +1,9 @@
-import { Category } from "@/types";
 import Title from "../../../ui/title";
 import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
 import { Label } from "@/ui/label";
 
 interface Props {
-  categories: Category[];
+  categories: any[];
   selectedCategory?: string | null;
   setSelectedCategory: (value: string | null) => void;
 }
@@ -19,7 +18,7 @@ const CategoryList = ({
 
   return (
     <div className="w-full py-3">
-      <Title className="text-base font-bold">Product Categories</Title>
+      <Title className="text-base font-bold">Danh mục sản phẩm</Title>
       <RadioGroup value={selectedCategory || "all"} className="mt-2 space-y-1">
         <div
           onClick={() => setSelectedCategory(null)}
@@ -43,19 +42,19 @@ const CategoryList = ({
         {categories?.map((category) => (
           <div
             onClick={() => {
-              setSelectedCategory(category?.slug?.current as string);
+              setSelectedCategory(category?.slug as string);
             }}
             key={category?._id}
             className="flex items-center space-x-2 hover:cursor-pointer"
           >
             <RadioGroupItem
-              value={category?.slug?.current as string}
-              id={category?.slug?.current}
+              value={category?.slug as string}
+              id={category?.slug}
               className="rounded-sm"
             />
             <Label
-              htmlFor={category?.slug?.current}
-              className={`${selectedCategory === category?.slug?.current ? "font-semibold text-primary" : "font-normal"}`}
+              htmlFor={category?.slug}
+              className={`${selectedCategory === category?.slug ? "font-semibold text-primary" : "font-normal"}`}
             >
               {category?.name}
             </Label>

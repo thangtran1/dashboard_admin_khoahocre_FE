@@ -154,7 +154,7 @@ export const fakeProducts = [
   {
     _id: "prod1",
     name: "iPhone 15 Pro Max",
-    slug: { current: "iphone-15-pro-max" },
+    slug: { current: "huawei" },
     price: 1199,
     warrantyPeriod: 12,
     discount: 20,
@@ -173,8 +173,8 @@ export const fakeProducts = [
       name: "Smartphones"
     },
     brand: {
-      _ref: "brand1",
-      name: "Apple"
+      _ref: "dell",
+      name: "Dell"
     },
     stock: 50,
     isNew: true,

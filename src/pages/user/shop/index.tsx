@@ -6,11 +6,15 @@ import Title from "@/ui/title";
 import CategoryList from "@/components/user/shop/CategoryList";
 import BrandList from "@/components/user/shop/BrandList";
 import PriceList from "@/components/user/shop/PriceList";
-import { getFakeCategories, getFakeProducts } from "@/constants/fakeData";
-import { getFakeBrands } from "@/constants/fakeData";
+import { getFakeProducts } from "@/constants/fakeData";
 import { Loader2 } from "lucide-react";
 import ProductCard from "@/pages/user/public/ProductCard";
 import NoProductAvailable from "../public/NoProductAvailable";
+import { brandService } from "@/api/services/brands";
+import { categoryService } from "@/api/services/category";
+import { BrandStatus, ProductStatus } from "@/types/enum";
+import { CategoryStatus } from "@/types/enum";
+import { productService } from "@/api/services/product";
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,16 +44,40 @@ const Shop = () => {
   const setSelectedBrand = (value: string | null) => updateFilter("brand", value);
   const setSelectedPrice = (value: string | null) => updateFilter("price", value);
 
+  const fetchBrands = useCallback(async () => {
+    try {
+      const response = await brandService.getAllBrands(1, 100, {
+        status: BrandStatus.ACTIVE,
+      });
+      if (response.success) {
+        setBrands(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+      return [];
+    }
+  }, []);
+  const fetchCategories = useCallback(async () => {
+    try {
+      const response = await categoryService.getAllCategories(1, 100, {
+        status: CategoryStatus.ACTIVE,
+      });
+      if (response.success) {
+        setCategories(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      return [];
+    }
+  }, []);
   // Fetch categories & brands ONCE
   useEffect(() => {
     const load = async () => {
-      const cats = await getFakeCategories(6);
-      const brs = await getFakeBrands();
-      setCategories(cats);
-      setBrands(brs);
+      fetchCategories(); // gọi API categories
+      fetchBrands(); // gọi API brands
     };
     load();
-  }, []);
+  }, [ fetchBrands, fetchCategories ]);
 
   // Fetch products on filter change
   const fetchProducts = useCallback(async () => {
@@ -57,37 +85,37 @@ const Shop = () => {
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    let filtered = getFakeProducts();
+    const response = await productService.getAllProducts(1, 100, {
+      status: ProductStatus.ACTIVE,
+    });
+    const allProducts = response.data.data;
+    let filtered = allProducts;
 
     // category filter - chỉ filter nếu có selectedCategory VÀ tìm được category
     if (selectedCategory) {
-      const cat = categories.find(
-        (c) => c.slug?.current === selectedCategory
-      );
+      const cat = categories.find((c) => c.slug === selectedCategory);
       if (cat) {
-        filtered = filtered.filter(
-          (p) => p.category?._ref === cat?._id
-        );
+        filtered = filtered.filter((p) => p.category?._id === cat._id);
       }
     }
 
     // brand filter - chỉ filter nếu có selectedBrand VÀ tìm được brand
     if (selectedBrand) {
-      const br = brands.find((b) => b.slug?.current === selectedBrand);
+      const br = brands.find((b) => b.slug === selectedBrand);
       if (br) {
-        filtered = filtered.filter((p) => p.brand?._ref === br?._id);
+        filtered = filtered.filter((p) => p.brand?._id === br._id);
       }
     }
 
     // price filter
     if (selectedPrice) {
-      const [min, max] = selectedPrice.split("-").map(Number);
-      filtered = filtered.filter(
-        (p) => p.price >= min && p.price <= max
-      );
+      const [minStr, maxStr] = selectedPrice.split("-");
+      const min = Number(minStr) || 0;
+      const max = Number(maxStr) || Infinity;
+      filtered = filtered.filter((p) => p.price >= min && p.price <= max);
     }
 
-    setProducts(filtered as Product[]);
+    setProducts(filtered as any[]);
     setLoading(false);
   }, [categories, brands, selectedCategory, selectedBrand, selectedPrice]);
 

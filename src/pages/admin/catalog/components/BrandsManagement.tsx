@@ -10,7 +10,6 @@ import { Button, Input, Select, Popconfirm, Tag, Tooltip, Space } from "antd";
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined, StarFilled, GlobalOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import TableAntd from "@/components/common/tables/custom-table-antd";
-import { Separator } from "@/ui/separator";
 
 const { Option } = Select;
 
@@ -42,6 +41,7 @@ export default function BrandsManagement() {
       }
     } catch (error) {
       console.error("Error fetching brands:", error);
+      toast.error("Lỗi khi tải danh sách thương hiệu");
     } finally {
       setLoading(false);
     }
@@ -293,7 +293,7 @@ export default function BrandsManagement() {
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="bg-card border border-border rounded-xl overflow-hidden hover:shadow-xl hover:shadow-amber-500/5 transition-all duration-300">
+      <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-amber-500/5 transition-all duration-300">
         {/* Brand Logo */}
         <div className="relative aspect-[4/3] bg-white dark:bg-slate-800 overflow-hidden flex items-center justify-center p-6">
           {brand.logo ? (
@@ -402,8 +402,10 @@ export default function BrandsManagement() {
       >
         <div>
           <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <Icon icon="solar:star-bold-duotone" className="w-7 h-7 text-amber-500" />
             Quản lý Thương hiệu
           </h2>
+          <p className="text-muted-foreground mt-1">Tổng cộng {total} thương hiệu</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -440,12 +442,13 @@ export default function BrandsManagement() {
           </Button>
         </div>
       </motion.div>
-      <Separator className="my-4" />
+
       {/* Filters */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
+        className="bg-card border border-border rounded-2xl p-5"
       >
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           {/* Search Input */}
@@ -515,7 +518,7 @@ export default function BrandsManagement() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="overflow-hidden"
+          className="bg-card border border-border rounded-2xl overflow-hidden"
         >
           <TableAntd
             columns={columns}

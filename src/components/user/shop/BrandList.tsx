@@ -1,7 +1,7 @@
-import { Brand } from "@/types";
 import Title from "../../../ui/title";
 import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
 import { Label } from "@/ui/label";
+import { Brand } from "@/api/services/brands";
 
 interface Props {
   brands: Brand[];
@@ -14,7 +14,7 @@ const BrandList = ({ brands, selectedBrand, setSelectedBrand }: Props) => {
 
   return (
     <div className="w-full py-2">
-      <Title className="text-base font-bold">Brands</Title>
+      <Title className="text-base font-bold">Thương hiệu</Title>
       <RadioGroup value={selectedBrand || "all"} className="mt-2 space-y-1">
         <div
           onClick={() => setSelectedBrand(null)}
@@ -38,17 +38,17 @@ const BrandList = ({ brands, selectedBrand, setSelectedBrand }: Props) => {
         {brands?.map((brand) => (
           <div
             key={brand?._id}
-            onClick={() => setSelectedBrand(brand?.slug?.current as string)}
+            onClick={() => setSelectedBrand(brand?.slug as string)}
             className="flex items-center space-x-2 hover:cursor-pointer"
           >
             <RadioGroupItem
-              value={brand?.slug?.current as string}
-              id={brand?.slug?.current}
+              value={brand?.slug as string}
+              id={brand?.slug}
               className="rounded-sm"
             />
             <Label
-              htmlFor={brand?.slug?.current}
-              className={`${selectedBrand === brand?.slug?.current ? "font-semibold text-primary" : "font-normal"}`}
+              htmlFor={brand?.slug}
+              className={`${selectedBrand === brand?.slug ? "font-semibold text-primary" : "font-normal"}`}
             >
               {brand?.name}
             </Label>

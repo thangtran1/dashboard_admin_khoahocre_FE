@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import ProductModal from "./ProductModal";
 import ProductDetailModal from "./ProductDetailModal";
 import { Button, Input, Select, Popconfirm, Tag, Tooltip, Space } from "antd";
-import { PlusCircleOutlined, EyeOutlined, EditOutlined, DeleteOutlined, StarFilled, FireOutlined, ThunderboltOutlined, SearchOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined, EyeOutlined, EditOutlined, DeleteOutlined, StarFilled, FireOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import TableAntd from "@/components/common/tables/custom-table-antd";
 
@@ -402,7 +402,7 @@ export default function ProductsManagement() {
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+      <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
         {/* Product Image */}
         <div className="relative aspect-square bg-gradient-to-br from-muted to-muted/50 overflow-hidden">
           {product.image ? (
@@ -557,10 +557,13 @@ export default function ProductsManagement() {
         className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center"
       >
         <div>
-          <h2 className="text-2xl font-bold text-foreground">
+          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+          <div className="p-2.5 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl">
+                            <Icon icon="solar:box-bold-duotone" className="h-7 w-7 text-primary" />
+                        </div>
             Quản lý Sản phẩm
           </h2>
-          <p className="text-muted-foreground mt-2"> Quản lý sản phẩm một cách hiệu quả</p>
+          <p className="text-muted-foreground ml-14">Tổng cộng {total} sản phẩm</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -570,7 +573,7 @@ export default function ProductsManagement() {
               onClick={() => setViewMode("table")}
               className={`p-2 rounded-md transition-all ${viewMode === "table"
                 ? "bg-background text-primary shadow-sm"
-                : "text-muted-foreground hover:text-foreground" 
+                : "text-muted-foreground hover:text-foreground"
                 }`}
             >
               <Icon icon="solar:list-bold" className="w-5 h-5" />
@@ -603,7 +606,7 @@ export default function ProductsManagement() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="border-b border-t py-5"
+        className="bg-card border border-border rounded-2xl p-5"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* Search Input */}
@@ -613,7 +616,7 @@ export default function ProductsManagement() {
               placeholder="Tìm theo tên, SKU..."
               value={searchTerm}
               size="large"
-              prefix={<SearchOutlined />}
+              prefix={<Icon icon="solar:magnifer-bold" className="w-4 h-4 text-muted-foreground" />}
               onChange={(e) => handleSearch(e.target.value)}
               className="w-full"
               allowClear
@@ -713,7 +716,7 @@ export default function ProductsManagement() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="overflow-hidden"
+          className="rounded-2xl overflow-hidden"
         >
           <TableAntd
             columns={columns}

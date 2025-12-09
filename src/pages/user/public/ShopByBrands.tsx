@@ -1,8 +1,9 @@
 import Title from "@/ui/title";
 import { Link } from "react-router";
-import { getFakeBrands } from "@/constants/fakeData";
 import { GitCompareArrows, Headset, ShieldCheck, Truck } from "lucide-react";
 import SeeMore from "@/ui/see-more";
+import { useCallback, useEffect, useState } from "react";
+import { Brand, brandService } from "@/api/services/brands";
 
 const extraData = [
   {
@@ -27,8 +28,24 @@ const extraData = [
   },
 ];
 
-const ShopByBrands = async () => {
-  const brands = await getFakeBrands();
+const ShopByBrands = () => {
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const fetchBrands = useCallback(async () => {
+    try {
+      const response = await brandService.getAllBrands(1, 8, {
+      });
+
+      if (response.success) {
+        setBrands(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+      return [];
+    }
+  }, []);
+  useEffect(() => {
+    fetchBrands();
+  }, [fetchBrands]);
 
   return (
     <div className="space-y-2">
@@ -46,7 +63,7 @@ const ShopByBrands = async () => {
           {brands?.map((brand) => (
             <Link
               key={brand?._id}
-              to={`/shop?brand=${brand?.slug?.current}`}
+              to={`/shop?brand=${brand?.slug}`}
               className="
                 border border-border h-24 rounded-lg flex items-center justify-center
                 hover:shadow-md
@@ -54,7 +71,7 @@ const ShopByBrands = async () => {
               "
             >
               <img
-                src={brand?.image?.asset?.url || "/images/brands/brand_1.webp"}
+                src={brand?.logo || "/images/brands/brand_1.webp"}
                 alt="brandImage"
                 className="w-28 h-20 object-contain opacity-80 hover:opacity-100 transition"
               />
