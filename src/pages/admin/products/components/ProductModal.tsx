@@ -11,6 +11,7 @@ import { type Brand } from "@/api/services/brands";
 import { ProductStatus } from "@/types/enum";
 import { PlusOutlined, DeleteOutlined, DragOutlined } from "@ant-design/icons";
 import { toast } from "sonner";
+import { formatPrice, parsePrice } from "@/utils/format-number";
 
 const { Option } = Select;
 
@@ -249,16 +250,6 @@ export default function ProductModal({
     }
   };
 
-  const formatPrice = (value: number | undefined) => {
-    if (!value) return "";
-    return new Intl.NumberFormat("vi-VN").format(value);
-  };
-
-  const parsePrice = (value: string | undefined) => {
-    if (!value) return 0;
-    return parseInt(value.replace(/\D/g, "")) || 0;
-  };
-
   const tabItems = [
     {
       key: "basic",
@@ -308,16 +299,10 @@ export default function ProductModal({
   ];
 
   return (
-    <Dialog open={open} onOpenChange={onClose} modal={false}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="!max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader className="pb-4 border-b border-border">
-          <DialogTitle className="flex items-center gap-3 text-2xl text-foreground">
-            <div className="p-2 bg-primary/10 rounded-xl">
-              <Icon
-                icon={product ? "solar:pen-bold-duotone" : "solar:box-add-bold-duotone"}
-                className="w-6 h-6 text-primary"
-              />
-            </div>
+          <DialogTitle className="text-2xl text-foreground">
             {product ? "Chỉnh sửa sản phẩm" : "Thêm sản phẩm mới"}
           </DialogTitle>
         </DialogHeader>
@@ -330,7 +315,7 @@ export default function ProductModal({
             className="product-modal-tabs"
           />
 
-          <div className="flex-1 overflow-y-auto px-1 py-4">
+          <div className="flex-1 overflow-y-auto pb-3">
             <AnimatePresence mode="wait">
               {/* Basic Information Tab */}
               {activeTab === "basic" && (
@@ -467,8 +452,8 @@ export default function ProductModal({
                   </div>
 
                   {/* Status Switches */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/50 rounded-xl">
-                    <div className="flex items-center justify-between">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/50 border border-border rounded-xl">
+                    <div className="flex items-center justify-evenly gap-2">
                       <Label className="text-sm font-medium text-foreground">Trạng thái</Label>
                       <Select
                         getPopupContainer={(trigger) => trigger.parentNode}
@@ -492,7 +477,7 @@ export default function ProductModal({
                       </Select>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-evenly">
                       <Label className="text-sm font-medium text-foreground flex items-center gap-1.5">
                         <Icon icon="solar:star-bold" className="w-4 h-4 text-amber-500" />
                         Nổi bật
@@ -503,7 +488,7 @@ export default function ProductModal({
                       />
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-evenly">
                       <Label className="text-sm font-medium text-foreground flex items-center gap-1.5">
                         <Icon icon="solar:bolt-bold" className="w-4 h-4 text-blue-500" />
                         Mới
@@ -514,7 +499,7 @@ export default function ProductModal({
                       />
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-evenly">
                       <Label className="text-sm font-medium text-foreground flex items-center gap-1.5">
                         <Icon icon="solar:fire-bold" className="w-4 h-4 text-orange-500" />
                         Bán chạy
@@ -538,7 +523,7 @@ export default function ProductModal({
                   className="space-y-5"
                 >
                   {/* Main Image */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <Label className="text-sm font-medium text-foreground">Ảnh đại diện</Label>
                     <div className="flex gap-4">
                       <div className="flex-1">
@@ -847,9 +832,8 @@ export default function ProductModal({
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 20 }}
-                          className="flex items-center gap-2 p-3 bg-muted/50 rounded-lg group"
+                          className="flex items-center gap-2 p-3 bg-muted/50 border border-border rounded-lg group"
                         >
-                          <Icon icon="solar:check-circle-bold" className="w-4 h-4 text-success bg-success/10 rounded-full flex-shrink-0" />
                           <span className="flex-1 text-sm text-foreground">{spec}</span>
                           <Button
                             type="text"
@@ -864,10 +848,10 @@ export default function ProductModal({
                     </div>
 
                     {(!formData.specifications || formData.specifications.length === 0) && (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <Icon icon="solar:clipboard-list-bold-duotone" className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                        <p className="text-sm">Chưa có thông số kỹ thuật nào</p>
-                      </div>
+                      <div className="text-center py-6 text-foreground border-2 border-dashed border-border rounded-lg">
+                      <p className="text-sm">Chưa có thông số kỹ thuật nào</p>
+                      <p className="text-xs mt-1 text-muted-foreground">Thông số kỹ thuật giúp người dùng hiểu rõ hơn về sản phẩm</p>
+                    </div>
                     )}
                   </div>
                 </motion.div>
@@ -923,10 +907,9 @@ export default function ProductModal({
                     </div>
 
                     {(!formData.tags || formData.tags.length === 0) && (
-                      <div className="text-center py-6 text-muted-foreground border-2 border-dashed border-border rounded-lg">
-                        <Icon icon="solar:tag-bold-duotone" className="w-10 h-10 mx-auto mb-2 opacity-50" />
+                      <div className="text-center py-6 text-foreground border-2 border-dashed border-border rounded-lg">
                         <p className="text-sm">Chưa có tag nào</p>
-                        <p className="text-xs mt-1">Tags giúp người dùng tìm kiếm sản phẩm dễ dàng hơn</p>
+                        <p className="text-xs mt-1 text-muted-foreground">Tags giúp người dùng tìm kiếm sản phẩm dễ dàng hơn</p>
                       </div>
                     )}
                   </div>
@@ -952,15 +935,14 @@ export default function ProductModal({
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 pt-4 border-t border-border mt-auto">
-            <Button size="large" onClick={onClose} className="flex-1" disabled={loading}>
+          <div className="flex gap-3 pt-3 justify-end">
+            <Button size="large" danger onClick={onClose} disabled={loading}>
               Hủy
             </Button>
             <Button
               type="primary"
               htmlType="submit"
               size="large"
-              className="flex-1"
               loading={loading}
             >
               {loading ? "Đang lưu..." : product ? "Cập nhật" : "Tạo sản phẩm"}

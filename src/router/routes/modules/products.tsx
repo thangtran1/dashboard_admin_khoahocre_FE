@@ -17,7 +17,7 @@ const products: AppRouteObject = {
     </Suspense>
   ),
   meta: {
-    label: "siderbar-labels.products",
+    label: "siderbar-labels.product-management",
     icon: (
       <Icon
         icon="solar:box-bold-duotone"
@@ -36,7 +36,7 @@ const products: AppRouteObject = {
         </Suspense>
       ),
       meta: {
-        label: "Sản phẩm",
+        label: "products.product",
         key: "/products",
       },
     },

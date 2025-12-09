@@ -879,7 +879,8 @@
     "sidebar-minimized-description": "🔓 Sidebar is minimized",
     "sidebar-maximized-description": "🔒 Sidebar is maximized",
 
-    "profile": "Profile"
+    "profile": "Profile",
+    "product-management": "Product management"
   },
   "settings": {
     "title": "Settings",
@@ -915,5 +916,8 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "new-password": "New password"
+  },
+  "products": {
+    "product": "Product"
   }
 }

@@ -184,35 +184,22 @@ export default function ProductDetailModal({
     ...(product.images || []),
   ].filter((img) => img?.url);
 
-  const tabItems = [
-    {
-      key: "overview",
-      label: (
-        <span className="flex items-center gap-2">
-          <Icon icon="solar:document-bold-duotone" className="w-4 h-4" />
-          Tổng quan
-        </span>
-      ),
-    },
-    {
-      key: "specs",
-      label: (
-        <span className="flex items-center gap-2">
-          <Icon icon="solar:settings-bold-duotone" className="w-4 h-4" />
-          Thông số
-        </span>
-      ),
-    },
-    {
-      key: "reviews",
-      label: (
-        <span className="flex items-center gap-2">
-          <Icon icon="solar:star-bold-duotone" className="w-4 h-4" />
-          Đánh giá ({product.reviewCount || 0})
-        </span>
-      ),
-    },
+  const tabConfig = [
+    { key: "overview", icon: "solar:document-bold-duotone", label: "Tổng quan" },
+    { key: "specs", icon: "solar:settings-bold-duotone", label: "Thông số" },
+    { key: "reviews", icon: "solar:star-bold-duotone", label: "Đánh giá", dynamicCount: product.reviewCount || 0 },
   ];
+  
+  const tabItems = tabConfig.map(tab => ({
+    key: tab.key,
+    label: (
+      <span className="flex items-center gap-2">
+        <Icon icon={tab.icon} className="w-4 h-4" />
+        {tab.label}
+        {tab.dynamicCount !== undefined && ` (${tab.dynamicCount})`}
+      </span>
+    ),
+  }));
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -250,7 +237,7 @@ export default function ProductDetailModal({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-4"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-6"
               >
                 {/* Image Gallery */}
                 <div className="space-y-4">
@@ -450,7 +437,7 @@ export default function ProductDetailModal({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="py-4 space-y-6"
+                className=" space-y-6"
               >
                 {/* Basic Specs */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -522,7 +509,7 @@ export default function ProductDetailModal({
                 </div>
 
                 {/* Timestamps */}
-                <div className="flex items-center gap-6 pt-4 border-t border-border text-sm text-muted-foreground">
+                <div className="flex items-center gap-6 pt-4 border-t border-border text-sm text-foreground">
                   <div className="flex items-center gap-2">
                     <Icon icon="solar:calendar-add-bold-duotone" className="w-4 h-4" />
                     <span>
@@ -547,7 +534,7 @@ export default function ProductDetailModal({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="py-4 space-y-6"
+                className=" space-y-6"
               >
                 {/* Reviews Summary */}
                 <div className="p-4 bg-gradient-to-r from-success/10 to-success/20 dark:from-success/900/20 dark:to-success/900/20 rounded-xl">
@@ -650,6 +637,12 @@ function ReviewCard({
   onSubmitReply,
 }: ReviewCardProps) {
   const isLoading = loadingAction === review._id;
+  const [showAllReplies, setShowAllReplies] = useState<Record<string, boolean>>({});
+  const visibleReplies = (review: any) => {
+    if (!review.replies) return [];
+    if (showAllReplies[review._id]) return review.replies;
+    return review.replies.slice(0, 2);
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -754,33 +747,48 @@ function ReviewCard({
 
           {/* Replies */}
           {review.replies && review.replies.length > 0 && (
-            <div className="mt-4 space-y-3">
-              {review.replies.map((reply, index) => (
-                <div
-                  key={reply._id || index}
-                  className="pl-4 border-l-2 border-primary/30 ml-2 bg-muted/30 rounded-r-lg p-3"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Icon
-                        icon={reply.isAdmin ? "solar:shield-user-bold-duotone" : "solar:shop-bold-duotone"}
-                        className="w-4 h-4 text-success"
-                      />
-                      <span className="font-medium text-success">
-                        {reply.isAdmin ? "Admin" : reply.userName || "Shop"}
-                      </span>
-                    </div>
-                    {reply.createdAt && (
-                      <span className="text-xs text-muted-foreground">
-                        {dayjs(reply.createdAt).fromNow()}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-2 text-foreground">{reply.comment}</p>
-                </div>
-              ))}
-            </div>
+  <div className="mt-4 space-y-3">
+    {visibleReplies(review).map((reply: any, index: number) => (
+      <div
+        key={reply._id || index}
+        className="pl-4 border-l-2 border-primary/30 ml-2 bg-muted/30 rounded-r-lg p-3"
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Icon
+              icon={reply.isAdmin ? "solar:shield-user-bold-duotone" : "solar:shop-bold-duotone"}
+              className="w-4 h-4 text-success"
+            />
+            <span className="font-medium text-success">
+              {reply.isAdmin ? "Admin" : reply.userName || "Shop"}
+            </span>
+          </div>
+          {reply.createdAt && (
+            <span className="text-xs text-muted-foreground">
+              {dayjs(reply.createdAt).fromNow()}
+            </span>
           )}
+        </div>
+        <p className="mt-2 text-foreground">{reply.comment}</p>
+      </div>
+    ))}
+
+    {/* Nút Xem thêm / Thu gọn */}
+    {review.replies.length > 2 && (
+      <button
+        onClick={() =>
+          setShowAllReplies((prev) => ({
+            ...prev,
+            [review._id]: !prev[review._id],
+          }))
+        }
+        className="text-sm text-primary hover:underline mt-1"
+      >
+        {showAllReplies[review._id] ? "Thu gọn" : "Xem thêm phản hồi"}
+      </button>
+    )}
+  </div>
+)}
 
           {/* Reply Form */}
           <AnimatePresence>

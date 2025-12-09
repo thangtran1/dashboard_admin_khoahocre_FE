@@ -204,11 +204,11 @@ export default function ProductsManagement() {
                 <Icon icon="solar:box-bold-duotone" className="w-8 h-8 text-primary" />
               </div>
             )}
-            {record.discount && record.discount > 0 && (
-              <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-                -{record.discount}%
-              </div>
-            )}
+          {(record?.discount ?? 0) > 0 && (
+  <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+    -{record.discount}%
+  </div>
+)}
           </div>
           <div className="flex-1 min-w-0">
             <h4 className="font-semibold text-foreground truncate max-w-[200px]" title={record.name}>
@@ -742,7 +742,7 @@ export default function ProductsManagement() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2"
             >
               <AnimatePresence>
                 {products.map((product, index) => (

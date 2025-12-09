@@ -878,7 +878,8 @@
     "sidebar-minimized-description": "🔓 Sidebar đang thu nhỏ",
     "sidebar-maximized-description": "🔒 Sidebar đang mở rộng",
 
-    "profile": "Thông tin cá nhân"
+    "profile": "Thông tin cá nhân",
+    "product-management": "Quản lý sản phẩm"
   },
   "settings": {
     "title": "Cài đặt",
@@ -914,5 +915,8 @@
     "confirm": "Xác nhận",
     "cancel": "Hủy",
     "new-password": "Mật khẩu mới"
+  },
+  "products": {
+    "product": "Sản phẩm"
   }
 }

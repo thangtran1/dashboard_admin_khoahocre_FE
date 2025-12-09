@@ -35,3 +35,13 @@ function result(format: string, key = ".00") {
 
   return isInteger ? format.replace(key, "") : format;
 }
+
+export function formatPrice(value: number | undefined) {
+  if (!value) return "";
+  return new Intl.NumberFormat("vi-VN").format(value);
+}
+
+export function parsePrice(value: string | undefined) {
+  if (!value) return 0;
+  return parseInt(value.replace(/\D/g, "")) || 0;
+}
