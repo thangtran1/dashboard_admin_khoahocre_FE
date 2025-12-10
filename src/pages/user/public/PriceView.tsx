@@ -13,13 +13,13 @@ const PriceView = ({ price, discount, className }: Props) => {
       <div className="flex items-center gap-2">
         <PriceFormatter
           amount={price}
-          className={cn("text-success", className)}
+          className={cn("text-success text-lg font-bold", className)}
         />
         {price && discount && (
           <PriceFormatter
             amount={price + (discount * price) / 100}
             className={twMerge(
-              "line-through text-xs font-normal text-foreground",
+              "line-through text-sm font-normal text-muted-foreground",
               className
             )}
           />

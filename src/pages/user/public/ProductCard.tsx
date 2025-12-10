@@ -5,6 +5,8 @@ import PriceView from "./PriceView";
 import Title from "@/ui/title";
 import ProductSideMenu from "./ProductSideMenu";
 import AddToCartButton from "@/components/user/AddToCartButton";
+import { FireOutlined, StarFilled, ThunderboltOutlined } from "@ant-design/icons";
+import { Separator } from "@/ui/separator";
 
 const ProductCard = ({ product }: { product: any }) => {
   return (
@@ -37,14 +39,40 @@ const ProductCard = ({ product }: { product: any }) => {
             />
           </Link>
         )}
+        
+        <div className="absolute bottom-3 left-3 flex gap-1.5 flex-wrap">
+            {product.isNew && (
+              <span className="bg-blue-500/90 backdrop-blur text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                <ThunderboltOutlined className="text-[10px]" /> Mới
+              </span>
+            )}
+            {product.isFeatured && (
+              <span className="bg-amber-500/90 backdrop-blur text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                <StarFilled className="text-[10px]" /> Nổi bật
+              </span>
+            )}
+            {product.isBestSeller && (
+              <span className="bg-orange-500/90 backdrop-blur text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                <FireOutlined className="text-[10px]" /> Bán chạy
+              </span>
+            )}
+          </div>
       </div>
       <div className="p-3 flex flex-col gap-2">
-        {product?.category && (
-          <p className="uppercase line-clamp-1 text-xs font-medium text-foreground">
-            {product.category.name}
-          </p>
-        )}
-        <Title className="text-sm line-clamp-1">{product.name}</Title>
+      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+              {product.category?.name || "Chưa phân loại"}
+            </span>
+            <span className="bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-full">
+              {product.brand?.name || "Không có"}
+            </span>
+          </div>
+        <Title className="text-lg line-clamp-1 mt-1 mb-3">{product.name}</Title>
+        <PriceView
+          price={product?.price}
+          discount={product?.discount}
+        />
+        <Separator />
         <div className="flex items-center gap-1">
           <div className="flex items-center">
             {[...Array(5)].map((_, index) => (
@@ -55,24 +83,18 @@ const ProductCard = ({ product }: { product: any }) => {
               />
             ))}
           </div>
-          <p className="text-foreground tracking-wide"> |  {' '} 5 Reviews</p>
+          <p className="text-foreground tracking-wide">  | {product?.reviews?.length > 0 ? product?.reviews?.length + ' đánh giá' : 'Chưa có đánh giá'}</p>
         </div>
 
         <div className="flex items-center gap-2.5">
-          <p className="font-medium">Trong kho</p>
+          <p className="font-medium">Kho: </p>
           <p
             className={`${product?.stock === 0 ? "text-error" : "text-success font-semibold"}`}
           >
-            {(product?.stock as number) > 0 ? product?.stock : "Hết hàng"}
+            {(product?.stock as number) > 0 ? product?.stock + " sản phẩm" : "Hết hàng"}
           </p>
         </div>
-
-        <PriceView
-          price={product?.price}
-          discount={product?.discount}
-          className="text-sm"
-        />
-        <AddToCartButton product={product} className="w-36 rounded-full" />
+        <AddToCartButton product={product} className="w-36 mx-auto rounded-full flex items-center justify-center" />
       </div>
     </div>
   );
