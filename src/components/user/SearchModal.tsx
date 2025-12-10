@@ -174,7 +174,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                             onClick={() => handleProductClick(p)}
                             className="flex items-center gap-3 p-3 rounded-lg transition-colors group"
                           >
-                            <div className="w-12 h-12 bg-background rounded-lg overflow-hidden flex-shrink-0">
+                            <div className="w-12 border border-border h-12 bg-background rounded-lg overflow-hidden flex-shrink-0">
                               <img
                                 src={p.images?.[0]?.asset?.url || "/images/products/product_1.png"}
                                 alt={p.name}

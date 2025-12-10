@@ -1,15 +1,14 @@
 import NoAccess from "@/components/user/NoAccess";
 import WishListProducts from "@/components/user/WishListProducts";
-import { getFakeUser } from "@/constants/fakeData";
-const WishListPage = async () => {
-  const user = await getFakeUser(1);
-  const userData = user[0] as any;
+import { useUserInfo } from "@/store/userStore";
+const WishListPage = () => {
+  const userInfo= useUserInfo();
   return (
     <>
-      {userData?.id ? (
+      {userInfo?.id ? (
         <WishListProducts />
       ) : (
-        <NoAccess details="Log in to view your wishlist items. Don’t miss out on your cart products to make the payment!" />
+        <NoAccess details="Đăng nhập để xem danh sách yêu thích của bạn. Không bỏ lỡ sản phẩm trong giỏ hàng để thanh toán!" />
       )}
     </>
   );

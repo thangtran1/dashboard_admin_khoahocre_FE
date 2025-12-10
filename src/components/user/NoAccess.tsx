@@ -37,7 +37,7 @@ const NoAccess = ({
           <div className="text-sm text-muted-foreground text-center">
             Bạn không có tài khoản?
           </div>
-          <Button              onClick={() => setLoginState(LoginStateEnum.REGISTER)}
+          <Button onClick={() => setLoginState(LoginStateEnum.REGISTER)}
 
  variant="outline" className="w-full cursor-pointer" size="lg">
 Tạo tài khoản

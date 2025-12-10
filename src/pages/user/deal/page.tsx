@@ -1,10 +1,20 @@
 
 import ProductCard from "@/pages/user/public/ProductCard";
 import Title from "@/ui/title";
-import { getFakeDealProducts } from "@/constants/fakeData";
+import { productService } from "@/api/services/product";
+import { useEffect, useState } from "react";
 
 const DealPage = () => {
-  const products = getFakeDealProducts();
+  const [products, setProducts] = useState<any[]>([]);
+  const fetchDealProducts = async () => {
+    const response = await productService.getProductsByDeal();
+    if (response?.success) {
+      setProducts(response.data);
+    }
+  }
+  useEffect(() => {
+    fetchDealProducts();
+  }, []);
   return (
     <div>
       <Title className="text-lg mb-5 uppercase tracking-wide">
