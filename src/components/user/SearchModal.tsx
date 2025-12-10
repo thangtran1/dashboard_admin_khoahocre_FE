@@ -18,14 +18,14 @@ interface SearchModalProps {
 
 const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   const [categories, setCategories] = useState<any[]>([]);
-  console.log("🚀 ~ SearchModal ~ categories:", categories)
   useEffect(() => {
+    if (!isOpen) return;
     const fetchCategories = async () => {
-      const response = await categoryService.getAllCategories(1, 10, { status: CategoryStatus.ACTIVE });
+      const response = await categoryService.getAllCategories(1, 100, { status: CategoryStatus.ACTIVE });
       setCategories(response.data.data);
     };
     fetchCategories();
-  }, []);
+  }, [isOpen]);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
@@ -60,24 +60,27 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
   // Perform search
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
       if (!searchQuery.trim()) return setSearchResults([]);
       setIsLoading(true);
-
-      setTimeout(async () => {
-        const response = await productService.getAllProducts(1, 10, { status: ProductStatus.ACTIVE });
-        const allProducts = response.data.data;
-        const filtered = allProducts.filter((p: any) =>
-          p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.category?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.brand?.name.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setSearchResults(filtered.slice(0, 8) as any);
-        setIsLoading(false);
-      }, 300);
+      const response = await productService.getAllProducts(1, 100, { status: ProductStatus.ACTIVE });
+      const allProducts = response.data.data;
+  
+      const filtered = allProducts.filter((p: any) =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.category?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.brand?.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+  
+      setSearchResults(filtered.slice(0, 8) as any);
+      setIsLoading(false);
     }, 300);
-
+  
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
@@ -113,19 +116,28 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[80vh] p-0 overflow-hidden">
+      <DialogContent hideClose className="max-w-2xl max-h-[80vh] p-0 overflow-hidden">
         <DialogHeader className="p-0">
-          <div className="flex items-center gap-3 p-4 border-b">
-            <Input
-              placeholder="Tìm kiếm sản phẩm..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="text-foreground"
-              onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
-            />
+          <div className="flex items-center gap-2 p-4 border-b">
+          <Input
+            placeholder="Tìm kiếm sản phẩm..."
+            value={searchQuery}
+            suffix={
+              searchQuery ? (
+                <X
+                  className="w-4 h-4 cursor-pointer text-foreground hover:text-primary"
+                  onClick={() => setSearchQuery("")}
+                />
+              ) : null
+            }
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="text-foreground"
+            onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
+          />
+
             <button
               onClick={onClose}
-              className="p-1 cursor-pointer hover:border hover:border-border rounded-full transition-colors"
+              className="p-1 cursor-pointer border border-border rounded-full transition-colors"
             >
               <X className="w-5 h-5 text-foreground" />
             </button>
@@ -185,7 +197,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                   </AnimatePresence>
                   <button
                     onClick={handleSearchSubmit}
-                    className="w-full p-3 mt-4 text-center bg-primary hover:bg-primary/80 text-primary-foreground rounded-lg transition-colors font-medium"
+                    className="w-full p-3 mt-4 text-center bg-primary hover:bg-primary/80 text-foreground rounded-lg transition-colors font-medium"
                   >
                     Xem tất cả {searchResults.length} kết quả →
                   </button>

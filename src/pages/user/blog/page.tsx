@@ -4,8 +4,8 @@ import { Calendar } from "lucide-react";
 import dayjs from "dayjs";
 import { Link } from "react-router";
 
-const BlogPage = async () => {
-  const blogs = await getFakeBlogs(10);
+const BlogPage = () => {
+  const blogs = getFakeBlogs(10);
   return (
     <div >
       <Title className="text-lg uppercase tracking-wide">

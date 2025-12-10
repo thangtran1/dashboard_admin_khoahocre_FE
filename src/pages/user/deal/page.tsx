@@ -3,8 +3,8 @@ import ProductCard from "@/pages/user/public/ProductCard";
 import Title from "@/ui/title";
 import { getFakeDealProducts } from "@/constants/fakeData";
 
-const DealPage = async () => {
-  const products = await getFakeDealProducts();
+const DealPage = () => {
+  const products = getFakeDealProducts();
   return (
     <div>
       <Title className="text-lg mb-5 uppercase tracking-wide">

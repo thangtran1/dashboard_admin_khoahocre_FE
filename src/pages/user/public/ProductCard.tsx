@@ -1,4 +1,3 @@
-import { Product } from "@/types";
 import { Link } from "react-router";
 import { StarIcon } from "lucide-react";
 import { Flame } from "lucide-react";
@@ -7,7 +6,7 @@ import Title from "@/ui/title";
 import ProductSideMenu from "./ProductSideMenu";
 import AddToCartButton from "@/components/user/AddToCartButton";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product }: { product: any }) => {
   return (
     <div className="text-sm border rounded-md border-border group">
       <div className="relative group overflow-hidden bg-background">
@@ -22,7 +21,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           </Link>
         )}
         <ProductSideMenu product={product} />
-        {product?.discount && product?.discount > 0 ? (
+        {product?.discount > 0 ? (
           <p className="absolute top-2 left-2 z-10 text-sm border border-primary/30 px-2 py-1 rounded-full group-hover:border-success hover:text-success ">
             Sale!
           </p>

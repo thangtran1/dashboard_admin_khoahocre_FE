@@ -5,7 +5,7 @@ import { CategoryStatus } from "@/types/enum";
 import { Category, categoryService } from "@/api/services/category";
 import { useEffect, useState } from "react";
 
-const CategoryProduct = async () => {
+const CategoryProduct = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const fetchCategories = async () => {
     const response = await categoryService.getAllCategories(1, 6, {

@@ -81,21 +81,18 @@ const Shop = () => {
     });
     const allProducts = response.data.data;
     let filtered = allProducts;
-    // category filter - chỉ filter nếu có selectedCategory VÀ tìm được category
     if (selectedCategory) {
       const cat = categories.find((c) => c.slug === selectedCategory);
       if (cat) {
         filtered = filtered.filter((p) => p.category?._id === cat._id);
       }
     }
-    // brand filter - chỉ filter nếu có selectedBrand VÀ tìm được brand
     if (selectedBrand) {
       const br = brands.find((b) => b.slug === selectedBrand);
       if (br) {
         filtered = filtered.filter((p) => p.brand?._id === br._id);
       }
     }
-    // price filter
     if (selectedPrice) {
       const [minStr, maxStr] = selectedPrice.split("-");
       const min = Number(minStr) || 0;
