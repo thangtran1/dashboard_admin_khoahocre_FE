@@ -126,6 +126,7 @@ const SingleProductPage = () => {
         <ProductReviewSection
           reviews={product?.reviews || []}
           productName={product?.name}
+          productId={product?.id}
         />
       ),
     },

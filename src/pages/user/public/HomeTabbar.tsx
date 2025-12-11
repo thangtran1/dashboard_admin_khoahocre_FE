@@ -1,15 +1,15 @@
 "use client";
 
-import { productType } from "@/constants/data";
 import { Tabs } from "antd";
 import SeeMore from "@/ui/see-more";
 
 interface Props {
+  productType: any[];
   selectedTab: string;
   onTabSelect: (tab: string) => void;
 }
 
-const HomeTabbar = ({ selectedTab, onTabSelect }: Props) => {
+const HomeTabbar = ({ productType, selectedTab, onTabSelect }: Props) => {
   return (
     <div className="flex items-center justify-between flex-wrap gap-5">
       <div className="flex-1 min-w-[200px]">
@@ -17,7 +17,7 @@ const HomeTabbar = ({ selectedTab, onTabSelect }: Props) => {
           activeKey={selectedTab}
           onChange={(key) => onTabSelect(key)}
           items={productType.map((item) => ({
-            key: item.title,
+            key: item.value,
             label: <span className="font-medium text-sm">{item.title}</span>,
           }))}
           className="custom-tabs"

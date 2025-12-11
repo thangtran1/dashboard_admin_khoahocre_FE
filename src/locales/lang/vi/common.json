@@ -32,5 +32,10 @@
     "overview": "Tổng quan",
     "categories": "Danh mục",
     "brands": "Thương hiệu"
+  },
+  "product": {
+    "new": "Mới nhất",
+    "bestSeller": "Bán chạy",
+    "featured": "Nổi bật"
   }
 }

@@ -32,5 +32,10 @@
     "overview": "Overview",
     "categories": "Categories",
     "brands": "Brands"
+  },
+  "product": {
+    "new": "New",
+    "bestSeller": "Best Seller",
+    "featured": "Featured"
   }
 }

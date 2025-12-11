@@ -39,7 +39,7 @@ const ProductSideMenu = ({
     >
       <div
         onClick={handleFavorite}
-        className={`p-2.5 rounded-full hover:bg-primary/70 hover:text-foreground  ${existingProduct ? "bg-primary text-foreground" : "bg-muted/10"}`}
+        className={`p-2.5 rounded-full hover:bg-primary/70 hover:text-foreground  ${existingProduct ? "bg-primary text-foreground" : "bg-muted/90"}`}
       >
         <Heart size={15} />
       </div>
