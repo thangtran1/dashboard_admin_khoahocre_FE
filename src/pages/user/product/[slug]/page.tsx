@@ -1,17 +1,17 @@
 import { useParams } from "react-router";
-import { Tabs } from "antd";
-import { StarIcon, Truck, CornerDownLeft } from "lucide-react";
+import { Button, Tabs } from "antd";
 
 import ImageView from "@/components/user/products/ImageView";
 import PriceView from "@/components/user/products/PriceView";
 import ProductCharacteristics from "@/components/user/products/ProductCharacteristics";
 import ProductReviewSection from "@/components/user/products/ProductReviewSection";
 import AddToCartButton from "@/components/user/AddToCartButton";
-import FavoriteButton from "@/components/user/FavoriteButton";
-
-import { Product } from "@/types";
 import { useCallback, useEffect, useState } from "react";
 import { productService } from "@/api/services/product";
+import { Check } from "lucide-react";
+import { cn } from "@/utils";
+import { promotions, paymentOffers } from "@/constants/data";
+import RelatedProducts from "../components/RelatedProducts";
 
 const SingleProductPage = () => {
   const { slug } = useParams();
@@ -29,19 +29,14 @@ const SingleProductPage = () => {
     if (slug) fetchProductBySlug(slug);
   }, [slug, fetchProductBySlug]);
 
-  // 🔥 Chặn render UI khi chưa có product
   if (loading || !product) return <div>Loading...</div>;
 
-  /*------------------------------------
-    | TABS – Mô tả + Đánh giá
-  ------------------------------------*/
   const items = [
     {
       key: "details",
       label: "Mô tả sản phẩm",
       children: (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
           {/* Thông tin sản phẩm */}
           <div>
             <h3 className="text-lg font-semibold mb-3">Thông tin sản phẩm</h3>
@@ -74,13 +69,14 @@ const SingleProductPage = () => {
           {/* Đặc điểm nổi bật */}
           <div>
             <h3 className="text-lg font-semibold mb-3">Đặc điểm nổi bật</h3>
-            <div className="text-sm leading-relaxed bg-muted p-4 border rounded-lg">
+            <div className="text-sm mb-3 leading-relaxed bg-muted p-4 border rounded-lg">
               {product?.description ? (
                 <p className="whitespace-pre-line">{product.description}</p>
               ) : (
                 <p className="italic">Chưa có mô tả</p>
               )}
             </div>
+            <ProductCharacteristics product={product as any} />
           </div>
 
           {/* Mô tả chi tiết */}
@@ -104,10 +100,7 @@ const SingleProductPage = () => {
               <h3 className="text-lg font-semibold mb-3">Thông số kỹ thuật</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 {(product.specifications as string[]).map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 border bg-muted rounded-lg"
-                  >
+                  <div key={idx} className="p-3 border bg-muted rounded-lg">
                     {item}
                   </div>
                 ))}
@@ -134,94 +127,102 @@ const SingleProductPage = () => {
 
   return (
     <>
-      {/* PRODUCT AREA */}
-      <div className="flex flex-col md:flex-row gap-10 pt-5">
-
-        {/* Ảnh */}
+      <div className="flex flex-col md:flex-row gap-10 mb-2">
         {product?.images && (
-          <ImageView images={product.images} isStock={product.stock} />
+          <ImageView
+            images={product.images}
+            product={product}
+            isStock={product.stock}
+          />
         )}
 
-        {/* Right content */}
-        <div className="w-full md:w-1/2 flex flex-col gap-5">
+        <div className="w-full md:w-1/2 flex flex-col gap-5 mt-">
+          <div className="space-y-1"></div>
 
-          {/* Title + desc + rating */}
-          <div className="space-y-1">
-            <h2 className="text-2xl font-bold">{product?.name}</h2>
-
-            <p className="text-sm text-muted-foreground">
-              {product?.shortDescription}
-            </p>
-
-            <div className="flex items-center gap-0.5 text-xs">
-              {[...Array(5)].map((_, index) => (
-                <StarIcon
-                  key={index}
-                  size={20}
-                  className="text-shop_light_green"
-                  fill="#3b9c3c"
-                />
-              ))}
-              <p className="font-semibold">(120)</p>
-            </div>
-          </div>
-
-          {/* Price */}
-          <div className="space-y-2 border-y py-5">
+          <div className="space-y-2">
             <PriceView
               price={product?.price}
               discount={product?.discount}
+              stock={product?.stock}
               className="text-lg font-bold"
             />
+          </div>
 
-            <p
-              className={`px-4 py-1.5 text-sm text-center font-semibold rounded-lg ${product?.stock === 0
-                ? "bg-red-100 text-red-600"
-                : "bg-green-100 text-green-600"
-                }`}
+          <div className="border border-red-200 rounded-lg p-4 bg-red-50">
+            <h3 className="text-xl font-bold text-gray-900 flex items-center mb-3">
+              <span className="mr-2">🎁</span>
+              Khuyến mãi hấp dẫn
+            </h3>
+            <ul className="space-y-3">
+              {promotions.map((promo) => (
+                <li key={promo.id} className="flex items-start">
+                  <span className="flex-shrink-0 w-5 h-5 bg-blue-500 text-white text-xs font-bold rounded-full flex items-center justify-center mr-2 mt-0.5">
+                    {promo.id}
+                  </span>
+                  <p className="text-sm text-gray-700">
+                    {promo.text}
+                    <a
+                      href={promo.link}
+                      className="text-blue-600 ml-1 font-medium hover:underline"
+                    >
+                      Xem chi tiết
+                    </a>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-wrap flex-col sm:flex-row items-stretch justify-start !w-full gap-3">
+            <Button
+              color="primary"
+              variant="outlined"
+              className="flex-1 min-h-[50px]"
             >
-              {product?.stock > 0 ? "In Stock" : "Out of Stock"}
+              <span className="font-bold">Trả góp 0%</span>
+            </Button>
+
+            <Button type="primary" danger className="flex-1 min-h-[50px]">
+              <div>
+                <div className="text-foreground">MUA NGAY</div>
+                <div className="text-foreground text-sm">
+                  Giao nhanh từ 2 giờ
+                </div>
+              </div>
+            </Button>
+
+            <AddToCartButton
+              product={product}
+              className="flex-1 min-h-[50px]"
+            />
+          </div>
+
+          <div className={cn("border border-primary/40 rounded-lg p-4 bg-[#f1f6ff]")}>
+      <h3 className="text-xl font-bold text-gray-900 flex items-center pb-2">
+        <span className="mr-2 text-red-600">🎁</span>
+        Ưu đãi thanh toán
+      </h3>
+      <ul className="space-y-3">
+        {paymentOffers.map((offer) => (
+          <li key={offer.id} className="flex items-start text-sm text-gray-700">
+            <Check className="flex-shrink-0 w-4 h-4 text-green-600 mr-2 mt-0.5" />
+            
+            <p className="leading-relaxed">
+              <span className={cn({ "text-blue-600 font-medium hover:underline": offer.isLink })}>
+                {offer.text}
+              </span>
             </p>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex items-center gap-3">
-            <AddToCartButton product={product as Product} />
-            <FavoriteButton product={product as Product} showProduct />
-          </div>
-
-          {/* Characteristics */}
-          <ProductCharacteristics product={product as any} />
-
-          {/* Info Boxes */}
-          <div className="flex flex-col">
-            <div className="border p-3 flex items-center gap-3">
-              <Truck size={30} className="text-shop_orange" />
-              <div>
-                <p className="font-semibold">Miễn phí vận chuyển</p>
-                <p className="text-sm underline">Nhập mã bưu điện để kiểm tra.</p>
-              </div>
-            </div>
-
-            <div className="border border-t-0 p-3 flex items-center gap-3">
-              <CornerDownLeft size={30} className="text-shop_orange" />
-              <div>
-                <p className="font-semibold">Hoàn trả vận chuyển</p>
-                <p className="text-sm">
-                  Miễn phí hoàn trả trong 30 ngày.{" "}
-                  <span className="underline">Chi tiết</span>
-                </p>
-              </div>
-            </div>
-          </div>
-
+          </li>
+        ))}
+      </ul>
+    </div>
         </div>
       </div>
 
-      {/* TABS */}
       <div className="border-t py-5">
         <Tabs defaultActiveKey="details" items={items} size="large" />
       </div>
+      <RelatedProducts product={product} />
     </>
   );
 };

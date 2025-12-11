@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const CategoryProduct = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const fetchCategories = async () => {
-    const response = await categoryService.getAllCategories(1, 6, {
+    const response = await categoryService.getAllCategories(1, 100, {
       status: CategoryStatus.ACTIVE,
     });
     if (response.success) {
