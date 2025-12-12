@@ -4,80 +4,93 @@ import { GitCompareArrows, Headset, ShieldCheck, Truck } from "lucide-react";
 import SeeMore from "@/ui/see-more";
 import { useCallback, useEffect, useState } from "react";
 import { Brand, brandService } from "@/api/services/brands";
+import { Skeleton } from "@/ui/skeleton";
 
 const extraData = [
-  {
-    title: "Free Delivery",
-    description: "Free shipping over $100",
-    icon: <Truck size={40} />,
-  },
-  {
-    title: "Free Return",
-    description: "30 days return guarantee",
-    icon: <GitCompareArrows size={40} />,
-  },
-  {
-    title: "Customer Support",
-    description: "Friendly 24/7 customer support",
-    icon: <Headset size={40} />,
-  },
-  {
-    title: "Money Back Guarantee",
-    description: "Quality checked by our team",
-    icon: <ShieldCheck size={40} />,
-  },
+  { title: "Free Delivery", description: "Free shipping over $100", icon: <Truck size={40} /> },
+  { title: "Free Return", description: "30 days return guarantee", icon: <GitCompareArrows size={40} /> },
+  { title: "Customer Support", description: "Friendly 24/7 customer support", icon: <Headset size={40} /> },
+  { title: "Money Back Guarantee", description: "Quality checked by our team", icon: <ShieldCheck size={40} /> },
 ];
 
-const ShopByBrands = () => {
+export default function ShopByBrands() {
   const [brands, setBrands] = useState<Brand[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   const fetchBrands = useCallback(async () => {
     try {
-      const response = await brandService.getAllBrands(1, 8, {
-      });
+      setLoading(true);
+      setError(false);
 
+      const response = await brandService.getAllBrands(1, 8, {});
       if (response.success) {
-        setBrands(response.data.data);
+        setBrands(response.data.data || []);
+      } else {
+        setError(true);
+        setBrands([]);
       }
-    } catch (error) {
-      console.error("Error fetching brands:", error);
-      return [];
+    } catch {
+      setError(true);
+      setBrands([]);
+    } finally {
+      setLoading(false);
     }
   }, []);
+
   useEffect(() => {
     fetchBrands();
   }, [fetchBrands]);
 
+  const renderSkeleton = () => (
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div
+          key={i}
+          className="h-24 flex items-center justify-center border border-border rounded-lg animate-pulse"
+        >
+          <Skeleton.Image className="w-28 h-20" />
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderBrands = () => (
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2">
+      {brands.map((brand) => (
+        <Link
+          key={brand._id}
+          to={`/shop?brand=${brand.slug}`}
+          className="border border-border h-24 rounded-lg flex items-center justify-center hover:shadow-md transition-all duration-300"
+        >
+          <img
+            src={brand.logo || "/images/brands/brand_1.webp"}
+            alt={brand.name}
+            className="w-28 h-20 object-contain opacity-80 hover:opacity-100 transition"
+          />
+        </Link>
+      ))}
+    </div>
+  );
+
   return (
     <div className="space-y-2">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <Title className="text-2xl font-semibold">Thương hiệu phổ biến</Title>
         <SeeMore to="/shop">Xem thêm</SeeMore>
       </div>
 
-      {/* Wrapper */}
       <div className="border border-border p-2 rounded-xl shadow-sm space-y-6">
-
-        {/* Brands */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2">
-          {brands?.map((brand) => (
-            <Link
-              key={brand?._id}
-              to={`/shop?brand=${brand?.slug}`}
-              className="
-                border border-border h-24 rounded-lg flex items-center justify-center
-                hover:shadow-md
-                transition-all duration-300
-              "
-            >
-              <img
-                src={brand?.logo || "/images/brands/brand_1.webp"}
-                alt="brandImage"
-                className="w-28 h-20 object-contain opacity-80 hover:opacity-100 transition"
-              />
-            </Link>
-          ))}
-        </div>
+        {/* Hiển thị skeleton khi loading hoặc lỗi */}
+        {loading || error ? (
+          renderSkeleton()
+        ) : brands.length === 0 ? (
+          <div className="p-6 text-center border rounded-xl text-muted-foreground">
+            Chưa có thương hiệu nào để hiển thị
+          </div>
+        ) : (
+          renderBrands()
+        )}
 
         {/* Extra Info */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -103,10 +116,7 @@ const ShopByBrands = () => {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );
-};
-
-export default ShopByBrands;
+}
