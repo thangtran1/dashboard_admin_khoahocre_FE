@@ -117,9 +117,7 @@ const SingleProductPage = () => {
       label: "Đánh giá",
       children: (
         <ProductReviewSection
-          reviews={product?.reviews || []}
-          productName={product?.name}
-          productId={product?.id}
+          product={product}
         />
       ),
     },

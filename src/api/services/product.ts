@@ -24,7 +24,7 @@ export interface BrandProductDto {
 export interface ReviewReplyProductDto {
   _id: string;
   comment: string;
-  user?: string;
+  user?: any;
   userName?: string;
   isAdmin?: boolean;
   images?: string[];
@@ -216,12 +216,12 @@ export const productService = {
     return response.data as { success: boolean; message: string };
   },
 
-  addReview: async (productId: string, data: CreateReviewDto): Promise<{ success: boolean; message: string; data: ReviewProductDto }> => {
+  addReview: async (productId: string, data: CreateReviewDto): Promise<{ success: boolean; message: string; data: any }> => {
     const response = await apiClient.post({ url: `/products/${productId}/reviews`, data });
     return response.data as { success: boolean; message: string; data: ReviewProductDto };
   },
 
-  replyToReview: async (productId: string, reviewId: string, data: ReplyReviewDto): Promise<{ success: boolean; message: string; data: ReviewProductDto }> => {
+  replyToReview: async (productId: string, reviewId: string, data: ReplyReviewDto): Promise<{ success: boolean; message: string; data: any }> => {
     const response = await apiClient.post({ url: `/products/${productId}/reviews/${reviewId}/reply`, data });
     return response.data as { success: boolean; message: string; data: ReviewProductDto };
   },
