@@ -18,8 +18,6 @@ import UserProfile from "@/pages/user/profile";
 import ProtectedRoute from "./components/protected-route";
 import MaintenanceGuard from "./components/maintenance-guard";
 import { LoginProvider } from "@/pages/admin/auth/login/providers/login-provider";
-import BlogPage from "@/pages/user/blog/page";
-import BlogDetailPage from "@/pages/user/blog/[slug]/page";
 import Contact from "@/pages/user/contact";
 import Shop from "@/pages/user/shop";
 import WishListPage from "@/pages/user/wishlist/page";
@@ -33,6 +31,7 @@ import TermsPage from "@/pages/user/public/terms";
 import AboutUs from "@/pages/user/public/abouts";
 import FAQs from "@/pages/user/public/faqs";
 import Help from "@/pages/user/public/help";
+import PageAllNews from "@/pages/user/blog/page";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -128,10 +127,9 @@ export default function Router() {
         children: [{ index: true, element: <UserProfile /> }],
       },
       {
-        path: "blog",
+        path: "all-news",
         children: [
-          { index: true, element: <BlogPage /> },
-          { path: ":slug", element: <BlogDetailPage /> },
+          { index: true, element: <PageAllNews /> },
         ],
       },
       {
