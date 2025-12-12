@@ -33,9 +33,11 @@
     "categories": "Danh mục",
     "brands": "Thương hiệu"
   },
-  "product": {
-    "new": "Mới nhất",
-    "bestSeller": "Bán chạy",
-    "featured": "Nổi bật"
-  }
+"product": {
+  "new": "Mới nhất",
+  "bestSeller": "Bán chạy",
+  "featured": "Nổi bật",
+  "deal": "Ưu đãi",
+  "all": "Tất cả"
+}
 }

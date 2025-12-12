@@ -23,22 +23,22 @@ const ProductCard = ({ product }: { product: any }) => {
           </Link>
         )}
         <ProductSideMenu product={product} />
-        {product?.discount > 0 ? (
-          <p className="absolute top-2 left-2 z-10 text-sm border border-primary/30 px-2 py-1 rounded-full group-hover:border-success text-foreground bg-primary ">
-            Sale!
-          </p>
-        ) : (
-          <Link
-            to={"/deal"}
-            className="absolute top-2 left-2 z-10 border border-warning/50 p-1 rounded-full group-hover:border-warning"
-          >
-            <Flame
-              size={18}
-              fill="#fb6c08"
-              className="text-warning/50 group-hover:text-warning hoverEffect"
-            />
-          </Link>
-        )}
+        {product?.discount >= 20 ? (
+  <Link
+    to={"/?tab=deal"}
+    className="absolute top-2 left-2 z-10 border border-warning/50 p-1 rounded-full group-hover:border-warning"
+  >
+    <Flame
+      size={18}
+      fill="#fb6c08"
+      className="text-warning/50 group-hover:text-warning hoverEffect"
+    />
+  </Link>
+) : product?.discount > 0 ? (
+  <p className="absolute top-2 left-2 z-10 text-sm border border-primary/30 px-2 py-1 rounded-full group-hover:border-success text-foreground bg-primary ">
+    Sale!
+  </p>
+) : null}
 
         <div className="absolute bottom-3 left-3 flex gap-1.5 flex-wrap">
           {product.isNew && (

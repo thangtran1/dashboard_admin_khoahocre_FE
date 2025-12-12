@@ -33,9 +33,11 @@
     "categories": "Categories",
     "brands": "Brands"
   },
-  "product": {
-    "new": "New",
-    "bestSeller": "Best Seller",
-    "featured": "Featured"
-  }
+"product": {
+  "new": "New",
+  "bestSeller": "Best Seller",
+  "featured": "Featured",
+  "deal": "Deals",
+  "all": "All"
+}
 }

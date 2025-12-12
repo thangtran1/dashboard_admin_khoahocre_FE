@@ -21,7 +21,6 @@ import { LoginProvider } from "@/pages/admin/auth/login/providers/login-provider
 import BlogPage from "@/pages/user/blog/page";
 import BlogDetailPage from "@/pages/user/blog/[slug]/page";
 import Contact from "@/pages/user/contact";
-import DealPage from "@/pages/user/deal/page";
 import Shop from "@/pages/user/shop";
 import WishListPage from "@/pages/user/wishlist/page";
 import CartPage from "@/pages/user/cart/page";
@@ -138,10 +137,6 @@ export default function Router() {
       {
         path: "contact",
         children: [{ index: true, element: <Contact /> }],
-      },
-      {
-        path: "deal",
-        children: [{ index: true, element: <DealPage /> }],
       },
       {
         path: "shop",
