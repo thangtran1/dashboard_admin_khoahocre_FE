@@ -36,7 +36,7 @@ export interface ReviewProductDto {
   _id: string;
   rating: number;
   comment: string;
-  user: string;
+  user: any;
   type: 'Đã mua hàng' | 'Chưa mua hàng';
   images?: string[];
   replies?: ReviewReplyProductDto[];

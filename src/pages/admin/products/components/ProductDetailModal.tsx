@@ -636,6 +636,7 @@ function ReviewCard({
   onDelete,
   onSubmitReply,
 }: ReviewCardProps) {
+  console.log(review, 'review')
   const isLoading = loadingAction === review._id;
   const [showAllReplies, setShowAllReplies] = useState<Record<string, boolean>>({});
   const visibleReplies = (review: any) => {
@@ -653,15 +654,17 @@ function ReviewCard({
         }`}
     >
       <div className="flex gap-4">
-        <Avatar size={48} className="bg-primary/20 text-primary flex-shrink-0">
-          {review.user?.charAt(0)?.toUpperCase() || "U"}
-        </Avatar>
+        <img
+          src={`${import.meta.env.VITE_API_URL}/${review.user?.avatar || "uploads/avatar-default.png"}`}
+          alt={review.user?.name || "Người dùng"}
+          className="w-10 h-10 rounded-full border-2 object-cover"
+        />
 
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <div>
               <div className="flex items-center gap-2">
-                <h4 className="font-semibold text-foreground">{review.user || "Ẩn danh"}</h4>
+                <h4 className="font-semibold text-foreground">{review?.user?.name || "Ẩn danh"}</h4>
                 <Tag
                   color={review.type === "Đã mua hàng" ? "green" : "default"}
                   className="text-xs"

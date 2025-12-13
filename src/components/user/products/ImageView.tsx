@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Card, Image } from "antd";
+import { Button, Card, Image } from "antd";
 import {
   LeftOutlined,
   RightOutlined,
@@ -154,52 +154,55 @@ export default function ImageView({
 
       {/* THUMBNAILS */}
       <div className="flex items-center gap-2 my-3">
-        {/* Prev Button */}
-        <LeftOutlined
+        <Button
           onClick={prev}
-          className={`cursor-pointer text-gray-600 text-xl transition-opacity duration-300 ${
-            activeIndex === 0
-              ? "opacity-40 pointer-events-none"
-              : "hover:text-blue-500"
-          }`}
-        />
+          disabled={activeIndex === 0}
+          shape="circle"
+          size="middle"
+          className="bg-white/80 shadow-md text-gray-600 transition-all duration-300 hover:bg-blue-500 hover:text-white"
+        >
+          <LeftOutlined />
+        </Button>
 
-        {/* Thumbnails Grid */}
-        <div className="grid flex-1 grid-cols-[repeat(auto-fit,minmax(80px,1fr))] justify-items-center">
-          {images.map((img, i) => (
-            <div
-              key={i}
-              onClick={() => setActiveIndex(i)}
-              onMouseEnter={() => setHoverIndex(i)}
-              onMouseLeave={() => setHoverIndex(null)}
-              className={`
-                w-[75px] flex items-center justify-center
-                border border-border p-1 rounded-md cursor-pointer overflow-hidden transition-all duration-300
-                ${
-                  displayIndex === i
-                    ? "!border-red-300 scale-105 shadow-md"
-                    : "opacity-75 hover:opacity-100 hover:scale-105"
-                }
-              `}
-            >
-              <img
-                src={img.url}
-                className="max-w-full max-h-full object-contain"
-              />
-            </div>
-          ))}
+        <div className="flex overflow-hidden flex-1">
+          <div
+            className={`flex gap-2 flex-nowrap ${
+              images.length * 77 < window.innerWidth - 120 ? "mx-auto" : ""
+            }`}
+          >
+            {images.map((img, i) => (
+              <div
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                onMouseEnter={() => setHoverIndex(i)}
+                onMouseLeave={() => setHoverIndex(null)}
+                className={`w-[75px] h-[75px] flex-shrink-0 flex items-center justify-center border border-border p-1 rounded-md cursor-pointer overflow-hidden transition-all duration-300
+            ${
+              displayIndex === i
+                ? "!border-primary scale-105 shadow-md"
+                : "opacity-75 hover:opacity-100 hover:scale-105"
+            }`}
+              >
+                <img
+                  src={img.url}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Next Button */}
-        <RightOutlined
+        <Button
           onClick={next}
-          className={`cursor-pointer text-gray-600 text-xl transition-opacity duration-300 ${
-            activeIndex === images.length - 1
-              ? "opacity-40 pointer-events-none"
-              : "hover:text-blue-500"
-          }`}
-        />
+          disabled={activeIndex === images.length - 1}
+          shape="circle"
+          size="middle"
+          className="bg-white/80 shadow-md text-gray-600 transition-all duration-300 hover:bg-blue-500 hover:text-white"
+        >
+          <RightOutlined />
+        </Button>
       </div>
+
       <div className="my-5">
         <Title>Cam kết sản phẩm</Title>
 
