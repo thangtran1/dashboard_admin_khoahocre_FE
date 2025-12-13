@@ -39,13 +39,17 @@ const WishListProducts = () => {
       title: "Sản phẩm",
       dataIndex: "images",
       key: "images",
-      render: (images: any, record: any) => (
+      render: (_images: any, record: any) => (
         <Space size={16} wrap align="center">
           <Link to={`/product/${record.slug}`}>
             <img
-              src={images?.[0]?.asset?.url || "/images/products/product_1.png"}
+              src={
+                record.image?.startsWith("http")
+                  ? record.image
+                  : `${import.meta.env.VITE_API_URL}/${record.image}`
+              }
               alt={record.name}
-              className="h-16 w-16 object-contain rounded-md"
+              className="h-16 w-16 object-cover rounded-md hover:scale-105 transition-transform"
             />
           </Link>
           <Text
@@ -59,7 +63,8 @@ const WishListProducts = () => {
             {record.name}
           </Text>
         </Space>
-      ),
+      )
+      ,
       responsive: ["xs", "sm", "md", "lg"],
     },
     {

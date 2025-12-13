@@ -54,13 +54,6 @@ const CheckoutPage = () => {
     cvv: ""
   });
 
-  // // Redirect if cart is empty
-  // useEffect(() => {
-  //   if (groupedItems.length === 0) {
-  //     navigate.push("/cart");
-  //   }
-  // }, [groupedItems, navigate]);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -234,28 +227,42 @@ const CheckoutPage = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Products */}
-                <div className="space-y-3 max-h-60 overflow-y-auto">
-                  {groupedItems.map(({ product, quantity }) => (
-                    <div key={product._id} className="flex items-center gap-3 p-2 border border-border rounded-lg">
-                      <div className="relative w-12 h-12 rounded-md overflow-hidden">
-                        <img
-                          src={product.images?.[0]?.asset?.url || "/images/products/product_1.png"}
-                          alt={product.name}
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">{product.name}</p>
-                        <p className="text-xs text-gray-500">Số lượng: {quantity}</p>
-                      </div>
-                      <PriceFormatter
-                        amount={product.price * quantity}
-                        className="text-sm font-semibold"
-                      />
-                    </div>
-                  ))}
-                </div>
+            <div className="space-y-3 max-h-60 overflow-y-auto">
+  {groupedItems.map(({ product, quantity }) => {
+    // Xử lý URL ảnh an toàn
+    const imageUrl =
+      product.image && typeof product.image === "string"
+        ? product.image
+        : product.images?.[0]?.asset?.url;
 
+    const finalUrl = imageUrl?.startsWith("http")
+      ? imageUrl
+      : `${import.meta.env.VITE_API_URL}/${imageUrl || "uploads/avatar-default.png"}`;
+
+    return (
+      <div
+        key={product._id}
+        className="flex items-center gap-3 p-2 border border-border rounded-lg hover:shadow-md transition-shadow"
+      >
+        <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+          <img
+            src={finalUrl}
+            alt={product.name}
+            className="object-cover w-full h-full hover:scale-105 transition-transform duration-200"
+          />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm md:text-base font-medium truncate">{product.name}</p>
+          <p className="text-xs md:text-sm text-gray-500">Số lượng: {quantity}</p>
+        </div>
+        <PriceFormatter
+          amount={product.price * quantity}
+          className="text-sm md:text-base font-semibold"
+        />
+      </div>
+    );
+  })}
+</div>
                 <Separator />
 
                 {/* Price Summary */}

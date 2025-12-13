@@ -13,8 +13,7 @@ import {
 import { Button } from "@/ui/button";
 import useStore from "@/store/store";
 import { ShoppingBag, Trash } from "lucide-react";
-import { Link } from "react-router";
-import {  useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "@/router/hooks/use-router";
 import ProductSideMenu from "../public/ProductSideMenu";
@@ -23,7 +22,6 @@ import NoAccess from "@/components/user/NoAccess";
 import EmptyCart from "@/components/user/EmptyCart";
 const CartPage = () => {
   const userToken = useUserToken();
-  console.log(userToken, '123123');
   const navigate = useRouter();
   const {
     deleteCartProduct,
@@ -51,19 +49,17 @@ const CartPage = () => {
   return (
     <div className="pb-6">
       <div>
-        {/* ==== 3 TRẠNG THÁI ==== */}
         {!userToken?.accessToken ? (
           <NoAccess />
         ) : groupedItems?.length === 0 ? (
           <EmptyCart />
         ) : (
           <>
-            {/* ==== GIỎ HÀNG BÌNH THƯỜNG ==== */}
             <div className="flex items-center gap-2 py-5">
               <ShoppingBag className="text-darkColor" />
               <Title>Shopping Cart</Title>
             </div>
-  
+
             <div className="grid lg:grid-cols-3 md:gap-8">
               <div className="lg:col-span-2 rounded-lg">
                 <div className="border rounded-md">
@@ -75,23 +71,20 @@ const CartPage = () => {
                         className="border-b p-2.5 last:border-b-0 flex items-center justify-between gap-5"
                       >
                         <div className="flex flex-1 items-start gap-2 h-36 md:h-44">
-                          {product?.images && (
-                            <Link
-                              to={`/product/${product?.slug?.current}`}
-                              className="border p-0.5 md:p-1 mr-2 rounded-md
-                                overflow-hidden group"
-                            >
-                              <img
-                                src={
-                                  product?.images[0]?.asset?.url ||
-                                  "/images/products/product_1.png"
-                                }
-                                alt="productImage"
-                                className="w-32 md:w-40 h-32 md:h-40 object-cover group-hover:scale-105 hoverEffect"
-                              />
-                            </Link>
-                          )}
-  
+                          <div className="border border-success/20 p-4 rounded-2xl">
+                            <img
+                              src={
+                                product?.image?.startsWith("http")
+                                  ? product.image
+                                  : `${import.meta.env.VITE_API_URL}/${
+                                      product.image
+                                    }`
+                              }
+                              alt={product?.name || "product image"}
+                              className="w-32 h-28 object-cover rounded-lg hover:scale-105 transition"
+                            />
+                          </div>
+
                           <div className="h-full flex flex-1 flex-col justify-between py-1">
                             <div className="flex flex-col gap-0.5 md:gap-1.5">
                               <h2 className="text-base font-semibold line-clamp-1">
@@ -110,7 +103,7 @@ const CartPage = () => {
                                 </span>
                               </p>
                             </div>
-  
+
                             <div className="flex items-center gap-2">
                               <TooltipProvider>
                                 <Tooltip>
@@ -124,7 +117,7 @@ const CartPage = () => {
                                     Add to Favorite
                                   </TooltipContent>
                                 </Tooltip>
-  
+
                                 <Tooltip>
                                   <TooltipTrigger>
                                     <Trash
@@ -145,7 +138,7 @@ const CartPage = () => {
                             </div>
                           </div>
                         </div>
-  
+
                         <div className="flex flex-col items-start justify-between h-36 md:h-44 p-0.5 md:p-1">
                           <PriceFormatter
                             amount={(product?.price as number) * itemCount}
@@ -156,7 +149,7 @@ const CartPage = () => {
                       </div>
                     );
                   })}
-  
+
                   <Button
                     onClick={handleResetCart}
                     className="m-5 font-semibold"
@@ -166,12 +159,14 @@ const CartPage = () => {
                   </Button>
                 </div>
               </div>
-  
+
               {/* SIDE SUMMARY */}
               <div>
                 <div className="lg:col-span-1">
                   <div className="hidden md:inline-block w-full p-6 rounded-lg border">
-                    <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+                    <h2 className="text-xl font-semibold mb-4">
+                      Order Summary
+                    </h2>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span>SubTotal</span>
@@ -191,7 +186,7 @@ const CartPage = () => {
                           className="text-lg font-bold"
                         />
                       </div>
-  
+
                       <Button
                         className="w-full cursor-pointer rounded-full font-semibold"
                         size="lg"
@@ -204,7 +199,7 @@ const CartPage = () => {
                   </div>
                 </div>
               </div>
-  
+
               {/* MOBILE SUMMARY */}
               <div className="md:hidden fixed bottom-0 left-0 w-full pt-2">
                 <div className="p-4 rounded-lg border mx-4">
@@ -214,16 +209,16 @@ const CartPage = () => {
                       <span>SubTotal</span>
                       <PriceFormatter amount={getSubTotalPrice()} />
                     </div>
-  
+
                     <div className="flex items-center justify-between">
                       <span>Discount</span>
                       <PriceFormatter
                         amount={getSubTotalPrice() - getTotalPrice()}
                       />
                     </div>
-  
+
                     <Separator />
-  
+
                     <div className="flex items-center justify-between font-semibold text-lg">
                       <span>Total</span>
                       <PriceFormatter
@@ -231,7 +226,7 @@ const CartPage = () => {
                         className="text-lg font-bold"
                       />
                     </div>
-  
+
                     <Button
                       className="w-full rounded-full font-semibold"
                       size="lg"
@@ -249,7 +244,6 @@ const CartPage = () => {
       </div>
     </div>
   );
-  
 };
 
 export default CartPage;

@@ -12,6 +12,7 @@ import { Check } from "lucide-react";
 import { cn } from "@/utils";
 import { promotions, paymentOffers } from "@/constants/data";
 import RelatedProducts from "../components/RelatedProducts";
+import BuyNowButton from "@/components/user/BuyNowButton";
 
 const SingleProductPage = () => {
   const { slug } = useParams();
@@ -180,14 +181,7 @@ const SingleProductPage = () => {
               <span className="font-bold">Trả góp 0%</span>
             </Button>
 
-            <Button type="primary" danger className="flex-1 min-h-[50px]">
-              <div>
-                <div className="text-foreground">MUA NGAY</div>
-                <div className="text-foreground text-sm">
-                  Giao nhanh từ 2 giờ
-                </div>
-              </div>
-            </Button>
+           <BuyNowButton product={product} />
 
             <AddToCartButton
               product={product}
