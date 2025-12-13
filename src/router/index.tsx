@@ -31,7 +31,8 @@ import TermsPage from "@/pages/user/public/terms";
 import AboutUs from "@/pages/user/public/abouts";
 import FAQs from "@/pages/user/public/faqs";
 import Help from "@/pages/user/public/help";
-import PageAllNews from "@/pages/user/blog/page";
+import NewsPage from "@/pages/user/news/page";
+import NewSlugDetail from "@/pages/user/news/[slug]/page";
 
 const { VITE_APP_ADMIN: HOMEPAGE, VITE_API_URL_MAINTENANCE: MAIN_APP } =
   import.meta.env;
@@ -129,7 +130,11 @@ export default function Router() {
       {
         path: "all-news",
         children: [
-          { index: true, element: <PageAllNews /> },
+          { index: true, element: <NewsPage /> },
+          {
+            path: ":slug", // <--- bỏ dấu /
+            element: <NewSlugDetail />,
+          },
         ],
       },
       {

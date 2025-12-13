@@ -1,52 +1,73 @@
 import Title from "@/ui/title";
-import { getFakeBlogs } from "@/constants/fakeData";
 import { Link } from "react-router";
 import SeeMore from "@/ui/see-more";
+import { ClockCircleOutlined, UserOutlined } from "@ant-design/icons";
+import { fakeBlogDetail } from "@/constants/fakeData";
 
-const NewsPage = () => {
-    const blogs = getFakeBlogs(10);
-    return (
-        <div >
-            <div className="flex items-center justify-between mb-4">
-                <Title className="text-xl font-bold uppercase tracking-wider text-foreground">
-                    TIN TỨCádasdasd
-                </Title>
-                <SeeMore to="/all-news">Xem thêm</SeeMore>
+const HomeNewsSection = () => {
+  const blogs = fakeBlogDetail.slice(0, 5);
+
+  return (
+    <section className="my-8">
+      <div className="flex items-center justify-between mb-4">
+        <Title className="text-xl font-bold uppercase tracking-wider text-foreground">
+          Tin tức
+        </Title>
+        <SeeMore to="/all-news">Xem thêm</SeeMore>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {blogs.map((blog) => (
+          <div
+            key={blog._id}
+            className="group rounded-lg overflow-hidden border border-success/20 bg-muted shadow-md hover:shadow-lg transition-shadow duration-300"
+          >
+            {blog.image && (
+              <Link to={`/all-news/${blog.slug}`} className="block h-40 relative">
+                <img
+                  src={blog.image.url}
+                  alt={blog.image.alt}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                {blog.category && (
+                  <span className="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-0.5 rounded">
+                    {blog.category.name}
+                  </span>
+                )}
+              </Link>
+            )}
+
+            <div className="p-2 flex flex-col gap-1">
+              <Link to={`/all-news/${blog.slug}`}>
+                <h3 className="text-lg font-semibold text-foreground line-clamp-2 group-hover:underline">
+                  {blog.title}
+                </h3>
+              </Link>
+
+              <p className="text-xs text-muted-foreground line-clamp-3">
+                {blog.description}
+              </p>
+
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                {blog.author && (
+                  <span className="flex items-center gap-1">
+                    <UserOutlined className="text-xs" />
+                    {blog.author.name}
+                  </span>
+                )}
+                {blog.publishedAt && (
+                  <span className="flex items-center gap-1">
+                    <ClockCircleOutlined className="text-xs" />
+                    {blog.publishedAt}
+                  </span>
+                )}
+              </div>
             </div>
-
-            <div className="grid  grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {blogs?.slice(0, 5).map((blog) => (
-                    <div
-                        key={blog?._id}
-                        className="group rounded-lg p-2 overflow-hidden border border-border shadow-md hover:shadow-lg transition-shadow duration-300 bg-muted"
-                    >
-                        {blog?.image && (
-                            <Link to={`/all-news/${blog?.slug?.current}`} className="block h-40">
-                                <img
-                                    src={blog?.image?.asset?.url}
-                                    alt="blogImage"
-                                    className="w-full h-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
-                                />
-                            </Link>
-                        )}
-
-                        <div>
-                            <Link to={`/blog/${blog.slug.current}`} className="block">
-                                <span className="text-base !text-foreground font-semibold tracking-wide mt-1 text-gray-900 block transition-colors group-hover:underline">
-                                    {blog.title}
-                                </span>
-                            </Link>
-
-                            <p className="text-xs text-muted-foreground mt-1 line-clamp-3">
-                                {blog.description}
-                            </p>
-                        </div>
-                    </div>
-
-                ))}
-            </div>
-        </div>
-    );
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
 
-export default NewsPage;
+export default HomeNewsSection;

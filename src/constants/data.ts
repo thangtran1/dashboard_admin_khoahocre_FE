@@ -2,7 +2,7 @@ export const headerData = [
   { title: "Home", href: "/" },
   { title: "Shop", href: "/shop" },
   { title: "Category", href: "/category" },
-  { title: "Blog", href: "/blog" },
+  { title: "News", href: "/all-news" },
   { title: "Contact", href: "/contact" },
 ];
 export const quickLinksData = [

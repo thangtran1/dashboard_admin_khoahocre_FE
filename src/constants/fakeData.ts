@@ -1,41 +1,303 @@
-// constants/fakeData.ts
-
-export const getFakeBlogs = (count = 10) => {
-  const fakeImages = [
-    "https://picsum.photos/seed/blog1/600/400",
-    "https://picsum.photos/seed/blog2/600/400",
-    "https://picsum.photos/seed/blog3/600/400",
-    "https://picsum.photos/seed/blog4/600/400",
-    "https://picsum.photos/seed/blog5/600/400",
-    "https://picsum.photos/seed/blog6/600/400",
-    "https://picsum.photos/seed/blog7/600/400",
-    "https://picsum.photos/seed/blog8/600/400",
-    "https://picsum.photos/seed/blog9/600/400",
-    "https://picsum.photos/seed/blog10/600/400",
-  ];
-
-  const toSlug = (str: string) =>
-    str
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9 ]/g, "")
-      .trim()
-      .replace(/\s+/g, "-");
-
-  return Array.from({ length: count }).map((_, i) => {
-    const title = `Bài viết tin tức số ${i + 1}`;
-    return {
-      _id: `blog_${i + 1}`,
-      title,
-      slug: { current: toSlug(title) },
-      image: {
-        asset: {
-          url: fakeImages[i % fakeImages.length],
-        },
-      },
-      description: `Đây là mô tả ngắn gọn cho bài viết "${title}". Nội dung giới thiệu hấp dẫn, thu hút người đọc.`,
-      createdAt: new Date().toISOString(),
-    };
-  });
-};
+export const fakeBlogDetail = [
+  {
+    id: 1,
+    _id: "blog_1",
+    title: "Elon Musk tiết lộ Grok 4.20, tham vọng vượt GPT và Gemini",
+    slug: "elon-musk-tiet-lo-grok-4-20-tham-vong-vuot-gpt-va-gemini",
+    description:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới, với tham vọng vượt qua GPT và Gemini về khả năng suy luận, sáng tạo và tốc độ phản hồi.",
+    excerpt:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới với tham vọng vượt GPT và Gemini...",
+    content: `
+      <p>Elon Musk mới đây đã xác nhận rằng mô hình AI mới nhất của xAI – Grok 4.20 – sẽ chính thức ra mắt trong vài tuần tới.</p>
+      <p>Theo Musk, Grok 4.20 được cải thiện mạnh mẽ về khả năng suy luận logic, sáng tạo nội dung và tốc độ phản hồi, nhằm cạnh tranh trực tiếp với GPT của OpenAI và Gemini của Google.</p>
+    `,
+    image: {
+      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
+      alt: "Grok AI của Elon Musk",
+    },
+    gallery: [
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    ],
+    author: {
+      id: "author_1",
+      name: "Mỹ Linh",
+      avatar: "https://i.pravatar.cc/150?img=32",
+      bio: "Biên tập viên công nghệ, chuyên viết về AI và startup.",
+    },
+    category: { id: "cat_ai", name: "AI", slug: "ai" },
+    tags: [
+      { id: "tag_ai", name: "AI", slug: "ai" },
+      { id: "tag_gpt", name: "GPT", slug: "gpt" },
+      { id: "tag_elon", name: "Elon Musk", slug: "elon-musk" },
+      { id: "tag_xai", name: "xAI", slug: "xai" },
+    ],
+    createdAt: "2025-12-09T08:30:00.000Z",
+    updatedAt: "2025-12-09T10:15:00.000Z",
+    publishedAt: "09/12/2025",
+    views: 3245,
+    likes: 128,
+    commentsCount: 24,
+    reviews: 4.6,
+    seo: {
+      metaTitle: "Grok 4.20 của Elon Musk – Tham vọng vượt GPT và Gemini",
+      metaDescription:
+        "Grok 4.20 – mô hình AI mới của xAI do Elon Musk phát triển, được kỳ vọng vượt GPT và Gemini về suy luận và sáng tạo.",
+      keywords: ["Grok 4.20", "Elon Musk", "AI", "GPT", "Gemini"],
+    },
+    status: "published",
+    isFeatured: true,
+  },
+  {
+    id: 1,
+    _id: "blog_1",
+    title: "Elon Musk tiết lộ Grok 4.20, tham vọng vượt GPT và Gemini",
+    slug: "elon-musk-tiet-lo-grok-4-20-tham-vong-vuot-gpt-va-gemini",
+    description:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới, với tham vọng vượt qua GPT và Gemini về khả năng suy luận, sáng tạo và tốc độ phản hồi.",
+    excerpt:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới với tham vọng vượt GPT và Gemini...",
+    content: `
+      <p>Elon Musk mới đây đã xác nhận rằng mô hình AI mới nhất của xAI – Grok 4.20 – sẽ chính thức ra mắt trong vài tuần tới.</p>
+      <p>Theo Musk, Grok 4.20 được cải thiện mạnh mẽ về khả năng suy luận logic, sáng tạo nội dung và tốc độ phản hồi, nhằm cạnh tranh trực tiếp với GPT của OpenAI và Gemini của Google.</p>
+    `,
+    image: {
+      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
+      alt: "Grok AI của Elon Musk",
+    },
+    gallery: [
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    ],
+    author: {
+      id: "author_1",
+      name: "Mỹ Linh",
+      avatar: "https://i.pravatar.cc/150?img=32",
+      bio: "Biên tập viên công nghệ, chuyên viết về AI và startup.",
+    },
+    category: { id: "cat_ai", name: "AI", slug: "ai" },
+    tags: [
+      { id: "tag_ai", name: "AI", slug: "ai" },
+      { id: "tag_gpt", name: "GPT", slug: "gpt" },
+      { id: "tag_elon", name: "Elon Musk", slug: "elon-musk" },
+      { id: "tag_xai", name: "xAI", slug: "xai" },
+    ],
+    createdAt: "2025-12-09T08:30:00.000Z",
+    updatedAt: "2025-12-09T10:15:00.000Z",
+    publishedAt: "09/12/2025",
+    views: 3245,
+    likes: 128,
+    commentsCount: 24,
+    reviews: 4.6,
+    seo: {
+      metaTitle: "Grok 4.20 của Elon Musk – Tham vọng vượt GPT và Gemini",
+      metaDescription:
+        "Grok 4.20 – mô hình AI mới của xAI do Elon Musk phát triển, được kỳ vọng vượt GPT và Gemini về suy luận và sáng tạo.",
+      keywords: ["Grok 4.20", "Elon Musk", "AI", "GPT", "Gemini"],
+    },
+    status: "published",
+    isFeatured: true,
+  },
+  {
+    id: 1,
+    _id: "blog_1",
+    title: "Elon Musk tiết lộ Grok 4.20, tham vọng vượt GPT và Gemini",
+    slug: "elon-musk-tiet-lo-grok-4-20-tham-vong-vuot-gpt-va-gemini",
+    description:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới, với tham vọng vượt qua GPT và Gemini về khả năng suy luận, sáng tạo và tốc độ phản hồi.",
+    excerpt:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới với tham vọng vượt GPT và Gemini...",
+    content: `
+      <p>Elon Musk mới đây đã xác nhận rằng mô hình AI mới nhất của xAI – Grok 4.20 – sẽ chính thức ra mắt trong vài tuần tới.</p>
+      <p>Theo Musk, Grok 4.20 được cải thiện mạnh mẽ về khả năng suy luận logic, sáng tạo nội dung và tốc độ phản hồi, nhằm cạnh tranh trực tiếp với GPT của OpenAI và Gemini của Google.</p>
+    `,
+    image: {
+      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
+      alt: "Grok AI của Elon Musk",
+    },
+    gallery: [
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    ],
+    author: {
+      id: "author_1",
+      name: "Mỹ Linh",
+      avatar: "https://i.pravatar.cc/150?img=32",
+      bio: "Biên tập viên công nghệ, chuyên viết về AI và startup.",
+    },
+    category: { id: "cat_ai", name: "AI", slug: "ai" },
+    tags: [
+      { id: "tag_ai", name: "AI", slug: "ai" },
+      { id: "tag_gpt", name: "GPT", slug: "gpt" },
+      { id: "tag_elon", name: "Elon Musk", slug: "elon-musk" },
+      { id: "tag_xai", name: "xAI", slug: "xai" },
+    ],
+    createdAt: "2025-12-09T08:30:00.000Z",
+    updatedAt: "2025-12-09T10:15:00.000Z",
+    publishedAt: "09/12/2025",
+    views: 3245,
+    likes: 128,
+    commentsCount: 24,
+    reviews: 4.6,
+    seo: {
+      metaTitle: "Grok 4.20 của Elon Musk – Tham vọng vượt GPT và Gemini",
+      metaDescription:
+        "Grok 4.20 – mô hình AI mới của xAI do Elon Musk phát triển, được kỳ vọng vượt GPT và Gemini về suy luận và sáng tạo.",
+      keywords: ["Grok 4.20", "Elon Musk", "AI", "GPT", "Gemini"],
+    },
+    status: "published",
+    isFeatured: true,
+  },
+  {
+    id: 1,
+    _id: "blog_1",
+    title: "Elon Musk tiết lộ Grok 4.20, tham vọng vượt GPT và Gemini",
+    slug: "elon-musk-tiet-lo-grok-4-20-tham-vong-vuot-gpt-va-gemini",
+    description:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới, với tham vọng vượt qua GPT và Gemini về khả năng suy luận, sáng tạo và tốc độ phản hồi.",
+    excerpt:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới với tham vọng vượt GPT và Gemini...",
+    content: `
+      <p>Elon Musk mới đây đã xác nhận rằng mô hình AI mới nhất của xAI – Grok 4.20 – sẽ chính thức ra mắt trong vài tuần tới.</p>
+      <p>Theo Musk, Grok 4.20 được cải thiện mạnh mẽ về khả năng suy luận logic, sáng tạo nội dung và tốc độ phản hồi, nhằm cạnh tranh trực tiếp với GPT của OpenAI và Gemini của Google.</p>
+    `,
+    image: {
+      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
+      alt: "Grok AI của Elon Musk",
+    },
+    gallery: [
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    ],
+    author: {
+      id: "author_1",
+      name: "Mỹ Linh",
+      avatar: "https://i.pravatar.cc/150?img=32",
+      bio: "Biên tập viên công nghệ, chuyên viết về AI và startup.",
+    },
+    category: { id: "cat_ai", name: "AI", slug: "ai" },
+    tags: [
+      { id: "tag_ai", name: "AI", slug: "ai" },
+      { id: "tag_gpt", name: "GPT", slug: "gpt" },
+      { id: "tag_elon", name: "Elon Musk", slug: "elon-musk" },
+      { id: "tag_xai", name: "xAI", slug: "xai" },
+    ],
+    createdAt: "2025-12-09T08:30:00.000Z",
+    updatedAt: "2025-12-09T10:15:00.000Z",
+    publishedAt: "09/12/2025",
+    views: 3245,
+    likes: 128,
+    commentsCount: 24,
+    reviews: 4.6,
+    seo: {
+      metaTitle: "Grok 4.20 của Elon Musk – Tham vọng vượt GPT và Gemini",
+      metaDescription:
+        "Grok 4.20 – mô hình AI mới của xAI do Elon Musk phát triển, được kỳ vọng vượt GPT và Gemini về suy luận và sáng tạo.",
+      keywords: ["Grok 4.20", "Elon Musk", "AI", "GPT", "Gemini"],
+    },
+    status: "published",
+    isFeatured: true,
+  },
+  {
+    id: 1,
+    _id: "blog_1",
+    title: "Elon Musk tiết lộ Grok 4.20, tham vọng vượt GPT và Gemini",
+    slug: "elon-musk-tiet-lo-grok-4-20-tham-vong-vuot-gpt-va-gemini",
+    description:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới, với tham vọng vượt qua GPT và Gemini về khả năng suy luận, sáng tạo và tốc độ phản hồi.",
+    excerpt:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới với tham vọng vượt GPT và Gemini...",
+    content: `
+      <p>Elon Musk mới đây đã xác nhận rằng mô hình AI mới nhất của xAI – Grok 4.20 – sẽ chính thức ra mắt trong vài tuần tới.</p>
+      <p>Theo Musk, Grok 4.20 được cải thiện mạnh mẽ về khả năng suy luận logic, sáng tạo nội dung và tốc độ phản hồi, nhằm cạnh tranh trực tiếp với GPT của OpenAI và Gemini của Google.</p>
+    `,
+    image: {
+      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
+      alt: "Grok AI của Elon Musk",
+    },
+    gallery: [
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    ],
+    author: {
+      id: "author_1",
+      name: "Mỹ Linh",
+      avatar: "https://i.pravatar.cc/150?img=32",
+      bio: "Biên tập viên công nghệ, chuyên viết về AI và startup.",
+    },
+    category: { id: "cat_ai", name: "AI", slug: "ai" },
+    tags: [
+      { id: "tag_ai", name: "AI", slug: "ai" },
+      { id: "tag_gpt", name: "GPT", slug: "gpt" },
+      { id: "tag_elon", name: "Elon Musk", slug: "elon-musk" },
+      { id: "tag_xai", name: "xAI", slug: "xai" },
+    ],
+    createdAt: "2025-12-09T08:30:00.000Z",
+    updatedAt: "2025-12-09T10:15:00.000Z",
+    publishedAt: "09/12/2025",
+    views: 3245,
+    likes: 128,
+    commentsCount: 24,
+    reviews: 4.6,
+    seo: {
+      metaTitle: "Grok 4.20 của Elon Musk – Tham vọng vượt GPT và Gemini",
+      metaDescription:
+        "Grok 4.20 – mô hình AI mới của xAI do Elon Musk phát triển, được kỳ vọng vượt GPT và Gemini về suy luận và sáng tạo.",
+      keywords: ["Grok 4.20", "Elon Musk", "AI", "GPT", "Gemini"],
+    },
+    status: "published",
+    isFeatured: true,
+  },
+  {
+    id: 1,
+    _id: "blog_1",
+    title: "Elon Musk tiết lộ Grok 4.20, tham vọng vượt GPT và Gemini",
+    slug: "elon-musk-tiet-lo-grok-4-20-tham-vong-vuot-gpt-va-gemini",
+    description:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới, với tham vọng vượt qua GPT và Gemini về khả năng suy luận, sáng tạo và tốc độ phản hồi.",
+    excerpt:
+      "Elon Musk xác nhận mô hình AI Grok 4.20 của xAI sẽ ra mắt trong vài tuần tới với tham vọng vượt GPT và Gemini...",
+    content: `
+      <p>Elon Musk mới đây đã xác nhận rằng mô hình AI mới nhất của xAI – Grok 4.20 – sẽ chính thức ra mắt trong vài tuần tới.</p>
+      <p>Theo Musk, Grok 4.20 được cải thiện mạnh mẽ về khả năng suy luận logic, sáng tạo nội dung và tốc độ phản hồi, nhằm cạnh tranh trực tiếp với GPT của OpenAI và Gemini của Google.</p>
+    `,
+    image: {
+      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
+      alt: "Grok AI của Elon Musk",
+    },
+    gallery: [
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    ],
+    author: {
+      id: "author_1",
+      name: "Mỹ Linh",
+      avatar: "https://i.pravatar.cc/150?img=32",
+      bio: "Biên tập viên công nghệ, chuyên viết về AI và startup.",
+    },
+    category: { id: "cat_ai", name: "AI", slug: "ai" },
+    tags: [
+      { id: "tag_ai", name: "AI", slug: "ai" },
+      { id: "tag_gpt", name: "GPT", slug: "gpt" },
+      { id: "tag_elon", name: "Elon Musk", slug: "elon-musk" },
+      { id: "tag_xai", name: "xAI", slug: "xai" },
+    ],
+    createdAt: "2025-12-09T08:30:00.000Z",
+    updatedAt: "2025-12-09T10:15:00.000Z",
+    publishedAt: "09/12/2025",
+    views: 3245,
+    likes: 128,
+    commentsCount: 24,
+    reviews: 4.6,
+    seo: {
+      metaTitle: "Grok 4.20 của Elon Musk – Tham vọng vượt GPT và Gemini",
+      metaDescription:
+        "Grok 4.20 – mô hình AI mới của xAI do Elon Musk phát triển, được kỳ vọng vượt GPT và Gemini về suy luận và sáng tạo.",
+      keywords: ["Grok 4.20", "Elon Musk", "AI", "GPT", "Gemini"],
+    },
+    status: "published",
+    isFeatured: true,
+  },
+  
+]

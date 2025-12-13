@@ -49,25 +49,6 @@ export interface Author {
   image?: Image;
 }
 
-export interface BlogCategory {
-  _id: string;
-  title: string;
-  slug: Slug;
-  description?: string;
-}
-
-export interface Blog {
-  _id: string;
-  title: string;
-  slug: Slug;
-  excerpt?: string;
-  content?: string;
-  publishedAt: string;
-  image?: Image;
-  author?: Author;
-  category?: BlogCategory;
-}
-
 export interface ShippingAddress {
   address: string;
   city: string;
